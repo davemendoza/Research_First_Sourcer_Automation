@@ -1,28 +1,21 @@
-# Research-First Sourcer Automation
+# 🚀 Research_First_Sourcer_Automation
 
-**Version:** v2.0-alpha  
-**Title:** GitHub + HuggingFace Talent Discovery Automation  
-**Date:** December 2025
+An intelligent automation pipeline designed to streamline sourcing, enrichment, and analytics workflows for research and recruitment teams.
 
 ---
 
-## 🧠 Project Overview
-The **Research-First Sourcer Automation** system is part of the **AI TALENT ENGINE** — a 16-agent intelligence framework designed to identify and classify AI/ML technical talent from public and private data sources.
+## 🧩 Overview
 
-This repository contains the **Phase 2 Demo**, which integrates the **GitHub Stack Intelligence Agent** and **HuggingFace Model Card Agent** to automatically discover and profile AI engineers, researchers, and organizations based on real-world public artifacts.
+The **Phase 5** module introduces an enhanced automation layer combining:
+- **Data enrichment**  
+- **Analytics reporting**  
+- **PDF output generation**  
+- **Streamlit-based dashboards**
+
+This framework is modular, testable, and extensible — suitable for both local and cloud-based workflows.
 
 ---
 
-## ⚙️ Environment Setup
+## 🧰 Project Structure
 
-### 1️⃣ Requirements
-- macOS / Linux Terminal
-- Python 3.14+
-- pip 25.3+
 
-### 2️⃣ Installation Steps
-```bash
-cd ~/Desktop/Research_First_Sourcer_Automation
-python3 -m venv venv
-source venv/bin/activate
-pip install rich tabulate pandas requests
