@@ -1,0 +1,61 @@
+name,description,stars,role,focus_area,signal_strength,rank_1_10,tier,LLM_Signal,RAG_Signal,VectorDB_Signal,RLHF_Signal,AI_Infrastructure_Signal,Machine_Learning_Infrastructure_Signal,Inference_and_Model_Serving_Signal,Research_Signal
+Ilya Sutskever,"Co-founder of OpenAI. GPT-3/4 architect. Deep learning pioneer. Sequence models, scaling laws, optimization.",500,Contributor,General AI,320.0,1,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Jakob Uszkoreit,Co-author of “Attention is All You Need”. Invented Transformers. Deep learning architecture research.,480,Researcher,General AI,318.0,2,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Jeff Dean,Google Chief Scientist. Co-founder of Google Brain. Large-scale distributed systems. TPU architecture and LLM scaling.,470,Researcher,LLM,312.0,3,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Andrej Karpathy,"Founding member of OpenAI. Former Tesla AI Director. GPT architecture contributor. Deep learning, multimodal systems, LLM training.",485,Contributor,LLM,311.0,4,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Tom Brown,"Lead GPT-3 engineer. Large-scale training, parallelism, GPU cluster orchestration.",440,Engineer,General AI,304.0,5,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Dario Amodei,Anthropic CEO. Led GPT-2/GPT-3 development at OpenAI. Safety and alignment research. Large-scale training.,455,Researcher,General AI,303.0,6,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Noam Shazeer,Co-author Transformer paper. MoE expert. Co-founder of CharacterAI. LLM architecture specialist.,460,Contributor,LLM,296.0,7,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Ashish Vaswani,Lead author of Transformer paper. Attention mechanisms. Long-sequence modeling.,455,Contributor,General AI,293.0,8,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Jared Casper,GPT-4 infrastructure engineer. Model-parallel training systems. Reliability engineering.,415,Engineer,General AI,289.0,9,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Jan Leike,"Former OpenAI Alignment lead. RLHF research, safety, human feedback optimization. Co-author RLHF pipeline.",430,Researcher,RLHF,288.0,10,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Alec Radford,Lead author GPT-1/2. Deep generative modeling. Transformer optimization and architecture design.,445,Contributor,General AI,287.0,11,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Sam McCandlish,Scaling laws researcher. Co-author “Chinchilla scaling laws”.,420,Researcher,General AI,282.0,12,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Luke Zettlemoyer,Meta AI researcher. LLaMA development. NLP research and scaling.,410,Researcher,General AI,276.0,13,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Oriol Vinyals,DeepMind lead. AlphaStar. Scalable sequence models.,425,Contributor,General AI,275.0,14,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Yao Fu,DeepSeek scaling laws. Mixture-of-Experts and training efficiency research.,405,Researcher,General AI,273.0,15,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Hyung Won Chung,GPT-3 scaling laws contributor. Distributed LLM training expert.,420,Contributor,LLM,272.0,16,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Guillaume Lample,Co-author LLaMA. Large-scale training and architecture.,415,Contributor,General AI,269.0,17,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Long Ouyang,Co-author of RLHF process powering ChatGPT. Preference modeling and reward optimization.,410,Contributor,RLHF,266.0,18,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Chinchilla Researcher – Jared F.,Token-efficiency scaling laws.,385,Researcher,General AI,261.0,19,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Sharan Narang,Co-author GPT-3. Parallelism and distributed training.,400,Contributor,General AI,260.0,20,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Colin Raffel,Author of T5. Transfer learning and sequence modeling.,395,Contributor,General AI,257.0,21,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Tim Dettmers,Creator of bitsandbytes. 8-bit and 4-bit quantization pioneer for LLM optimization.,395,Contributor,LLM,257.0,22,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Stephan Angrick,NVIDIA engineer. TensorRT-LLM contributor. High-performance inference.,360,Engineer,LLM,256.0,23,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Gemini Engineer – Google DeepMind,Multimodal LLM design and training.,350,Engineer,LLM,250.0,24,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Jason Phang,HuggingFace Transformers lead. LLaMA fine-tuning. Evaluation frameworks.,380,Contributor,General AI,248.0,25,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Mistral Engineer – Victor L.,"Sparse MoE, Mixtral architecture, inference optimization.",345,Engineer,General AI,247.0,26,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Patrick von Platen,"HuggingFace engineer. Transformers, diffusion models, training pipelines.",345,Engineer,General AI,247.0,27,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Travis Addair,vLLM contributor. High-throughput serving pipeline engineer.,340,Engineer,LLM,244.0,28,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Thomas Wolf,HuggingFace Chief Science Officer. NLP research and Transformers.,355,Researcher,General AI,243.0,29,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Andrej Baranovskis,TensorRT-LLM developer. GPU optimization and quantization.,335,Engineer,LLM,241.0,30,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+DeepSpeed Engineer – Ahmed E.,FSDP/ZeRO optimization for large model training.,335,Engineer,General AI,241.0,31,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Lysandre Debut,"HuggingFace core engineer. LLM inference, training APIs.",330,Engineer,LLM,238.0,32,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+vLLM Engineer – Kevin X.,"Token streaming, paged attention, inference optimization.",320,Engineer,General AI,232.0,33,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Ben Wang,Creator of flash-attention. Memory-efficient attention training.,350,Contributor,General AI,230.0,34,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+DBRX Researcher – Databricks AI,Mixture-of-experts research and training pipelines.,330,Researcher,General AI,228.0,35,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Tri Dao,FlashAttention creator. GPU optimization for LLM training.,345,Contributor,LLM,227.0,36,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Trevor Cai,Anthropic engineer. RLHF pipeline and human feedback workflow.,310,Engineer,RLHF,226.0,37,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Anthropic Infra Engineer – Lina S.,"Training pipeline reliability, parallelism.",305,Engineer,General AI,223.0,38,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+PyTorch Engineer – Emily L.,"Compiled mode, training optimization, distributed frameworks.",305,Engineer,General AI,223.0,39,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Ray Serve Engineer – Mike P.,Distributed LLM inference pipelines. Autoscaling.,295,Engineer,LLM,217.0,40,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Claude Researcher – Alex M.,Anthropic alignment & RLHF.,310,Researcher,RLHF,216.0,41,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Sylvain Gugger,HuggingFace trainer architect. LLM optimization and fine-tuning.,325,Contributor,LLM,215.0,42,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+OpenAI Embeddings Engineer – Sarah K.,"Embedding models, vector retrieval integration.",290,Engineer,General AI,214.0,43,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+OpenAI Infrastructure – Brian C.,"GPU cluster management, distributed training orchestration.",320,Contributor,General AI,212.0,44,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Sam Altman,OpenAI CEO. Strategic decision-making for AGI development. Not a researcher but key in LLM direction.,300,Researcher,LLM,210.0,45,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Phi Researcher – Microsoft AI,Small LLM optimization and training efficiency.,300,Researcher,LLM,210.0,46,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Jack Clark,"Anthropic co-founder. Policy, safety, AGI governance.",310,Contributor,General AI,206.0,47,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Meta AI Infra – Daniel H.,LLaMA training infrastructure and scaling.,300,Contributor,General AI,200.0,48,⚙️ Advanced AI,0,0,0,0,0,0,0,0
+Aidan Clark,OpenAI RLHF team. Reward modeling expert.,295,Contributor,RLHF,197.0,49,💡 Emerging AI,0,0,0,0,0,0,0,0
+DeepMind Robotics – Chris L.,RL + robotics + LLM-agent integration.,280,Contributor,LLM,188.0,50,💡 Emerging AI,0,0,0,0,0,0,0,0
+FAISS Engineer – Jeff J.,Meta AI engineer. Dense vector search and similarity algorithms.,240,Engineer,General AI,184.0,51,💡 Emerging AI,0,0,0,0,0,0,0,0
+Pinecone Engineer – Alex R.,"Vector DB indexing, hybrid search, high-scale vector retrieval.",230,Engineer,General AI,178.0,52,💡 Emerging AI,0,0,0,0,0,0,0,0
+Clem Delangue,HuggingFace CEO. Strategic leadership. Ecosystem builder.,260,Contributor,General AI,176.0,53,💡 Emerging AI,0,0,0,0,0,0,0,0
+Weaviate Engineer – Petra M.,Semantic search engineer. Vector embeddings and ANN optimization.,225,Engineer,General AI,175.0,54,💡 Emerging AI,0,0,0,0,0,0,0,0
+Milvus Engineer – Hao L.,Distributed vector DB architecture. Large-scale retrieval.,220,Engineer,General AI,172.0,55,💡 Emerging AI,0,0,0,0,0,0,0,0
+Harrison Chase,Founder of LangChain. LLM application framework designer.,250,Contributor,LangChain,170.0,56,💡 Emerging AI,0,0,0,0,0,0,0,0
+Qdrant Engineer – Sergey M.,Memory-efficient vector search. ANN indexing specialist.,215,Engineer,General AI,169.0,57,💡 Emerging AI,0,0,0,0,0,0,0,0
+Jerry Liu,Founder of LlamaIndex. RAG pipeline and vector search frameworks.,245,Contributor,RAG,167.0,58,💡 Emerging AI,0,0,0,0,0,0,0,0
+ElasticSearch Engineer – Robin T.,Vector search rollout for ES. Hybrid semantic retrieval.,210,Engineer,RAG,166.0,59,💡 Emerging AI,0,0,0,0,0,0,0,0
+OpenSearch Engineer – Daniel K.,Vector search integration. Hybrid retrieval systems.,205,Engineer,RAG,163.0,60,💡 Emerging AI,0,0,0,0,0,0,0,0
