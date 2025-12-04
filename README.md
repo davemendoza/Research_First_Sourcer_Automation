@@ -76,3 +76,49 @@ This guide works for macOS, Windows, or Linux.
 git clone git@github.com:davemendoza/Research_First_Sourcer_Automation.git
 cd Research_First_Sourcer_Automation
 
+
+---
+
+## 🤝 Contributing
+
+We welcome ideas, feedback, and improvements to enhance the **Research_First_Sourcer_Automation** project.
+
+To contribute:
+1. Fork this repository  
+2. Create a new branch for your feature or fix  
+3. Commit your changes with clear messages  
+4. Push your branch and submit a Pull Request  
+
+All contributions are reviewed and tested before merging to maintain production quality.
+
+---
+
+## 🗺️ Roadmap
+
+**Phase 5 (Complete):**
+- ✅ Automation pipeline core  
+- ✅ Streamlit dashboards  
+- ✅ Enrichment and analytics modules  
+- ✅ Unit testing and documentation  
+
+**Phase 6 (Next):**
+- 🚧 Integrate HuggingFace for candidate ranking  
+- 🚧 Add OpenAI API for text classification  
+- 🚧 Deploy Streamlit app to the cloud (Streamlit Sharing / AWS / HuggingFace Spaces)  
+- 🚧 Extend test coverage for production reliability  
+
+---
+
+## 🧭 Versioning
+
+Current Version: **v2.0-alpha**  
+Development Status: *Stable internal release*  
+Tracking: GitHub Issues + Milestones  
+
+---
+
+## 🪪 License
+
+This project is licensed under the **MIT License** — see the `LICENSE` file for details.  
+You are free to use, modify, and distribute with attribution.
+
