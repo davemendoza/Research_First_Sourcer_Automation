@@ -1,4 +1,8 @@
 # 🚀 Research_First_Sourcer_Automation
+> 📘 **Documentation Index**
+> - [📄 Phase 5 Completion Summary](PHASE5_COMPLETION_SUMMARY.md)
+> - [🧠 Developer Notes](README_DEV_NOTES.md)
+
 
 An intelligent automation pipeline designed to streamline sourcing, enrichment, and analytics workflows for research and recruitment teams.
 
