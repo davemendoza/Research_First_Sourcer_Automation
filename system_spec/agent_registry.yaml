@@ -1,0 +1,84 @@
+# ============================================================
+# AI TALENT ENGINE — PHASE 8: AGENT REGISTRY SPECIFICATION
+# ============================================================
+# Purpose:
+#   Centralized registry that links all AI agents (Phase 6–8)
+#   with their roles, inputs, models, and dependencies.
+#
+# Schema Version: v1.0
+# Updated: 2025-12-04
+# Maintainer: Dave Mendoza
+# ============================================================
+
+system:
+  name: Research_First_Sourcer_Automation
+  version: 8.0
+  description: >
+    Integrated multi-phase AI Talent Engine that combines 
+    intelligence extraction (Phase 6), citation intelligence (Phase 7),
+    and registry-driven agent coordination (Phase 8).
+
+  maintainer: Dave Mendoza
+  model_default: gpt-5
+  environment_file: config/.env
+
+agents:
+  - id: RFS_Agent_01
+    name: Academic_Research_Classifier
+    phase: 6
+    description: Classifies candidate profiles into academic domains based on publication features and schema mapping.
+    input: Research profile, citation data
+    output: Domain classification vector
+    model: gpt-5
+    status: active
+
+  - id: RFS_Agent_02
+    name: Corporate_Research_Mapper
+    phase: 6
+    description: Extracts corporate R&D affiliations and matches research work to commercial teams or sponsors.
+    input: Profile metadata, company registry data
+    output: Research-to-organization match
+    model: gpt-5
+    status: active
+
+  - id: RFS_Agent_03
+    name: Citation_Intelligence_Analyzer
+    phase: 7
+    description: Uses co-author networks, citation velocity, and paper ranking analytics to assess research influence.
+    input: Citation graph, Semantic Scholar API
+    output: Influence score, collaborator clusters
+    model: gpt-5
+    status: active
+
+  - id: RFS_Agent_04
+    name: Schema_Normalizer
+    phase: 7
+    description: Applies AI_Talent_Schema_Rules.md to unify candidate metadata fields under canonical structure.
+    input: Extracted JSON or CSV data
+    output: Normalized schema-compliant dataset
+    model: gpt-5
+    status: active
+
+  - id: RFS_Agent_05
+    name: Agent_Registry_Controller
+    phase: 8
+    description: Monitors and manages dynamic agent additions; ensures registry consistency with system schema.
+    input: New agent definition YAML or JSON
+    output: Registry sync confirmation
+    model: gpt-5
+    status: active
+
+  - id: RFS_Agent_06
+    name: Phase8_Agent_Summarizer
+    phase: 8
+    description: Generates system-level summaries and readiness reports for GPT-based knowledge ingestion.
+    input: All active agent configurations
+    output: Summary report (markdown)
+    model: gpt-5
+    status: active
+
+# ------------------------------------------------------------
+# Future Expansion:
+#   - Phase 9: Autonomous Knowledge Synchronization
+#   - Phase 10: Recruiter Co-Pilot Interface (LLM UI)
+# ------------------------------------------------------------
