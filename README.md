@@ -1,132 +1,84 @@
-# 🚀 Research_First_Sourcer_Automation
-> 📘 **Documentation Index**
-> - [📄 Phase 5 Completion Summary](PHASE5_COMPLETION_SUMMARY.md)
-> - [🧠 Developer Notes](README_DEV_NOTES.md)
+# Research_First_Sourcer_Automation  
+## Research-Operations-Grade AI Talent Intelligence Platform
 
-
-An intelligent automation pipeline designed to streamline sourcing, enrichment, and analytics workflows for research and recruitment teams.
-
----
-
-## 🧩 Overview
-
-The **Phase 5** module introduces an enhanced automation layer combining:
-- **Data enrichment**  
-- **Analytics reporting**  
-- **PDF output generation**  
-- **Streamlit-based dashboards**
-
-This framework is modular, testable, and extensible — suitable for both local and cloud-based workflows.
+**Author:** Dave Mendoza  
+**Audience:** OpenAI Research Ops, Research Leadership, Engineering  
+**Focus:** Evidence-based research hiring enablement under expert scrutiny
 
 ---
 
-## 🧰 Project Structure
+## Overview
 
+This repository contains the Python automation layer of the **AI Talent Engine**, a research-operations-grade system designed to support AI research hiring where correctness matters more than convenience.
 
+The system operates beyond traditional recruiting tools that rely on keyword frequency, titles, or inferred expertise. Instead, it evaluates **primary technical evidence** produced in research and engineering environments.
 
----
+Signals analyzed include:
 
-## ⚙️ Setup Instructions
+- Open-source code and repositories  
+- Research publications and citations  
+- Model artifacts and training configurations  
+- Infrastructure and inference contributions  
+- Conference participation and research networks  
 
-Follow these steps to run the **Research_First_Sourcer_Automation** project on your own machine.  
-This guide works for macOS, Windows, or Linux.
-
-### 1️⃣ Clone the Repository
-```bash
-git clone git@github.com:davemendoza/Research_First_Sourcer_Automation.git
-cd Research_First_Sourcer_Automation
-
-# 1️⃣ Go to your project folder
-cd ~/Desktop/Research_First_Sourcer_Automation
-
-# 2️⃣ Make sure you're on the main branch and up to date
-git checkout main
-git pull origin main
-
-# 3️⃣ Append setup instructions safely to README.md
-cat >> README.md << 'EOF'
+The objective is **validity under skepticism**.
 
 ---
 
-## ⚙️ Setup Instructions
+## Research Operations vs Recruiting Operations
 
-Follow these steps to run the **Research_First_Sourcer_Automation** project on your own machine.  
-This guide works for macOS, Windows, or Linux.
+Recruiting operations optimize for throughput.
 
-### 🧱 1. Clone the Repository
-```bash
-git clone git@github.com:davemendoza/Research_First_Sourcer_Automation.git
-cd Research_First_Sourcer_Automation
+Research operations optimize for **truth under review**.
 
-# 1️⃣ Go to your project folder
-cd ~/Desktop/Research_First_Sourcer_Automation
-
-# 2️⃣ Make sure you're on the main branch and up to date
-git checkout main
-git pull origin main
-
-# 3️⃣ Append setup instructions safely to README.md
-cat >> README.md << 'EOF'
+This system is built with research-operations constraints: determinism, schema enforcement, explicit handling of uncertainty, and false-positive suppression. Outputs are not treated as conclusions, but as structured hypotheses grounded in inspectable evidence.
 
 ---
 
-## ⚙️ Setup Instructions
+## Design Principles
 
-Follow these steps to run the **Research_First_Sourcer_Automation** project on your own machine.  
-This guide works for macOS, Windows, or Linux.
+- **Determinism:** identical inputs yield identical outputs  
+- **Evidence-first reasoning:** no inferred signals without artifacts  
+- **Uncertainty awareness:** absence of evidence is not over-interpreted  
+- **Human judgment preserved:** the system supports, not replaces, expert decision-making  
+- **Contestability:** all outputs are designed to be challenged and revised  
 
-### 🧱 1. Clone the Repository
-```bash
-git clone git@github.com:davemendoza/Research_First_Sourcer_Automation.git
-cd Research_First_Sourcer_Automation
-
-
----
-
-## 🤝 Contributing
-
-We welcome ideas, feedback, and improvements to enhance the **Research_First_Sourcer_Automation** project.
-
-To contribute:
-1. Fork this repository  
-2. Create a new branch for your feature or fix  
-3. Commit your changes with clear messages  
-4. Push your branch and submit a Pull Request  
-
-All contributions are reviewed and tested before merging to maintain production quality.
+The goal is not prediction.  
+The goal is reduction of epistemic uncertainty.
 
 ---
 
-## 🗺️ Roadmap
+## System Architecture
 
-**Phase 5 (Complete):**
-- ✅ Automation pipeline core  
-- ✅ Streamlit dashboards  
-- ✅ Enrichment and analytics modules  
-- ✅ Unit testing and documentation  
+The system operates as a dual-core architecture:
 
-**Phase 6 (Next):**
-- 🚧 Integrate HuggingFace for candidate ranking  
-- 🚧 Add OpenAI API for text classification  
-- 🚧 Deploy Streamlit app to the cloud (Streamlit Sharing / AWS / HuggingFace Spaces)  
-- 🚧 Extend test coverage for production reliability  
+- A GPT multi-agent intelligence layer performs domain-specific signal extraction  
+- A Python automation layer enforces validation, normalization, and schema alignment  
+
+This repository contains the automation layer.
 
 ---
 
-## 🧭 Versioning
+## Core Capabilities
 
-Current Version: **v2.0-alpha**  
-Development Status: *Stable internal release*  
-Tracking: GitHub Issues + Milestones  
-
----
-
-## 🪪 License
-
-This project is licensed under the **MIT License** — see the `LICENSE` file for details.  
-You are free to use, modify, and distribute with attribution.
-
+- Deterministic enrichment of research and engineering profiles  
+- Multi-source artifact analysis across GitHub, arXiv, Semantic Scholar, and model repositories  
+- Schema-driven role classification across research, applied, and infrastructure domains  
+- Explicit rejection of keyword-only scoring  
+- Review-ready outputs traceable to underlying technical evidence  
 
 ---
 
-© 2025 Dave Mendoza — All Rights Reserved.
+## Why This Exists
+
+Research organizations generate technical evidence continuously.
+
+This system exists to translate that evidence into structured context that respects research epistemology while reducing evaluative burden on human reviewers.
+
+---
+
+## Author
+
+Dave Mendoza
+
+Designer and operator of research-operations-grade intelligence systems emphasizing evaluability, rigor, and technical truth over recruiting heuristics.
