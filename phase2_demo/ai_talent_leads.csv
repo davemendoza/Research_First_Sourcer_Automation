@@ -1,56 +1,11 @@
-name,description,stars
-Andrej Karpathy,"Founding member of OpenAI. Former Tesla Director of AI. Architect of multimodal GPT systems, large‑scale training pipelines, optimized distributed deep learning, and vision‑language models. Contributor to Transformer evolution and inference acceleration.",1280
-Ilya Sutskever,"Co‑founder and Chief Scientist of OpenAI. Pioneer of sequence learning, scaling laws, and large language model training. Co‑author of AlexNet, foundational deep learning breakthroughs, and next‑generation GPT architecture.",1400
-Jeff Dean,"Google Chief Scientist. Co-founder of Google Brain. Architect of TPUs, large-scale distributed training, Transformer scaling, and JAX evolution. Designed high-throughput deep learning infrastructure powering Gemini.",1250
-Dario Amodei,"CEO of Anthropic. Former OpenAI VP of Research. Led GPT‑2/GPT‑3 development. Expert in RLHF, safety, model scaling, and mixture‑of‑experts alignment for Claude models.",1100
-Jakob Uszkoreit,"Co‑author of 'Attention is All You Need'. Inventor of Transformers. Research focuses on scaling LLM architectures, long‑context attention, and foundational generative modeling.",1320
-Noam Shazeer,"Lead author of Transformer paper, MoE pioneer, co‑founder of CharacterAI. Creator of Sparse Mixture‑of‑Experts architectures, GShard, and high‑efficiency training algorithms.",1220
-Ashish Vaswani,"Lead author of the Transformer architecture. Major contributions to attention mechanisms, encoder‑decoder frameworks, and scalable sequence modeling.",1180
-Tom Brown,"Lead GPT‑3 engineer. Specialized in massive distributed systems, model‑parallel training, and multi‑cluster GPU orchestration for trillion‑parameter LLMs.",990
-Jan Leike,"Former OpenAI Alignment head. Co‑author of RLHF pipeline. Expert in reward modeling, preference optimization, and safe large‑scale LLM behavior tuning.",880
-Long Ouyang,"Co‑author of the RLHF process behind ChatGPT. Specialist in preference learning, reward models, and supervised policy optimization for alignment.",850
-Alec Radford,"GPT‑1/GPT‑2 lead author. Expert in generative modeling, Transformer optimization, and autoregressive LLM design.",910
-Sam McCandlish,Creator of Chinchilla scaling laws. Expert in compute‑optimal LLM design and efficient training regimes.,940
-Yao Fu,"DeepSeek researcher. Pioneer in mixture‑of‑experts scaling, routing efficiency, and distributed LLM training.",820
-Hyung Won Chung,GPT‑3 scaling researcher. Built optimized training frameworks and distributed compute strategies.,830
-Sharan Narang,"Co‑author GPT‑3. Specialized in model parallelism, ZeRO, and multi‑node LLM training.",790
-Tim Dettmers,Creator of bitsandbytes. Leader in 8‑bit and 4‑bit quantization. Makes LLMs efficient for inference and fine‑tuning.,780
-Tri Dao,"Creator of FlashAttention. Major contributor to efficient attention kernels, inference acceleration, and GPU memory optimization.",820
-Ben Wang,FlashAttention developer. Specialist in CUDA kernels and high‑efficiency LLM training.,750
-Jason Phang,"HuggingFace researcher. Leader in LLaMA tuning, evaluation frameworks, model alignment, and scaling methods.",720
-Luke Zettlemoyer,Meta AI researcher. LLaMA architect. Foundation model training and NLP research leader.,840
-Colin Raffel,"Author of T5. Pioneer in transfer learning, pretraining strategies, and text‑to‑text LLM frameworks.",760
-Oriol Vinyals,DeepMind senior researcher. Led AlphaStar. Expert in large‑scale sequence learning and reinforcement learning with LLMs.,790
-Patrick von Platen,"HuggingFace core engineer. Built transformer inference pipelines, diffusion model tools, and LLM fine‑tuning frameworks.",680
-Sylvain Gugger,"Lead developer of HuggingFace Trainer. Expert in LLM optimization, DeepSpeed integration, and parameter‑efficient fine‑tuning.",640
-Lysandre Debut,"Transformers core developer. Maintains LLM inference libraries, tokenization, and architecture integrations.",630
-Guillaume Lample,"Co‑created LLaMA. Expert in multimodal LLMs, efficient training, and advanced scaling methods.",910
-Harrison Chase,"Creator of LangChain. Architect of enterprise RAG pipelines, agent frameworks, and chain‑orchestration libraries.",570
-Jerry Liu,"Creator of LlamaIndex. Expert in RAG pipelines, vector search integration, and multi‑vector retrieval.",560
-Travis Addair,"vLLM maintainer. Specialist in high‑throughput inference, continuous batching, token streaming.",600
-Stephan Angrick,NVIDIA TensorRT‑LLM engineer. Expert in GPU inference optimization and quantized model acceleration.,610
-Andrej Baranovskis,"NVIDIA TensorRT‑LLM contributor. Specialist in CUDA kernels, quantization, GGUF/GPTQ acceleration.",580
-Kevin X,"vLLM developer. Focused on paged attention, high‑speed inference, serving architecture.",630
-Ahmed E,"DeepSpeed engineer. Works on FSDP, ZeRO‑3, distributed data parallel training optimization.",700
-Emily L,"PyTorch engineer. Contributed to torch.compile, distributed training, and graph optimization.",590
-Mike P,"Ray Serve engineer. Expert in distributed inference, autoscaling, and production LLM serving.",560
-Daniel H,Meta AI infra. Built LLaMA training infrastructure and distributed compute stack.,650
-Alex M,"Anthropic Claude researcher. RLHF, constitutional AI, alignment pipelines.",640
-Lina S,Anthropic infra engineer. Trains Claude models using parallelized pipelines and fault‑tolerant GPU clusters.,600
-Chris L,"DeepMind robotics + LLM agent researcher. Combines RL, robotics, and multimodal generative models.",580
-Victor L,"Mistral engineer. Works on Mixtral MoE, inference acceleration, sparse routing.",720
-Hao L,"Milvus engineer. Vector DB retrieval, distributed indexing, hybrid search optimization.",480
-Petra M,"Weaviate engineer. ANN search, semantic vector retrieval specialist.",460
-Sergey M,"Qdrant engineer. Vector similarity search, memory‑efficient indexing.",470
-Jeff J,"FAISS engineer. Dense retrieval, fast ANN search, GPU‑accelerated similarity algorithms.",510
-Daniel K,"OpenSearch engineer. Built vector search capabilities, hybrid retrieval systems.",450
-Robin T,ElasticSearch vector search engineer. Dense + hybrid retrieval engines.,440
-Sarah K,"OpenAI embeddings engineer. High‑quality embedding models, vector similarity system integration.",600
-Brian C,"OpenAI infra engineer. Manages GPU clusters, distributed LLM training orchestration.",680
-Jared F,"Chinchilla researcher. Token‑efficient training, scaling laws.",690
-Gemini Engineer,"Google DeepMind engineer. Multimodal LLM infrastructure, large‑scale training.",710
-Mistral Researcher,"MoE + inference acceleration for Mixtral, optimized decoding.",680
-Phi Researcher,"Microsoft small‑LLM optimization, embedding‑dense architectures.",540
-DBRX Scientist,Databricks MoE model developer. Efficient scaling of DBRX.,650
-Claude Infra,Anthropic infrastructure for large‑scale MoE models.,620
-OpenAI RLHF Engineer,"Builds reward models, safety alignment, and fine‑tuning systems.",610
+source,name,owner,url,description,stars
+GitHub,karpathy,K-Dense-AI,https://github.com/K-Dense-AI/karpathy,An agentic Machine Learning Engineer,1119
+GitHub,lore,instacart,https://github.com/instacart/lore,Lore makes machine learning approachable for Software Engineers and maintainable for Machine Learning Researchers,1548
+GitHub,ml4se,enakai00,https://github.com/enakai00/ml4se,"Sample scripts of ""Machine Learning for Software Engineers""",80
+GitHub,kxy-python,kxytechnologies,https://github.com/kxytechnologies/kxy-python,A toolkit to boost the productivity of machine learning engineers.,52
+GitHub,Machine-Learning-Crash-Course-for-Engineers,eklashossain,https://github.com/eklashossain/Machine-Learning-Crash-Course-for-Engineers,,7
+GitHub,boston-housing,renatolfc,https://github.com/renatolfc/boston-housing,Project 1 of Udacity's Machine Learning Engineer course,20
+GitHub,case-machine-learning-engineer,PicPay,https://github.com/PicPay/case-machine-learning-engineer,,6
+GitHub,civil-engineering-machine-learning,developerprince-eng,https://github.com/developerprince-eng/civil-engineering-machine-learning,,11
+GitHub,METAR-Data-Engineering-and-Machine-Learning-Project,MarieeCzy,https://github.com/MarieeCzy/METAR-Data-Engineering-and-Machine-Learning-Project,An educational project to build an end-to-end pipline for near real-time and batch processing of data further used for visualisation and a machine learning model.,8
+GitHub,machine-learning-engineer-nanodegree,suryasanchez,https://github.com/suryasanchez/machine-learning-engineer-nanodegree,Projects for the Machine Learning Engineer Nanodegree from Udacity,6
