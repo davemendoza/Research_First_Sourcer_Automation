@@ -1,15 +1,24 @@
-name: AI Talent Validation
+name: AI Talent Validation (v4.3-Autonomous+Notify)
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  schedule:
+    # 🕒 Nightly autonomous run (03:00 UTC)
+    - cron: "0 3 * * *"
+
+permissions:
+  contents: write
+  actions: write
 
 jobs:
   validate:
+    name: Validate AI Talent Schema & Dossiers
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -19,15 +28,125 @@ jobs:
 
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt || true
-          pip install pandas requests pyyaml
+          pip install pandas requests pyyaml markdown tabulate
 
-      - name: Run validation
+      - name: Run validation and schema sync
         run: |
+          echo "🚀 Running AI Talent Validation (Autonomous+Notify Mode)"
           python validate_jsons.py
+          echo "✅ Validation complete."
 
-      - name: Upload validation summary
+      - name: Upload validation artifacts
         uses: actions/upload-artifact@v4
         with:
           name: validation-summary
-          path: output/validation_summary.json
+          path: |
+            output/*.json
+            output/*.md
+            output/*.txt
+          retention-days: 30
+
+      - name: Auto-tag successful validation
+        if: success()
+        run: |
+          echo "📦 Tagging release..."
+          TAG="v4.3-Autonomous-$(date +'%Y%m%d%H%M')"
+          git config user.name "AI Talent Engine CI"
+          git config user.email "ci@aitalentengine.local"
+          git tag -a $TAG -m "Automated nightly validation run (v4.3 Autonomous+Notify)"
+          git push origin $TAG
+
+      - name: Send notification (Slack / Discord / Webhook)
+        if: always()
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          STATUS="✅ SUCCESS"
+          if [ "${{ job.status }}" != "success" ]; then
+            STATUS="❌ FAILURE"
+          fi
+          MESSAGE="🧠 *AI Talent Validation (v4.3-Autonomous+Notify)*\nStatus: ${STATUS}\nTag: ${TAG}\nRun: ${{ github.run_id }}\nRepo: ${{ github.repository }}\nActor: ${{ github.actor }}\nT_
+
+cat << 'EOF' > .github/workflows/ai_talent_validation.yml
+name: AI Talent Validation (v4.3-Autonomous+Notify)
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # 🕒 Nightly autonomous run (03:00 UTC)
+    - cron: "0 3 * * *"
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  validate:
+    name: Validate AI Talent Schema & Dossiers
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || true
+          pip install pandas requests pyyaml markdown tabulate
+
+      - name: Run validation and schema sync
+        run: |
+          echo "🚀 Running AI Talent Validation (Autonomous+Notify Mode)"
+          python validate_jsons.py
+          echo "✅ Validation complete."
+
+      - name: Upload validation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-summary
+          path: |
+            output/*.json
+            output/*.md
+            output/*.txt
+          retention-days: 30
+
+      - name: Auto-tag successful validation
+        if: success()
+        run: |
+          echo "📦 Tagging release..."
+          TAG="v4.3-Autonomous-$(date +'%Y%m%d%H%M')"
+          git config user.name "AI Talent Engine CI"
+          git config user.email "ci@aitalentengine.local"
+          git tag -a $TAG -m "Automated nightly validation run (v4.3 Autonomous+Notify)"
+          git push origin $TAG
+
+      - name: Send notification (Slack / Discord / Webhook)
+        if: always()
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          STATUS="✅ SUCCESS"
+          if [ "${{ job.status }}" != "success" ]; then
+            STATUS="❌ FAILURE"
+          fi
+          MESSAGE="🧠 *AI Talent Validation (v4.3-Autonomous+Notify)*\nStatus: ${STATUS}\nTag: ${TAG}\nRun ID: ${{ github.run_id }}\nRepo: ${{ github.repository }}\nActor: ${{ github.actor }}\nTime: $(date -u)"
+          echo "📨 Sending CI notification..."
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\"${MESSAGE}\"}" \
+            $WEBHOOK_URL
+
+      - name: Notify CI completion (console)
+        if: success()
+        run: |
+          echo "🧠 AI Talent Engine Validation completed successfully."
+          echo "📘 Reports uploaded and tagged as: $TAG"
