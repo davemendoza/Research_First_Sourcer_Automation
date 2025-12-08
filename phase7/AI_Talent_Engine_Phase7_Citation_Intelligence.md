@@ -1,4 +1,22 @@
 ---
+phase: 7
+version: "7.0"
+label: "Citation & Influence Analytics"
+schema_ref: "../AI_Talent_Schema_Rules.md"
+changelog_ref: "../CHANGELOG.md"
+audit_status: "PASS"
+---
+
+---
+phase: 7
+version: "7.0"
+label: "Citation & Influence Analytics"
+schema_ref: "../AI_Talent_Schema_Rules.md"
+changelog_ref: "../CHANGELOG.md"
+audit_status: "PASS"
+---
+
+---
 file_type: system_specification
 project: Research-First Sourcer Automation
 version: 7.0
@@ -31,3 +49,5 @@ Computes relative citation acceleration over the past 24 months.
 
 ```python
 velocity = citations_last_24mo / total_citations
+
+
