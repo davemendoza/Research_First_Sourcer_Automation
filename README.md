@@ -1,3 +1,4 @@
+![AI Talent Validation](https://github.com/davemendoza/Research_First_Sourcer_Automation/actions/workflows/ai_talent_validation.yml/badge.svg)
 # Research-Ops AI Talent Engine
 
 Research-operations-grade AI talent intelligence platform for frontier AI, applied LLM,
