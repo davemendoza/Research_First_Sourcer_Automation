@@ -1,0 +1,144 @@
+--------------------------------------------
+🕒 Demo Run: Mon Dec  8 07:40:03 UTC 2025
+Validated JSON Files:
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Ashudeep_Singh.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Patrick_von_Platen.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Shubham_Saboo.json
+
+[
+  {
+    "file": "Patrick_von_Platen.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Ashudeep_Singh.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Shubham_Saboo.json",
+    "valid": true,
+    "repaired": false
+  }
+]
+--------------------------------------------
+Demo Run: Mon Dec  8 07:50:21 UTC 2025
+Validated Files:
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Ashudeep_Singh.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Patrick_von_Platen.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Shubham_Saboo.json
+
+[
+  {
+    "file": "Patrick_von_Platen.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Ashudeep_Singh.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Shubham_Saboo.json",
+    "valid": true,
+    "repaired": false
+  }
+]
+--------------------------------------------
+Demo Run: Mon Dec  8 07:52:25 UTC 2025
+Validated Files:
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Ashudeep_Singh.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Patrick_von_Platen.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Shubham_Saboo.json
+
+[
+  {
+    "file": "Patrick_von_Platen.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Ashudeep_Singh.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Shubham_Saboo.json",
+    "valid": true,
+    "repaired": false
+  }
+]
+--------------------------------------------
+Demo Run: Mon Dec  8 07:54:07 UTC 2025
+Validated Files:
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Ashudeep_Singh.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Patrick_von_Platen.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Shubham_Saboo.json
+
+[
+  {
+    "file": "Patrick_von_Platen.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Ashudeep_Singh.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Shubham_Saboo.json",
+    "valid": true,
+    "repaired": false
+  }
+]
+--------------------------------------------
+🕒 Silent Demo Run: Mon Dec  8 07:57:31 UTC 2025
+Validated JSON Files:
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Ashudeep_Singh.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Patrick_von_Platen.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Shubham_Saboo.json
+
+[
+  {
+    "file": "Patrick_von_Platen.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Ashudeep_Singh.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Shubham_Saboo.json",
+    "valid": true,
+    "repaired": false
+  }
+]
+--------------------------------------------
+Demo Run: Mon Dec  8 08:09:48 UTC 2025
+Validated Files:
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Ashudeep_Singh.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Patrick_von_Platen.json
+/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/output/Shubham_Saboo.json
+
+[
+  {
+    "file": "Patrick_von_Platen.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Ashudeep_Singh.json",
+    "valid": true,
+    "repaired": false
+  },
+  {
+    "file": "Shubham_Saboo.json",
+    "valid": true,
+    "repaired": false
+  }
+]
