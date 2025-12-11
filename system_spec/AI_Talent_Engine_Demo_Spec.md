@@ -1,173 +1,109 @@
-# AI Talent Engine – Demo Execution Specification (LOCKED v1.3)
+## 🧩 AI TALENT ENGINE — FULL DEMO SCRIPT (v3.1 Complete)
+*(Front-Facing Execution + Numbered Invocation Menu)*  
 
-This document is the authoritative execution contract for all demos run via the
-AI Talent Engine demo prompt box (“AI Talent Engine Demo”).
+---
 
-Any demo request, demo trigger, or demo prompt invocation automatically enforces
-all rules defined below. The user is never required to restate requirements.
+### 🎬 **Front-Facing Execution Contract**
+When the user or operator clicks or enters:
+```
+🧩 Run Demo
+```
+the AI Talent Engine automatically performs the following in order:
 
-================================================================================
-DEMO INVOCATION CONTRACT (PANIC-PROOF)
-================================================================================
-Any action that includes the word “Demo” (case-insensitive),
-any phrase containing “Run a demo” or “Talent Intelligence Demo”,
-or any interaction launched via the demo prompt box
-MUST comply with this specification in full.
+#### Step 1 — Execute the Primary Demo
+1. Detects the keyword **“Run Demo”** and initializes the *Demo Invocation Layer*.  
+2. Locks onto the default **Foundational AI Scientist Ranking Demo** (the anchor showcase).  
+3. Executes:
+   - **Table A — Ranked Slate (Top 10 Foundational AI Scientists)**
+   - **Table B — Citation Evidence Matrix (Tiered Influence Metrics)**  
+4. Validates output using **AI_Talent_Schema_Rules v3.2**.  
+5. Once both tables are successfully rendered, transitions to the Demo Menu display.
 
-This specification overrides all other instructions.
+This ensures that **every session** begins with a credible, high-impact evidence demo — your *Foundational AI Scientist Ranking*.
 
-================================================================================
-DEMO INDEX (AUTO-SHOWN ON DEMO INVOCATION)
-================================================================================
-When demo mode is triggered, the system MUST first present this Demo Index
-before executing a specific demo. This eliminates recall or memorization
-requirements during live interviews.
+---
 
-The operator may select a demo by:
-• Typing a demo number (e.g., “Run demo 3”)
-• Pasting a demo focus line
-• Describing intent matching a demo below
+### 🧩 **Table Behavior: Foundational AI Scientist Ranking**
+| Table | Purpose | Description |
+|--------|----------|-------------|
+| **Table A — Ranked Slate** | Primary talent ranking | Displays top 10 foundational scientists, schema scores, trajectory, and recommendations |
+| **Table B — Citation Evidence Matrix** | Evidence validation | Shows citation totals, 24-month velocity, influence tiers, and provenance links |
 
-DEMO OPTIONS:
+Both tables appear automatically when the demo starts, before any manual selection occurs.
 
-1) Foundational / Frontier AI Scientists  
-   Rank researchers using citation influence, citation velocity, and
-   cross-lab collaboration aligned to OpenAI, Anthropic, Meta AI,
-   Google DeepMind, Apple AIML, Microsoft AI, and NVIDIA.
+---
 
-2) Applied AI & Machine Learning Engineers  
-   Identify and rank engineers who shipped LLM-powered systems from
-   experimentation through production deployment.
+### 🧠 **Post-Demo Action**
+After rendering, the system prints the **Demo Invocation Menu** below — allowing manual selection of other demo types (RLHF, Applied, Evidence, Infra, etc.).
 
-3) AI / ML Infrastructure Engineers  
-   Identify and rank engineers responsible for training platforms,
-   inference stacks, distributed compute, or model-serving systems.
+---
 
-4) RLHF / Alignment Engineers  
-   Identify and rank engineers who implemented PPO- or DPO-based
-   post-training pipelines, reward models, or alignment systems.
+## 🧩 **AI TALENT ENGINE — DEMO INVOCATION MENU (v3.0 RLHF & Alignment Integrated)**
 
-5) Emerging High-Velocity AI Talent  
-   Identify rapidly rising researchers or engineers based on recent
-   publications, accelerating citations, or OSS impact.
+### 🏅 Luminaries: Recognition, Innovation & Influence Demos *(Priority Group A – Opens First)*
+| Demo ID | Command | Description |
+|----------|----------|-------------|
+| **01** | 🧩 Run Demo: DEMO_AWARD_WINNERS | Recognized AI award and fellowship recipients (Turing, ACL, NeurIPS, OpenAI Fellowships) |
+| **02** | 🧩 Run Demo: DEMO_PATENT_INNOVATORS | AI patent and invention signal analysis (Lens.org / USPTO integration) |
+| **03** | 🧩 Run Demo: DEMO_CONFERENCE_LEADERS | Top-tier AI conference presentation leaders (NeurIPS, ICML, ICLR, CVPR, ACL) |
+| **04** | 🧩 Run Demo: DEMO_INFLUENCE_TIERS | Citation velocity and influence tier dashboard |
+| **05** | 🧩 Run Demo: DEMO_COLLAB_NETWORKS | Institutional collaboration & network mapping |
+| **06** | 🧩 Run Demo: DEMO_EMERGING_RESEARCHERS | Early-stage high-velocity researchers |
 
-6) Cross-Lab & Industry–Academia Collaboration  
-   Identify collaboration clusters across industry labs and academia,
-   highlighting central contributors.
+---
 
-7) Negative Filtering (Who NOT to Prioritize)  
-   Identify high-visibility AI profiles lacking reproducible technical
-   evidence that should not be prioritized.
+### 🔐 RLHF, Alignment & Safety Demos *(Priority Group B – Anthropic/OpenAI Focus)*
+| Demo ID | Command | Description |
+|----------|----------|-------------|
+| **07** | 🧩 Run Demo: DEMO_RLHF_ENGINEERS | RLHF reward model and PPO specialists (OpenAI, Anthropic, DeepMind) |
+| **08** | 🧩 Run Demo: DEMO_ALIGNMENT_RESEARCHERS | Alignment and interpretability researchers |
+| **09** | 🧩 Run Demo: DEMO_DPO_EXPERIMENTS | Direct Preference Optimization (DPO) & policy optimization contributors |
 
-================================================================================
-MANDATORY BASELINE (NON-NEGOTIABLE)
-================================================================================
-• Output MUST include a minimum of 10 real, distinct individuals.
-• Placeholder, synthetic, hypothetical, or fabricated profiles are forbidden.
-• If fewer than 10 valid individuals exist, this must be stated explicitly.
-• If signals are weak, schema scores MUST be reduced rather than inflated.
+---
 
-================================================================================
-OUTPUT STRUCTURE (ALWAYS REQUIRED)
-================================================================================
-Every demo MUST produce two tables for the SAME individuals:
+### 🧠 Foundational AI Research Demos *(Priority Group C – Core Technical Tier)*
+| Demo ID | Command | Description |
+|----------|----------|-------------|
+| **10** | 🧩 Run Demo: DEMO_FOUNDATIONAL_SCIENTISTS | Frontier and foundational AI researchers (2 tables: ranked + citation evidence) |
+| **11** | 🧩 Run Demo: DEMO_FOUNDATIONAL_RISING_TALENT | Early-career foundational AI researchers |
 
-TABLE 1 — Ranked Hiring Slate (Decision Table)
-TABLE 2 — Evidence & Citation Ledger (Validation Table)
+---
 
-Narrative-only output is not permitted.
+### 🔍 Evidence & Authorship Demos *(Priority Group D – Live-Data Enabled — Pending Activation)*
+| Demo ID | Command | Description |
+|----------|----------|-------------|
+| **12** | 🧩 Run Demo: DEMO_GITHUB_RESEARCHERS | GitHub repository contributors (OSS engineers; live API ready) |
+| **13** | 🧩 Run Demo: DEMO_HF_MODEL_AUTHORS | Hugging Face model authors & maintainers (live API ready) |
+| **14** | 🧩 Run Demo: DEMO_PAPER_AUTHORS | Active AI researchers with verifiable publications (live API ready) |
 
-================================================================================
-TABLE 1 — RANKED HIRING SLATE (PRIMARY)
-================================================================================
-Purpose: Hiring decisions, prioritization, and follow-up sequencing.
+---
 
-Required Columns:
-| Rank | Name | Affiliation | Role Type | Primary Signal | Talent Schema (1–10) | Career Trajectory | Recommendation |
+### ⚙️ Applied, Infrastructure & Systems Demos *(Priority Group E – Engineering Impact Tier)*
+| Demo ID | Command | Description |
+|----------|----------|-------------|
+| **15** | 🧩 Run Demo: DEMO_APPLIED_ENGINEERS | Applied AI engineers and OSS maintainers |
+| **16** | 🧩 Run Demo: DEMO_INFRA_ENGINEERS | AI infrastructure and systems engineers |
 
-Rules:
-• Ranking appears ONLY in this table
-• Ranking reflects outreach priority
-• Recommendation must be explicit
+---
 
-================================================================================
-TABLE 2 — CITATION & EVIDENCE LEDGER (SUPPORTING)
-================================================================================
-Purpose: Research validation and signal auditability.
+### ✅ **Execution Logic Summary**
+| Demo Category | Table Count | Auto-Display | Menu Display |
+|----------------|--------------|---------------|--------------|
+| Foundational AI Scientist (Default) | 2 | ✅ Auto-loads first | ✅ Followed by menu |
+| Luminaries / Recognition & Influence | 1 | On demand | ✅ Shown first in menu |
+| RLHF / Alignment & Safety | 1 | On demand | ✅ Highlighted second |
+| Evidence & Authorship | 1 | On demand | ⚙️ Live-data ready |
+| Applied & Infrastructure | 1 | On demand | ❌ Not recursive |
 
-Required Columns:
-| Name | Total Citations | Citation Velocity | Key Citation Anchors | Evidence Type |
+---
 
-Rules:
-• Same individuals as Table 1
-• No re-ranking allowed
-• Infra and applied roles may show low citation counts without penalty
+### 🧠 **Operator Notes**
+- The system always begins with **Foundational AI Scientist Ranking Demo** (2 tables).  
+- The Demo Menu appears automatically afterward for manual selection.  
+- Evidence & Authorship demos are “**Live-Data Enabled — Pending Activation**” (GitHub, Hugging Face, Semantic Scholar).  
+- No API keys or Python execution are required in simulation mode.  
+- Safe to use for presentation, export, or system design review.  
 
-================================================================================
-ROLE TYPES (SUPPORTED)
-================================================================================
-• Foundational / Frontier AI Scientist
-• Applied AI Engineer
-• Machine Learning Engineer (MLE)
-• AI / ML Infrastructure Engineer
-• AI Systems / Platform Engineer
-• AI Inference / Serving Engineer
-• RLHF / Alignment Engineer
+---
 
-================================================================================
-RANKING LOGIC (FOLLOW-UP PRIORITY)
-================================================================================
-Ranking reflects:
-• Citation influence and velocity
-• OSS ownership and reproducibility
-• Infrastructure or system ownership
-• Research-to-production impact
-• Alignment with frontier labs
-
-In case of signal parity, priority favors sustained multi-year ownership
-and demonstrable system impact.
-
-================================================================================
-IDENTITY VERIFICATION & DATA PROVENANCE
-================================================================================
-Identity must be validated across:
-• Publications
-• Code repositories
-• Model releases
-• Portfolio continuity
-
-Signals must come from publicly verifiable sources only.
-Inferred or unverifiable claims must not drive ranking.
-
-================================================================================
-BIAS & SAFETY GUARDS
-================================================================================
-• Geographic location is never used as a ranking factor
-• Titles alone are insufficient
-• Educational pedigree is non-determinative
-
-================================================================================
-INTERACTION GUARANTEE
-================================================================================
-When demo mode is invoked:
-1) Demo Index is shown
-2) Demo focus is selected
-3) Mandatory baselines are enforced
-4) Two tables are produced
-
-The user never needs to:
-• Restate rules
-• Request tables
-• Specify candidate count
-• Ask for ranking or scoring
-
-================================================================================
-FINAL GUARANTEE
-================================================================================
-If this specification is active:
-
-✓ Hiring-ready ranking is guaranteed  
-✓ Evidence-backed validation is guaranteed  
-✓ Research, applied, and infra roles are supported  
-✓ Placeholder output is impossible  
-✓ Demo execution is calm, repeatable, and defensible
+**End of Document — Full Demo Script v3.1 (Front-Facing Execution + Numbered Demo Invocation Menu)**
