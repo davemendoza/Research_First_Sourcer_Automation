@@ -14,4 +14,8 @@
     "valid": true,
     "repaired": false
   }
-]
+][2025-12-11T00:24:03Z] ⚠️  Schema file missing.
+[2025-12-11T00:24:03Z] ❌ Patrick_von_Platen.json: Missing Candidate_Overview,Role_Classification,Organizational_Context,Core_Technical_Signals,Career_Trajectory,Strengths,Weaknesses,False_Positive_Check,Hiring_Intelligence_Summary,Hiring_Manager_Summary_Text,Citation_Velocity_Score,Influence_Tier,Collaboration_Count
+[2025-12-11T00:24:03Z] ❌ Ashudeep_Singh.json: Missing Candidate_Overview,Role_Classification,Organizational_Context,Core_Technical_Signals,Career_Trajectory,Strengths,Weaknesses,False_Positive_Check,Hiring_Intelligence_Summary,Hiring_Manager_Summary_Text,Citation_Velocity_Score,Influence_Tier,Collaboration_Count
+[2025-12-11T00:24:03Z] ❌ Shubham_Saboo.json: Missing Candidate_Overview,Role_Classification,Organizational_Context,Core_Technical_Signals,Career_Trajectory,Strengths,Weaknesses,False_Positive_Check,Hiring_Intelligence_Summary,Hiring_Manager_Summary_Text,Citation_Velocity_Score,Influence_Tier,Collaboration_Count
+[2025-12-11T00:24:03Z] ❌ Validation failed — commit blocked.

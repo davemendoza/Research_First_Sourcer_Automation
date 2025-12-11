@@ -1,85 +1,207 @@
-=======
----
-file_type: schema_specification
-project: Research-First Sourcer Automation
-version: 3.0
-phase: global
-description: Canonical AI Talent Engine schema reference for all phases.
-updated: 2025-12-04
----
+# ============================================================
+#  AI Talent Engine – Standard Review Template  
+#  Created by L. David Mendoza © 2025
+# ============================================================
 
-# 🧬 AI Talent Schema Rules
-**Version:** v3.0  
-**Author:** Research-First Sourcer Automation Project  
-**Purpose:**  
-Defines the unified data schema, normalization rules, and field hierarchy for all agent outputs within the AI Talent Engine.  
-This schema ensures that every CSV, JSON, or enrichment output remains consistent, standardized, and ingestion-ready across Phases 5–8.
+schema_reference: AI_Talent_Schema_Rules.md  
+schema_version: 3.4.1  
+phase_scope: Phase 8  
+maintainer: L. David Mendoza © 2025  
+last_validated: 2025-12-11  
+validation_status: Active  
 
----
+------------------------------------------------------------
+PURPOSE
+------------------------------------------------------------
+The AI Talent Review Template defines the standardized, evidence-based evaluation
+structure for assessing AI engineering talent portfolios. It ensures full schema
+alignment (v3.4.1), governance compliance (#21–#24), and reproducible assessments
+across code repositories, model contributions, publications, patents, and CVs.
 
-## 1. Schema Overview
+All evaluations generated from this template are audit-ready, schema-traceable,
+and compliant with the AI Talent Engine governance framework.
 
-All outputs (from corporate, academic, RLHF, multimodal, GPU, or citation-based agents) must conform to the **AI Talent Schema**.  
-This schema underpins your Phase 6 and Phase 7 pipelines and enables seamless merging of intelligence outputs into analytics dashboards or hiring intelligence layers.
+------------------------------------------------------------
+🧭 CANDIDATE OVERVIEW (HEADER)
+------------------------------------------------------------
 
-It governs:
-- Field naming conventions  
-- Column order  
-- Normalization logic  
-- Accepted enumerations  
-- Cross-phase compatibility  
+**Full Name:**  
+**Current Employer / Affiliation:**  
+**Current Title:**  
+**Seniority Level:**  
+**AI Classification:** Frontier / RLHF / Applied / Infra / Multimodal / Safety / Evaluation  
+**Location (Optional):**  
 
----
+### 📧 Contact Data (Public / Verified Only)
+- Corporate Email:  
+- Personal Email:  
+- LinkedIn URL:  
+- Portfolio / Website:  
 
-## 2. Canonical Column Order
+**Primary Evidence Sources:** GitHub / Scholar / Patent / CV / Portfolio  
+**Schema Reference:** AI_Talent_Schema_Rules v3.4.1  
 
-| # | Column Name | Description |
-|---|--------------|-------------|
-| **1** | **AI_Classification** | Primary research or role category. Valid values: `Frontier`, `RLHF`, `Applied`, `Infra`, `Multimodal`, `Safety`, `Evaluation`. |
-| **2** | Full_Name | Full researcher or engineer name. |
-| **3** | Company | Current company or institutional affiliation. |
-| **4** | Team_or_Lab | Lab, division, or internal group (e.g., Applied AI, FAIR, DeepMind Safety). |
-| **5** | Title | Job title as written (Principal Scientist, Distinguished Engineer, etc.). |
-| **6** | Seniority_Level | Normalized tier: `Principal`, `Staff`, `Senior`, `Director`, `VP`. |
-| **7** | Corporate_Email | Public corporate or lab email (e.g., mailto links). |
-| **8** | Personal_Email | Extracted from Scholar, CV, or portfolio when public. |
-| **9** | Mobile_Phone | Publicly visible phone numbers (rare; captured via CVs or academic contact pages). |
-| **10** | LinkedIn_URL | Profile link, if provided. |
-| **11** | Portfolio_URL | Personal site, GitHub.io, or lab homepage. |
-| **12** | Google_Scholar_URL | Scholar reference. |
-| **13** | Semantic_Scholar_URL | Alternate scholarly record. |
-| **14** | GitHub_URL | GitHub or code contribution reference. |
-| **15** | Primary_Specialties | Core expertise (LLMs, RLHF, CUDA, alignment, reasoning, etc.). |
-| **16** | LLM_Names | Explicitly mentioned model names (GPT-4, Claude, LLaMA, DeepSeek, Gemini, etc.). |
-| **17** | VectorDB_Tech | Vector databases (Weaviate, Pinecone, FAISS, Milvus, Chroma, Vespa). |
-| **18** | RAG_Details | Frameworks and architecture: LangChain, LlamaIndex, LangGraph, retriever logic. |
-| **19** | Inference_Stack | Runtime or inference frameworks: vLLM, TensorRT-LLM, SGLang, ONNX, llama.cpp. |
-| **20** | GPU_Infra_Signals | Hardware and system-level tech: CUDA, Triton, NCCL, DeepSpeed, FSDP. |
-| **21** | RLHF_Eval_Signals | Reward modeling, DPO/PPO, evaluator networks, alignment pipelines. |
-| **22** | Multimodal_Signals | Vision-language, diffusion, speech, robotics, or sensor fusion indicators. |
-| **23** | Research_Areas | General domain or academic focus (alignment, interpretability, scaling laws). |
-| **24** | Top_Papers_or_Blogposts | Highlighted authored works or technical posts. |
-| **25** | Conference_Presentations | Talks, tutorials, or workshops presented. |
-| **26** | Awards_Luminary_Signals | Recognition such as Best Paper, Test-of-Time, spotlight, or keynote roles. |
-| **27** | Panel_Talks_Workshops | Moderator or organizer evidence from events. |
-| **28** | Citation_Trajectory | Computed 24-month citation velocity: `High`, `Medium`, `Low`. |
-| **29** | Strengths | Short qualitative summary of technical depth and impact. |
-| **30** | Weaknesses | Known skill or domain gaps. |
-| **31** | Corporate_Profile_URL | Primary company or research page URL. |
-| **32** | Publications_Page_URL | Institutional publication list or research index. |
-| **33** | Blog_Post_URLs | Authored or contributor blog links. |
-| **34** | Source_Notes | Extraction context or metadata provenance. |
-| **35** | Last_Updated | ISO-8601 date timestamp (YYYY-MM-DD). |
+------------------------------------------------------------
+📊 EVIDENCE TIER LEDGER
+------------------------------------------------------------
+
+| Artifact Type | Source / URL | Verification Tier | Weight | Provenance Notes |
+|----------------|--------------|------------------|---------|------------------|
+| Example | | | | |
+
+------------------------------------------------------------
+🔍 EVALUATION SECTIONS
+------------------------------------------------------------
+
+### 1️⃣ AI Classification Role Type  
+Define the candidate’s classification (Frontier, Applied, RLHF, Infra, etc.) and cite the artifacts establishing this classification.
 
 ---
 
-## 3. Normalization Rules
+### 2️⃣ Career Trajectory Assessment  
+Describe progression in seniority, scope, and velocity. Derive from repository timelines, publication cadence, or CV chronology.
 
-**AI_Classification**  
-Must always belong to one of:  
-`["Frontier", "RLHF", "Applied", "Infra", "Multimodal", "Safety", "Evaluation"]`
+---
 
-**Citation_Trajectory Formula**
-```python
-velocity = (citations_last_24mo / total_citations)
->>>>>>> a03965b (v1.0 — Baseline commit: Phase 6–7 + Schema + System Spec)
+### 3️⃣ Influence Tier / Citation Velocity  
+Specify percentile tier (1–5) and citation-velocity (High / Medium / Low). Cite Scholar or community metrics where available.
+
+---
+
+### 4️⃣ Signal Skills Cluster  
+List verified technical clusters:  
+LLM, VectorDB, RAG, Inference Systems, CUDA, GPU Infra, RLHF, Multimodal, Safety, Evaluation.  
+Include frameworks or stacks such as FAISS, Weaviate, Pinecone, LangChain, Triton, TensorRT-LLM, ONNX.
+
+---
+
+### 5️⃣ Strengths  
+Summarize verified competencies and distinguishing contributions.
+
+---
+
+### 6️⃣ Weaknesses  
+Note confirmed gaps, limited evidence areas, or missing validations.
+
+---
+
+### 7️⃣ Evidence Provenance Summary  
+Provide all URLs / DOIs / identifiers for artifacts referenced above.
+
+------------------------------------------------------------
+🧭 HIRING MANAGER SUBMITTAL DECISION (MANDATORY)
+------------------------------------------------------------
+
+**Evidence Basis:**  
+Summarize decisive, verified artifacts (repos, models, papers, patents, CV).  
+
+**Evaluation Synthesis:**  
+Integrate technical maturity, collaboration signals, and career trajectory.  
+
+**Risks / Gaps:**  
+List missing or weak verification areas.  
+
+**Decision & Justification:**  
+- ✅ **Submit to Hiring Manager**  
+- 🕓 **Monitor / Not Yet**  
+- 🚫 **Do Not Submit**  
+
+Provide a concise, evidence-based rationale for the decision suitable for
+direct inclusion in a hiring recommendation email.
+
+------------------------------------------------------------
+👤 REVIEWER & PROVENANCE
+------------------------------------------------------------
+
+**Reviewer:**  
+**Date Reviewed:**  
+**Evidence Integrity:** High / Medium / Low  
+**Schema Validation:** ✅ PASSED / ❌ FAILED  
+
+------------------------------------------------------------
+📚 VERSION CONTROL & GOVERNANCE
+------------------------------------------------------------
+
+**Template Version:** v3.4.1  
+**Schema Reference:** AI_Talent_Schema_Rules v3.4.1  
+**Compliance Agents:**  
+#21 Schema Validator Agent – schema consistency  
+#22 Audit & Provenance Agent – provenance / timestamps  
+#23 Analytics Integrator – unified analytic datasets  
+#24 Governance Compliance Agent – fairness / privacy  
+
+**Maintainer / Creator:** L. David Mendoza © 2025  
+**Purpose:** Standardized, audit-ready, evidence-based evaluation template for AI-talent sourcing and research-grade assessment.  
+
+------------------------------------------------------------
+REFERENCE – AI TALENT ENGINE MODULE MAP
+------------------------------------------------------------
+
+When the user types **tools**, display the following block exactly as written—no truncation or added headers.
+
+──────────────────────────────  
+Created by L. David Mendoza © 2025  
+AI Talent Engine — Research-First Sourcer Automation System  
+──────────────────────────────  
+AI TALENT ENGINE – RESEARCH TOOLS MENU  
+Evidence-based AI-talent intelligence — grounded in verifiable technical contributions.
+
+**INTRODUCTION**  
+The AI Talent Engine is a research-grade talent-intelligence system that maps authentic AI-engineering talent across the modern AI ecosystem. It analyzes verifiable technical work — peer-reviewed publications, open-source model releases, granted patents, repositories, and conference presentations — to surface high-quality AI-talent leads and track emerging contributors in real time. The engine uses structured ranking scores and systematic false-positive filtering to ensure each profile is traceable to evidence. It classifies AI contributors across Frontier / Foundational LLM Development, RLHF / Alignment, Applied AI, and AI Infrastructure domains and tracks citation growth, collaborations, and publication frequency to reveal who is advancing the field.
+
+──────────────────────────────  
+**I. INTELLIGENCE & SIGNAL EXTRACTION**  
+──────────────────────────────  
+1. Portfolio Agent – researcher portfolios (GitHub, HF, Kaggle)  
+2. Academic Lab Signal Agent – lab publication density  
+3. Corporate Research X-Ray – internal AI divisions  
+4. OpenReview Intelligence Agent – ICLR / ICML / NeurIPS data  
+5. Semantic Scholar Velocity Agent – citation acceleration  
+
+──────────────────────────────  
+**II. ALIGNMENT & SYSTEMS**  
+──────────────────────────────  
+6. RLHF & Alignment Agent – PPO / DPO pipelines  
+7. Multimodal Intelligence Agent – vision / speech / robotics  
+8. Inference Systems Agent – CUDA, Triton, TensorRT-LLM, ONNX  
+9. VectorDB & RAG Stack Agent – FAISS, Weaviate, Pinecone, LangChain  
+10. Safety & Interpretability Agent – robustness, AI-safety  
+
+──────────────────────────────  
+**III. NETWORK & INFLUENCE MAPPING**  
+──────────────────────────────  
+11. Conference Network Mapper – author presence & collaborations  
+12. Patent Signal Agent – patents & innovation links  
+13. Model Release Agent – open-source model connections  
+14. Publication Density Agent – cadence & specialization  
+15. Cross-Lab Collaboration Agent – inter-institutional clusters  
+16. Influence Network Mapper – institutional graphs  
+
+──────────────────────────────  
+**IV. CITATION & IMPACT ANALYTICS**  
+──────────────────────────────  
+17. Citation Velocity Analyzer – citation-velocity ratio  
+18. Research Impact Scorer – aggregated influence metrics  
+19. Publication Trend Forecaster – projection analytics  
+20. Influence Tier Reporter – percentile-based influence tiers  
+
+──────────────────────────────  
+**V. GOVERNANCE & VALIDATION**  
+──────────────────────────────  
+21. Schema Validator Agent – schema consistency  
+22. Audit & Provenance Agent – provenance / timestamps  
+23. Analytics Integrator – unified analytic datasets  
+24. Governance Compliance Agent – fairness / privacy  
+
+──────────────────────────────  
+**VI. CAREER INTELLIGENCE & PREDICTIVE MODULES**  
+──────────────────────────────  
+25. Career Trajectory Modeler – seniority evolution  
+26. Talent Radar Intelligence Agent – emerging researchers  
+27. Cross-Lab Cluster Detector – modularity communities  
+28. Research Impact Scorer (Enhanced) – refined scoring  
+29. Publication Trend Forecaster (Enhanced) – temporal patterns  
+30. Influence Tier Reporter (Enhanced) – high-precision tiers  
+31. Citation Velocity Analyzer (Enhanced) – longitudinal tracking  
+32. Influence Network Mapper (Enhanced) – global network scaling  
+──────────────────────────────
