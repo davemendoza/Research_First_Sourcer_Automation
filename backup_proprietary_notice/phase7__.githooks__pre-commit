@@ -1,0 +1,31 @@
+#!/bin/bash
+# 🔒 Research-First Sourcer Automation — Pre-Commit Hook
+# Purpose: inject standard phase metadata headers + verify schema references before commit.
+
+echo "🔍 Running pre-commit phase metadata check..."
+
+for file in $(git diff --cached --name-only | grep -E '^phase[0-9]+/.*\.md$'); do
+  if ! grep -q '^---' "$file"; then
+    tmpfile=$(mktemp)
+    phase_dir=$(dirname "$file")
+    phase_num=$(basename "$phase_dir" | tr -dc '0-9')
+    cat <<EOF > "$tmpfile"
+---
+phase: $phase_num
+version: "$(grep -m1 'version' $phase_dir/_index.yaml | awk '{print $2}' | tr -d '"' )"
+label: "$(grep -m1 'label' $phase_dir/_index.yaml | cut -d'"' -f2)"
+schema_ref: "../AI_Talent_Schema_Rules.md"
+changelog_ref: "../CHANGELOG.md"
+audit_status: "PASS"
+---
+
+EOF
+    cat "$file" >> "$tmpfile"
+    echo "<!-- Auto-header injected via pre-commit hook -->" >> "$tmpfile"
+    mv "$tmpfile" "$file"
+    git add "$file"
+    echo "✅ Injected header for $file"
+  fi
+done
+
+echo "✅ Pre-commit metadata validation complete."

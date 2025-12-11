@@ -1,0 +1,19 @@
+phase: 7
+version: 7.0
+label: "Citation & Influence Analytics"
+schema_ref: "../AI_Talent_Schema_Rules.md"
+description: >
+  Defines metadata and file map for AI Talent Engine Phase 7 — Citation & Influence Analytics.
+  Used for automated phase discovery, validation, and ingestion tracking.
+files:
+  - AI_Talent_Engine_Phase7_Master.md
+  - AI_Talent_Engine_Phase7_Integration_Checklist.md
+  - AI_Talent_Engine_Phase7_Citation_Intelligence.md
+  - README_phase7.md
+created_by: "Research-First Sourcer Automation"
+last_updated: "2025-12-07T13:33:00Z"
+dependencies:
+  - phase6
+  - AI_Talent_Schema_Rules.md
+  - README_SYSTEM_SPEC.md
+audit_status: "PASS"

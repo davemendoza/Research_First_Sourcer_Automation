@@ -1,0 +1,30 @@
+===============================================
+ AI Talent Engine – Repository Integrity Audit 
+ Timestamp: 2025-12-11 04:28:36
+===============================================
+
+>>> Checking directory structure...
+✅ core directory exists
+✅ scripts directory exists
+✅ enrichers directory exists
+✅ outputs directory exists
+✅ logs directory exists
+✅ inputs directory exists
+✅ docs directory exists
+✅ dashboards directory exists
+
+>>> Computing SHA256 hashes for core files...
+✅ master_phase11_12_autobuild.sh  —  SHA256: 500cac7e06da20d927be2977cde146056851026a4b87d84b97677e72fdf22706
+✅ scripts/auto_inject_legal.py  —  SHA256: ec35ffc4e6cf439f0dedf281cae16fac454da309b0972f10012ec9e9a0faf72a
+✅ core/gpt_agent.py  —  SHA256: d549b5ce4791eee96e0c94f8faf239def8f7e8fa5aefee39be8a9fcb3b7f85c9
+✅ core/orchestrator.py  —  SHA256: 4ca8539f6b3d4c332017e54e242507d01d7690b0168c05d0edbc725611ed7c95
+✅ Legal_Proprietary_Notice.txt  —  SHA256: 8db37db6f27b1f478eaaf6c7c6e3860cb1f57c75fff0e4cb31d53e96d3a58ed1
+✅ requirements.txt  —  SHA256: c53a6398e5b09a27097ac810f3b8249573767f7d4359a24c27440be512f11087
+✅ README.md  —  SHA256: 518d1f1d6a9f35e92f644805f92acd899cf9e5c52721c252622196f05f7d0279
+
+>>> Searching for stray copies under /Users/davemendoza ...
+
+===============================================
+ Integrity audit completed successfully.        
+ Log saved to: /Users/davemendoza/Desktop/Research_First_Sourcer_Automation/logs/integrity_audit_20251211_042836.txt                        
+===============================================

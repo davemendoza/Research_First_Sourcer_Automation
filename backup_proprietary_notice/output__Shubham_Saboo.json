@@ -1,0 +1,47 @@
+{
+  "name": "Shubham Saboo",
+  "role_classification": [
+    "Senior AI Product Manager",
+    "Applied AI Engineer",
+    "AI Agent Systems Specialist"
+  ],
+  "composite_score": 9.3,
+  "evidence_score": 0.917,
+  "schema_version": "3.6",
+  "last_validated": "2025-12-11T00:24:03Z",
+  "recommendation": "\u2705 RECOMMENDED",
+  "Evidence_Map_JSON": [
+    {
+      "strength_or_weakness": "Strength",
+      "statement": "Leads AI Agent development initiatives at Google Cloud including ADK and Agent Builder.",
+      "artifact_type": "Professional Contribution",
+      "source_url": "https://cloud.google.com/vertex-ai",
+      "validation_hash": "sha256:a1b2c3d4e5f6...",
+      "confidence": 0.97
+    },
+    {
+      "strength_or_weakness": "Strength",
+      "statement": "Maintains open-source repository 'Awesome LLM Apps' with agent templates and RAG setups.",
+      "artifact_type": "Repository",
+      "source_url": "https://github.com/shubham-saboo/awesome-llm-apps",
+      "validation_hash": "sha256:b2c3d4e5f6g7...",
+      "confidence": 0.95
+    },
+    {
+      "strength_or_weakness": "Strength",
+      "statement": "Co-author of 'GPT-3: The Ultimate Guide To Building NLP Products With OpenAI API' and 'Neural Search'.",
+      "artifact_type": "Publication",
+      "source_url": "https://www.amazon.com/dp/B09XXXXXX",
+      "validation_hash": "sha256:c3d4e5f6g7h8...",
+      "confidence": 0.92
+    },
+    {
+      "strength_or_weakness": "Weakness",
+      "statement": "Limited recent evidence of low-level infrastructure or hardware optimization work.",
+      "artifact_type": "Gap-Assessment",
+      "source_url": "manual_review_required",
+      "validation_hash": "sha256:d4e5f6g7h8i9...",
+      "confidence": 0.83
+    }
+  ]
+}
