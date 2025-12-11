@@ -1,0 +1,23 @@
+# 🧩 Phase 10 — Real-Time Citation Intelligence & Evidence Integration
+**Schema Version:** v3.6.1  
+**Author:** L. David Mendoza © 2025  
+**Commit Reference:** d076577  
+**Last Updated:** 2025-12-11 02:30:56
+
+## Summary
+Phase 10 automates real-time evidence ingestion via Python integration.
+All schema and validation logic dynamically align with Determinant & Signal frameworks.
+
+## Key Files
+- Phase10/AI_Talent_Engine_Master.md
+- Phase10/AI_Talent_Schema_Rules.md
+- Phase10/validate_phase10.py
+
+Next Tag: `v3.6.2-phase10-auto`
+
+Proprietary Rights Notice
+------------------------
+All code, scripts, GitHub repositories, documentation, data, and GPT-integrated components of the AI Talent Engine – Signal Intelligence and Research_First_Sourcer_Automation Python Automation Sourcing Framework are strictly proprietary. All intellectual property rights, copyrights, trademarks, and related rights are exclusively owned by Dave Mendoza, DBA AI Craft, Inc.
+No individual or entity may copy, reproduce, distribute, modify, create derivative works, reverse engineer, decompile, or otherwise use any part of this system, software, or associated materials for personal or commercial purposes without explicit written authorization from Dave Mendoza.
+All rights reserved. Unauthorized use may result in legal action.
+This statement is governed by the laws of the State of Colorado, USA.

@@ -1,0 +1,34 @@
+__pycache__/
+.DS_Store
+*.pyc
+.vscode/
+*.log
+.env
+venv/
+*.csv
+
+
+# ─────────────────────────────────────────────
+# Phase9 Clean History Policy
+# Exclude transient output artifacts, logs, and temp caches
+# ─────────────────────────────────────────────
+
+# Auto-generated outputs and validation JSONs
+outputs/*.json
+outputs/*_audit_log.txt
+outputs/*_validation.json
+
+# Runtime logs and execution traces
+output/demo_run_log.txt
+output/*.txt
+*.log
+
+# Python cache and temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.tmp
+*.swp
+
+# Backup and system scripts
+lock_project_root.sh

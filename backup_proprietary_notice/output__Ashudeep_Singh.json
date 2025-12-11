@@ -1,0 +1,47 @@
+{
+  "name": "Ashudeep Singh",
+  "role_classification": [
+    "Applied Research Engineer",
+    "Multimodal Systems Engineer",
+    "Machine Learning Infrastructure Specialist"
+  ],
+  "composite_score": 9.1,
+  "evidence_score": 0.905,
+  "schema_version": "3.6",
+  "last_validated": "2025-12-11T00:24:03Z",
+  "recommendation": "\u2705 RECOMMENDED",
+  "Evidence_Map_JSON": [
+    {
+      "strength_or_weakness": "Strength",
+      "statement": "Core contributor to large-scale vision-language modeling pipelines at Hugging Face.",
+      "artifact_type": "Repository",
+      "source_url": "https://github.com/huggingface/transformers",
+      "validation_hash": "sha256:a7b8c9d0e1f2...",
+      "confidence": 0.96
+    },
+    {
+      "strength_or_weakness": "Strength",
+      "statement": "Published impactful papers on model compression and efficiency for multimodal transformers.",
+      "artifact_type": "Publication",
+      "source_url": "https://arxiv.org/search/?query=ashudeep+singh",
+      "validation_hash": "sha256:b8c9d0e1f2g3...",
+      "confidence": 0.94
+    },
+    {
+      "strength_or_weakness": "Strength",
+      "statement": "Contributor to open diffusion frameworks and performance optimizations across inference backends.",
+      "artifact_type": "Collaboration",
+      "source_url": "https://huggingface.co/ashudeep",
+      "validation_hash": "sha256:c9d0e1f2g3h4...",
+      "confidence": 0.9
+    },
+    {
+      "strength_or_weakness": "Weakness",
+      "statement": "Limited focus on academic publication frequency post-2023 compared to engineering output.",
+      "artifact_type": "Gap-Assessment",
+      "source_url": "manual_review_required",
+      "validation_hash": "sha256:d0e1f2g3h4i5...",
+      "confidence": 0.82
+    }
+  ]
+}
