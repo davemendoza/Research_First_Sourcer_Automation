@@ -33,3 +33,8 @@ Governance & Validation Agents
 #23 Analytics Integrator – unified analytic datasets  
 #24 Governance Compliance Agent – fairness / privacy  
 ------------------------------------------------------------
+
+### Clean History & Data Governance Policy (Phase 9)
+- Added: docs/Phase9_Clean_History_Policy.md
+- Commit: 59d7876 — Implements clean history policy excluding runtime artifacts and validation JSONs.
+
