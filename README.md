@@ -1,3 +1,9 @@
+
+![Schema Version](https://img.shields.io/badge/schema-v3.6.5-phase10-continuous-blue)
+![Automation](https://img.shields.io/badge/auto--fill-success-brightgreen)
+![Governance](https://img.shields.io/badge/governance-clean%20history-orange)
+![Status](https://img.shields.io/badge/status-active%20phase%2010-blueviolet)
+
 ![AI Talent Validation](https://github.com/davemendoza/Research_First_Sourcer_Automation/actions/workflows/ai_talent_validation.yml/badge.svg)
 # Research-Ops AI Talent Engine
 
