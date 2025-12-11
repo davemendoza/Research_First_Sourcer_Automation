@@ -1,6 +1,6 @@
 # 🧩 AI Talent Engine — Phase 10 Schema Rules (v3.6.1)
 **Focus:** Real-Time Citation & Evidence Integration  
-**Commit Reference:** a3f9cb9
+**Commit Reference:** 8e5ea41
 
 Fields added:
 - citation_velocity (float) — 24-month citation growth / total
