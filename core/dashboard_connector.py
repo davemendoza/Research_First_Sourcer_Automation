@@ -13,3 +13,5 @@ else:
         st.subheader(os.path.basename(c))
         st.dataframe(pd.read_csv(c))
 if refresh: time.sleep(10); st.experimental_rerun()
+
+# Auto-refresh and Conference Mode integrated
