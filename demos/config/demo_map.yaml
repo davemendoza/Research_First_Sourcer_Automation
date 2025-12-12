@@ -1,0 +1,13 @@
+demos:
+  - agent: citation_velocity
+    description: "Analyzes citation velocity and influence tiers."
+    delay: 3
+  - agent: rlhf_alignment
+    description: "Demonstrates RLHF fine-tuning pipeline visualization."
+    delay: 2
+  - agent: multimodal_agent
+    description: "Combines text, image, and speech reasoning."
+    delay: 2
+  - agent: vector_db_rag
+    description: "Retrieval-Augmented Generation search demonstration."
+    delay: 2
