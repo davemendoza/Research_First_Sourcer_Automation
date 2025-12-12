@@ -113,7 +113,8 @@ log_name = f"logs/build_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
 with open(log_name, "w") as log:
     log.write(f"Build completed successfully on {datetime.now()}\n")
 
-print("✅ Build environment initialized successfully!")
+run_audio_watchdog()
+    print("✅ Build environment initialized successfully!")
 print(f"📄 Log file: {log_name}")
 
 # -----------------------------------------------------------
