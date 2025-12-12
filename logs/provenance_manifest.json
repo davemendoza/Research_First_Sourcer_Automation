@@ -1,5 +1,5 @@
 {
-  "generated": "2025-12-12T04:45:23.971449",
+  "timestamp": "2025-12-12T04:49:48.457956",
   "files": [
     {
       "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demo_autorun.py",
@@ -62,6 +62,14 @@
       "sha256": "af8e8857deae064b594114102c3cef631a8f0e592bc955e78eb83abc3d094b2d"
     },
     {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/contact_enrichment.py",
+      "sha256": "c618d9a7f38465ea9c351f44c671a515e9848166d25780fe240163cca9d45f06"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/auto_dashboard_refresh.py",
+      "sha256": "6a103c98ecd846841cd6f686bab03735c1daa2ddd64236d8cf54782b6cf9b2cc"
+    },
+    {
       "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/huggingface_model_aggregator.py",
       "sha256": "f1c643915e34cc48ef1a4d4d13985c20c211d69b32cb33f6b4b6a2039cc69356"
     },
@@ -70,8 +78,12 @@
       "sha256": "2b0e1e3e0b6d60ae4da9e439b77642627f8e687a832e3660964914ce0925787c"
     },
     {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/build_total_final_system.py",
+      "sha256": "7790821aa5211956360d8b47fb4a7fda91e139f0872bfe54a0e6ad1bc62099a4"
+    },
+    {
       "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/security_audit.py",
-      "sha256": "9d5dab63e5005818dd87a0dafd8f5895f7356921a425561c32dcbe65f753c67c"
+      "sha256": "d296c01e1791be937c57efa530eee980662095f80bd4aaaeea234031793b7311"
     },
     {
       "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/dashboard_analytics_panel.py",
@@ -151,7 +163,7 @@
     },
     {
       "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/system_health.py",
-      "sha256": "0601546f84b125438f0ff2549e0f60a4a5cb0d771b76e6bd6318e011a300bef4"
+      "sha256": "b7694d1e72d6116f8caac8544704694a1bbc01e3252a64bc46a66a52fdc6ffb4"
     },
     {
       "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/env_validator.py",
@@ -545,6 +557,5 @@
       "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demos/agents/rlhf_alignment.py",
       "sha256": "56d2c34b2b48c09f11e8e1749b7cd6d2645540f3536676387de54ce628f36402"
     }
-  ],
-  "author": "L. David Mendoza"
+  ]
 }
