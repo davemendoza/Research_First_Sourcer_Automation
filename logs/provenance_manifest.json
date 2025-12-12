@@ -1,203 +1,550 @@
 {
-  "./demo_autorun.py": "84b1b315257d0cd249e000b325e7f30a90f120e036a929682d501c1d96fb6200",
-  "./AI_Talent_Engine_Research_Tools_Menu_Extended.md": "23b8890f26b4c3ee08dbc285d040a04be3d5e7cf979ee55e5dd2175468ff87fd",
-  "./generate_summary.py": "0769fb3645e7332663f6be8fa67b965fd096ae9bf87ad304ee4a5cabc3ba8132",
-  "./validate_jsons.py": "babcd25f8518c4d6130b3fbdda5a6dd112c76627c643ad0f4d2702cbc0233056",
-  "./README.md": "2d197d920578f7f8cdb0d6cfe0a4149ab5a278c147f34598cceb16046ffd8f48",
-  "./phase7_demo_connector.py": "64af5519b164a25972211fa86554447dccab5e6d1873f22a2cf701612dbf167f",
-  "./setup.py": "3b6fe2fb249b09afe89039e977924393bfc20adf11c03c34581c009ddac0f695",
-  "./setup_history.md": "dd92fad1772def07fcc6ed8c189b5b510a6186212721c8dad8a0a64a67cde5b1",
-  "./test_schema_load.py": "01f6067544d68bee032e8e50266c976c6acf92cbd11e028fca1dad2aa9f4ae10",
-  "./build_init.py": "fd7cc5e931333e6b715f08212f30fe7be1cf17481b6bebee7675796e43a4fab9",
-  "./COPYRIGHT_NOTICE.md": "14ecf62007639cca616c2d3c81b2334a0c3ba2a1eb91ae917a3353d12bca53da",
-  "./demo/run_demo.py": "75971552a8bd379021341e3795ec24a8049e5bf09afa467f7e5bd17fe00eae00",
-  "./demo/run_demo_api.py": "e2521103a3cfdfe2c34c42d61449e3dabb8a7a99bbb5f6de10f93cd9d3398461",
-  "./enrichers/__init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./core/integrity_verifier.py": "a2827c477e2c88521886eb8440e9a4b6b020171a59329a9d909c1ad9d83da8cc",
-  "./core/__init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./core/gpt_agent.py": "503c0edb56b7253e26b34580ef95524b45d3bef97ea9280d7fa6443c586577f0",
-  "./core/build_full_system.py": "f530a69829ae972bf32726f008e98e09e64d036b6e83a5422b711c19bcb4ab96",
-  "./core/orchestrator.py": "4289b37b4c70b2fb91991370950b91038bf4a2f9742cde02600e302fe475c8e7",
-  "./core/demo_logger.py": "906fe75d63c885fc7a6459e2e1f946f837eb9fb6332c171eecddb118ef367410",
-  "./core/dashboard_connector.py": "992eeecd4b59110187fd7214d19e52e869d5cffdcb8ec1564e5efe88e787f2f0",
-  "./core/voice_monitor.py": "66bf0480e7034c1c80b35e9fc0fd7e8affddf72e0ae84c2527ef705e05696589",
-  "./test/__init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./test/test_phase5.py": "70d41476eb765df5f61ed79b3fa53abac5615f0c0edfdee291a1968553dcbd1d",
-  "./phase5/phase5_dashboard.py": "30dc1fd9aca972e019f05127746a04a421e245ea98e8aa07245cf2c24e3ad84f",
-  "./phase5/PHASE5_CLOSURE_NOTE.md": "4f99c9073fb150bf8b19b3dce149cd732c60a1855b0da5e76b0165a4ae17dee2",
-  "./phase5/PHASE5_CLOSURE_REPORT.md": "fc34244a4f6c7606249922fae703be85233f9d8214987a2f805f424d765152d9",
-  "./phase5/__init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./phase5/README_DEV_NOTES.md": "063531d6c9684bce64d91e85f9b4f4aa48adc3bb9601820faf0c85d955517372",
-  "./phase5/PHASE5_COMPLETION_SUMMARY.md": "9f4b605a7592abd6f204bfe3ca5034a7b45c261ae4a60711d19b6b2e713ed7d5",
-  "./phase5/engine/__init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./phase5/engine/pdf_reports.py": "0f904e16f6fbe5fee1e18dcb93c99937bf1214f1123dbf880ca8a3b365fd1f94",
-  "./phase5/engine/utils.py": "d31d9517f566a52f7618e0ddedd575451a59e567276136b35bc42d8a4de921e7",
-  "./phase5/engine/loader.py": "fbd0c73f564fdeeb99482f0091493ffebcc9c91e870ec6089c83dfa4dbe450e7",
-  "./phase5/engine/analytics.py": "5f799f3eea8dbf1daf9ff7510e24cbb42bbbd0f7651ee645a92ebcc8650059c5",
-  "./phase5/engine/phase5/engine/enrich.py": "28850267827907ba391a0992543ef19606ea8cd9aa90948d33500dcabdf97837",
-  "./phase5/engine/phase5/engine/__init__.py": "1464f3608622072603be2ab14ca9ca38044b51e10b99224f55ad410a4e8ea608",
-  "./phase5/engine/phase5/engine/pdf_reports.py": "88f70bb880ccf4f9f55a1ce0ae7f2aeb1ecbbbf57033f1c8a6a53e460c4c4cf0",
-  "./phase5/engine/phase5/engine/utils.py": "12205024273603927be19f1a00135d9827d5c49eb4060c1f9684d73d10a88a6f",
-  "./phase5/engine/phase5/engine/loader.py": "061b1c61b497803d9edc6a208ddcc5eaa3b94096e4fba8be71e040f564505b18",
-  "./phase5/engine/phase5/engine/analytics.py": "d6171f8f1af2b3247e846f93321764e141e42d8dc2e8f90fa1896595a497456c",
-  "./backup_proprietary_notice/docs__Phase10_Finalization_Bulletin.md": "5084aae3c49e3db0ed3fd30cc78fcc3a25cc3769af763aa7b7dd634b82ed8512",
-  "./backup_proprietary_notice/Phase8__AI_Talent_Schema_Rules.md": "014d9489b8cd48e5fe53f1f1c6f47a2eb14b146cb20f709dc8112b01a5bc3fdc",
-  "./backup_proprietary_notice/docs__Phase9_Clean_History_Policy.md": "6c568f9974252288a62ecfbab334011d868b335cb953587992aaf425c165d342",
-  "./backup_proprietary_notice/phase5__engine__phase5__engine__enrich.py": "28850267827907ba391a0992543ef19606ea8cd9aa90948d33500dcabdf97837",
-  "./backup_proprietary_notice/docs__Phase10_Integration_Bulletin.md": "57a3c3edeba5633069220fffdc19f78c5bfaff8c0f6a98881d47440f338025a0",
-  "./backup_proprietary_notice/core__gpt_agent.py": "d7712eea0c7e41a39d8e02a2c22b14ac4ffa56105488aaef43d3e85111a2767b",
-  "./backup_proprietary_notice/core____init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./backup_proprietary_notice/AI_Talent_Engine_Research_Tools_Menu_Extended.md": "d17e4ec38a2708df1b5a526a8a05de25237b9e1eb8c98d184cf0d3d88a9e5214",
-  "./backup_proprietary_notice/phase7__CHANGELOG_LINK.md": "272c210b844441ba5f4f9cfa6cf045db15673d1ffd8a7c872d03fc312f1126dc",
-  "./backup_proprietary_notice/agents__phase6__schema_validator.py": "618da65a7fbe847d9dbb1eec66a1693cdcb1b108e7757049e1c9cb9c9abfc8e8",
-  "./backup_proprietary_notice/phase7__test_hook_v2.md": "53212d962f1f718580a56ab420d8d5784b65d80d69d933abd407fc8709eab11d",
-  "./backup_proprietary_notice/generate_summary.py": "0769fb3645e7332663f6be8fa67b965fd096ae9bf87ad304ee4a5cabc3ba8132",
-  "./backup_proprietary_notice/phase5__engine__utils.py": "d31d9517f566a52f7618e0ddedd575451a59e567276136b35bc42d8a4de921e7",
-  "./backup_proprietary_notice/phase2_demo__phase4_master_engine.py": "08e5a38c5ca5e93b1e060133d85ea9d9c2536f0c385d8cf1981d999468796c57",
-  "./backup_proprietary_notice/demo__run_demo.py": "75971552a8bd379021341e3795ec24a8049e5bf09afa467f7e5bd17fe00eae00",
-  "./backup_proprietary_notice/phase5__engine__phase5__engine__pdf_reports.py": "88f70bb880ccf4f9f55a1ce0ae7f2aeb1ecbbbf57033f1c8a6a53e460c4c4cf0",
-  "./backup_proprietary_notice/Phase8__AI_Talent_Engine_Master.md": "2cf206f2a1641dd4ee4ddd70d782e1b15dbc33b2f4c8263a39ccfe55a01c5e5b",
-  "./backup_proprietary_notice/Phase10__README.md": "296879cbdd7868eb6a36a4270a3fc60c19bad14e6740076298873edc5afba4a3",
-  "./backup_proprietary_notice/docs__AI_Talent_Schema_Rules.md": "622a8c55198fad660fa9a3eb38c546f1893a90c6119fb670228a4d31613b24f7",
-  "./backup_proprietary_notice/phase5__engine__pdf_reports.py": "0f904e16f6fbe5fee1e18dcb93c99937bf1214f1123dbf880ca8a3b365fd1f94",
-  "./backup_proprietary_notice/phase5__engine__phase5__engine____init__.py": "1464f3608622072603be2ab14ca9ca38044b51e10b99224f55ad410a4e8ea608",
-  "./backup_proprietary_notice/phase5__phase5_dashboard.py": "30dc1fd9aca972e019f05127746a04a421e245ea98e8aa07245cf2c24e3ad84f",
-  "./backup_proprietary_notice/docs__Phase9_Finalization_Bulletin.md": "2b5c5aa965fa82ac9b09f550df34980c95cf9699096c06375a57ed39ec9578d6",
-  "./backup_proprietary_notice/phase5__PHASE5_CLOSURE_REPORT.md": "a4e4cdcf4c633a4e2b55ecabc64954097b11dbd18fd393ac035f9cb3a56e6568",
-  "./backup_proprietary_notice/phase5__engine__phase5__engine__utils.py": "12205024273603927be19f1a00135d9827d5c49eb4060c1f9684d73d10a88a6f",
-  "./backup_proprietary_notice/validate_jsons.py": "babcd25f8518c4d6130b3fbdda5a6dd112c76627c643ad0f4d2702cbc0233056",
-  "./backup_proprietary_notice/phase6__phase6_loader.py": "300734b42ce064b00fcb1aac07cc8aaa2b37f68ea2a1c5109e472b4ac2837d10",
-  "./backup_proprietary_notice/phase7__test_schema_sync.md": "23b9157c01123f64244f90890bf08fcf2c8d36f45fcbebe6b7350f4e0da3cbff",
-  "./backup_proprietary_notice/agents__phase6__phase6_loader.py": "300734b42ce064b00fcb1aac07cc8aaa2b37f68ea2a1c5109e472b4ac2837d10",
-  "./backup_proprietary_notice/phase6__schema_enricher.py": "1d6a4316d2fcd7bf61e44e147efef96c7c58a23d5f99477423a3966a462bfce7",
-  "./backup_proprietary_notice/system_spec__AI_Talent_Engine_Demo_Spec.md": "336fea6ae29db8e74759f76195f1025634261048416618aad20d71d4fc46bd5d",
-  "./backup_proprietary_notice/demo__run_demo_api.py": "e2521103a3cfdfe2c34c42d61449e3dabb8a7a99bbb5f6de10f93cd9d3398461",
-  "./backup_proprietary_notice/test__test_phase5.py": "70d41476eb765df5f61ed79b3fa53abac5615f0c0edfdee291a1968553dcbd1d",
-  "./backup_proprietary_notice/Phase9__AI_Talent_Engine_Master.md": "6b37fdfd85c96e6927ab49092b8aba54c3cc27248a61fe4373fdd7548cfae6e2",
-  "./backup_proprietary_notice/Phase9__AI_Talent_Schema_Rules.md": "5c45b315d013ac32f9d4a8217706caf7c5a95bc84134f64802a55d18d378e2a9",
-  "./backup_proprietary_notice/docs__AI_Talent_Engine_Phase7_Citation_Intelligence.md": "fc0d2692891b6eabea71063aeedc0834cf8caecb1cc6e364abb696166aeb7fe7",
-  "./backup_proprietary_notice/scripts__automation_build.py": "8fc6c1938fe14d098d39fe3af0b7da45a241320c8695a2834c9f16ea14853492",
-  "./backup_proprietary_notice/enrichers____init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./backup_proprietary_notice/phase5__PHASE5_COMPLETION_SUMMARY.md": "73394007a325cf814676209551b5a8d832c062f14e07a1ed7f88d84b78d50277",
-  "./backup_proprietary_notice/phase7__AI_Talent_Engine_Phase7_Integration_Checklist.md": "bce8514302cdfe306b21fc10bed941d8cfe575362423788dd164a1876279f679",
-  "./backup_proprietary_notice/README.md": "0ad0d85dedb91f948873055b8e8de1c8d36560888aee81d0b72fb1bc2ea34783",
-  "./backup_proprietary_notice/phase7_demo_connector.py": "64af5519b164a25972211fa86554447dccab5e6d1873f22a2cf701612dbf167f",
-  "./backup_proprietary_notice/phase5__engine__phase5__engine__loader.py": "061b1c61b497803d9edc6a208ddcc5eaa3b94096e4fba8be71e040f564505b18",
-  "./backup_proprietary_notice/phase5__engine__analytics.py": "5f799f3eea8dbf1daf9ff7510e24cbb42bbbd0f7651ee645a92ebcc8650059c5",
-  "./backup_proprietary_notice/setup.py": "3b6fe2fb249b09afe89039e977924393bfc20adf11c03c34581c009ddac0f695",
-  "./backup_proprietary_notice/docs__README_SYSTEM_SPEC.md": "573eedbaf413939c493ae33707f98531ffa94733ebb51077aa6334ede854df8c",
-  "./backup_proprietary_notice/phase6__schema_validator.py": "618da65a7fbe847d9dbb1eec66a1693cdcb1b108e7757049e1c9cb9c9abfc8e8",
-  "./backup_proprietary_notice/scripts__check_env.py": "cd8aeceeb04e308f2e13dd47abc66df4f407cd4650c6ab0280ab631c177a44a3",
-  "./backup_proprietary_notice/phase5__PHASE5_CLOSURE_NOTE.md": "b2f137214c7061afd417a8aa6e155eab9a8a7c9689173c974304ae8b1b68f958",
-  "./backup_proprietary_notice/research_ops_automation____init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./backup_proprietary_notice/setup_history.md": "ad46d4875df934ca84956b2a8921e3a383c2d667f1dc178d70a3b2a036bec104",
-  "./backup_proprietary_notice/scripts__auto_inject_legal.py": "069924b3993e16ac8a98676e2aeb3f87fcc959e0bbc798340d56776f444cae96",
-  "./backup_proprietary_notice/scripts__phase10_auto_fill.py": "7ab4bcaf2a278748a98b739184bc61b6a518b6af26a951198ae7e520dcd587ec",
-  "./backup_proprietary_notice/phase7__README_phase7.md": "20ed63d9281514262f2a916bf6e391a4edf99e849bf2760bcea63155ed68dfee",
-  "./backup_proprietary_notice/agents__phase6__AI_Talent_Engine_Phase6_Master.md": "374ec78d1d78893e412f99a3002144f71b35c5dc1a38196c008aad86f0171516",
-  "./backup_proprietary_notice/phase5__engine__loader.py": "fbd0c73f564fdeeb99482f0091493ffebcc9c91e870ec6089c83dfa4dbe450e7",
-  "./backup_proprietary_notice/Phase10__AI_Talent_Engine_Master.md": "bc0226a2d3eff6006f8376a7587f2e69ffbc269e2891de68431c1ee82f6fd7aa",
-  "./backup_proprietary_notice/validators__validate_review_template.py": "69a26520629da4333e54c80d772b71cd22297abb2fb19201602a16118a172625",
-  "./backup_proprietary_notice/docs__Version_History.md": "8da30fc5058a6295bd226306e4855101bba42e2906f991db3a43d70ccab56513",
-  "./backup_proprietary_notice/phase7___index.yaml": "224f89fa65da38a79143a0cb248c550fec38f8e465add3732a7e53eb55710c09",
-  "./backup_proprietary_notice/docs__Upgraded_Field_Structural_Completion_Audit_v3.5.1.md": "b3e8327744dbaacae5f36585b38fce41760d225ed9be2630d60b2a70aac1c098",
-  "./backup_proprietary_notice/docs__AI_Talent_Review_Template.md": "5712e9ae2dbc9fdefc975a8c65a642e14ad3ffa0c5e2a0d48c207d2732dd4b8e",
-  "./backup_proprietary_notice/agents__phase6__schema_enricher.py": "1d6a4316d2fcd7bf61e44e147efef96c7c58a23d5f99477423a3966a462bfce7",
-  "./backup_proprietary_notice/Phase10__AI_Talent_Schema_Rules.md": "645f7878f5d743d67e0fc653e4dd3335120d4e48da3359de8754d24d0181fc9c",
-  "./backup_proprietary_notice/test_schema_load.py": "01f6067544d68bee032e8e50266c976c6acf92cbd11e028fca1dad2aa9f4ae10",
-  "./backup_proprietary_notice/output__Hiring_Intelligence_Summary_Report.md": "a2517d95be6cb964b11aedcfa6e7550d6451b272f686dc44624b149c3b020284",
-  "./backup_proprietary_notice/Phase9__validate_phase9.py": "08c6816590f9097d2f62bfd4731862fc7f6947acd16de79f8841552da6964b9d",
-  "./backup_proprietary_notice/docs__AI_Talent_Engine_Phase6_Master.md": "374ec78d1d78893e412f99a3002144f71b35c5dc1a38196c008aad86f0171516",
-  "./backup_proprietary_notice/phase2_demo__demo_phase2.py": "868adb409507f0800615151c86351a6561bc60fe241f475a1487b1ba44fdc6f7",
-  "./backup_proprietary_notice/system_spec__agent_registry.yaml": "e4fce2f93ac9948e231aab9a4556ecd40d21617c80a83ba811efb7e9b7354fa0",
-  "./backup_proprietary_notice/phase5____init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./backup_proprietary_notice/core__orchestrator.py": "09244b792040080ada9b08ce4ed85b74a4035719d774dc999a3bcdcadd07ed03",
-  "./backup_proprietary_notice/scripts__phase9_1_patch.py": "83fefbed8bbdcc16c68c5967242725ff3627e543dc886881e7175acf94ace8e5",
-  "./backup_proprietary_notice/phase7__AI_Talent_Engine_Phase7_Citation_Intelligence.md": "9f5b87cc963d13e257acc564d13dd095ed0e33bd2310a08ef97b395175c9856c",
-  "./backup_proprietary_notice/phase5__engine__phase5__engine__analytics.py": "d6171f8f1af2b3247e846f93321764e141e42d8dc2e8f90fa1896595a497456c",
-  "./backup_proprietary_notice/phase5__engine____init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./backup_proprietary_notice/agents__phase6__phase6_runner.py": "0f88b702240ded72d825fd4142f90ccf128121efcaa9f17460e7ec61bb58e405",
-  "./backup_proprietary_notice/scripts__phase10_citation_integration.py": "65eb69f3b5bf7aada853dbc578efca8de65d2439632a846697c8e951d87f9ed2",
-  "./backup_proprietary_notice/phase2_demo__signal_extractor.py": "ba6de2e0b62ed103d05e99ba7be4475432c79e1bd978aa72d2cd1f6ff6b2d1a3",
-  "./backup_proprietary_notice/test____init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./backup_proprietary_notice/phase6__phase6_runner.py": "0f88b702240ded72d825fd4142f90ccf128121efcaa9f17460e7ec61bb58e405",
-  "./backup_proprietary_notice/phase6__AI_Talent_Engine_Phase6_Master.md": "8933152368fe7ae1d59e403506b36553f655cbbaecd75ca2a12c4ed1ba8ca7c6",
-  "./backup_proprietary_notice/phase7__test_auto.md": "5b340afcb421b88a3fb7030cf13ceeebc47296a6f6fb9b364aba43f7d88d7e1f",
-  "./backup_proprietary_notice/Phase8__validate_phase8.py": "97f8b7264b3e3edd20623a6988d3efb4d4863dc58b57eb1418c689fdf5115006",
-  "./backup_proprietary_notice/Phase10__validate_phase10.py": "d26a953c769fa1101b854e43da6b60e77ee8756094faa6c3ddc08d0e0f2c4084",
-  "./backup_proprietary_notice/phase5__README_DEV_NOTES.md": "010fc285eb6e8bbfdb026ba66494df0cb56ed57eb9153aa87b02d80984b00288",
-  "./backup_proprietary_notice/COPYRIGHT_NOTICE.md": "14ecf62007639cca616c2d3c81b2334a0c3ba2a1eb91ae917a3353d12bca53da",
-  "./output/Hiring_Intelligence_Summary_Report.md": "3da8cd5eb126fe759a04a504a10ead562cb96a0c12fc2db4f7975b92693b0c3a",
-  "./output/intelligence/test_schema_fail.csv": "73c106735dd54ea87dff2cec3b4a525fa71f876c2682b9a11862a87eafb1f609",
-  "./output/intelligence/test_schema_good.csv": "93797a5d73304502bf18b7cc0b113e98afb562e219486dfc73262b8cac4502f0",
-  "./research_ops_automation/__init__.py": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac",
-  "./agents/phase6/AI_Talent_Engine_Phase6_Master.md": "7d32f91bb0b4d5595f3a03fbada4430cdd4f3814d0c2166bac49c4b8be744fe5",
-  "./agents/phase6/phase6_runner.py": "0f88b702240ded72d825fd4142f90ccf128121efcaa9f17460e7ec61bb58e405",
-  "./agents/phase6/schema_validator.py": "618da65a7fbe847d9dbb1eec66a1693cdcb1b108e7757049e1c9cb9c9abfc8e8",
-  "./agents/phase6/phase6_loader.py": "300734b42ce064b00fcb1aac07cc8aaa2b37f68ea2a1c5109e472b4ac2837d10",
-  "./agents/phase6/schema_enricher.py": "1d6a4316d2fcd7bf61e44e147efef96c7c58a23d5f99477423a3966a462bfce7",
-  "./system_spec/agent_registry.yaml": "22a1ac8a7e7517b5030f24a8f85ae3aac89f706340c93490dc2c31584c7a9d7c",
-  "./system_spec/AI_Talent_Engine_Demo_Spec.md": "aedb794b5a0e7bf9e30d8d09dfe4de3e113d019b23257397a0c07b248f5603c5",
-  "./docs/AI_Talent_Engine_Phase7_Citation_Intelligence.md": "8ed53f5c635191a7b3520c560ddbf61689f720ae803b916683f1a7b9a3d33c47",
-  "./docs/AI_Talent_Engine_Phase6_Master.md": "7d32f91bb0b4d5595f3a03fbada4430cdd4f3814d0c2166bac49c4b8be744fe5",
-  "./docs/Phase10_Integration_Bulletin.md": "811757bc8cf47f68e68b8d580d03e3504398678c5ca32478ddf854e862031fbb",
-  "./docs/Phase10_Finalization_Bulletin.md": "676160d584d68d0ddfeacbc49b8bfa59fedc439b9612fde90263bd7f102ce365",
-  "./docs/Phase9_Finalization_Bulletin.md": "e7fd18977742c93ea2b91aceb1343c287e56033447ec2fbe6ba04ca4d7d52088",
-  "./docs/AI_Talent_Schema_Rules.md": "5efe32f89a25aa21016860644a5bd23128211b23a08a15a0db8f8f8f2ad7c3c2",
-  "./docs/Version_History.md": "9d19d4353158283873f177a3068c942d419e2d3ca2d6b45daf10e022994bd045",
-  "./docs/Upgraded_Field_Structural_Completion_Audit_v3.5.1.md": "0289238538edba34cd1f9b3e8004693533ffe4fd015e6e46d5788703c16408cb",
-  "./docs/Phase9_Clean_History_Policy.md": "ea40b489147955d612fb988bbdb0e666722454b6250d55b7ddce9f6a5622b26e",
-  "./docs/AI_Talent_Review_Template.md": "fb23338b4650b2aa0bc489ea0cff36302240535d8672c13be161ab7e50164775",
-  "./docs/README_SYSTEM_SPEC.md": "03f6acb5b8653463a82b2d668024f869353248408808525962ae946cafd5335d",
-  "./Phase10/AI_Talent_Engine_Master.md": "4b8efafd744d310c5b6e46f7ac85dd7c11768f1d91869c20895c5444dbbfd15c",
-  "./Phase10/AI_Talent_Schema_Rules.md": "d2007c2c8cbd56881c71447e51aa8a354173cd6f562565306564885141c273fe",
-  "./Phase10/README.md": "9459a80ab3f4d56e6b5e1d6f2f67a25db506a469045fa4e7c25627448902424a",
-  "./Phase10/validate_phase10.py": "d26a953c769fa1101b854e43da6b60e77ee8756094faa6c3ddc08d0e0f2c4084",
-  "./scripts/phase10_citation_integration.py": "65eb69f3b5bf7aada853dbc578efca8de65d2439632a846697c8e951d87f9ed2",
-  "./scripts/auto_inject_legal.py": "ec35ffc4e6cf439f0dedf281cae16fac454da309b0972f10012ec9e9a0faf72a",
-  "./scripts/phase10_auto_fill.py": "7ab4bcaf2a278748a98b739184bc61b6a518b6af26a951198ae7e520dcd587ec",
-  "./scripts/automation_build.py": "8fc6c1938fe14d098d39fe3af0b7da45a241320c8695a2834c9f16ea14853492",
-  "./scripts/phase9_1_patch.py": "83fefbed8bbdcc16c68c5967242725ff3627e543dc886881e7175acf94ace8e5",
-  "./scripts/check_env.py": "cd8aeceeb04e308f2e13dd47abc66df4f407cd4650c6ab0280ab631c177a44a3",
-  "./Phase9/AI_Talent_Engine_Master.md": "a6f87992806274376770c847270fc3912de2b01a4cbb872c91896025f7d1f75f",
-  "./Phase9/validate_phase9.py": "08c6816590f9097d2f62bfd4731862fc7f6947acd16de79f8841552da6964b9d",
-  "./Phase9/AI_Talent_Schema_Rules.md": "5dd8c278efb77542f6e0b9012b6a705bb1d06c421da241c4481284d8a2c58e81",
-  "./phase7/AI_Talent_Engine_Phase7_Citation_Intelligence.md": "e5cf74875f13cfd1e02ee894e56f945a1601a6db680a101b4f58d9a55f4d660e",
-  "./phase7/README_phase7.md": "df12bbc2c87f076e8339a72c8385531d5f179403bfe0a8065cfe56777e90f47f",
-  "./phase7/test_auto.md": "e9081d23f2fa3145f0b4931617e3cbb95d86125278cfe48a47e744749f3bccfd",
-  "./phase7/AI_Talent_Engine_Phase7_Integration_Checklist.md": "ede0ad11b35fc50e90e20745ff89cc090dc2abbfa3b45faa5a59dd58cc99cadd",
-  "./phase7/test_schema_sync.md": "2765d1940352bbf998fff53d963ed0d4e6343135209b59749c8f0de2571aae07",
-  "./phase7/CHANGELOG_LINK.md": "6824ef02af40dc6d3103c4e5033c1e7d22e573c9f3411b397e701fe17c5910a3",
-  "./phase7/_index.yaml": "038c4f0a27104e857d309a6d1fcfa6b15cb0015398bb32f1731539c029c36b08",
-  "./phase7/test_hook_v2.md": "fb89728b7a3bc130f4d47f3e77c57a2e744a28179e529b90efb4c2ccf982bc1d",
-  "./validators/validate_review_template.py": "69a26520629da4333e54c80d772b71cd22297abb2fb19201602a16118a172625",
-  "./phase6/AI_Talent_Engine_Phase6_Master.md": "ad696a7c94c44404cbd63137d103179cab17a1e28d53147b42e72417f9bdbfe7",
-  "./phase6/phase6_runner.py": "0f88b702240ded72d825fd4142f90ccf128121efcaa9f17460e7ec61bb58e405",
-  "./phase6/schema_validator.py": "618da65a7fbe847d9dbb1eec66a1693cdcb1b108e7757049e1c9cb9c9abfc8e8",
-  "./phase6/phase6_loader.py": "300734b42ce064b00fcb1aac07cc8aaa2b37f68ea2a1c5109e472b4ac2837d10",
-  "./phase6/schema_enricher.py": "1d6a4316d2fcd7bf61e44e147efef96c7c58a23d5f99477423a3966a462bfce7",
-  "./Phase8/AI_Talent_Engine_Master.md": "b16829f08e69e7b46f0a560daba7fc3067827c3aebe99dce9c5d9b66b8acdebe",
-  "./Phase8/validate_phase8.py": "3fe7fedbebea8f0aa09579a6de43cb18d087fdba3a2d0b526a1e56c737a9a298",
-  "./Phase8/AI_Talent_Schema_Rules.md": "04d77efd44748e00d0463f77fb0dee649d65280dc01d00f8145c3c38fab8bcfa",
-  "./phase2_demo/demo_phase2.py": "c5d3a8692a3392c5030379797ffc81cbc5a0fab73617ecd6a02b0559a48b2e00",
-  "./phase2_demo/phase4_master_engine.py": "9bdef7aff280e44af62a05acf0b4f3cdb91ba6e63253119bed77eecbe407a9c7",
-  "./phase2_demo/phase4_ranked_signals.csv": "e2177c4167e4416b2f92084293d042baca6d983c33d93adde6350cd48c264ee4",
-  "./phase2_demo/ranked_talent_signals.csv": "c86970fce13eb7bf34ea4e60b7eca8a6565a6870dd46520dcf973edaec36be33",
-  "./phase2_demo/signal_extractor.py": "fcca999fd31a3d287268c4b91dae660554a48cd47a0741463cd22c4224d3c19c",
-  "./phase2_demo/ai_talent_leads.csv": "922eea6237f7bac7b8e5b2ec7fc196d3d127e55278813a6af8048597e33f1741",
-  "./outputs/runs/20251209_190334_demo_sample/errors.csv": "44df7b41da09bf05b8e5223ee8cc03c511357e2a8ac6b8d770e5bbfeb39a6f80",
-  "./outputs/runs/20251209_171715_demo_sample/errors.csv": "44df7b41da09bf05b8e5223ee8cc03c511357e2a8ac6b8d770e5bbfeb39a6f80",
-  "./outputs/runs/20251210_004330_demo_sample/errors.csv": "44df7b41da09bf05b8e5223ee8cc03c511357e2a8ac6b8d770e5bbfeb39a6f80",
-  "./outputs/runs/20251209_164356_demo_sample/errors.csv": "44df7b41da09bf05b8e5223ee8cc03c511357e2a8ac6b8d770e5bbfeb39a6f80",
-  "./outputs/runs/20251210_003643_demo_sample/errors.csv": "44df7b41da09bf05b8e5223ee8cc03c511357e2a8ac6b8d770e5bbfeb39a6f80",
-  "./outputs/runs/20251209_201319_demo_sample/errors.csv": "44df7b41da09bf05b8e5223ee8cc03c511357e2a8ac6b8d770e5bbfeb39a6f80",
-  "./demos/narration/voice_narrator.py": "a89e46624a6313fa8ac9bea62a8d26309af1fe424831d479cb02990d7f644e0f",
-  "./demos/narration/demo_intro.py": "5a99a30cf5fe8b43dd98defe3f3368140075a5b85f9a686b94b6799b08a08118",
-  "./demos/config/demo_map.yaml": "11efe468b466162de764397589d27a9be291fd665c278adfa61b1ec438725031",
-  "./demos/agents/vector_db_rag.py": "56d2c34b2b48c09f11e8e1749b7cd6d2645540f3536676387de54ce628f36402",
-  "./demos/agents/example_agent.py": "84359b794ac79cc690812d82176e1cf303697e0f35771a32a9af2bfad713404d",
-  "./demos/agents/example_agent_logged.py": "fb6c6c32da52a1554de3e41b25c052d66a4dafe73e9967cde6db4110df82ebd6",
-  "./demos/agents/multimodal_agent.py": "56d2c34b2b48c09f11e8e1749b7cd6d2645540f3536676387de54ce628f36402",
-  "./demos/agents/citation_velocity.py": "56d2c34b2b48c09f11e8e1749b7cd6d2645540f3536676387de54ce628f36402",
-  "./demos/agents/rlhf_alignment.py": "56d2c34b2b48c09f11e8e1749b7cd6d2645540f3536676387de54ce628f36402"
+  "generated": "2025-12-12T04:45:23.971449",
+  "files": [
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demo_autorun.py",
+      "sha256": "84b1b315257d0cd249e000b325e7f30a90f120e036a929682d501c1d96fb6200"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/generate_summary.py",
+      "sha256": "0769fb3645e7332663f6be8fa67b965fd096ae9bf87ad304ee4a5cabc3ba8132"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/validate_jsons.py",
+      "sha256": "babcd25f8518c4d6130b3fbdda5a6dd112c76627c643ad0f4d2702cbc0233056"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase7_demo_connector.py",
+      "sha256": "64af5519b164a25972211fa86554447dccab5e6d1873f22a2cf701612dbf167f"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/setup.py",
+      "sha256": "3b6fe2fb249b09afe89039e977924393bfc20adf11c03c34581c009ddac0f695"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/test_schema_load.py",
+      "sha256": "01f6067544d68bee032e8e50266c976c6acf92cbd11e028fca1dad2aa9f4ae10"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/build_init.py",
+      "sha256": "fd7cc5e931333e6b715f08212f30fe7be1cf17481b6bebee7675796e43a4fab9"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demo/run_demo.py",
+      "sha256": "75971552a8bd379021341e3795ec24a8049e5bf09afa467f7e5bd17fe00eae00"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demo/run_demo_api.py",
+      "sha256": "e2521103a3cfdfe2c34c42d61449e3dabb8a7a99bbb5f6de10f93cd9d3398461"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/enrichers/__init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/timeline_visualizer.py",
+      "sha256": "d9093cbd36fb9c0411efe165c6eee6e524870ec91f1f080738e6b3ed46dcf547"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/arxiv_researcher_aggregator.py",
+      "sha256": "e1a8378223358ca6566c44141eec99e190e16215a7d0a0b00c5d819b53d70545"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/integrity_verifier.py",
+      "sha256": "121f1302a3ef7aadd48e542348b878e4c47cf5ff216fbde9163f5886e48e3c48"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/voice_script_manager.py",
+      "sha256": "8a5043c1bd78fdfd89f74a9fcdb884e49dc4fced8faa87fd56e3be23da314173"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/talent_signal_analyzer.py",
+      "sha256": "af8e8857deae064b594114102c3cef631a8f0e592bc955e78eb83abc3d094b2d"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/huggingface_model_aggregator.py",
+      "sha256": "f1c643915e34cc48ef1a4d4d13985c20c211d69b32cb33f6b4b6a2039cc69356"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/semantic_scholar_aggregator.py",
+      "sha256": "2b0e1e3e0b6d60ae4da9e439b77642627f8e687a832e3660964914ce0925787c"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/security_audit.py",
+      "sha256": "9d5dab63e5005818dd87a0dafd8f5895f7356921a425561c32dcbe65f753c67c"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/dashboard_analytics_panel.py",
+      "sha256": "999908148a10e6aa0be80cb3b28e3b8634d8772fde72bb9c656dd899cab14c66"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/snapshot_backup.py",
+      "sha256": "16958a5858158c31e03bb5f866ff1d56557626e6a4dac98ee225a0a7b3f61c59"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/__init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/conference_mode_launcher.py",
+      "sha256": "495be9cd247ce47285d65d0770c1795a6554799554dfcf28df93bce79ebec6a8"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/compliance_audit.py",
+      "sha256": "9dea4d38dad79e5470e1ea7ef99446486696b865463e90f3b6ffc7a770fdf1af"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/gpt_agent.py",
+      "sha256": "503c0edb56b7253e26b34580ef95524b45d3bef97ea9280d7fa6443c586577f0"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/build_full_system.py",
+      "sha256": "f530a69829ae972bf32726f008e98e09e64d036b6e83a5422b711c19bcb4ab96"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/orchestrator.py",
+      "sha256": "4289b37b4c70b2fb91991370950b91038bf4a2f9742cde02600e302fe475c8e7"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/build_total_system.py",
+      "sha256": "18ad827936b044efdfe91ac883c3742490a2384cb747ff86c9e37b4ff67f425b"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/demo_logger.py",
+      "sha256": "906fe75d63c885fc7a6459e2e1f946f837eb9fb6332c171eecddb118ef367410"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/network_graph_visualizer.py",
+      "sha256": "be3843876cb96e09d2200d95701366f6e07b2a45e2a08adab9fc50fd8efbca81"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/geo_heatmap_builder.py",
+      "sha256": "68aa0a943562dad8ed6d8b23e427a10df98401539ef0fb521c9a11b6abd3aa33"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/data_normalizer.py",
+      "sha256": "641ce460a7c6a98bd765b35f111c1f652f9bf25cdb28db48208b6793ca14d09e"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/build_enterprise_suite.py",
+      "sha256": "2c041c567b665c93e10222f124631bcdeea16a35a2498ec2e00a97746aca2408"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/scheduler.py",
+      "sha256": "6f14353f2091eb311e233c87c12288aabb9f86fe7fe88ba2eefc992ab0350aba"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/dashboard_connector.py",
+      "sha256": "f8f5c57767c6f7eef7f0c241dbb47048a6320926797e12453262b90d95e61133"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/interactive_cli.py",
+      "sha256": "3d09f406581ccb3827a3306903d9bbdeeb01d35941ad094c8d9419cfcf92905a"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/github_researcher_aggregator.py",
+      "sha256": "1a18fa99672d9c3c886b54d68cd6a2afe9e9d9e69c3fcd030bd9fed779ecc759"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/research_graph_builder.py",
+      "sha256": "f9d8aa165c985a9c145324c90831161bff254084652304afa4c76610fa053ec9"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/system_health.py",
+      "sha256": "0601546f84b125438f0ff2549e0f60a4a5cb0d771b76e6bd6318e011a300bef4"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/env_validator.py",
+      "sha256": "35323855f0a5ef1f45c5a5874bf2c2c0c2c811c89d9cd1bd9f25a4648c6b7e1f"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/voice_monitor.py",
+      "sha256": "66bf0480e7034c1c80b35e9fc0fd7e8affddf72e0ae84c2527ef705e05696589"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/auto_demo_recorder.py",
+      "sha256": "807b411dc44f68996bee1319b5bed7a89c3a2a689079af0b449f114e80797b7f"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/version_manifest.py",
+      "sha256": "877a425603b4ceecf0f3ae8cb1325f8e0833b05d044cc3ca03c8e737eefb9491"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/core/tests/test_sanity.py",
+      "sha256": "f81008c839b9908c3fecb8f90eeefa8ede8042f43a68c293e4a7c9e5f3ef6e7c"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/test/__init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/test/test_phase5.py",
+      "sha256": "70d41476eb765df5f61ed79b3fa53abac5615f0c0edfdee291a1968553dcbd1d"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/phase5_dashboard.py",
+      "sha256": "30dc1fd9aca972e019f05127746a04a421e245ea98e8aa07245cf2c24e3ad84f"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/__init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/engine/__init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/engine/pdf_reports.py",
+      "sha256": "0f904e16f6fbe5fee1e18dcb93c99937bf1214f1123dbf880ca8a3b365fd1f94"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/engine/utils.py",
+      "sha256": "d31d9517f566a52f7618e0ddedd575451a59e567276136b35bc42d8a4de921e7"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/engine/loader.py",
+      "sha256": "fbd0c73f564fdeeb99482f0091493ffebcc9c91e870ec6089c83dfa4dbe450e7"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/engine/analytics.py",
+      "sha256": "5f799f3eea8dbf1daf9ff7510e24cbb42bbbd0f7651ee645a92ebcc8650059c5"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/engine/phase5/engine/enrich.py",
+      "sha256": "28850267827907ba391a0992543ef19606ea8cd9aa90948d33500dcabdf97837"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/engine/phase5/engine/__init__.py",
+      "sha256": "1464f3608622072603be2ab14ca9ca38044b51e10b99224f55ad410a4e8ea608"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/engine/phase5/engine/pdf_reports.py",
+      "sha256": "88f70bb880ccf4f9f55a1ce0ae7f2aeb1ecbbbf57033f1c8a6a53e460c4c4cf0"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/engine/phase5/engine/utils.py",
+      "sha256": "12205024273603927be19f1a00135d9827d5c49eb4060c1f9684d73d10a88a6f"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/engine/phase5/engine/loader.py",
+      "sha256": "061b1c61b497803d9edc6a208ddcc5eaa3b94096e4fba8be71e040f564505b18"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase5/engine/phase5/engine/analytics.py",
+      "sha256": "d6171f8f1af2b3247e846f93321764e141e42d8dc2e8f90fa1896595a497456c"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__engine__phase5__engine__enrich.py",
+      "sha256": "28850267827907ba391a0992543ef19606ea8cd9aa90948d33500dcabdf97837"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/core__gpt_agent.py",
+      "sha256": "d7712eea0c7e41a39d8e02a2c22b14ac4ffa56105488aaef43d3e85111a2767b"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/core____init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/agents__phase6__schema_validator.py",
+      "sha256": "618da65a7fbe847d9dbb1eec66a1693cdcb1b108e7757049e1c9cb9c9abfc8e8"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/generate_summary.py",
+      "sha256": "0769fb3645e7332663f6be8fa67b965fd096ae9bf87ad304ee4a5cabc3ba8132"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__engine__utils.py",
+      "sha256": "d31d9517f566a52f7618e0ddedd575451a59e567276136b35bc42d8a4de921e7"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase2_demo__phase4_master_engine.py",
+      "sha256": "08e5a38c5ca5e93b1e060133d85ea9d9c2536f0c385d8cf1981d999468796c57"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/demo__run_demo.py",
+      "sha256": "75971552a8bd379021341e3795ec24a8049e5bf09afa467f7e5bd17fe00eae00"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__engine__phase5__engine__pdf_reports.py",
+      "sha256": "88f70bb880ccf4f9f55a1ce0ae7f2aeb1ecbbbf57033f1c8a6a53e460c4c4cf0"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__engine__pdf_reports.py",
+      "sha256": "0f904e16f6fbe5fee1e18dcb93c99937bf1214f1123dbf880ca8a3b365fd1f94"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__engine__phase5__engine____init__.py",
+      "sha256": "1464f3608622072603be2ab14ca9ca38044b51e10b99224f55ad410a4e8ea608"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__phase5_dashboard.py",
+      "sha256": "30dc1fd9aca972e019f05127746a04a421e245ea98e8aa07245cf2c24e3ad84f"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__engine__phase5__engine__utils.py",
+      "sha256": "12205024273603927be19f1a00135d9827d5c49eb4060c1f9684d73d10a88a6f"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/validate_jsons.py",
+      "sha256": "babcd25f8518c4d6130b3fbdda5a6dd112c76627c643ad0f4d2702cbc0233056"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase6__phase6_loader.py",
+      "sha256": "300734b42ce064b00fcb1aac07cc8aaa2b37f68ea2a1c5109e472b4ac2837d10"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/agents__phase6__phase6_loader.py",
+      "sha256": "300734b42ce064b00fcb1aac07cc8aaa2b37f68ea2a1c5109e472b4ac2837d10"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase6__schema_enricher.py",
+      "sha256": "1d6a4316d2fcd7bf61e44e147efef96c7c58a23d5f99477423a3966a462bfce7"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/demo__run_demo_api.py",
+      "sha256": "e2521103a3cfdfe2c34c42d61449e3dabb8a7a99bbb5f6de10f93cd9d3398461"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/test__test_phase5.py",
+      "sha256": "70d41476eb765df5f61ed79b3fa53abac5615f0c0edfdee291a1968553dcbd1d"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/scripts__automation_build.py",
+      "sha256": "8fc6c1938fe14d098d39fe3af0b7da45a241320c8695a2834c9f16ea14853492"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/enrichers____init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase7_demo_connector.py",
+      "sha256": "64af5519b164a25972211fa86554447dccab5e6d1873f22a2cf701612dbf167f"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__engine__phase5__engine__loader.py",
+      "sha256": "061b1c61b497803d9edc6a208ddcc5eaa3b94096e4fba8be71e040f564505b18"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__engine__analytics.py",
+      "sha256": "5f799f3eea8dbf1daf9ff7510e24cbb42bbbd0f7651ee645a92ebcc8650059c5"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/setup.py",
+      "sha256": "3b6fe2fb249b09afe89039e977924393bfc20adf11c03c34581c009ddac0f695"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase6__schema_validator.py",
+      "sha256": "618da65a7fbe847d9dbb1eec66a1693cdcb1b108e7757049e1c9cb9c9abfc8e8"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/scripts__check_env.py",
+      "sha256": "cd8aeceeb04e308f2e13dd47abc66df4f407cd4650c6ab0280ab631c177a44a3"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/research_ops_automation____init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/scripts__auto_inject_legal.py",
+      "sha256": "069924b3993e16ac8a98676e2aeb3f87fcc959e0bbc798340d56776f444cae96"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/scripts__phase10_auto_fill.py",
+      "sha256": "7ab4bcaf2a278748a98b739184bc61b6a518b6af26a951198ae7e520dcd587ec"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__engine__loader.py",
+      "sha256": "fbd0c73f564fdeeb99482f0091493ffebcc9c91e870ec6089c83dfa4dbe450e7"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/validators__validate_review_template.py",
+      "sha256": "69a26520629da4333e54c80d772b71cd22297abb2fb19201602a16118a172625"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/agents__phase6__schema_enricher.py",
+      "sha256": "1d6a4316d2fcd7bf61e44e147efef96c7c58a23d5f99477423a3966a462bfce7"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/test_schema_load.py",
+      "sha256": "01f6067544d68bee032e8e50266c976c6acf92cbd11e028fca1dad2aa9f4ae10"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/Phase9__validate_phase9.py",
+      "sha256": "08c6816590f9097d2f62bfd4731862fc7f6947acd16de79f8841552da6964b9d"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase2_demo__demo_phase2.py",
+      "sha256": "868adb409507f0800615151c86351a6561bc60fe241f475a1487b1ba44fdc6f7"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5____init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/core__orchestrator.py",
+      "sha256": "09244b792040080ada9b08ce4ed85b74a4035719d774dc999a3bcdcadd07ed03"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/scripts__phase9_1_patch.py",
+      "sha256": "83fefbed8bbdcc16c68c5967242725ff3627e543dc886881e7175acf94ace8e5"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__engine__phase5__engine__analytics.py",
+      "sha256": "d6171f8f1af2b3247e846f93321764e141e42d8dc2e8f90fa1896595a497456c"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase5__engine____init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/agents__phase6__phase6_runner.py",
+      "sha256": "0f88b702240ded72d825fd4142f90ccf128121efcaa9f17460e7ec61bb58e405"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/scripts__phase10_citation_integration.py",
+      "sha256": "65eb69f3b5bf7aada853dbc578efca8de65d2439632a846697c8e951d87f9ed2"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase2_demo__signal_extractor.py",
+      "sha256": "ba6de2e0b62ed103d05e99ba7be4475432c79e1bd978aa72d2cd1f6ff6b2d1a3"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/test____init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/phase6__phase6_runner.py",
+      "sha256": "0f88b702240ded72d825fd4142f90ccf128121efcaa9f17460e7ec61bb58e405"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/Phase8__validate_phase8.py",
+      "sha256": "97f8b7264b3e3edd20623a6988d3efb4d4863dc58b57eb1418c689fdf5115006"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/backup_proprietary_notice/Phase10__validate_phase10.py",
+      "sha256": "d26a953c769fa1101b854e43da6b60e77ee8756094faa6c3ddc08d0e0f2c4084"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/research_ops_automation/__init__.py",
+      "sha256": "20570b5ab2a0596a1b3c4dbf98098eea1ca8bc8c1bcda2f2324619fcdedf0bac"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/agents/phase6/phase6_runner.py",
+      "sha256": "0f88b702240ded72d825fd4142f90ccf128121efcaa9f17460e7ec61bb58e405"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/agents/phase6/schema_validator.py",
+      "sha256": "618da65a7fbe847d9dbb1eec66a1693cdcb1b108e7757049e1c9cb9c9abfc8e8"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/agents/phase6/phase6_loader.py",
+      "sha256": "300734b42ce064b00fcb1aac07cc8aaa2b37f68ea2a1c5109e472b4ac2837d10"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/agents/phase6/schema_enricher.py",
+      "sha256": "1d6a4316d2fcd7bf61e44e147efef96c7c58a23d5f99477423a3966a462bfce7"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/Phase10/validate_phase10.py",
+      "sha256": "d26a953c769fa1101b854e43da6b60e77ee8756094faa6c3ddc08d0e0f2c4084"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/scripts/phase10_citation_integration.py",
+      "sha256": "65eb69f3b5bf7aada853dbc578efca8de65d2439632a846697c8e951d87f9ed2"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/scripts/auto_inject_legal.py",
+      "sha256": "ec35ffc4e6cf439f0dedf281cae16fac454da309b0972f10012ec9e9a0faf72a"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/scripts/phase10_auto_fill.py",
+      "sha256": "7ab4bcaf2a278748a98b739184bc61b6a518b6af26a951198ae7e520dcd587ec"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/scripts/automation_build.py",
+      "sha256": "8fc6c1938fe14d098d39fe3af0b7da45a241320c8695a2834c9f16ea14853492"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/scripts/phase9_1_patch.py",
+      "sha256": "83fefbed8bbdcc16c68c5967242725ff3627e543dc886881e7175acf94ace8e5"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/scripts/check_env.py",
+      "sha256": "cd8aeceeb04e308f2e13dd47abc66df4f407cd4650c6ab0280ab631c177a44a3"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/Phase9/validate_phase9.py",
+      "sha256": "08c6816590f9097d2f62bfd4731862fc7f6947acd16de79f8841552da6964b9d"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/validators/validate_review_template.py",
+      "sha256": "69a26520629da4333e54c80d772b71cd22297abb2fb19201602a16118a172625"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase6/phase6_runner.py",
+      "sha256": "0f88b702240ded72d825fd4142f90ccf128121efcaa9f17460e7ec61bb58e405"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase6/schema_validator.py",
+      "sha256": "618da65a7fbe847d9dbb1eec66a1693cdcb1b108e7757049e1c9cb9c9abfc8e8"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase6/phase6_loader.py",
+      "sha256": "300734b42ce064b00fcb1aac07cc8aaa2b37f68ea2a1c5109e472b4ac2837d10"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase6/schema_enricher.py",
+      "sha256": "1d6a4316d2fcd7bf61e44e147efef96c7c58a23d5f99477423a3966a462bfce7"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/Phase8/validate_phase8.py",
+      "sha256": "3fe7fedbebea8f0aa09579a6de43cb18d087fdba3a2d0b526a1e56c737a9a298"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase2_demo/demo_phase2.py",
+      "sha256": "c5d3a8692a3392c5030379797ffc81cbc5a0fab73617ecd6a02b0559a48b2e00"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase2_demo/phase4_master_engine.py",
+      "sha256": "9bdef7aff280e44af62a05acf0b4f3cdb91ba6e63253119bed77eecbe407a9c7"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/phase2_demo/signal_extractor.py",
+      "sha256": "fcca999fd31a3d287268c4b91dae660554a48cd47a0741463cd22c4224d3c19c"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demos/narration/voice_narrator.py",
+      "sha256": "a89e46624a6313fa8ac9bea62a8d26309af1fe424831d479cb02990d7f644e0f"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demos/narration/demo_intro.py",
+      "sha256": "5a99a30cf5fe8b43dd98defe3f3368140075a5b85f9a686b94b6799b08a08118"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demos/agents/vector_db_rag.py",
+      "sha256": "56d2c34b2b48c09f11e8e1749b7cd6d2645540f3536676387de54ce628f36402"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demos/agents/example_agent.py",
+      "sha256": "84359b794ac79cc690812d82176e1cf303697e0f35771a32a9af2bfad713404d"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demos/agents/example_agent_logged.py",
+      "sha256": "fb6c6c32da52a1554de3e41b25c052d66a4dafe73e9967cde6db4110df82ebd6"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demos/agents/multimodal_agent.py",
+      "sha256": "56d2c34b2b48c09f11e8e1749b7cd6d2645540f3536676387de54ce628f36402"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demos/agents/citation_velocity.py",
+      "sha256": "56d2c34b2b48c09f11e8e1749b7cd6d2645540f3536676387de54ce628f36402"
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/demos/agents/rlhf_alignment.py",
+      "sha256": "56d2c34b2b48c09f11e8e1749b7cd6d2645540f3536676387de54ce628f36402"
+    }
+  ],
+  "author": "L. David Mendoza"
 }
