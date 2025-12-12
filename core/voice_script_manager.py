@@ -1,0 +1,1 @@
+print('🗣️ Voice script manager ready.')
