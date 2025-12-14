@@ -1,5 +1,5 @@
-from __future__ import annotations
 #!/usr/bin/env python3
+from __future__ import annotations
 
 import argparse
 import json
@@ -9,8 +9,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from openpyxl import Workbook
-from openpyxl.chart import LineChart, Reference
-from openpyxl.formatting.rule import ColorScaleRule
 from openpyxl.styles import Font, PatternFill
 
 # =========================
@@ -23,7 +21,12 @@ MODEL_FAMILIES = [
     "Gemma", "DBRX", "Grok"
 ]
 
-TIER_ORDER = {"Tier 1": 1, "Tier 2": 2, "Tier 3": 3, "Tier 4": 4}
+TIER_ORDER = {
+    "Tier 1": 1,
+    "Tier 2": 2,
+    "Tier 3": 3,
+    "Tier 4": 4,
+}
 
 CANON_COLUMNS = [
     "Overall Rank",
@@ -46,24 +49,24 @@ CANON_COLUMNS = [
 # UTIL
 # =========================
 
-def now():
+def now() -> str:
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-def s(v):
+def s(v: Any) -> str:
     return "" if v is None else str(v).strip()
 
-def f(v) -> Optional[float]:
+def f(v: Any) -> Optional[float]:
     try:
         return float(v)
     except Exception:
         return None
 
-def parse_series(v) -> List[float]:
+def parse_series(v: Any) -> List[float]:
     if not v:
         return []
     if isinstance(v, list):
         return [float(x) for x in v if isinstance(x, (int, float))]
-    out = []
+    out: List[float] = []
     for p in str(v).replace(";", ",").split(","):
         try:
             out.append(float(p.strip()))
@@ -100,7 +103,7 @@ class Row:
 # =========================
 
 def load_candidates(outputs: Path) -> List[Dict[str, Any]]:
-    rows = []
+    rows: List[Dict[str, Any]] = []
 
     for p in outputs.glob("*.json"):
         if "validation" in p.name or "audit" in p.name:
@@ -147,14 +150,14 @@ def normalize(d: Dict[str, Any]) -> Row:
 # =========================
 
 def rank(rows: List[Row]):
-    uniq = {}
+    uniq: Dict[Any, Row] = {}
     for r in rows:
         if r.key() not in uniq or (r.score or 0) > (uniq[r.key()].score or 0):
             uniq[r.key()] = r
 
     ordered = sorted(
         uniq.values(),
-        key=lambda r: (-(r.score or 0), TIER_ORDER.get(r.tier, 9))
+        key=lambda r: (-(r.score or 0), TIER_ORDER.get(r.tier, 9)),
     )
     return [(i + 1, r) for i, r in enumerate(ordered)]
 
@@ -179,25 +182,42 @@ def write_xlsx(out: Path, ranked):
 
     for rank, r in ranked:
         ws.append([
-            rank, r.name, r.org, r.ai, r.tech, r.models,
-            r.citations, r.velocity, r.lineage,
-            r.strengths, r.weaknesses, r.tier,
-            r.score, r.rec
+            rank,
+            r.name,
+            r.org,
+            r.ai,
+            r.tech,
+            r.models,
+            r.citations,
+            r.velocity,
+            r.lineage,
+            r.strengths,
+            r.weaknesses,
+            r.tier,
+            r.score,
+            r.rec,
         ])
 
     ws.freeze_panes = "A2"
-    ws.auto_filter.ref = ws.dimensions
+
+    # -------------------------
+    # MODEL FAMILY HEATMAP
+    # (NO CONDITIONAL FORMATTING, NO FILTERS)
+    # -------------------------
 
     hm = wb.create_sheet("MODEL_FAMILY_HEATMAP")
     hm.append(["Rank", "Name", "Organization"] + MODEL_FAMILIES)
 
     for rank, r in ranked:
         text = r.models.lower()
-        hm.append([rank, r.name, r.org] + [1 if m.lower() in text else 0 for m in MODEL_FAMILIES])
+        hm.append(
+            [rank, r.name, r.org]
+            + [1 if m.lower() in text else 0 for m in MODEL_FAMILIES]
+        )
 
-    end_col = chr(ord("C") + len(MODEL_FAMILIES))
-    rule = ColorScaleRule(start_type="num", start_value=0, mid_type="num", mid_value=0.5, end_type="num", end_value=1)
-    hm.conditional_formatting.add(f"D2:{end_col}{hm.max_row}", rule)
+    # -------------------------
+    # META
+    # -------------------------
 
     meta = wb.create_sheet("META")
     meta.append(["Generated", now()])
