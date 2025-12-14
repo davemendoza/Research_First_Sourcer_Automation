@@ -37,3 +37,5 @@ __pycache__/
 
 # Backup and system scripts
 lock_project_root.sh
+final_frontier_radar.xlsx
+.DS_Store
