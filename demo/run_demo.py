@@ -3,90 +3,155 @@
 # All rights reserved. Proprietary and confidential.
 # Governed by the laws of the State of Colorado, USA.
 
-import json
-import requests
+"""
+OpenAI Demo Runner
+Research_First_Sourcer_Automation
 
-CONFIG = {
-    "repo": "davemendoza/Research_First_Sourcer_Automation",
-    "branch": "main",
-    "output_path": "output",
-    "files": [
-        "Ashudeep_Singh.json",
-        "Patrick_von_Platen.json",
-        "Shubham_Saboo.json",
-    ],
-}
+Single-command, deterministic demo entry point.
+
+Python executes.
+GPT interprets.
+
+This script is intentionally conservative:
+- No live scraping
+- No live GPT calls
+- No network dependency
+- No mutation of source data
+
+Designed for 45–60 minute senior technical demos.
+"""
+
+import sys
+import subprocess
+import platform
+import time
+from pathlib import Path
 
 
-def fetch_candidate_data(file_name: str) -> dict:
-    """
-    Fetch candidate intelligence from GitHub raw files.
-    Safely strips legal headers and footers before JSON parsing.
-    """
-    base_url = (
-        f"https://raw.githubusercontent.com/"
-        f"{CONFIG['repo']}/{CONFIG['branch']}/{CONFIG['output_path']}"
+# ---------------------------------------------------------------------
+# Repo structure (authoritative)
+# ---------------------------------------------------------------------
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+PHASE11_SCRIPT = REPO_ROOT / "Phase11" / "phase11_final_merge.py"
+INPUT_DIR = REPO_ROOT / "outputs"
+OUTPUT_FILE = REPO_ROOT / "final_frontier_radar.xlsx"
+
+
+# ---------------------------------------------------------------------
+# Presentation helpers
+# ---------------------------------------------------------------------
+
+def banner() -> None:
+    print("\n" + "=" * 78)
+    print(" AI TALENT ENGINE — FRONTIER SCIENTIST RADAR DEMO")
+    print(" Research_First_Sourcer_Automation")
+    print("=" * 78)
+    print(" • Deterministic Python execution")
+    print(" • GPT used only for reasoning and synthesis")
+    print(" • Known-good, demo-locked build")
+    print("=" * 78 + "\n")
+
+
+def check_environment() -> None:
+    print("🔎 Environment validation\n")
+
+    print(f" • Python version: {platform.python_version()}")
+    if sys.version_info < (3, 9):
+        sys.exit("❌ Python 3.9 or newer is required")
+
+    if not PHASE11_SCRIPT.exists():
+        sys.exit("❌ Phase 11 script not found")
+
+    if not INPUT_DIR.exists():
+        sys.exit("❌ outputs/ directory not found")
+
+    print(" ✅ Environment OK\n")
+
+
+# ---------------------------------------------------------------------
+# Core execution
+# ---------------------------------------------------------------------
+
+def run_phase11() -> None:
+    print("▶ Running Phase 11 — Final Frontier Radar Merge\n")
+
+    cmd = [
+        sys.executable,
+        str(PHASE11_SCRIPT),
+        "--inputs",
+        str(INPUT_DIR),
+        "--out",
+        str(OUTPUT_FILE),
+    ]
+
+    subprocess.run(cmd, check=True)
+
+    if not OUTPUT_FILE.exists():
+        sys.exit("❌ Expected output file was not created")
+
+    print("\n✅ Phase 11 complete")
+    print(f"📄 Output written to: {OUTPUT_FILE}\n")
+
+
+# ---------------------------------------------------------------------
+# GPT integration explanation (verbal anchor for demo)
+# ---------------------------------------------------------------------
+
+def explain_gpt_boundary() -> None:
+    print("=" * 78)
+    print(" GPT ↔ PYTHON INTEGRATION MODEL")
+    print("=" * 78)
+    print(
+        "Python responsibilities:\n"
+        " • Data ingestion\n"
+        " • Enrichment\n"
+        " • Scoring\n"
+        " • Ranking\n"
+        " • Artifact generation\n\n"
+        "GPT responsibilities:\n"
+        " • Interpret ranked outputs\n"
+        " • Explain tradeoffs\n"
+        " • Generate hiring-manager narratives\n\n"
+        "Key principle:\n"
+        " Python decides what is true.\n"
+        " GPT explains why it matters.\n"
     )
-    url = f"{base_url}/{file_name}"
-
-    print(f"Loading candidate file: {file_name}")
-    response = requests.get(url, timeout=30)
-    response.raise_for_status()
-
-    raw_text = response.text.strip()
-
-    # Strip any legal/header/footer text around JSON
-    json_start = raw_text.find("{")
-    json_end = raw_text.rfind("}")
-
-    if json_start == -1 or json_end == -1 or json_end <= json_start:
-        raise ValueError("No valid JSON object found in file")
-
-    clean_json = raw_text[json_start : json_end + 1]
-    return json.loads(clean_json)
+    print("=" * 78 + "\n")
 
 
-def run_demo() -> None:
-    records = []
+# ---------------------------------------------------------------------
+# Convenience: open Excel automatically
+# ---------------------------------------------------------------------
 
-    for file_name in CONFIG["files"]:
-        try:
-            record = fetch_candidate_data(file_name)
-            records.append(record)
-        except Exception as exc:
-            print(f"Warning. Failed to load {file_name}. Reason: {exc}")
+def open_excel() -> None:
+    print("📊 Opening final artifact\n")
+    time.sleep(1)
 
-    print()
-    print(f"Loaded {len(records)} candidate records")
-    print("Candidate Intelligence Summary")
-    print("=" * 72)
+    system = platform.system()
+    if system == "Darwin":
+        subprocess.run(["open", str(OUTPUT_FILE)])
+    elif system == "Windows":
+        subprocess.run(["start", str(OUTPUT_FILE)], shell=True)
+    else:
+        print("ℹ️ Please open the Excel file manually.")
 
-    for c in records:
-        name = c.get("name", "[unknown]")
-        roles = c.get("role_classification", [])
-        score = c.get("composite_score", "N/A")
-        recommendation = c.get("recommendation", "[no recommendation]")
 
-        print(f"Name: {name}")
-        print(f"Roles: {', '.join(roles) if roles else '[none]'}")
-        print(f"Composite Score: {score}")
-        print(f"Recommendation: {recommendation}")
+# ---------------------------------------------------------------------
+# Main demo flow
+# ---------------------------------------------------------------------
 
-        evidence = c.get("Evidence_Map_JSON", [])
-        if isinstance(evidence, list) and evidence:
-            print("Evidence Highlights:")
-            for e in evidence[:3]:
-                statement = e.get("statement")
-                if statement:
-                    print(f" - {statement}")
+def main() -> None:
+    banner()
+    check_environment()
+    run_phase11()
+    explain_gpt_boundary()
+    open_excel()
 
-        print("-" * 72)
-
-    print()
-    print("Phase 7 demo complete.")
-    print("Python ingestion layer validated.")
-    print("GPT reasoning layer cleanly synchronized.")
+    print("\n🎬 Demo execution complete")
+    print("This system is a research collaborator, not a sourcing tool.")
+    print("=" * 78 + "\n")
 
 
 if __name__ == "__main__":
-    run_demo()
+    main()
