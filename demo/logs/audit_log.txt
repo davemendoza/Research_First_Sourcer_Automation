@@ -1,0 +1,16 @@
+[2025-12-15 23:07:18] ✅ Generated frontier_top50_demo.csv (50 rows)
+[2025-12-15 23:07:18] 🔒 SHA256 checksum for frontier_top50_demo.csv: 3bf1c2c22c50…
+[2025-12-15 23:07:19] 📊 Charts generated for frontier
+[2025-12-15 23:07:19] ✅ Generated engineers_250_demo.csv (250 rows)
+[2025-12-15 23:07:19] 🔒 SHA256 checksum for engineers_250_demo.csv: a7fd49229281…
+[2025-12-15 23:07:19] 📊 Charts generated for engineers
+[2025-12-15 23:07:19] Run complete.
+[2025-12-15 23:07:19] 📄 Summary written to demo_assets/summary_report.txt
+[2025-12-15 23:15:31] ✅ Generated frontier_top50_demo.csv (50 rows)
+[2025-12-15 23:15:31] 🔒 SHA256 checksum for frontier_top50_demo.csv: b161a2c3d90c…
+[2025-12-15 23:15:31] 📊 Charts generated for frontier
+[2025-12-15 23:15:31] ✅ Generated engineers_250_demo.csv (250 rows)
+[2025-12-15 23:15:31] 🔒 SHA256 checksum for engineers_250_demo.csv: 9365eb4e234f…
+[2025-12-15 23:15:31] 📊 Charts generated for engineers
+[2025-12-15 23:15:31] Run complete.
+[2025-12-15 23:15:31] 📄 Summary written to demo_assets/summary_report.txt

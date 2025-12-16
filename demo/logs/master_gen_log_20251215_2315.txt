@@ -1,0 +1,22 @@
+AI Talent Engine v3.4 — Starting generator…
+
+------------------------------------------------------------
+[2025-12-15 23:15:31] ✅ Generated frontier_top50_demo.csv (50 rows)
+[2025-12-15 23:15:31] 🔒 SHA256 checksum for frontier_top50_demo.csv: b161a2c3d90c…
+Processing 50 records for frontier_top50_demo.csv complete.
+[2025-12-15 23:15:31] 📊 Charts generated for frontier
+[2025-12-15 23:15:31] ✅ Generated engineers_250_demo.csv (250 rows)
+[2025-12-15 23:15:31] 🔒 SHA256 checksum for engineers_250_demo.csv: 9365eb4e234f…
+Processing 250 records for engineers_250_demo.csv complete.
+[2025-12-15 23:15:31] 📊 Charts generated for engineers
+------------------------------------------------------------
+[2025-12-15 23:15:31] Run complete.
+
+Schema Version: v3.4
+Phase 6 file found: True
+Phase 7 file found: True
+[2025-12-15 23:15:31] 📄 Summary written to demo_assets/summary_report.txt
+
+Completed in: 0:00:00.877679
+
+All outputs written to demo_assets/, charts/, logs/

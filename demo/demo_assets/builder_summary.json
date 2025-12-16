@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-12-16T02:17:49.091832",
+  "engine_version": "v3.6 Unified Final",
+  "schema_version": "v3.2",
+  "phase_files": [
+    "data/frontier_top50_demo.csv",
+    "data/realtime_citation_metrics.csv",
+    "data/engineers_250_demo.csv",
+    "data/phase6_output.csv",
+    "data/phase7_output_merged.csv",
+    "data/phase7_output.csv",
+    "data/phase6_output_merged.csv"
+  ],
+  "environment": {
+    "python": "3.14.0",
+    "system": "Darwin",
+    "user": "davemendoza"
+  }
+}
