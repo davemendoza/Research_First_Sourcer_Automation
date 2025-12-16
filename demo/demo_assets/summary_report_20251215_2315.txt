@@ -1,0 +1,11 @@
+AI Talent Engine Demo Summary — 2025-12-15 23:15:29
+Run ID: 20251215_2315
+Phase 6 & 7 CSVs: Verified
+Master Outputs: frontier_top50_demo.csv / engineers_250_demo.csv
+Schema Compliance: Passed (v3.2)
+Charts: Generated under charts/
+Audit Logs: logs/*.log
+SHA256 integrity: Verified
+System Version: AI Talent Engine v3.4
+------------------------------------------------------
+Run completed successfully at 23:15:33
