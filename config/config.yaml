@@ -1,0 +1,5 @@
+voice_control:
+  mode: safe
+  microphone_enabled: false
+  narration_enabled: true
+  narration_engine: macos_say
