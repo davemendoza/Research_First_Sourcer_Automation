@@ -1,0 +1,4 @@
+[2025-12-15 23:02:04] ⚠️ phase7_output.csv missing
+[2025-12-15 23:02:04] ⚠️ phase6_output.csv missing
+[2025-12-15 23:02:04] Run complete.
+[2025-12-15 23:02:04] 📄 Summary written to demo_assets/summary_report.txt
