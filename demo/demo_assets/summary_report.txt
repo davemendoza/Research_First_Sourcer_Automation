@@ -1,6 +1,6 @@
 AI Talent Engine v3.5 — Summary Report (Schema-Locked 40 Columns)
-Timestamp: 2025-12-17 15:50:58.729401
+Timestamp: 2025-12-17 15:51:19.736440
 Frontier rows: 50, Engineers rows: 250
-Runtime: 0:00:00.451651
-Frontier SHA: 5fb67cd4761166712781e1e018bd2f591886a3c389542f89763b66e314496fae
-Engineers SHA: 28918fb2007cd5663d1cd619b7afe7c272a49b20f1541adb6b10cd59efe85010
+Runtime: 0:00:00.476783
+Frontier SHA: fa191f8cb5ac0ce62b053e12470e01bf17ec6d0e71ecf3289efbe56d8cc0f50d
+Engineers SHA: 3b34045847d0e5bef4dc1c3bc2f73486af833d8ab543c768fca5a9ea28f94a41
