@@ -1,11 +1,11 @@
 {
-  "timestamp": "2025-12-17T16:39:03.388569",
+  "timestamp": "2025-12-17T17:09:37.481297",
   "schema_columns": 40,
   "rows_phase6": 250,
   "rows_phase7": 50,
   "seed": 42,
-  "sha_phase6": "f7ded5bf69fb77a52986d5a8f373ec1dccb1c84eb06ce899db483db710258df1",
-  "sha_phase7": "f59ce8b8a44e62ceb113d5ba01d087710ff90e99c5eb216fe24f97428c855d61",
+  "sha_phase6": "38dfed9ba227b2906c2278f20baa3015c0a090ef72c1f918a517c3d8eb776f45",
+  "sha_phase7": "4428a2274500eba278827faf00a52285785240b17130d268d7bfd03a082730fb",
   "system_user": "davemendoza",
   "python_version": "3.14.0",
   "system_host": "iMac"
