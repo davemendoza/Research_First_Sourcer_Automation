@@ -1,4 +1,4 @@
----
+***
 
 ## 9.1 📨 Recruiter / Sourcer Email Template — For Hiring Manager Submission (Draft)
 
@@ -65,4 +65,4 @@ L. David Mendoza © 2025
 This section serves as a ready-to-copy draft for recruiter communication.  
 To deploy, replace bracketed fields with candidate-specific data, verify determinant-skills scores, and send via your preferred internal communication channel or ATS.
 
----
+***
