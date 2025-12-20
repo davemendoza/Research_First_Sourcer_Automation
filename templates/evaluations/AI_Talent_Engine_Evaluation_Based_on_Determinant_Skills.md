@@ -1,7 +1,3 @@
-davemendoza@iMac Research_First_Sourcer_Automation %
-
-cat > templates/evaluations/AI_Talent_Engine_Evaluation_Based_on_Determinant_Skills.md
-
 # AI Talent Engine — Evaluation Based on Determinant Skills (v3.3)
 
 **Author:** L. David Mendoza  
@@ -12,7 +8,7 @@ cat > templates/evaluations/AI_Talent_Engine_Evaluation_Based_on_Determinant_Ski
 
 ---
 
-## Introduction
+## Introduction  
 
 The **AI Talent Engine — Evaluation Based on Determinant Skills** framework defines a structured, evidence-driven methodology for evaluating AI professionals based on **verifiable technical contribution**, not inferred capability, résumé claims, or keyword proximity.
 
@@ -25,167 +21,52 @@ The framework is designed to support **high-stakes AI hiring decisions** across 
 ## Candidate Overview
 
 | Field | Details |
-|:------|:--------|
+|:-------|:---------|
 | Full Name | |
 | Current Employer / Affiliation | |
-| Current Title | |
-| Seniority Level | |
-| AI Classification | |
-| Location | |
+| Primary Area | |
+| Evaluation Date | |
+| Evaluator | |
 
 ---
 
-## Public Contact Data (Verified Only)
+## Key Determinant Skill Signals  
 
-| Type | Data |
-|:------|:------|
-| Corporate Email | Not Publicly Available |
-| Personal Email | |
-| LinkedIn | |
-| Portfolio / Website | |
-
-> Only publicly disclosed contact information is captured.  
-> No inferred, scraped, or private personal data is used.
-
----
-
-## Primary Evidence Sources
-
-| Source | URL |
-|:--------|:----|
-| Google Scholar | |
-| GitHub / Code Repositories | |
-| Personal or Research Website | |
-| Academic Lab or Corporate Research Page | |
-| Dissertation / Thesis Archive | |
+| Dimension | Description | Evidence Source | Weighted Score |
+|:-----------|:-------------|:----------------|:----------------|
+| Research Publication Impact | Peer-reviewed contributions in AI safety, ML systems, or foundational models | Semantic Scholar, ArXiv, ACL Anthology | |
+| Code Contribution Authenticity | Commit frequency, author identity consistency, and technical complexity | GitHub / GitLab | |
+| Model Innovation | Novel architectures or RLHF/Alignment contributions | Papers with Code, HuggingFace | |
+| Open Evaluation Replication | Reproducible benchmarks or released evaluation frameworks | Public repos / benchmark records | |
+| Cross-Domain Collaboration | Contributions across AI/ML, infra, or applied productization | Co-authorship and repo networks | |
+| Institutional Alignment | Alignment with RLHF, safety, and interpretability research standards | Org / research match | |
 
 ---
 
-## Predicted Business Impact (12–24 Month Outlook)
+## Scoring Summary  
 
-| Metric | Impact Tier | Score (1–10) | Rationale |
-|:--------|:-------------|:--------------|:-----------|
-| Predicted Business Impact | Transformative / High / Moderate / Low | | Evidence velocity, scope, and applicability |
-
----
-
-## Evidence Tier Ledger
-
-| Artifact Type | Source | Verification Tier | Weight | Notes |
-|:---------------|:--------|:------------------|:--------|:------|
-| | | | | |
+| Level | Range | Interpretation |
+|:------|:-------|:----------------|
+| **Frontier (9–10)** | Breakthrough or leadership-level contributions (e.g., alignment research, model architecture design). |
+| **Foundational (7–8)** | Stable, independent research or major applied infrastructure work. |
+| **Applied (5–6)** | Strong technical contribution with measurable outcomes in ML systems or production AI. |
+| **Emerging (3–4)** | Demonstrated academic or experimental involvement; limited verified production output. |
+| **Preliminary (1–2)** | Exploratory contributions or unverifiable claims. |
 
 ---
 
-## 1. AI Role Classification
+## Recruiter Communication Template  
 
-Defines the candidate’s primary AI role classification based on validated contribution patterns, technical focus, and corroborating evidence artifacts.
-
----
-
-## 2. Career Trajectory Assessment
-
-Evaluates progression, scope of work, velocity of output, and transitions across academic, research, and industry environments.
-
----
-
-## 3. Influence & Citation Velocity
-
-| Metric | Tier | Score (1–10) | Source |
-|:--------|:------|:---------------|:--------|
-| Citation Velocity | | | |
-| Influence Percentile | | | |
+**Subject:** Determinant Skills Evaluation — [Candidate Name]  
+**Body:**  
+> Following an independent determinant-based evaluation, [Candidate Name] demonstrates verifiable contributions in [specific domain].  
+> Evaluation Score: [X.X / 10]  
+> Evidence sources include: [Top 3 artifacts].  
+> Recommended next action: [Shortlist / Technical Deep Dive / Hold].  
 
 ---
 
-## 4. Determinant Signal Skills
+## Governance & Audit  
 
-| Rank | Skill Domain | Sub-Competencies | Evidence | Tier | Score |
-|:----:|:-------------|:------------------|:-----------|:----:|:------|
-| 1 | | | | | |
-| 2 | | | | | |
-
----
-
-## 5. Strengths
-
-| Strength | Supporting Evidence | Weight |
-|:-----------|:---------------------|:--------|
-| | | |
-
----
-
-## 6. Risks & Gaps
-
-| Area | Evidence Gap | Risk Score |
-|:------|:--------------|:------------|
-| | | |
-
----
-
-## 7. Evidence Provenance Summary
-
-| Artifact | Reference |
-|:-----------|:-----------|
-| Publications | |
-| Open-Source Repositories | |
-| Models / Releases | |
-| Patents | |
-| Conference Participation | |
-
----
-
-## 8. Hiring Manager Summary
-
-| Component | Summary |
-|:------------|:----------|
-| Evidence Basis | |
-| Evaluation Synthesis | |
-| Risks / Gaps | |
-| Decision Guidance | Submit / Monitor / Do Not Submit — **Overall Score: __/10__** |
-
----
-
-## 9. Hiring Manager Submission (Email-Ready)
-
-**Subject:** AI Talent Evaluation — [Candidate Name] | [Role Classification]
-
-Hello [Hiring Manager Name],
-
-Following an evidence-based evaluation conducted using the **AI Talent Engine determinant-skills framework**, I am submitting **[Candidate Name]** for your review.
-
-**Role Classification:**  
-**Career Trajectory Summary:**  
-**Predicted Business Impact (12–24 months):**  
-
-### Determinant Skills Snapshot
-
-| Skill | Evidence | Tier | Score |
-|:------|:---------|:----:|:------|
-| | | | |
-
-Based on verified technical contributions, publication history, and production-grade impact indicators, this candidate meets the determinant threshold for the evaluated role classification.
-
-Best regards,  
-**AI Talent Engine — Evaluation System**
-
----
-
-## Reviewer & Governance Metadata
-
-| Field | Entry |
-|:--------|:------|
-| Reviewer | |
-| Date Reviewed | |
-| Evidence Integrity | High / Medium / Low |
-| Schema Validation | Passed / Failed |
-
----
-
-## Legal & Intellectual Property Notice
-
-© 2025 **L. David Mendoza** — All Rights Reserved.
-
-This document, including its structure, evaluation logic, tables, and methodology, constitutes proprietary intellectual property of **L. David Mendoza**.
-
-Unauthorized reproduction, redistribution, or derivative use of this framework is prohibited without express written consent.
+All evaluations are stored under `schema_v3.3` and linked to immutable commit references for audit integrity.  
+Versioning ensures that all evaluation updates remain schema-safe and verifiable against the AI Talent Engine framework.
