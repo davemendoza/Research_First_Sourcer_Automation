@@ -1,0 +1,10 @@
+AI Talent Engine Demo Summary — 2025-12-19 21:23:10
+Run ID: 20251219_2123
+User: davemendoza@iMac
+OS: 15.7.2
+Git: demo-hardened-autogen@ebf3d68
+Schema Compliance: PASSED
+Numeric Range: [0–10]
+Audit Logs: logs/*20251219_2123*
+Charts: charts/
+Data: data/
