@@ -1,72 +1,138 @@
 # AI Talent Engine — Evaluation Based on Determinant Skills (v3.3)
 
-**Author:** L. David Mendoza  
-**System:** AI Talent Engine — Research-First Sourcer Automation  
+**Candidate Lead:** [Anonymous Evaluation Subject]  
+**Current Employer / Affiliation:** [Confidential]  
+**Current Title:** [Confidential]  
+**Seniority Level:** [Specify Level]  
+**AI Classification:** [Specify Domain Classification]  
+**Location:** [Redacted]  
+
+**Evaluator:** L. David Mendoza  
+**Date Reviewed:** December 2025  
 **Schema Reference:** AI_Talent_Schema_Rules v3.2  
-**Classification:** Internal Evaluation Framework  
-**Last Updated:** December 2025  
 
 ---
 
-## Introduction  
-
-The **AI Talent Engine — Evaluation Based on Determinant Skills** framework defines a structured, evidence-driven methodology for evaluating AI professionals based on **verifiable technical contribution**, not inferred capability, résumé claims, or keyword proximity.
-
-Unlike traditional recruiting or résumé-screening approaches, this framework evaluates **primary technical artifacts** — including peer-reviewed publications, open-source repositories, model releases, patents, and conference participation — to assess authentic contribution, technical depth, and projected impact.
-
-The framework is designed to support **high-stakes AI hiring decisions** across Frontier / Foundational AI, RLHF & Alignment, Applied AI, and AI Infrastructure roles by producing **audit-ready, explainable, and repeatable evaluations** grounded entirely in traceable evidence.
+## 1️⃣ AI Classification Role Type
+Evidence indicates leadership and contribution within the domains of **Multimodal Systems**, **RLHF / Alignment**, **Responsible AI**, and **Safety / Evaluation Frameworks**.  
+All findings are derived exclusively from verifiable, publicly available artifacts.
 
 ---
 
-## Candidate Overview
+## 2️⃣ Career Trajectory Assessment
+- **Recent Role:** [Confidential — e.g., Principal Applied Scientist / Senior Researcher]  
+  Led development of multimodal or safety-aligned architectures and evaluations.  
+- **Prior Experience:** [Confidential — e.g., Applied Scientist / Researcher]  
+  Designed bias detection frameworks and fairness metrics for LLMs.  
+- **Academic Foundation:** [Confidential — e.g., Ph.D. in ML / IR / Fairness of Exposure]  
 
-| Field | Details |
-|:-------|:---------|
-| Full Name | |
-| Current Employer / Affiliation | |
-| Primary Area | |
-| Evaluation Date | |
-| Evaluator | |
-
----
-
-## Key Determinant Skill Signals  
-
-| Dimension | Description | Evidence Source | Weighted Score |
-|:-----------|:-------------|:----------------|:----------------|
-| Research Publication Impact | Peer-reviewed contributions in AI safety, ML systems, or foundational models | Semantic Scholar, ArXiv, ACL Anthology | |
-| Code Contribution Authenticity | Commit frequency, author identity consistency, and technical complexity | GitHub / GitLab | |
-| Model Innovation | Novel architectures or RLHF/Alignment contributions | Papers with Code, HuggingFace | |
-| Open Evaluation Replication | Reproducible benchmarks or released evaluation frameworks | Public repos / benchmark records | |
-| Cross-Domain Collaboration | Contributions across AI/ML, infra, or applied productization | Co-authorship and repo networks | |
-| Institutional Alignment | Alignment with RLHF, safety, and interpretability research standards | Org / research match | |
+Trajectory shows consistent advancement in both technical leadership and applied research maturity.
 
 ---
 
-## Scoring Summary  
-
-| Level | Range | Interpretation |
-|:------|:-------|:----------------|
-| **Frontier (9–10)** | Breakthrough or leadership-level contributions (e.g., alignment research, model architecture design). |
-| **Foundational (7–8)** | Stable, independent research or major applied infrastructure work. |
-| **Applied (5–6)** | Strong technical contribution with measurable outcomes in ML systems or production AI. |
-| **Emerging (3–4)** | Demonstrated academic or experimental involvement; limited verified production output. |
-| **Preliminary (1–2)** | Exploratory contributions or unverifiable claims. |
+## 3️⃣ Influence Tier / Citation Velocity
+**Tier 1 (Top 5%)** — High research citation velocity across recognized AI venues.  
+Google Scholar / Semantic Scholar velocity: **High**  
+Cross-venue presence (e.g., NeurIPS, ICML, SIGIR, FAccT) verified.
 
 ---
 
-## Recruiter Communication Template  
+## 4️⃣ Signal Skills Cluster (Determinant Scores 1–10)
 
-**Subject:** Determinant Skills Evaluation — [Candidate Name]  
+| Skill Cluster | Description | Score (1–10) |
+|:--------------|:-------------|:-------------:|
+| **LLM & RLHF** | Fine-tuning, distillation, pruning, efficiency–alignment trade-offs | **9.5** |
+| **Multimodal Systems** | Image-text grounding, retrieval architectures, CLIP-style training | **9.0** |
+| **Responsible AI / Safety** | Bias and fairness evaluation frameworks | **9.8** |
+| **Infrastructure / Vector DBs** | FAISS, Pinecone, Weaviate, distributed ML pipelines | **8.5** |
+| **Inference / Deployment** | PyTorch, TensorFlow, CUDA, Kubernetes, Spark, Cloud AI | **9.0** |
+| **Average Determinant Score** | Weighted domain mean | **9.16 / 10** |
+
+---
+
+## 5️⃣ Strengths
+- Strong leadership in multimodal retrieval and RLHF alignment research.  
+- Deep specialization in Responsible AI and safety evaluation systems.  
+- Recognized research influence through peer-reviewed publications and tutorials.  
+- Proven hybrid capability spanning academic and production AI environments.
+
+---
+
+## 6️⃣ Weaknesses
+- Limited open-source contribution activity (likely due to organizational IP constraints).  
+- Fewer cross-institutional collaborations in recent cycles.  
+- Needs visibility in public evaluation benchmarks or reproducibility frameworks.
+
+---
+
+## 7️⃣ Evidence Provenance Summary
+| Artifact Type | Source / URL | Verification Tier | Weight | Notes |
+|:--------------|:-------------|:-----------------|:-------|:------|
+| Publications | [Candidate Portfolio / Publications URL] | Tier 1 | 25 % | Verified conference and journal presence |
+| Research Profile | [Google Scholar / Semantic Scholar] | Tier 1 | 20 % | Citation velocity confirmed |
+| Academic Thesis | [Public Archive / Institutional Repository] | Tier 1 | 15 % | Foundational research |
+| Professional Affiliation | [Corporate / Lab Profile] | Tier 2 | 15 % | Research / product contributions |
+| Technical Listings | [ACM / NeurIPS / IEEE Author IDs] | Tier 1 | 10 % | Cross-domain collaboration indicators |
+| Tutorials / Talks | [Conference tutorial or public lecture] | Tier 2 | 15 % | Outreach and domain education |
+
+---
+
+## 8️⃣ Submittal Recommendation
+| Tier | Recommendation | Rationale |
+|:-----|:----------------|:-----------|
+| **Frontier (9–10)** | ✅ Submit to Hiring Manager | Top-tier determinant signals verified |
+| **Foundational (7–8)** | Conditional Submit | High alignment; minor verification checks |
+| **Applied (5–6)** | Hold | Requires deeper validation of contribution integrity |
+| **Emerging (3–4)** | Do Not Submit | Inferred or partial determinant evidence |
+
+**Decision:** ✅ Submit to Hiring Manager  
+
+---
+
+## 9️⃣ Hiring Manager Email Template (With Determinant Score Summary)
+
+**Subject:** Submission — Candidate Lead | Determinant Score 9.16 / 10  
+
 **Body:**  
-> Following an independent determinant-based evaluation, [Candidate Name] demonstrates verifiable contributions in [specific domain].  
-> Evaluation Score: [X.X / 10]  
-> Evidence sources include: [Top 3 artifacts].  
-> Recommended next action: [Shortlist / Technical Deep Dive / Hold].  
+
+> Hi [Hiring Manager Name],  
+>  
+> Based on an independent determinant-based evaluation conducted through the **AI Talent Engine**, this Candidate Lead achieved a **Determinant Score of 9.16 / 10**, placing within the **Frontier Tier** (top 5% of verified AI contributors).  
+>  
+> **Classification:** [Multimodal / RLHF / Safety / Evaluation]  
+>  
+> **Determinant Skill Summary (1–10 Scale, 10 = Frontier Expertise)**  
+>  
+> | Skill | Description | Score |
+> |:------|:-------------|:------:|
+> | LLM & RLHF | Fine-tuning, distillation, pruning, efficiency-alignment trade-offs | **9.5** |
+> | Multimodal Systems | Image-text grounding & retrieval architectures | **9.0** |
+> | Responsible AI / Safety | Bias & fairness evaluation frameworks | **9.8** |
+> | Infrastructure / Vector DB | FAISS, Pinecone, Weaviate, distributed ML | **8.5** |
+> | Inference / Deployment | PyTorch, TensorFlow, CUDA, Kubernetes | **9.0** |
+> | **Average Determinant Score** | Weighted Domain Mean | **9.16 / 10** |
+>  
+> **Key Strengths:**  
+> - Strong signal in Responsible AI, fairness, and multimodal safety evaluation.  
+> - Demonstrated leadership in scalable LLM alignment and agentic architectures.  
+> - Cross-domain influence between research and applied AI infrastructure.  
+>  
+> **Development Areas:**  
+> - Limited open-source code release activity due to confidentiality scope.  
+>  
+> **Recommendation:** ✅ **Advance to Technical / Research Interview Round**  
+> Focus Area: **Multimodal LLM alignment and AI safety infrastructure.**  
+>  
+> — [Recruiter / Sourcer Name]  
+> AI Talent Engine  
+> Research-First Sourcer Automation  
 
 ---
 
-## Governance & Audit  
-
+## 🔟 Governance & Audit
 All evaluations are stored under `schema_v3.3` and linked to immutable commit references for audit integrity.  
-Versioning ensures that all evaluation updates remain schema-safe and verifiable against the AI Talent Engine framework.
+Versioning ensures every update remains schema-safe and traceable under the AI Talent Engine framework.  
+
+---
+
+**Legal Notice:** © 2025 L. David Mendoza. All rights reserved. Proprietary evaluation framework under AI Talent Engine IP. Unauthorized reproduction or redistribution is prohibited.
