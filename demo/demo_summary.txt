@@ -1,0 +1,12 @@
+AI TALENT ENGINE — SYNTHETIC DEMO SUMMARY
+Run UTC: 2025-12-20T04:31:37Z
+
+Artifacts:
+- demo/demo_applied_evaluation.csv
+- demo/demo_frontier_evaluation.csv
+- demo/demo_ai_engineer_evaluation.csv
+- demo/charts/*.png
+
+Notes:
+- All data is synthetic and interview-safe
+- Frontier math uses log-scale + percentile

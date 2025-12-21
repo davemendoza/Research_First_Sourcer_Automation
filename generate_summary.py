@@ -1,83 +1,99 @@
 #!/usr/bin/env python3
-# © 2025 Dave Mendoza, DBA AI Craft, Inc. All rights reserved. Strictly proprietary; no copying, derivative works, reverse engineering, redistribution, or commercial/personal use permitted without written authorization. Governed by Colorado, USA law.
+# -*- coding: utf-8 -*-
+
 """
-AI Talent Engine — Hiring Intelligence Summary Generator
-Best-in-Class Build (v3.7)
+AI Talent Engine - Demo Summary Generator
+
+This module generates a final human-readable summary artifact
+from the demo pipeline outputs. It is intentionally conservative,
+audit-safe, and ASCII-only to ensure deterministic execution
+in interview and live demo environments.
+
+Copyright (c) 2025 L. David Mendoza
+All rights reserved.
+
+This software and all associated artifacts are proprietary.
+No scraping of restricted sources is performed.
+No inferred personal data is generated.
 """
 
-import json, os, datetime
-from statistics import mean
-from rich import print
+import os
+import json
+import datetime
+import pandas as pd
 
-OUTPUT_DIR = os.path.expanduser("~/Desktop/Research_First_Sourcer_Automation/output")
-REPORT_PATH = os.path.join(OUTPUT_DIR, "Hiring_Intelligence_Summary_Report.md")
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(ROOT_DIR, "outputs")
+DEMO_DIR = os.path.join(ROOT_DIR, "demo")
+META_FILE = os.path.join(DEMO_DIR, "demo_run_meta.json")
 
-summary_data = []
-timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d %H:%M:%SZ")
+APPLIED_FILE = os.path.join(DEMO_DIR, "applied_ai_candidates.csv")
+FRONTIER_FILE = os.path.join(DEMO_DIR, "frontier_ai_candidates.csv")
 
-print(f"\n📊 Generating [bold cyan]Hiring Intelligence Summary[/bold cyan]...")
-print(f"📁 Source: {OUTPUT_DIR}\n")
+SUMMARY_OUT = os.path.join(DEMO_DIR, "demo_summary.txt")
 
-# Read all JSON dossiers
-for file in os.listdir(OUTPUT_DIR):
-    if file.endswith(".json"):
-        path = os.path.join(OUTPUT_DIR, file)
+
+def safe_read_csv(path: str) -> pd.DataFrame:
+    if not os.path.exists(path):
+        return pd.DataFrame()
+    try:
+        return pd.read_csv(path)
+    except Exception:
+        return pd.DataFrame()
+
+
+def generate_summary():
+    applied_df = safe_read_csv(APPLIED_FILE)
+    frontier_df = safe_read_csv(FRONTIER_FILE)
+
+    timestamp = datetime.datetime.utcnow().isoformat() + "Z"
+
+    meta = {}
+    if os.path.exists(META_FILE):
         try:
-            with open(path) as f:
-                data = json.load(f)
-            name = data.get("name", "Unknown")
-            score = data.get("composite_score", 0)
-            rec = data.get("recommendation", "❔ Unknown")
-            evidences = data.get("Evidence_Map_JSON", [])
-            confs = [ev.get("confidence", 0) for ev in evidences if isinstance(ev, dict)]
-            avg_conf = round(mean(confs), 3) if confs else 0.0
-            strengths = [e["statement"] for e in evidences if e.get("strength_or_weakness") == "Strength"]
-            weaknesses = [e["statement"] for e in evidences if e.get("strength_or_weakness") == "Weakness"]
-            summary_data.append({
-                "name": name,
-                "score": score,
-                "recommendation": rec,
-                "avg_confidence": avg_conf,
-                "strengths": strengths,
-                "weaknesses": weaknesses
-            })
-            print(f"✅ Loaded {file} ({len(evidences)} evidence items)")
-        except Exception as e:
-            print(f"❌ Error loading {file}: {e}")
+            with open(META_FILE, "r", encoding="utf-8") as f:
+                meta = json.load(f)
+        except Exception:
+            meta = {}
 
-# Write Markdown report
-with open(REPORT_PATH, "w") as r:
-    r.write(f"# Hiring Intelligence Summary Report\n\n")
-    r.write(f"**Generated:** {timestamp}\n\n")
-    r.write(f"**Validated Dossiers:** {len(summary_data)}\n\n")
-    r.write("---\n\n")
-    for item in summary_data:
-        r.write(f"## {item['name']}\n")
-        r.write(f"- **Composite Score:** {item['score']}\n")
-        r.write(f"- **Average Confidence:** {item['avg_confidence']}\n")
-        r.write(f"- **Recommendation:** {item['recommendation']}\n\n")
-        if item["strengths"]:
-            r.write("### Strengths\n")
-            for s in item["strengths"]:
-                r.write(f"- {s}\n")
-            r.write("\n")
-        if item["weaknesses"]:
-            r.write("### Weaknesses\n")
-            for w in item["weaknesses"]:
-                r.write(f"- {w}\n")
-            r.write("\n")
-        r.write("---\n\n")
-    r.write("### 🧠 Overall AI Talent Insights\n")
-    r.write("This summary consolidates validated candidate dossiers from the Research-First Sourcer Automation framework. "
-            "Each candidate's evidence map, schema version, and confidence metrics are derived directly from validated JSON artifacts.\n")
+    lines = []
+    lines.append("AI TALENT ENGINE - DEMO SUMMARY")
+    lines.append("=" * 40)
+    lines.append("")
+    lines.append(f"Generated (UTC): {timestamp}")
+    lines.append("")
 
-print(f"\n✨ [bold green]Summary report generated:[/bold green] {REPORT_PATH}")
-os.system(f"open -a 'TextEdit' '{REPORT_PATH}'")
-print("📖 Report opened for review.\n")
+    lines.append("Demo Guarantees:")
+    lines.append("- Evidence-first evaluation")
+    lines.append("- Public-domain sources only")
+    lines.append("- No inferred contact data")
+    lines.append("- Deterministic, audit-safe execution")
+    lines.append("")
 
-Proprietary Rights Notice
-------------------------
-All code, scripts, GitHub repositories, documentation, data, and GPT-integrated components of the AI Talent Engine – Signal Intelligence and Research_First_Sourcer_Automation Python Automation Sourcing Framework are strictly proprietary. All intellectual property rights, copyrights, trademarks, and related rights are exclusively owned by Dave Mendoza, DBA AI Craft, Inc.
-No individual or entity may copy, reproduce, distribute, modify, create derivative works, reverse engineer, decompile, or otherwise use any part of this system, software, or associated materials for personal or commercial purposes without explicit written authorization from Dave Mendoza.
-All rights reserved. Unauthorized use may result in legal action.
-This statement is governed by the laws of the State of Colorado, USA.
+    lines.append("Candidate Counts:")
+    lines.append(f"- Applied AI candidates: {len(applied_df)}")
+    lines.append(f"- Frontier AI candidates: {len(frontier_df)}")
+    lines.append("")
+
+    if meta:
+        lines.append("Run Metadata:")
+        for k, v in meta.items():
+            lines.append(f"- {k}: {v}")
+        lines.append("")
+
+    lines.append("Interpretation Notes:")
+    lines.append(
+        "This output reflects conservative role classification, "
+        "bounded scoring, and provenance-aware aggregation. "
+        "Missing data remains missing by design."
+    )
+
+    os.makedirs(DEMO_DIR, exist_ok=True)
+    with open(SUMMARY_OUT, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+    print("Demo summary written to:", SUMMARY_OUT)
+
+
+if __name__ == "__main__":
+    generate_summary()

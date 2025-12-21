@@ -1,0 +1,41 @@
+[
+  {
+    "row": 1,
+    "utc": "2025-12-21T04:16:41.883415+00:00",
+    "role": "Applied AI",
+    "determinative_tier": "Low",
+    "signal_tier": "Weak",
+    "signals": {
+      "RLHF": false,
+      "VectorDB": false,
+      "GPU": false,
+      "RAG": false
+    }
+  },
+  {
+    "row": 2,
+    "utc": "2025-12-21T04:16:41.883735+00:00",
+    "role": "Applied AI",
+    "determinative_tier": "Low",
+    "signal_tier": "Weak",
+    "signals": {
+      "RLHF": false,
+      "VectorDB": false,
+      "GPU": false,
+      "RAG": false
+    }
+  },
+  {
+    "row": 3,
+    "utc": "2025-12-21T04:16:41.883761+00:00",
+    "role": "Applied AI",
+    "determinative_tier": "Low",
+    "signal_tier": "Weak",
+    "signals": {
+      "RLHF": false,
+      "VectorDB": false,
+      "GPU": false,
+      "RAG": false
+    }
+  }
+]
