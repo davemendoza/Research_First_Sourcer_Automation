@@ -1,0 +1,57 @@
+cd /Users/davemendoza/Desktop/Research_First_Sourcer_Automation
+
+# 1) Restore the last committed working hardened autorun
+git restore run_demo_auto.sh
+
+# 2) Append ONLY the visual pop-ups block (no pipeline changes)
+cat >> run_demo_auto.sh <<'EOF'
+
+# ------------------------------------------------------------------------------
+# POST-DEMO VISUAL SURFACING (DEMO-CRITICAL)
+# Opens existing synthetic CSVs + diagram folders + summary file on macOS.
+# ------------------------------------------------------------------------------
+
+echo ""
+echo "Opening synthetic demo artifacts…"
+
+# CSVs (Excel / Numbers / default app)
+CSV_FILES=(
+  "$PWD/demo/demo_applied_evaluation.csv"
+  "$PWD/demo/demo_frontier_evaluation.csv"
+  "$PWD/demo/demo_ai_engineer_evaluation.csv"
+  "$PWD/demo_applied_evaluation.csv"
+  "$PWD/demo_frontier_evaluation.csv"
+)
+
+for csv in "${CSV_FILES[@]}"; do
+  if [[ -f "$csv" ]]; then
+    open "$csv"
+  fi
+done
+
+# Diagram folders (Finder)
+DIRS=(
+  "$PWD/demo/diagrams"
+  "$PWD/demo/charts"
+  "$PWD/charts"
+  "$PWD/demo_assets"
+)
+
+for dir in "${DIRS[@]}"; do
+  if [[ -d "$dir" ]]; then
+    open "$dir"
+  fi
+done
+
+# Summary fallback
+SUMMARY="$PWD/demo/demo_summary.txt"
+if [[ -f "$SUMMARY" ]]; then
+  open "$SUMMARY"
+fi
+
+echo "Visual demo artifacts surfaced."
+EOF
+
+# 3) Ensure executable and run
+chmod +x ./run_demo_auto.sh
+./run_demo_auto.sh

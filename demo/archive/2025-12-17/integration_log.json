@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-12-16T02:17:47.157095",
+  "system": "iMac",
+  "merged_phase6_rows": 250,
+  "merged_phase7_rows": 50,
+  "sha_phase6": "fe4e6fecc95cf1c551fa39c041a79f0a65a63a7c2e81a0d4e3208fca0b1937b9",
+  "sha_phase7": "e429cd795b96d162b3b7cd46e740db59130520790febffa3c4ecf08181c07707",
+  "force_all": true,
+  "focus_roles": "All AI-classified roles",
+  "realtime_columns": [
+    "Full_Name",
+    "Citation_Velocity_Score",
+    "Citation_Growth_Rate",
+    "Influence_Rank_Change",
+    "CoAuthor_Influence_Velocity",
+    "Source_SemanticScholar",
+    "Source_OpenAlex",
+    "Retrieved"
+  ],
+  "status": "Integration complete \u2014 schema-locked"
+}

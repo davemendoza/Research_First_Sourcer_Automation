@@ -1,0 +1,13 @@
+AI Talent Engine Demo Summary (Guaranteed Artifacts)
+Run UTC: 2025-12-20T02:25:47.736720+00:00
+
+Artifacts:
+- Frontier CSV: /Users/davemendoza/Desktop/Research_First_Sourcer_Automation/data/frontier_top50_demo.csv
+- Engineers CSV: /Users/davemendoza/Desktop/Research_First_Sourcer_Automation/data/engineers_250_demo.csv
+- Charts: /Users/davemendoza/Desktop/Research_First_Sourcer_Automation/charts
+  - /Users/davemendoza/Desktop/Research_First_Sourcer_Automation/charts/frontier_trajectory.png
+  - /Users/davemendoza/Desktop/Research_First_Sourcer_Automation/charts/engineers_trajectory.png
+
+Notes:
+- If upstream generation was skipped, synthetic demo files were created.
+- Outlier-safe math scoring is applied in the next step (scored CSV outputs).
