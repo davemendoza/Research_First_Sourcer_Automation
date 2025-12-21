@@ -86,6 +86,17 @@ I built the **AI Talent Engine** as a research-grade talent intelligence system 
 
 ---
 
+## VII. PREDICTIVE & GOVERNANCE ANALYTICS
+| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
+|:--:|:-----------|:----------------|:---------------|:---------------|:---------------|
+| 33 | **Predictive Career Trajectory Agent** | Predictive Analytics | Career Velocity, Seniority Modeling | Forecasts researcher career velocity and seniority progression using multi-year publication, citation, and repository data. | Predictive Career Intelligence |
+| 34 | **Emerging Talent Detector** | Predictive Analytics | Early-Career Detection | Identifies rising early-career contributors through velocity-adjusted citation and contribution patterns. | High-Velocity Talent Detection |
+| 35 | **Influence Trajectory Forecaster** | Predictive Analytics | Influence Forecasting | Projects 12-month influence deltas based on collaboration graph centrality and recent citation momentum. | Predictive Influence Analytics |
+| 36 | **Governance Integrity Agent** | Governance Analytics | Schema, Responsible-AI Checks | Audits schema compliance, provenance integrity, and Responsible-AI governance standards across all agent outputs. | Integrity & Fairness Validation |
+| 37 | **Predictive Hiring Signal Integrator** | Predictive Analytics | Hiring Readiness Scoring | Combines predictive career, influence, and compliance signals into a unified hiring-readiness index. | Predictive Hiring Intelligence |
+
+---
+
 ### 📘 Executive Reference  
 Part of the **AI Talent Engine GPT System**  
 Research-grade intelligence component authored by **L. David Mendoza © 2025**
@@ -96,61 +107,6 @@ All code, scripts, GitHub repositories, documentation, data, and GPT-integrated 
 No individual or entity may copy, reproduce, distribute, modify, create derivative works, reverse engineer, decompile, or otherwise use any part of this system, software, or associated materials for personal or commercial purposes without explicit written authorization from Dave Mendoza.
 All rights reserved. Unauthorized use may result in legal action.
 This statement is governed by the laws of the State of Colorado, USA.
-
-
----
-
----
-
-## VIII. ABC REVISION CLOSURE & PHASE D READINESS
-
-**Version:** v1.3 — ABC Closed & Locked  
-**Last Updated:** December 21 2025  
-**Maintainer:** L. David Mendoza © 2025
-
-Tracks A, B, and C (Assembly / Determinative Inference / Public Discovery) have been fully revised, validated, and locked.
-
-### ✔ Confirmed Enhancements
-- Track C snapshot persistence after provenance tagging
-- Deterministic run-scoped outputs and audits
-- Multi-sheet Excel seed hub support
-- Track B temporal flag ingestion only (no temporal computation)
-- Track A standardized CLI wrapper
-- End-to-end Seed Hub → C → B → A validation complete
-
-### 🔒 Status
-Tracks A, B, and C are **point-in-time and frozen**.  
-Temporal reasoning, forecasting, and escalation logic begin in **Phase D+** only.
-
----
-
-## IX. PREDICTIVE & GOVERNANCE ANALYTICS
-| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
-|:--:|:-----------|:----------------|:---------------|:---------------|:---------------|
-| 33 | **Predictive Career Trajectory Agent** | Predictive Analytics | Career Velocity, Seniority Modeling | Forecasts researcher career velocity and seniority progression using multi-year publication, citation, and repository data. | Predictive Career Intelligence |
-| 34 | **Emerging Talent Detector** | Predictive Analytics | Early-Career Detection | Identifies rising early-career contributors through velocity-adjusted citation and contribution patterns. | High-Velocity Talent Detection |
-| 35 | **Influence Trajectory Forecaster** | Predictive Analytics | Influence Forecasting | Projects 12-month influence deltas based on collaboration graph centrality and recent citation momentum. | Predictive Influence Analytics |
-| 36 | **Governance Integrity Agent** | Governance Analytics | Schema, Responsible-AI Checks | Audits schema compliance, provenance integrity, and Responsible-AI governance standards across all agent outputs. | Integrity & Fairness Validation |
-| 37 | **Predictive Hiring Signal Integrator** | Predictive Analytics | Hiring Readiness Scoring | Combines predictive career, influence, and compliance signals into a unified hiring-readiness index. | Predictive Hiring Intelligence |
-
----
-
-**Menu Version:** v3.3 (Extended – Phase 8)  
-**Last Updated:** December 21 2025  
-**Maintainer:** L. David Mendoza © 2025  
-**Project:** Research-First Sourcer Automation
-
-
-
----
-
-| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
-|:--:|:-----------|:----------------|:---------------|:---------------|:---------------|
-| 33 | **Predictive Career Trajectory Agent** | Predictive Analytics | Career Velocity, Seniority Modeling | Forecasts researcher career velocity and seniority progression using multi-year publication, citation, and repository data. | Predictive Career Intelligence |
-| 34 | **Emerging Talent Detector** | Predictive Analytics | Early-Career Detection | Identifies rising early-career contributors through velocity-adjusted citation and contribution patterns. | High-Velocity Talent Detection |
-| 35 | **Influence Trajectory Forecaster** | Predictive Analytics | Influence Forecasting | Projects 12-month influence deltas based on collaboration graph centrality and recent citation momentum. | Predictive Influence Analytics |
-| 36 | **Governance Integrity Agent** | Governance Analytics | Schema, Responsible-AI Checks | Audits schema compliance, provenance integrity, and Responsible-AI governance standards across all agent outputs. | Integrity & Fairness Validation |
-| 37 | **Predictive Hiring Signal Integrator** | Predictive Analytics | Hiring Readiness Scoring | Combines predictive career, influence, and compliance signals into a unified hiring-readiness index. | Predictive Hiring Intelligence |
 
 ---
 
