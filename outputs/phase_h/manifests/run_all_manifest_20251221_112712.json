@@ -1,0 +1,46 @@
+{
+  "args": {
+    "continue_on_error": false,
+    "dry_run": false,
+    "entrypoints": {
+      "run_a": "true",
+      "run_b": "true",
+      "run_c": "true",
+      "run_d": "true",
+      "run_e": "true",
+      "run_f": "true",
+      "run_g": "true"
+    },
+    "max_retries": 3,
+    "rate_limit_rps": 1.0,
+    "resume": false,
+    "verbose": true
+  },
+  "governance": {
+    "audit_manifest_written": true,
+    "deterministic_orchestration": true,
+    "no_new_scraping_added": true
+  },
+  "log_path": "outputs/phase_h/logs/run_all.log",
+  "phase": "H",
+  "repo_root": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation",
+  "results": [
+    {
+      "cmd": [
+        "python3",
+        "true",
+        "--verbose",
+        "--rate-limit-rps",
+        "1.0",
+        "--max-retries",
+        "3"
+      ],
+      "name": "Track C",
+      "returncode": 2,
+      "stderr_tail": "/Library/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/true': [Errno 2] No such file or directory\n",
+      "stdout_tail": ""
+    }
+  ],
+  "schema_version": "phase_h_v1",
+  "timestamp_utc": "2025-12-21T11:27:12.085441+00:00"
+}

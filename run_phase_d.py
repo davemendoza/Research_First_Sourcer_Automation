@@ -1,24 +1,20 @@
+#!/usr/bin/env python3
 """
-Run Phase D — Temporal Signal Intelligence
+AI Talent Engine – Phase d Runner
+© 2025 L. David Mendoza. All rights reserved.
 """
 
-import json
-from phase_d_snapshot_manager import write_snapshot
-from phase_d_diff_engine import compute_diff
-from phase_d_watchlists import load_watchlist, apply_watchlist
-from phase_d_escalation_flags import generate_flags
+import argparse
+import sys
+from runners._runner_utils import discover_and_run
 
-def run(entity_type: str, records: dict):
-    write_snapshot(entity_type, records)
-    diff_path = compute_diff(entity_type)
-    if not diff_path:
-        print("Phase D: first snapshot only")
-        return
-    with open(diff_path, encoding="utf-8") as f:
-        diff_data = json.load(f)
-    watch = load_watchlist(entity_type)
-    filtered = apply_watchlist(diff_data["diffs"], watch)
-    generate_flags(entity_type, filtered)
+def main():
+    parser = argparse.ArgumentParser(
+        description="AI Talent Engine Phase d Runner"
+    )
+    parser.add_argument("--verbose", action="store_true")
+    args, remainder = parser.parse_known_args()
+    return discover_and_run("d", remainder, verbose=args.verbose)
 
 if __name__ == "__main__":
-    print("Phase D ready. Invoke run(entity_type, records)")
+    sys.exit(main())
