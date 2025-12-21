@@ -1,41 +1,39 @@
 """
 Phase D Diff Engine
-
-Phase D introduces temporal awareness without altering the point-in-time
-guarantees of Tracks A, B, and C. All judgment and prioritization remain downstream.
 """
 
 import json
 from pathlib import Path
 
 DIFF_DIR = Path("outputs/phase_d/diffs")
+SNAPSHOT_DIR = Path("outputs/phase_d/snapshots")
 
-def load_snapshots(entity_type: str):
-    snap_dir = Path("outputs/phase_d/snapshots")
-    snaps = sorted(snap_dir.glob(f"{entity_type}_*.json"))
+def _load_last_two(entity_type: str):
+    snaps = sorted(SNAPSHOT_DIR.glob(f"{entity_type}_*.json"))
     if len(snaps) < 2:
         return None, None
-    with open(snaps[-2]) as f:
+    with open(snaps[-2], encoding="utf-8") as f:
         prev = json.load(f)
-    with open(snaps[-1]) as f:
+    with open(snaps[-1], encoding="utf-8") as f:
         curr = json.load(f)
     return prev, curr
 
 def compute_diff(entity_type: str):
-    prev, curr = load_snapshots(entity_type)
-    DIFF_DIR.mkdir(parents=True, exist_ok=True)
+    prev, curr = _load_last_two(entity_type)
     if not prev or not curr:
         return None
 
+    DIFF_DIR.mkdir(parents=True, exist_ok=True)
     diffs = {}
+
     for k, v in curr["records"].items():
         pv = prev["records"].get(k)
         if pv is None:
-            diffs[k] = {"flag": "NEW_SIGNAL"}
+            diffs[k] = "NEW_SIGNAL"
         elif v != pv:
-            diffs[k] = {"flag": "ACCELERATION"}
+            diffs[k] = "ACCELERATION"
         else:
-            diffs[k] = {"flag": "STAGNATION"}
+            diffs[k] = "STAGNATION"
 
     out = {
         "entity_type": entity_type,
@@ -43,7 +41,7 @@ def compute_diff(entity_type: str):
         "diffs": diffs
     }
 
-    path = DIFF_DIR / f"{entity_type}_{curr['timestamp']}_diff.json"
-    with open(path, "w") as f:
+    path = DIFF_DIR / f"{entity_type}_{curr['timestamp']}.json"
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(out, f, indent=2)
     return path
