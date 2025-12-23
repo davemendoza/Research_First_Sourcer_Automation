@@ -1,22 +1,35 @@
 """
-Phase F Velocity Analyzer
-- Flags accelerated presence based on count of distinct sources/events
-- Deterministic and conservative
+phase_f_velocity_analyzer.py
+Phase F Velocity (Phase-Next extended wrapper)
+
+Adds deterministic momentum and trajectory hooks while preserving legacy behavior.
+
+Legacy:
+- phase_f_velocity_analyzer_legacy.py
+
+© 2025 L. David Mendoza
+Version: v1.1.0-phase-next
+Date: 2025-12-23
 """
 
 from __future__ import annotations
-from typing import Dict, List, Any
+import importlib
+from typing import Dict
+from modules.phase_next.momentum_scorer import score as momentum_score
+from modules.phase_next.trajectory_engine import forecast as trajectory_forecast
 
-def analyze_velocity(timelines: Dict[str, List[Dict[str, Any]]], min_events: int) -> Dict[str, Dict[str, Any]]:
-    velocity = {}
-    for name, events in timelines.items():
-        distinct_sources = sorted(set(e.get("source", "") for e in events if e.get("source")))
-        years = sorted(set(e.get("year") for e in events if e.get("year")))
-        if len(events) >= min_events:
-            velocity[name] = {
-                "signal": "ACCELERATED_ACTIVITY",
-                "event_count": len(events),
-                "distinct_sources": distinct_sources,
-                "years_observed": years,
-            }
-    return velocity
+LEGACY = "phase_f_velocity_analyzer_legacy"
+
+def _load_legacy():
+    return importlib.import_module(LEGACY)
+
+def phase_next_velocity_features(velocity: float, delta: float) -> Dict[str, float]:
+    m = momentum_score({"velocity": velocity, "delta": delta})
+    t = trajectory_forecast({"velocity": velocity, **m})
+    return {**m, **t}
+
+def main(*args, **kwargs):
+    legacy = _load_legacy()
+    if not hasattr(legacy, "main"):
+        raise RuntimeError("Legacy module missing main()")
+    return legacy.main(*args, **kwargs)

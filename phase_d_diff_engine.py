@@ -1,47 +1,34 @@
 """
-Phase D Diff Engine
+phase_d_diff_engine.py
+Phase D Diff Engine (Phase-Next extended wrapper)
+
+Adds multi-language diff hooks while preserving legacy behavior.
+
+Legacy:
+- phase_d_diff_engine_legacy.py
+
+© 2025 L. David Mendoza
+Version: v1.1.0-phase-next
+Date: 2025-12-23
 """
 
-import json
-from pathlib import Path
+from __future__ import annotations
+import importlib
+from modules.phase_next.multilang_diff import diff_text, detect_language_hint
 
-DIFF_DIR = Path("outputs/phase_d/diffs")
-SNAPSHOT_DIR = Path("outputs/phase_d/snapshots")
+LEGACY = "phase_d_diff_engine_legacy"
 
-def _load_last_two(entity_type: str):
-    snaps = sorted(SNAPSHOT_DIR.glob(f"{entity_type}_*.json"))
-    if len(snaps) < 2:
-        return None, None
-    with open(snaps[-2], encoding="utf-8") as f:
-        prev = json.load(f)
-    with open(snaps[-1], encoding="utf-8") as f:
-        curr = json.load(f)
-    return prev, curr
+def _load_legacy():
+    return importlib.import_module(LEGACY)
 
-def compute_diff(entity_type: str):
-    prev, curr = _load_last_two(entity_type)
-    if not prev or not curr:
-        return None
+def phase_next_diff(old: str, new: str):
+    return diff_text(old, new)
 
-    DIFF_DIR.mkdir(parents=True, exist_ok=True)
-    diffs = {}
+def phase_next_lang(text: str) -> str:
+    return detect_language_hint(text)
 
-    for k, v in curr["records"].items():
-        pv = prev["records"].get(k)
-        if pv is None:
-            diffs[k] = "NEW_SIGNAL"
-        elif v != pv:
-            diffs[k] = "ACCELERATION"
-        else:
-            diffs[k] = "STAGNATION"
-
-    out = {
-        "entity_type": entity_type,
-        "timestamp": curr["timestamp"],
-        "diffs": diffs
-    }
-
-    path = DIFF_DIR / f"{entity_type}_{curr['timestamp']}.json"
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(out, f, indent=2)
-    return path
+def main(*args, **kwargs):
+    legacy = _load_legacy()
+    if not hasattr(legacy, "main"):
+        raise RuntimeError("Legacy module missing main()")
+    return legacy.main(*args, **kwargs)
