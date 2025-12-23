@@ -1,74 +1,93 @@
 """
-Phase-Next Activation — Cadence Only (Read-Only)
+Phase-Next Activation (C/D/E) - READ-ONLY
 
-Author: Dave Mendoza
-Mode: Monitoring Cadence Validation
-Writes: NONE
+Reads Seed Hub rows, generates:
+- Cadence plan (Phase C)
+- Watchlist decision (Phase D)
+- GPT writeback payload scaffold (Phase E; payload only, no calls)
+
+No writes performed.
 """
 
-from dataclasses import dataclass
-from typing import List
+from __future__ import annotations
 
-# 🔒 MASTER SWITCH
-PHASE_NEXT_MODE = "cadence_only"  # other modes intentionally disabled
+import json
+from pathlib import Path
+from typing import Any, Dict, List
 
-# 🔒 Explicitly disabled subsystems
-WATCHLIST_RULES_ENABLED = False
-GPT_WRITEBACK_ENABLED = False
-EXCEL_WRITE_ENABLED = False
+from openpyxl import load_workbook
 
-
-@dataclass
-class PhaseNextMetadata:
-    watchlist_flag: str | None
-    monitoring_tier: str | None
-    domain_type: str | None
-    source_category: str | None
-    language_code: str | None
+from .control_plane import status
+from .intelligence_formatter import build_envelope
 
 
-def plan_from_tier(tier: str | None) -> str:
-    if tier is None:
-        return "no-monitoring"
-    tier = tier.lower()
-    return {
-        "high": "daily",
-        "medium": "weekly",
-        "low": "monthly",
-    }.get(tier, "adhoc")
+SEED_HUB_PATH = Path("data/AI_Talent_Landscape_Seed_Hubs.xlsx")
 
 
-def compute_domain_profile(domain: str | None, source: str | None) -> dict:
-    return {
-        "domain": domain or "unknown",
-        "source_category": source or "unknown",
-        "weighting": "semantic-only",
+def _load_seed_hub_rows(max_rows: int = 250) -> List[Dict[str, Any]]:
+    if not SEED_HUB_PATH.exists():
+        raise FileNotFoundError(f"Seed Hub not found at: {SEED_HUB_PATH}")
+
+    wb = load_workbook(SEED_HUB_PATH, data_only=True)
+    ws = wb.active
+
+    headers = []
+    for c in ws[1]:
+        headers.append(str(c.value).strip() if c.value is not None else "")
+
+    rows: List[Dict[str, Any]] = []
+    for i, r in enumerate(ws.iter_rows(min_row=2, values_only=True), start=2):
+        if len(rows) >= max_rows:
+            break
+        row = {}
+        for h, v in zip(headers, r):
+            if h:
+                row[h] = v
+        rows.append(row)
+
+    return rows
+
+
+def main() -> Dict[str, Any]:
+    flags = status()
+
+    print("Phase-Next running in READ-ONLY cadence mode")
+    print(f"Watchlist enabled: {flags.watchlist_rules_enabled}")
+    print(f"GPT writeback enabled: {flags.gpt_writeback_enabled}")
+    print(f"Excel writes enabled: {flags.excel_write_enabled}")
+
+    rows = _load_seed_hub_rows(max_rows=250)
+    if not rows:
+        print("No rows found in Seed Hub.")
+        return {"read_only": flags.read_only, "rows_loaded": 0, "writes_performed": False}
+
+    # Build a handful of envelopes as a sanity check
+    sample_count = 5 if len(rows) >= 5 else len(rows)
+    samples = rows[:sample_count]
+
+    envelopes = [build_envelope(r).to_dict() for r in samples]
+
+    result = {
+        "read_only": flags.read_only,
+        "excel_write_enabled": flags.excel_write_enabled,
+        "watchlist_rules_enabled": flags.watchlist_rules_enabled,
+        "gpt_writeback_enabled": flags.gpt_writeback_enabled,
+        "seed_hub_path": str(SEED_HUB_PATH),
+        "max_rows_total": len(rows),
+        "samples_generated": sample_count,
+        "writes_performed": False,
+        "sample_envelopes": envelopes,
+        "notes": "Phase-Next executed in read-only mode. No writes performed.",
     }
 
+    print(json.dumps(result, indent=2))
+    print(f"Rows loaded: {len(rows)}")
+    print(f"Samples generated: {sample_count}")
+    print("Writes performed: False")
+    print("Notes: Phase-Next executed in read-only mode. No writes performed.")
 
-def validate_metadata_read(rows: List[dict]):
-    if not rows:
-        print("⚠️ No rows supplied")
-        return
-
-    r0 = rows[0]
-
-    meta = PhaseNextMetadata(
-        watchlist_flag=r0.get("Watchlist_Flag"),
-        monitoring_tier=r0.get("Monitoring_Tier"),
-        domain_type=r0.get("Domain_Type"),
-        source_category=r0.get("Source_Category"),
-        language_code=r0.get("Language_Code"),
-    )
-
-    print("✅ Metadata read:", meta)
-    print("✅ Cadence plan:", plan_from_tier(meta.monitoring_tier))
-    print("✅ Domain profile:", compute_domain_profile(meta.domain_type, meta.source_category))
-    print("✅ No writes performed.")
+    return result
 
 
 if __name__ == "__main__":
-    print("🧭 Phase-Next running in READ-ONLY cadence mode")
-    print("🔒 Watchlist enabled:", WATCHLIST_RULES_ENABLED)
-    print("🔒 GPT writeback enabled:", GPT_WRITEBACK_ENABLED)
-    print("🔒 Excel writes enabled:", EXCEL_WRITE_ENABLED)
+    main()

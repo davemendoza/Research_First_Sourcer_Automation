@@ -1,15 +1,19 @@
 """
-Phase-Next (Dormant)
+core.phase_next package
 
-Purpose:
-- Continuous discovery scaffolding
-- Watchlist evaluation (disabled)
-- Monitoring cadence planning
-- Domain & provenance weighting
-- GPT write-back readiness
-
-This layer is READ-ONLY by default.
-No writes occur unless explicitly enabled.
+Import-safe by design. This package is used in read-only mode by default.
 """
 
-PHASE_NEXT_ENABLED = False
+from .control_plane import (
+    status,
+    FLAGS,
+    READ_ONLY,
+    EXCEL_WRITE_ENABLED,
+    WATCHLIST_RULES_ENABLED,
+    GPT_WRITEBACK_ENABLED,
+    ADAPTIVE_CADENCE_ENABLED,
+)
+
+from .adaptive_cadence import plan_from_tier
+from .watchlist_rules import evaluate_watchlist, evaluate_watchlist_candidate
+from .gpt_writeback import prepare_gpt_writeback_payload, writeback
