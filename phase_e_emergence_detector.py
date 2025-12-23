@@ -1,22 +1,31 @@
 """
-Phase E Emergence Detector
-Flags emerging voices based on first-time appearance or role escalation.
+phase_e_emergence_detector.py
+Phase E Emergence Detector (Phase-Next extended wrapper)
+
+Adds social/community signal ingestion hooks while preserving legacy behavior.
+
+Legacy:
+- phase_e_emergence_detector_legacy.py
+
+© 2025 L. David Mendoza
+Version: v1.1.0-phase-next
+Date: 2025-12-23
 """
 
-from collections import defaultdict
+from __future__ import annotations
+import importlib
+from modules.phase_next.social_signal_ingest import ingest as social_ingest, SocialArtifact
 
-def detect_emergence(records: list, historical_index: dict):
-    emergence = []
-    seen = defaultdict(set)
+LEGACY = "phase_e_emergence_detector_legacy"
 
-    for r in historical_index:
-        seen[r["name"]].add(r["role"])
+def _load_legacy():
+    return importlib.import_module(LEGACY)
 
-    for r in records:
-        prior_roles = seen.get(r["name"], set())
-        if not prior_roles:
-            emergence.append({**r, "signal": "NEW_VOICE"})
-        elif r["role"] == "speaker" and "speaker" not in prior_roles:
-            emergence.append({**r, "signal": "ROLE_ESCALATION"})
+def phase_next_social_summary(artifacts):
+    return social_ingest(artifacts)
 
-    return emergence
+def main(*args, **kwargs):
+    legacy = _load_legacy()
+    if not hasattr(legacy, "main"):
+        raise RuntimeError("Legacy module missing main()")
+    return legacy.main(*args, **kwargs)

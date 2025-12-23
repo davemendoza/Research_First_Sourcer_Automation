@@ -1,74 +1,48 @@
 """
-Phase G Signal Scoring
-Produces numeric scores from input-driven signals:
-- Base score per signal type (NEW_VOICE, ROLE_ESCALATION, etc.)
-- Multiplied by role criticality weight
-- Cluster bonus if member of a detected cluster
+phase_g_signal_scoring.py
+Phase G Signal Scoring (Phase-Next extended wrapper)
 
-No speculation: scores are purely derived from observed input events.
+Preserves legacy scoring and adds structured hooks for:
+- Semantics features (corpus)
+- Technical sentiment features
+- Concordance scoring hooks
+- Research lifecycle and h-index hooks
+
+Legacy:
+- phase_g_signal_scoring_legacy.py
+
+© 2025 L. David Mendoza
+Version: v1.1.0-phase-next
+Date: 2025-12-23
 """
 
 from __future__ import annotations
-from typing import Dict, List, Any
-from phase_g_role_weighting import weight_for_role
+import importlib
+from typing import Any, Dict, List
+from modules.phase_next.corpus_analyzer import analyze as corpus_analyze
+from modules.phase_next.sentiment_analyzer import score_technical_sentiment
+from modules.phase_next.concordance_scorer import score as concordance_score
+from modules.phase_next.openalex_lifecycle_tracker import track as openalex_track
+from modules.phase_next.hindex_normalizer import normalize as hindex_norm
 
-BASE_SIGNAL_SCORES = {
-    "NEW_VOICE": 2.0,
-    "ROLE_ESCALATION": 3.0,
-    "ACCELERATION": 2.5,
-    "NEW_SIGNAL": 2.5,
-    "STAGNATION": 0.5,
-    "": 1.0,
-}
+LEGACY = "phase_g_signal_scoring_legacy"
 
-def score_events(events: List[Dict[str, Any]], role_weights: Dict[str, float], cluster_members: Dict[str, int]) -> Dict[str, Dict[str, Any]]:
-    """
-    cluster_members: name -> number_of_clusters_involved
-    """
-    scores: Dict[str, Dict[str, Any]] = {}
+def _load_legacy():
+    return importlib.import_module(LEGACY)
 
-    for e in events:
-        name = e["name"]
-        sig = (e.get("signal") or "").strip()
-        base = float(BASE_SIGNAL_SCORES.get(sig, 1.0))
-        rw = weight_for_role(e.get("role_type", "Unknown"), role_weights)
+def phase_next_signal_bundle(text_blocks: List[str], sentiment_text: str,
+                             claims: List[str], evidence: List[str],
+                             openalex_records: List[Dict[str, object]],
+                             h_index: Any) -> Dict[str, Any]:
+    c = corpus_analyze(text_blocks)
+    s = score_technical_sentiment(sentiment_text)
+    conc = concordance_score(claims, evidence)
+    oa = openalex_track(openalex_records)
+    hi = hindex_norm(h_index)
+    return {**c, **s, **conc, **oa, **hi}
 
-        cluster_bonus = 0.0
-        if name in cluster_members:
-            # Bonus scales gently to avoid runaway scoring
-            cluster_bonus = 1.0 + min(2.0, 0.5 * cluster_members[name])
-
-        total = base * rw + cluster_bonus
-
-        if name not in scores:
-            scores[name] = {
-                "name": name,
-                "role_type": e.get("role_type", "Unknown"),
-                "events": [],
-                "base_sum": 0.0,
-                "cluster_bonus": 0.0,
-                "role_weight": rw,
-                "escalation_score": 0.0,
-            }
-
-        scores[name]["events"].append({
-            "signal": sig,
-            "base": base,
-            "role_weight": rw,
-            "source": e.get("source", ""),
-            "affiliation": e.get("affiliation", ""),
-            "year": e.get("year"),
-            "cluster_bonus_applied": cluster_bonus,
-            "total_event_score": total,
-        })
-
-        scores[name]["base_sum"] += base * rw
-        scores[name]["cluster_bonus"] = max(scores[name]["cluster_bonus"], cluster_bonus)
-        scores[name]["escalation_score"] = sum(ev["total_event_score"] for ev in scores[name]["events"])
-
-    # Deterministic ordering of per-person events
-    for name in scores:
-        scores[name]["events"].sort(key=lambda x: ((x.get("year") or 0), x["source"], x["signal"]))
-
-    ordered = {k: scores[k] for k in sorted(scores.keys(), key=lambda s: s.lower())}
-    return ordered
+def main(*args, **kwargs):
+    legacy = _load_legacy()
+    if not hasattr(legacy, "main"):
+        raise RuntimeError("Legacy module missing main()")
+    return legacy.main(*args, **kwargs)
