@@ -1,0 +1,204 @@
+MASTER OPTIONAL ENHANCEMENTS REGISTRY
+Research_First_Sourcer_Automation
+© 2025 L. David Mendoza
+Status: OPTIONAL ONLY · NON-BLOCKING · EXHAUSTIVE
+
+────────────────────────────────────────────────────────────
+PURPOSE
+────────────────────────────────────────────────────────────
+
+This document enumerates ALL known, foreseeable, and reasonable
+enhancements that may be applied AFTER core project completion.
+
+Inclusion here ensures:
+• No future enhancement is treated as “missing”
+• No enhancement reopens core architecture
+• No enhancement blocks correctness or demo readiness
+• No enhancement creates scope creep ambiguity
+
+Core architecture is CLOSED.
+Everything below is OPTIONAL.
+
+────────────────────────────────────────────────────────────
+CATEGORY A — USER INTERFACE & VISUALIZATION (OPTIONAL)
+────────────────────────────────────────────────────────────
+
+• Web UI (React, Next.js, Streamlit, Gradio)
+• Read-only analyst dashboard
+• Hiring manager dashboard
+• Executive summary dashboard
+• Role-based access UI
+• Candidate profile pages
+• Watchlist heatmaps
+• Timeline visualizations
+• Signal contribution charts
+• Evidence drill-down UI
+• Dark mode / light mode
+• Export-to-PDF views
+• Mobile-responsive UI
+• Internal demo UI
+• Interview-specific UI skin
+
+────────────────────────────────────────────────────────────
+CATEGORY B — EXCEL & DOCUMENT OUTPUTS (OPTIONAL)
+────────────────────────────────────────────────────────────
+
+• GPT narrative writeback into Excel
+• Multi-column narrative expansion
+• Conditional formatting rules
+• Color-coded monitoring tiers
+• Auto-generated pivot tables
+• Executive summary worksheet
+• Change-delta worksheets
+• Snapshot comparison sheets
+• Versioned Excel exports
+• Word report generation
+• PowerPoint deck autogeneration
+• PDF executive briefs
+• Branded document templates
+
+────────────────────────────────────────────────────────────
+CATEGORY C — GPT & AI INTELLIGENCE (OPTIONAL)
+────────────────────────────────────────────────────────────
+
+• Confidence calibration models
+• Multi-pass GPT validation
+• Dual-model consensus (GPT + fallback)
+• Narrative tone presets
+• Hiring-manager persona tuning
+• Risk explanation narratives
+• Counterfactual analysis
+• What-to-verify-next suggestions
+• Model attribution tracking
+• Hallucination scoring
+• Determinism scoring
+• Narrative diffing over time
+• Multi-language narratives
+
+────────────────────────────────────────────────────────────
+CATEGORY D — DATA SOURCES & SIGNALS (OPTIONAL)
+────────────────────────────────────────────────────────────
+
+• Additional publication sources
+• Additional patent databases
+• Conference CFP tracking
+• Workshop appearance tracking
+• Grant funding detection
+• Startup founding signals
+• Advisory board roles
+• OSS maintainer detection
+• PR velocity analysis
+• Issue triage participation
+• Code review depth metrics
+• Model card authorship detection
+• Safety / alignment contributions
+
+────────────────────────────────────────────────────────────
+CATEGORY E — TEMPORAL & MONITORING EXTENSIONS (OPTIONAL)
+────────────────────────────────────────────────────────────
+
+• Scheduled re-runs
+• Delta-based reprocessing
+• Trend acceleration alerts
+• Signal decay modeling
+• Time-weighted scoring
+• Longitudinal candidate tracking
+• Watchlist escalation alerts
+• De-escalation logic
+• Dormancy detection
+• Career inflection alerts
+
+────────────────────────────────────────────────────────────
+CATEGORY F — SCALABILITY & PERFORMANCE (OPTIONAL)
+────────────────────────────────────────────────────────────
+
+• Parallelized execution
+• Distributed processing
+• Chunked workbook handling
+• Async I/O
+• Cache eviction policies
+• Batch orchestration
+• Queue-based execution
+• Large-scale dataset tuning
+• Performance benchmarking
+• Cost optimization strategies
+
+────────────────────────────────────────────────────────────
+CATEGORY G — ENGINEERING & DEVOPS (OPTIONAL)
+────────────────────────────────────────────────────────────
+
+• CI pipelines
+• Pre-commit hooks
+• Static analysis
+• Linting enforcement
+• Type checking
+• Unit test coverage
+• Integration tests
+• Smoke test automation
+• Version tagging automation
+• Release notes generation
+• Containerization
+• Cloud deployment
+• Secrets management
+• Environment profiles
+
+────────────────────────────────────────────────────────────
+CATEGORY H — GOVERNANCE & COMPLIANCE (OPTIONAL)
+────────────────────────────────────────────────────────────
+
+• Audit trail exports
+• Explainability reports
+• Compliance logging
+• Data provenance reports
+• Access logging
+• Redaction tooling
+• PII detection safeguards
+• Regulatory alignment mapping
+• Internal review workflows
+• Legal review artifacts
+
+────────────────────────────────────────────────────────────
+CATEGORY I — INTERVIEW & DEMO POLISH (OPTIONAL)
+────────────────────────────────────────────────────────────
+
+• One-click demo mode
+• Demo-safe datasets
+• Interview narrative presets
+• Live walkthrough scripts
+• Visual storytelling aids
+• Slide-backed demos
+• Talking-point generators
+• “Why this candidate” summaries
+• “Why not this candidate” explanations
+• Competitive differentiation overlays
+
+────────────────────────────────────────────────────────────
+NON-NEGOTIABLE CONSTRAINTS
+────────────────────────────────────────────────────────────
+
+All optional enhancements:
+
+• MUST NOT modify locked core architecture
+• MUST NOT change schema definitions
+• MUST NOT bypass safety toggles
+• MUST NOT redefine “DONE”
+• MUST remain removable without breakage
+• MUST preserve deterministic behavior
+• MUST preserve auditability
+
+────────────────────────────────────────────────────────────
+FINAL ASSERTION
+────────────────────────────────────────────────────────────
+
+The presence of any item in this registry does NOT imply
+requirement, priority, or obligation.
+
+All items are OPTIONAL BY DESIGN.
+
+Core project completion is independent of all enhancements.
+
+This registry exists to PREVENT scope creep, not create it.
+
+────────────────────────────────────────────────────────────
+END OF DOCUMENT
+────────────────────────────────────────────────────────────
