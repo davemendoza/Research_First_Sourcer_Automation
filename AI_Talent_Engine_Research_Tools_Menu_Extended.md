@@ -97,6 +97,49 @@ I built the **AI Talent Engine** as a research-grade talent intelligence system 
 
 ---
 
+---
+
+## VIII. COMMUNITY, CONFERENCE & ECOSYSTEM INTELLIGENCE (Phase-Next)
+
+| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
+|---|-----------|----------------|--------------|-------------|--------------|
+| 38 | Community Leadership Signal Agent | Ecosystem Intelligence | OSS Communities, Societies | Identifies maintainer roles, working-group participation, and recognized technical community authority from verifiable public artifacts. | Technical Community Leadership |
+| 39 | Speaker & Panel Role Intelligence Agent | Conference Intelligence | Conferences, Workshops | Detects speaker, panelist, and workshop leadership roles across public conference programs and artifacts. | Conference Authority Signals |
+| 40 | Podcast & Longform Technical Presence Agent | Media Intelligence | Podcasts, Interviews | Extracts technical guest appearances and topic associations from long-form public media where evidence exists. | Technical Thought Visibility |
+| 41 | Forum & Community Footprint Agent | Community Analytics | Technical Forums | Captures high-signal participation in technical and research communities when publicly observable. | Peer-Level Technical Engagement |
+| 42 | Technical Peer Reception Agent | Signal Validation | Issues, Discussions | Analyzes technical peer reception signals from issue threads, PR discussions, and paper commentary without opinion or sentiment bias. | Evidence-Based Peer Review |
+
+---
+
+## IX. MULTILINGUAL & LINGUISTIC NORMALIZATION
+
+| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
+|---|-----------|----------------|--------------|-------------|--------------|
+| 43 | Lemma & Tense Normalization Agent | Linguistic Intelligence | Text Normalization | Normalizes verb tense and lemma families to reduce false negatives across resumes, papers, and technical artifacts. | Linguistic Signal Normalization |
+| 44 | Multilingual Evidence Parser Agent | Language Intelligence | Global Sources | Extracts role-relevant evidence from multilingual sources while preserving technical meaning and confidence flags. | Cross-Language Signal Integrity |
+| 45 | Symbol & Technical Notation Agent | Semantic Intelligence | Benchmarks, Math | Parses technical notation, shorthand, and symbolic indicators used in research, benchmarks, and systems work. | Technical Notation Parsing |
+
+---
+
+## X. STANDARDS, RFC & FORMAL BODY PARTICIPATION
+
+| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
+|---|-----------|----------------|--------------|-------------|--------------|
+| 46 | RFC & Standards Participation Agent | Standards Intelligence | IETF, RFCs | Detects authorship or contribution to formal technical standards and specifications when publicly documented. | Standards Leadership |
+| 47 | Governance & Formal Body Affiliation Agent | Governance Intelligence | Boards, Committees | Identifies participation in formal technical governance bodies, societies, and working groups. | Institutional Technical Authority |
+
+---
+
+## XI. PLATFORM EXPANSION & SCHOLARLY ECOSYSTEMS
+
+| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
+|---|-----------|----------------|--------------|-------------|--------------|
+| 48 | StackOverflow & Developer Community Agent | Developer Intelligence | Q&A Platforms | Extracts developer authority signals and topic expertise clusters from public Q&A ecosystems. | Developer Reputation Signals |
+| 49 | Technical Blogging Intelligence Agent | Content Intelligence | Blogs, Dev.to | Detects original technical writing tied to implementation, systems design, or research contributions. | Technical Knowledge Artifacts |
+| 50 | Scholarly Profile Expansion Agent | Research Intelligence | ResearchGate | Expands scholarly identity coverage beyond primary indices when public and reconcilable with canonical profiles. | Scholarly Surface Expansion |
+
+---
+
 ### 📘 Executive Reference  
 Part of the **AI Talent Engine GPT System**  
 Research-grade intelligence component authored by **L. David Mendoza © 2025**
