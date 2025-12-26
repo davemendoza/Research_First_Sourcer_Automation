@@ -4,7 +4,7 @@
 © 2025 L. David Mendoza. All rights reserved.
 
 This document describes a **proprietary research framework** created by L. David Mendoza.  
-Redistribution, duplication, derivative use, or replication of this architecture, methodology, or diagram without explicit written permission is prohibited.
+Redistribution, duplication, derivative use, or replication of this architecture, methodology, terminology, or diagram — in whole or in part — is prohibited without explicit written permission.
 
 ---
 
@@ -59,15 +59,66 @@ Governance spans all layers and has veto authority.
 ```mermaid
 flowchart TB
 
-%% ===============================
 %% SEED HUB INTELLIGENCE
-%% ===============================
-SH_TITLE["**Seed Hub Intelligence**<br/>(Where to Look)"]
-SH1["Target Organizations<br/>Research Labs<br/>Open-Source Orgs"]
-SH2["Repositories<br/>Model Families<br/>Archives"]
-SH3["Role Expectations<br/>Determinative Skill Criteria"]
+SH_TITLE["Seed Hub Intelligence (Where to Look)"]
+SH1["Target Organizations"]
+SH2["Research Labs"]
+SH3["Open-Source Orgs"]
+SH4["Repositories"]
+SH5["Model Families"]
+SH6["Archives"]
+SH7["Role Expectations & Determinative Skills"]
 
-SH_TITLE --> SH1 --> SH2 --> SH3
+SH_TITLE --> SH1 --> SH2 --> SH3 --> SH4 --> SH5 --> SH6 --> SH7
+
+%% PYTHON AUTOMATION LAYER
+PY_TITLE["Python Automation Layer (What Is Real)"]
+
+L1["Layer 1 — Evidence Acquisition  
+Public Artifacts  
+(Papers, Repositories, Models, Patents, Talks)"]
+
+L2["Layer 2 — Validation & Normalization  
+Noise Reduction & False-Positive Control"]
+
+L3["Layer 3 — Network & Influence Analysis  
+Collaboration Graphs & Lineage"]
+
+L4["Layer 4 — Impact & Velocity Metrics  
+Citation Velocity & Influence Tiers"]
+
+SH7 --> PY_TITLE
+PY_TITLE --> L1 --> L2 --> L3 --> L4
+
+%% CUSTOMIZED GPT EVALUATION
+GPT_TITLE["Customized GPT Evaluation Layer (What It Means)"]
+
+L5["Layer 5 — Role-Aware Signal Fusion  
+Schema-Bound Reasoning & Search Agents"]
+
+L6["Layer 6 — Predictive & Comparative Analysis  
+Trajectory Modeling & Ranking  
+(Advisory Only)"]
+
+L4 --> GPT_TITLE
+GPT_TITLE --> L5 --> L6
+
+%% GOVERNANCE
+GOV["Governance & Integrity Control  
+Schema Validation  
+Audit & Provenance  
+Responsible AI Enforcement"]
+
+GOV -. monitors .-> L1
+GOV -. validates .-> L2
+GOV -. constrains .-> L5
+GOV -. vetoes .-> L6
+
+%% OUTPUT
+OUT["Research-Grade Talent Intelligence Output  
+Evidence-Backed · Explainable · Auditable · Governed"]
+
+L6 --> OUT
 
 %% ===============================
 %% PYTHON AUTOMATION LAYER
