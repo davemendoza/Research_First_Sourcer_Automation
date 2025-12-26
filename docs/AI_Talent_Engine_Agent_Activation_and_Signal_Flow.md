@@ -5,13 +5,13 @@
 
 ---
 
-## Intellectual Property Notice
+## Intellectual Property & Proprietary Notice
 
 This document describes a **proprietary research framework** created solely by **L. David Mendoza**.
 
-All architecture, methodology, terminology, diagrams, signal logic, agent behavior, and evaluative constructs described herein are **confidential and protected intellectual property**.
+All architecture, methodology, terminology, diagrams, signal logic, agent behaviors, evaluative constructs, and system interactions described herein are **confidential and protected intellectual property**.
 
-Redistribution, duplication, derivative use, reverse engineering, or replication of this framework — in whole or in part — is prohibited without **explicit written authorization** from L. David Mendoza.
+Redistribution, duplication, derivative use, reverse engineering, decompilation, or replication of this framework — in whole or in part — is prohibited without **explicit written authorization** from L. David Mendoza.
 
 ---
 
@@ -27,8 +27,10 @@ It is intentionally written to be understandable by:
 - Investors and operators evaluating defensibility  
 
 **This is not a résumé screener.**  
-**It is not a keyword-matching system.**  
-**It is a governed, evidence-based research engine.**
+**This is not a keyword-matching system.**  
+**This is not based on self-described or unverified skills.**
+
+It is a **governed, evidence-based research engine**.
 
 ---
 
@@ -36,19 +38,20 @@ It is intentionally written to be understandable by:
 
 The AI Talent Engine operates as a **three-layer system**, with governance spanning all layers:
 
-1. **Seed Hub Intelligence** — directs *where* to look and *what evidence counts*  
-2. **Python Automation Layer** — verifies *what is real and technically demonstrable*  
-3. **Customized GPT Evaluation Layer** — interprets validated evidence *by role and tier*  
+1. **Seed Hub Intelligence** — determines *where to look* and *what evidence qualifies*  
+2. **Python Automation Layer** — establishes *what is real, verifiable, and technically demonstrated*  
+3. **Customized GPT Evaluation Layer** — interprets validated evidence *by role, tier, and context*  
 
-Governance has veto authority across all layers.
+Governance has **veto authority across all layers**.
 
 ---
 
 ## Non-Negotiable System Rules
 
 - Evidence must be publicly verifiable  
-- No agent may invent, mutate, or hallucinate evidence  
-- Classification is based on **technical output**, not self-description  
+- No agent may invent, mutate, infer, or hallucinate evidence  
+- Classification is derived from **technical output**, not self-description  
+- Validation always precedes evaluation  
 - Governance may halt execution at any stage  
 
 ---
@@ -56,10 +59,10 @@ Governance has veto authority across all layers.
 ## How to Read the Diagram
 
 - Discovery is **directed**, not exploratory  
-- Validation **always precedes** evaluation  
+- Precision targeting replaces broad scraping  
+- Validation **always precedes** interpretation  
 - GPT never inspects raw sources  
-- Predictive intelligence is **advisory**, never authoritative  
-- Each layer only consumes **validated upstream output**  
+- Each layer consumes **only validated upstream output**  
 
 ---
 
@@ -74,14 +77,14 @@ flowchart TB
 SH["Seed Hub Intelligence
 (Precision Targeting & Constraints)
 
-• Directs where to investigate
+• Determines where to investigate
 • Defines what evidence qualifies
 • Constrains discovery scope
 • Vetoes invalid roles, schemas, or claims
 
 This is precision targeting — not broad scraping.
-The Seed Hub navigates the Python layer toward
-specific talent environments and individuals
+The Seed Hub actively navigates the Python layer
+toward specific talent environments and individuals
 based on explicit research intent."]
 
 SH --> PY
@@ -93,7 +96,7 @@ PY["Python Automation Layer
 (Evidence Extraction & Verification)
 
 • Programmatically inspects real technical artifacts:
-  repositories, codebases, models, papers, patents
+  source code, repositories, models, papers, patents
 • Examines what an individual actually built
 • Determines AI role type, tier level,
   and determinative skills
