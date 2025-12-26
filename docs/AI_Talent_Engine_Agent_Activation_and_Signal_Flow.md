@@ -3,8 +3,15 @@
 **Created by L. David Mendoza | December 2025**  
 © 2025 L. David Mendoza. All rights reserved.
 
-This document describes a **proprietary research framework** created by L. David Mendoza.  
-Redistribution, duplication, derivative use, or replication of this architecture, methodology, terminology, or diagram — in whole or in part — is prohibited without explicit written permission.
+---
+
+## Intellectual Property Notice
+
+This document describes a **proprietary research framework** created solely by **L. David Mendoza**.
+
+All architecture, methodology, terminology, diagrams, signal logic, agent behavior, and evaluative constructs described herein are **confidential and protected intellectual property**.
+
+Redistribution, duplication, derivative use, reverse engineering, or replication of this framework — in whole or in part — is prohibited without **explicit written authorization** from L. David Mendoza.
 
 ---
 
@@ -14,25 +21,26 @@ This document explains how the **AI Talent Engine** activates agents, validates 
 
 It is intentionally written to be understandable by:
 
-- Talent & Recruiting leaders  
+- Talent Acquisition & Recruiting leadership  
 - Hiring managers and executive leadership  
-- Engineering, ML, and research leadership  
+- Engineering, ML, and AI research leadership  
 - Investors and operators evaluating defensibility  
 
 **This is not a résumé screener.**  
-**It is a governed, evidence-based research system.**
+**It is not a keyword-matching system.**  
+**It is a governed, evidence-based research engine.**
 
 ---
 
 ## Core Architecture (Three-Layer Model)
 
-The AI Talent Engine operates as a **three-layer system**:
+The AI Talent Engine operates as a **three-layer system**, with governance spanning all layers:
 
-1. **Seed Hub Intelligence** — defines *where* to look and *what evidence matters*  
-2. **Python Automation Layer** — determines *what is real and verifiable*  
-3. **Customized GPT Evaluation Layer** — interprets validated evidence *per role*  
+1. **Seed Hub Intelligence** — directs *where* to look and *what evidence counts*  
+2. **Python Automation Layer** — verifies *what is real and technically demonstrable*  
+3. **Customized GPT Evaluation Layer** — interprets validated evidence *by role and tier*  
 
-Governance spans all layers and has veto authority.
+Governance has veto authority across all layers.
 
 ---
 
@@ -40,17 +48,18 @@ Governance spans all layers and has veto authority.
 
 - Evidence must be publicly verifiable  
 - No agent may invent, mutate, or hallucinate evidence  
-- Governance has veto authority across all layers  
+- Classification is based on **technical output**, not self-description  
+- Governance may halt execution at any stage  
 
 ---
 
 ## How to Read the Diagram
 
-- Evidence flows **from discovery to evaluation**  
-- Validation **always precedes** scoring  
+- Discovery is **directed**, not exploratory  
+- Validation **always precedes** evaluation  
+- GPT never inspects raw sources  
 - Predictive intelligence is **advisory**, never authoritative  
-- Governance monitors, constrains, and can halt execution  
-- **Each layer only consumes validated upstream output**
+- Each layer only consumes **validated upstream output**  
 
 ---
 
@@ -59,104 +68,71 @@ Governance spans all layers and has veto authority.
 ```mermaid
 flowchart TB
 
+%% =========================
 %% SEED HUB INTELLIGENCE
-SH_TITLE["Seed Hub Intelligence (Where to Look)"]
-SH1["Target Organizations"]
-SH2["Research Labs"]
-SH3["Open-Source Orgs"]
-SH4["Repositories"]
-SH5["Model Families"]
-SH6["Archives"]
-SH7["Role Expectations & Determinative Skills"]
+%% =========================
+SH["Seed Hub Intelligence
+(Precision Targeting & Constraints)
 
-SH_TITLE --> SH1 --> SH2 --> SH3 --> SH4 --> SH5 --> SH6 --> SH7
+• Directs where to investigate
+• Defines what evidence qualifies
+• Constrains discovery scope
+• Vetoes invalid roles, schemas, or claims
 
+This is precision targeting — not broad scraping.
+The Seed Hub navigates the Python layer toward
+specific talent environments and individuals
+based on explicit research intent."]
+
+SH --> PY
+
+%% =========================
 %% PYTHON AUTOMATION LAYER
-PY_TITLE["Python Automation Layer (What Is Real)"]
+%% =========================
+PY["Python Automation Layer
+(Evidence Extraction & Verification)
 
-L1["Layer 1 — Evidence Acquisition  
-Public Artifacts  
-(Papers, Repositories, Models, Patents, Talks)"]
+• Programmatically inspects real technical artifacts:
+  repositories, codebases, models, papers, patents
+• Examines what an individual actually built
+• Determines AI role type, tier level,
+  and determinative skills
+• Normalizes signals and suppresses false positives
 
-L2["Layer 2 — Validation & Normalization  
-Noise Reduction & False-Positive Control"]
+Classification is derived from demonstrated
+technical output — not résumés, titles,
+or unverified self-reported skills."]
 
-L3["Layer 3 — Network & Influence Analysis  
-Collaboration Graphs & Lineage"]
+PY --> GPT
 
-L4["Layer 4 — Impact & Velocity Metrics  
-Citation Velocity & Influence Tiers"]
+%% =========================
+%% GPT EVALUATION LAYER
+%% =========================
+GPT["Customized GPT Evaluation Layer
+(Role-Aware Synthesis)
 
-SH7 --> PY_TITLE
-PY_TITLE --> L1 --> L2 --> L3 --> L4
+• Consumes only Python-validated evidence
+• Interprets signals in role-specific context
+• Explains why evidence matters
+• Produces human-readable, decision-ready intelligence
 
-%% CUSTOMIZED GPT EVALUATION
-GPT_TITLE["Customized GPT Evaluation Layer (What It Means)"]
+GPT does not explore raw sources.
+It reasons strictly over verified evidence."]
 
-L5["Layer 5 — Role-Aware Signal Fusion  
-Schema-Bound Reasoning & Search Agents"]
+%% =========================
+%% GOVERNANCE & INTEGRITY
+%% =========================
+GOV["Governance & Integrity Control
 
-L6["Layer 6 — Predictive & Comparative Analysis  
-Trajectory Modeling & Ranking  
-(Advisory Only)"]
+• Schema enforcement
+• Provenance tracking
+• Auditability
+• Responsible AI constraints
 
-L4 --> GPT_TITLE
-GPT_TITLE --> L5 --> L6
+Governance has veto authority
+across all layers."]
 
-%% GOVERNANCE
-GOV["Governance & Integrity Control  
-Schema Validation  
-Audit & Provenance  
-Responsible AI Enforcement"]
-
-GOV -. monitors .-> L1
-GOV -. validates .-> L2
-GOV -. constrains .-> L5
-GOV -. vetoes .-> L6
-
-%% OUTPUT
-OUT["Research-Grade Talent Intelligence Output  
-Evidence-Backed · Explainable · Auditable · Governed"]
-
-L6 --> OUT
-
-%% ===============================
-%% PYTHON AUTOMATION LAYER
-%% ===============================
-PY_TITLE["**Python Automation Layer**<br/>(What Is Real)"]
-
-L1["Layer 1 — Evidence Acquisition<br/>Public Artifacts<br/>(Papers · Repositories · Models · Patents · Talks)"]
-L2["Layer 2 — Validation & Normalization<br/>Noise Reduction · False-Positive Control"]
-L3["Layer 3 — Network & Influence Analysis<br/>Collaboration Graphs · Lineage"]
-L4["Layer 4 — Impact & Velocity Metrics<br/>Citation Velocity · Influence Tiers"]
-
-SH3 --> PY_TITLE
-PY_TITLE --> L1 --> L2 --> L3 --> L4
-
-%% ===============================
-%% CUSTOMIZED GPT EVALUATION
-%% ===============================
-GPT_TITLE["**Customized GPT Evaluation Layer**<br/>(What It Means)"]
-
-L5["Layer 5 — Role-Aware Signal Fusion<br/>Schema-Bound Reasoning · Search Agents"]
-L6["Layer 6 — Predictive & Comparative Analysis<br/>Trajectory Modeling · Ranking<br/>(Advisory Only)"]
-
-L4 --> GPT_TITLE
-GPT_TITLE --> L5 --> L6
-
-%% ===============================
-%% GOVERNANCE
-%% ===============================
-GOV["Governance & Integrity Control<br/>Schema Validation · Audit · Provenance<br/>Responsible AI Enforcement"]
-
-GOV -. monitors .-> L1
-GOV -. validates .-> L2
-GOV -. constrains .-> L5
-GOV -. vetoes .-> L6
-
-%% ===============================
-%% OUTPUT
-%% ===============================
-OUT["Research-Grade Talent Intelligence Output<br/>Evidence-Backed · Explainable · Auditable · Governed"]
-
-L6 --> OUT
+GOV -. monitors .-> SH
+GOV -. monitors .-> PY
+GOV -. monitors .-> GPT
+GOV -. constrains .-> GPT
