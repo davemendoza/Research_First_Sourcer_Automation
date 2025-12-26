@@ -1,34 +1,43 @@
-===============================================
-Created by L. David Mendoza | December 2025
-© 2025 L. David Mendoza. All rights reserved.
-
-This document and the system it describes are proprietary.
-No part may be reproduced, distributed, or used to create derivative works
-without explicit written permission.
-===============================================
-
 # AI Talent Engine — Agent Activation & Signal Flow
 
-This document explains how the AI Talent Engine activates agents, validates evidence, and produces research-grade talent intelligence.
-
-It is designed to be readable by both technical and non-technical stakeholders.
+**Created by L. David Mendoza | December 2025**  
+© 2025 L. David Mendoza. All rights reserved.  
+This document describes a proprietary research framework. Redistribution or derivative use without permission is prohibited.
 
 ---
 
-## System Hard Rules
+## Purpose & Audience
 
-• Evidence must be publicly verifiable  
-• No agent may invent or mutate evidence  
-• Governance has veto authority across all layers  
+This document explains how the **AI Talent Engine** activates agents, validates evidence, and produces **research-grade talent intelligence**.
+
+It is intentionally written to be understandable by:
+- Talent & Recruiting leaders
+- Hiring managers and executives
+- Engineering, ML, and research leadership
+- Investors and operators evaluating defensibility
+
+This is **not** a résumé screener.  
+It is a governed research system.
+
+---
+
+## Non-Negotiable System Rules
+
+The AI Talent Engine follows three hard rules:
+
+- **Evidence must be publicly verifiable**
+- **No agent may invent, mutate, or hallucinate evidence**
+- **Governance has veto authority across all layers**
 
 ---
 
 ## How to Read the Diagram
 
-• Evidence flows upward from public artifacts  
-• Validation always precedes scoring  
-• Predictive intelligence is advisory, never authoritative  
-• Governance monitors, constrains, and can halt execution  
+- Evidence flows **upward** from public artifacts
+- Validation **always precedes** scoring
+- Predictive intelligence is **advisory**, never authoritative
+- Governance **monitors, constrains, and can halt execution**
+- Each layer only consumes *validated upstream output*
 
 ---
 
@@ -37,54 +46,64 @@ It is designed to be readable by both technical and non-technical stakeholders.
 ```mermaid
 flowchart TB
 
-%% =========================
-%% **SEED HUB INTELLIGENCE**
-%% =========================
-SH1["Seed Hub Intelligence"]
-SH2["Target Organizations · Labs · Repositories<br/>Model Families · Archives · Role Expectations"]
+%% ======================================================
+%% MACRO LAYER 1 — SEED HUB INTELLIGENCE
+%% ======================================================
 
-SH1 --> SH2
+subgraph SEED["**Seed Hub Intelligence**<br/>(Where to Look)"]
+direction TB
+SH1["Target Organizations<br/>Research Labs<br/>Open-Source Orgs"]
+SH2["Repositories<br/>Model Families<br/>Archives"]
+SH3["Role Expectations<br/>Determinative Skill Criteria"]
+SH1 --> SH2 --> SH3
+end
 
-%% =========================
-%% **PYTHON AUTOMATION LAYER**
-%% =========================
-PY1["Python Automation Layer"]
+%% ======================================================
+%% MACRO LAYER 2 — PYTHON AUTOMATION
+%% ======================================================
 
-L1["Layer 1 — Evidence Acquisition<br/>Public Artifacts<br/>Papers · Repos · Models · Patents · Talks"]
-L2["Layer 2 — Systems & Validation<br/>Alignment · Linguistic Validation<br/>Noise Reduction"]
-L3["Layer 3 — Network & Influence<br/>Collaboration Graphs · Authorship · Lab Lineage"]
-L4["Layer 4 — Impact Analytics<br/>Citation Velocity · Baselines · Influence Tiers"]
+subgraph PY["**Python Automation Layer**<br/>(What Is Real)"]
+direction TB
 
-SH2 --> PY1
-PY1 --> L1 --> L2 --> L3 --> L4
+L1["Layer 1 — Evidence Acquisition<br/><br/>Public Artifacts:<br/>Papers · Repositories · Models · Patents · Talks"]
+L2["Layer 2 — Systems & Linguistic Validation<br/><br/>Noise Reduction · False-Positive Control"]
+L3["Layer 3 — Network & Influence Modeling<br/><br/>Collaboration Graphs · Lineage · Cross-Lab Signals"]
+L4["Layer 4 — Impact & Velocity Analytics<br/><br/>Baselines · Citation Velocity · Influence Tiers"]
 
-%% =========================
-%% **CUSTOMIZED GPT LAYER**
-%% =========================
-GPT1["Customized GPT Evaluation Layer"]
+L1 --> L2 --> L3 --> L4
+end
 
-L5["Layer 5 — Second-Order Interpretation<br/>Role-Aware Fusion · Schema-Bound Search Agents"]
-L6["Layer 6 — Predictive Intelligence<br/>Trajectory Modeling · Forecasting · Ranking<br/>(Advisory Only)"]
+%% ======================================================
+%% MACRO LAYER 3 — CUSTOMIZED GPT
+%% ======================================================
 
-L4 --> GPT1
-GPT1 --> L5 --> L6
+subgraph GPT["**Customized GPT Evaluation Layer**<br/>(What It Means)"]
+direction TB
 
-%% =========================
+L5["Layer 5 — Role-Aware Signal Fusion<br/><br/>Schema-Bound Reasoning · Search Agents"]
+L6["Layer 6 — Predictive & Comparative Analysis<br/><br/>Trajectory Modeling · Ranking · Scenario Analysis"]
+
+L5 --> L6
+end
+
+%% ======================================================
 %% GOVERNANCE
-%% =========================
-G1["Governance & Integrity Control"]
-G2["Schema Validation · Audit · Provenance<br/>Responsible AI Enforcement"]
+%% ======================================================
 
-G1 --> G2
+subgraph GOV["Governance & Integrity Control"]
+direction TB
+G1["Schema Validation<br/>Audit & Provenance<br/>Responsible AI Enforcement"]
+end
 
-G2 -. monitors .-> L1
-G2 -. validates .-> L4
-G2 -. vetoes .-> L5
-G2 -. constrains .-> L6
+%% ======================================================
+%% FLOW CONNECTIONS
+%% ======================================================
 
-%% =========================
-%% OUTPUT
-%% =========================
-OUT["Research-Grade Talent Intelligence Output<br/>Evidence-Backed · Explainable · Auditable · Governed"]
+SEED --> L1
+L4 --> L5
+G1 -. monitors .-> L1
+G1 -. validates .-> L2
+G1 -. constrains .-> L5
+G1 -. vetoes .-> L6
 
-L6 --> OUT
+L6 --> OUT["Research-Grade Talent Intelligence Output<br/><br/>Evidence-Backed · Explainable · Auditable · Governed"]
