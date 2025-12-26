@@ -3,34 +3,25 @@
 **Created by L. David Mendoza | December 2025**  
 © 2025 L. David Mendoza. All rights reserved.
 
----
-
-## Intellectual Property & Proprietary Notice
-
-This document describes a **proprietary research framework** created solely by **L. David Mendoza**.
-
-All architecture, methodology, terminology, diagrams, signal logic, agent behaviors, evaluative constructs, and system interactions described herein are **confidential and protected intellectual property**.
-
-Redistribution, duplication, derivative use, reverse engineering, decompilation, or replication of this framework — in whole or in part — is prohibited without **explicit written authorization** from L. David Mendoza.
+This document describes a **proprietary research framework** created by L. David Mendoza.  
+Redistribution, duplication, derivative use, or replication of this architecture, methodology, terminology, or diagram — in whole or in part — is prohibited without explicit written permission.
 
 ---
 
 ## Purpose & Audience
 
-This document explains how the **AI Talent Engine** activates agents, validates evidence, and produces **research-grade talent intelligence**.
+This document explains how the **AI Talent Engine** activates research agents, validates technical evidence, and produces **research-grade, role-aware talent intelligence**.
 
 It is intentionally written to be understandable by:
 
-- Talent Acquisition & Recruiting leadership  
+- Talent & Recruiting leaders  
 - Hiring managers and executive leadership  
-- Engineering, ML, and AI research leadership  
+- Engineering, ML, and research leadership  
 - Investors and operators evaluating defensibility  
 
 **This is not a résumé screener.**  
-**This is not a keyword-matching system.**  
-**This is not based on self-described or unverified skills.**
-
-It is a **governed, evidence-based research engine**.
+**It is not a keyword matcher.**  
+**It is a governed, evidence-based research system.**
 
 ---
 
@@ -38,31 +29,37 @@ It is a **governed, evidence-based research engine**.
 
 The AI Talent Engine operates as a **three-layer system**, with governance spanning all layers:
 
-1. **Seed Hub Intelligence** — determines *where to look* and *what evidence qualifies*  
-2. **Python Automation Layer** — establishes *what is real, verifiable, and technically demonstrated*  
-3. **Customized GPT Evaluation Layer** — interprets validated evidence *by role, tier, and context*  
+1. **Seed Hub Intelligence**  
+   Defines *where to look*, *who to target*, and *what evidence qualifies*
 
-Governance has **veto authority across all layers**.
+2. **Python Automation Layer**  
+   Programmatically extracts, verifies, and classifies **real technical work**
+
+3. **Customized GPT Evaluation Layer**  
+   Interprets verified evidence in **role-specific context**
+
+Governance has **veto authority** across all layers.
 
 ---
 
 ## Non-Negotiable System Rules
 
-- Evidence must be publicly verifiable  
-- No agent may invent, mutate, infer, or hallucinate evidence  
-- Classification is derived from **technical output**, not self-description  
-- Validation always precedes evaluation  
-- Governance may halt execution at any stage  
+- Evidence must be **publicly verifiable**
+- No agent may invent, mutate, or hallucinate evidence
+- Validation **always precedes** interpretation
+- Governance can **constrain, veto, or halt** execution at any point
+- GPT **never explores raw sources directly**
 
 ---
 
 ## How to Read the Diagram
 
-- Discovery is **directed**, not exploratory  
-- Precision targeting replaces broad scraping  
-- Validation **always precedes** interpretation  
-- GPT never inspects raw sources  
-- Each layer consumes **only validated upstream output**  
+- Evidence flows **top-down** from targeting → extraction → evaluation
+- Each layer consumes **only validated upstream output**
+- The Seed Hub **directs and constrains** discovery
+- Python **determines what is real**
+- GPT **explains why it matters**
+- Governance **monitors, constrains, and vetoes** across all layers
 
 ---
 
@@ -71,30 +68,31 @@ Governance has **veto authority across all layers**.
 ```mermaid
 flowchart TB
 
-%% =========================
-%% SEED HUB INTELLIGENCE
-%% =========================
+%% GOVERNANCE
+GOV["Governance & Integrity Control
+• Schema enforcement
+• Provenance tracking
+• Auditability
+• Responsible AI constraints
+• Veto authority across all layers"]
+
+%% SEED HUB
 SH["Seed Hub Intelligence
 (Precision Targeting & Constraints)
-
-• Determines where to investigate
-• Defines what evidence qualifies
+• Defines where to investigate
+• Specifies which talent environments and individuals to target
+• Determines what evidence qualifies
 • Constrains discovery scope
 • Vetoes invalid roles, schemas, or claims
 
 This is precision targeting — not broad scraping.
 The Seed Hub actively navigates the Python layer
-toward specific talent environments and individuals
-based on explicit research intent."]
+toward specific individuals based on explicit
+research intent."]
 
-SH --> PY
-
-%% =========================
-%% PYTHON AUTOMATION LAYER
-%% =========================
+%% PYTHON LAYER
 PY["Python Automation Layer
 (Evidence Extraction & Verification)
-
 • Programmatically inspects real technical artifacts:
   source code, repositories, models, papers, patents
 • Examines what an individual actually built
@@ -106,36 +104,28 @@ Classification is derived from demonstrated
 technical output — not résumés, titles,
 or unverified self-reported skills."]
 
-PY --> GPT
-
-%% =========================
-%% GPT EVALUATION LAYER
-%% =========================
+%% GPT LAYER
 GPT["Customized GPT Evaluation Layer
 (Role-Aware Synthesis)
-
 • Consumes only Python-validated evidence
 • Interprets signals in role-specific context
 • Explains why evidence matters
-• Produces human-readable, decision-ready intelligence
+• Produces human-readable,
+  decision-ready intelligence
 
 GPT does not explore raw sources.
 It reasons strictly over verified evidence."]
 
-%% =========================
-%% GOVERNANCE & INTEGRITY
-%% =========================
-GOV["Governance & Integrity Control
+%% FLOWS
+SH --> PY
+PY --> GPT
 
-• Schema enforcement
-• Provenance tracking
-• Auditability
-• Responsible AI constraints
-
-Governance has veto authority
-across all layers."]
-
+%% GOVERNANCE CONTROLS
 GOV -. monitors .-> SH
 GOV -. monitors .-> PY
 GOV -. monitors .-> GPT
+
+GOV -. constrains .-> PY
 GOV -. constrains .-> GPT
+GOV -. vetoes .-> PY
+GOV -. vetoes .-> GPT
