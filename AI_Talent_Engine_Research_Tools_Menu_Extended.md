@@ -54,7 +54,7 @@ I built the **AI Talent Engine** as a research-grade talent intelligence system 
 | # | **Tool Name** | **Classification** | **Domain Focus** | **Description** | **Domain Niche** |
 |---|----------------|--------------------|------------------|-----------------|------------------|
 | 17 | **Citation Velocity Analyzer** | Citation Intelligence | Citation Ratios | Calculates citation velocity and growth rate. | Citation Momentum Analysis |
-| 18 | **Research Impact Scorer** | Evaluation Analytics | Citation + Collaboration Data | Aggregates citation and authorship impact metrics. | Research Impact Evaluation |
+| 18 | **Research Impact Scorer (Baseline)** | Evaluation Analytics | Citation + Collaboration Data | Aggregates citation and authorship impact metrics. | Research Impact Evaluation |
 | 19 | **Publication Trend Forecaster** | Predictive Analytics | Time-Series Citations | Projects future publication and citation growth. | Citation Forecasting |
 | 20 | **Influence Tier Reporter** | Ranking Intelligence | Percentile-Based Tiers | Generates percentile rankings of researcher influence. | Influence Tiering |
 
@@ -78,7 +78,7 @@ I built the **AI Talent Engine** as a research-grade talent intelligence system 
 | 25 | **Career Trajectory Modeler** | Career Analytics | Researcher Seniority Evolution | Models career growth and leadership trajectory. | Career Evolution Forecasting |
 | 26 | **Talent Radar Intelligence Agent** | Talent Discovery | Emerging Researchers | Detects rapidly rising contributors across domains. | Emerging Researcher Analytics |
 | 27 | **Cross-Lab Cluster Detector** | Collaboration Intelligence | Community Modularity | Identifies modularity-based research communities. | Cluster Detection |
-| 28 | **Research Impact Scorer (Enhanced)** | Evaluation Analytics | Citation + Collaboration Fusion | Provides refined scoring of research influence. | Impact Scoring Optimization |
+| 28 | **Research Impact Scorer (Fusion /Second-Order)** | Evaluation Analytics | Multi-Agent Citation + Collaboration Fusion | Provides refined scoring of research influence. | Impact Scoring Optimization |
 | 29 | **Publication Trend Forecaster (Enhanced)** | Predictive Analytics | Temporal Publication Patterns | Enhances forecasting accuracy using temporal signals. | Publication Pattern Forecasting |
 | 30 | **Influence Tier Reporter (Enhanced)** | Ranking Intelligence | High-Precision Influence Tiers | Produces high-resolution percentile influence tiers. | Precision Influence Ranking |
 | 31 | **Citation Velocity Analyzer (Enhanced)** | Longitudinal Analytics | Citation Velocity Tracking | Extends citation tracking over longitudinal data. | Long-Term Citation Dynamics |
