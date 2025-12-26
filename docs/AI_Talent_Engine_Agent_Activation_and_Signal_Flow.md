@@ -1,39 +1,34 @@
 ===============================================
-© 2025 Dave Mendoza, DBA AI Craft, Inc. All rights reserved.
-Proprietary and Confidential — Unauthorized copying or distribution is prohibited.
-===============================================
+Created by L. David Mendoza | December 2025
+© 2025 L. David Mendoza. All rights reserved.
 
-Created by L. David Mendoza | December 2025  
-AI Talent Engine — Signal Intelligence (Executive Edition)
+This document and the system it describes are proprietary.
+No part may be reproduced, distributed, or used to create derivative works
+without explicit written permission.
+===============================================
 
 # AI Talent Engine — Agent Activation & Signal Flow
 
-This document explains how the AI Talent Engine activates agents, validates evidence, and produces research-grade talent intelligence.  
-It is designed to be readable by both technical and non-technical stakeholders.
+This document explains how the AI Talent Engine activates agents, validates evidence, and produces research-grade talent intelligence.
 
-The AI Talent Engine operates as a **three-layer system**, where each layer has a distinct responsibility and authority boundary.
+It is designed to be readable by both technical and non-technical stakeholders, including talent leaders, recruiters, executives, and investors.
 
-The system follows three hard rules:
+---
 
-- Evidence must be publicly verifiable  
-- No agent may invent or mutate evidence  
-- Governance has veto authority across all layers  
+## System Hard Rules
 
-At a high level:
-- **Seed Hub Intelligence** determines *where the system looks*  
-- **Python Automation** determines *what evidence is real and relevant*  
-- **Customized GPT Evaluation** determines *how that evidence is interpreted and explained*  
+• Evidence must be publicly verifiable  
+• No agent may invent or mutate evidence  
+• Governance has veto authority across all layers  
 
 ---
 
 ## How to Read the Diagram
 
-- Evidence flows **upward from public artifacts**, never from inference alone  
-- Validation **always precedes** scoring or ranking  
-- Predictive intelligence is **advisory**, never authoritative  
-- Governance operates as a **continuous control plane**, with the ability to constrain or halt execution  
-
-Outputs are designed to support **hiring prioritization, interview calibration, succession planning, and long-horizon talent strategy** — not automated hiring decisions.
+• Evidence flows upward from public artifacts  
+• Validation always precedes scoring  
+• Predictive intelligence is advisory, never authoritative  
+• Governance monitors, constrains, and can halt execution  
 
 ---
 
@@ -42,27 +37,72 @@ Outputs are designed to support **hiring prioritization, interview calibration, 
 ```mermaid
 flowchart TB
 
-%% ==================================================
-%% SEED HUB INTELLIGENCE LAYER
-%% ==================================================
-subgraph SH["Seed Hub Intelligence Layer"]
-    SH1["Seed Hub Data<br/>Target Orgs · Labs · Repos · Models · Archives<br/>Role-Specific Signal Expectations"]
-end
+%% =================================================
+%% SEED HUB INTELLIGENCE (WHERE TO LOOK)
+%% =================================================
+SH_TITLE["Seed Hub Intelligence"]
+SH_DESC["Target Orgs · Labs · Repos · Models · Archives<br/>Role-Specific Expectations"]
 
-%% ==================================================
-%% PYTHON AUTOMATION LAYER
-%% ==================================================
-subgraph PY["Python Automation Layer"]
+SH_TITLE --> SH_DESC
 
-    subgraph L1["Layer 1 — Evidence Acquisition (First-Order)"]
-        A1["Public Artifacts<br/>Papers · Repositories · Models · Patents · Talks"]
-        A2["Portfolio · Lab · Model · Community Agents<br/>(Automated Discovery & Identity Resolution)"]
-        A1 --> A2
-    end
+%% =================================================
+%% PYTHON AUTOMATION LAYER (WHAT IS REAL)
+%% =================================================
+PY_TITLE["Python Automation Layer"]
 
-    subgraph L2["Layer 2 — Systems & Domain Validation"]
-        B1["Alignment · Systems · Linguistic Validation<br/>(Noise Reduction & False-Positive Control)"]
-    end
+L1_TITLE["Layer 1 — Evidence Acquisition"]
+L1_NODE1["Public Artifacts<br/>Papers · Repositories · Models · Patents · Talks"]
+L1_NODE2["Portfolio · Lab · Model · Community Resolution<br/>(Automated Discovery & Identity Matching)"]
+
+L2_TITLE["Layer 2 — Systems & Validation"]
+L2_NODE["Alignment · Linguistic Validation<br/>Noise Reduction · False-Positive Control"]
+
+L3_TITLE["Layer 3 — Network & Influence"]
+L3_NODE["Collaboration Graphs · Authorship · Lab Lineage"]
+
+L4_TITLE["Layer 4 — Impact Analytics"]
+L4_NODE["Citation Velocity · Baselines · Influence Tiers"]
+
+SH_DESC --> PY_TITLE
+PY_TITLE --> L1_TITLE --> L1_NODE1 --> L1_NODE2
+L1_NODE2 --> L2_TITLE --> L2_NODE
+L2_NODE --> L3_TITLE --> L3_NODE
+L3_NODE --> L4_TITLE --> L4_NODE
+
+%% =================================================
+%% CUSTOMIZED GPT EVALUATION (WHAT IT MEANS)
+%% =================================================
+GPT_TITLE["Customized GPT Evaluation Layer"]
+
+L5_TITLE["Layer 5 — Second-Order Interpretation"]
+L5_NODE["Role-Aware Fusion & Signal Interpretation<br/>Schema-Bound Search Agents"]
+
+L6_TITLE["Layer 6 — Predictive Intelligence"]
+L6_NODE["Trajectory Modeling · Forecasting · Comparative Ranking<br/>(Advisory Only)"]
+
+L4_NODE --> GPT_TITLE
+GPT_TITLE --> L5_TITLE --> L5_NODE
+L5_NODE --> L6_TITLE --> L6_NODE
+
+%% =================================================
+%% GOVERNANCE (ALWAYS ON)
+%% =================================================
+GOV_TITLE["Governance & Integrity Control"]
+GOV_NODE["Schema Validation · Audit · Provenance<br/>Responsible AI Enforcement"]
+
+GOV_TITLE --> GOV_NODE
+
+GOV_NODE -. monitors .-> L1_NODE2
+GOV_NODE -. validates .-> L4_NODE
+GOV_NODE -. vetoes .-> L5_NODE
+GOV_NODE -. constrains .-> L6_NODE
+
+%% =================================================
+%% OUTPUT
+%% =================================================
+OUT["Research-Grade Talent Intelligence Output<br/>Evidence-Backed · Explainable · Auditable · Governed"]
+
+L6_NODE --> OUT
 
     subgraph L3["Layer 3 — Network & Influence Modeling"]
         C1["Collaboration & Influence Graphs<br/>(Authorship, Lab, and Community Signals)"]
