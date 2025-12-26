@@ -38,7 +38,7 @@ It is designed to be readable by both technical and non-technical stakeholders.
 flowchart TB
 
 %% =========================
-%% SEED HUB INTELLIGENCE
+%% **SEED HUB INTELLIGENCE**
 %% =========================
 SH1["Seed Hub Intelligence"]
 SH2["Target Organizations · Labs · Repositories<br/>Model Families · Archives · Role Expectations"]
@@ -46,7 +46,7 @@ SH2["Target Organizations · Labs · Repositories<br/>Model Families · Archives
 SH1 --> SH2
 
 %% =========================
-%% PYTHON AUTOMATION LAYER
+%% **PYTHON AUTOMATION LAYER**
 %% =========================
 PY1["Python Automation Layer"]
 
@@ -59,7 +59,7 @@ SH2 --> PY1
 PY1 --> L1 --> L2 --> L3 --> L4
 
 %% =========================
-%% CUSTOMIZED GPT LAYER
+%% **CUSTOMIZED GPT LAYER**
 %% =========================
 GPT1["Customized GPT Evaluation Layer"]
 
