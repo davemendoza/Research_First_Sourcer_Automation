@@ -77,7 +77,7 @@ GOV["Governance & Integrity Control
 • Veto authority across all layers"]
 
 %% SEED HUB
-SH["Seed Hub Intelligence
+SH["SEED HUB INTELLIGENCE
 (Precision Targeting & Constraints)
 • Defines where to investigate
 • Specifies which talent environments and individuals to target
@@ -91,7 +91,7 @@ toward specific individuals based on explicit
 research intent."]
 
 %% PYTHON LAYER
-PY["Python Automation Layer
+PY["PYTHON AUTOMATION LAYER
 (Evidence Extraction & Verification)
 • Programmatically inspects real technical artifacts:
   source code, repositories, models, papers, patents
@@ -105,7 +105,7 @@ technical output — not résumés, titles,
 or unverified self-reported skills."]
 
 %% GPT LAYER
-GPT["Customized GPT Evaluation Layer
+GPT["CUSTOMIZED GPT EVALUATION LAYER
 (Role-Aware Synthesis)
 • Consumes only Python-validated evidence
 • Interprets signals in role-specific context
