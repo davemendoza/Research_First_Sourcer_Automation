@@ -69,7 +69,7 @@ Governance has **veto authority** across all layers.
 flowchart TB
 
 %% GOVERNANCE
-GOV["Governance & Integrity Control
+GOV["GOVERNANCE & INTEGRITY CONTROL
 • Schema enforcement
 • Provenance tracking
 • Auditability
@@ -106,15 +106,29 @@ or unverified self-reported skills."]
 
 %% GPT LAYER
 GPT["CUSTOMIZED GPT EVALUATION LAYER
-(Role-Aware Synthesis)
-• Consumes only Python-validated evidence
-• Interprets signals in role-specific context
-• Explains why evidence matters
-• Produces human-readable,
-  decision-ready intelligence
+(CUSTOMIZED SEARCH AGENTS + ROLE-AWARE SYNTHESIS)
 
-GPT does not explore raw sources.
-It reasons strictly over verified evidence."]
+• Activates purpose-built, customized search agents
+  designed and tuned per AI role schema
+• Each agent operates with role-specific
+  determinant tiers, signal definitions, and constraints
+• Consumes ONLY Python-validated CSV evidence
+• Ranks talent leads and candidates by relevance
+• Scores determinant tiers and signal skills
+• Generates strengths and weaknesses per individual
+• Explains *why* evidence matters in role context
+• Produces submit / do-not-submit recommendations
+• Generates hiring-manager-ready rationale
+• Optionally drafts recruiter / HM submission language
+
+This layer does NOT discover raw data.
+It reasons exclusively over verified Python outputs.
+
+The customized search agents are configurable,
+extensible, and auditable — enabling precise,
+role-specific talent evaluation that cannot be
+achieved through generic prompting or
+résumé-based screening."]
 
 %% FLOWS
 SH --> PY
