@@ -1,0 +1,18 @@
+RUN MANIFEST
+version: v1.0
+run_utc: 2025-12-23T01:23:37.411381+00:00
+scenario_key: max_volume_safety
+scenario_title: Max Volume Safety
+input: outputs/track_e/people_enriched.csv
+rows_in_input: 14097
+rows_after_filters: 14097
+rows_after_dedupe: 6317
+rows_output: 500
+min_contrib_effective: 0
+repo_filter_active: False
+repo_column: repo_contributions
+contrib_column: repo_contributions
+followers_column: github_followers
+languages_column: github_top_languages
+output_dir: outputs/scenarios/max_volume_safety
+results_csv_sha256: c7953cf8906caaaebc2823d50500a69104761df15477edc801e9f25512c1ce34

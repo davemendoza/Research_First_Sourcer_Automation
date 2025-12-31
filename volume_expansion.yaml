@@ -1,0 +1,44 @@
+# AI Talent Engine – Volume Expansion Config
+# © 2025 L. David Mendoza
+version: v1.0-ultra-volume-expansion
+
+scenario_matrix_input: scenario_control_matrix.xlsx
+scenario_matrix_output: data/scenarios/scenario_control_matrix_EXPANDED.xlsx
+
+output_root: output/people
+checkpoint_root: checkpoints
+log_dir: logs
+
+github:
+  api_base: https://api.github.com
+  per_page: 100
+
+volume:
+  # user search volume per scenario (higher = more people)
+  user_search_per_scenario: 800
+  user_search_pages_cap: 10
+
+  # repo search volume per scenario (repo-first = big volume)
+  repo_search_per_scenario: 120
+  repo_search_pages_cap: 6
+
+  # contributors per repo
+  contributors_per_repo: 300
+
+  # hard safety caps (prevent runaway)
+  max_total_people: 25000
+  max_total_repos: 5000
+
+rate_limit:
+  min_remaining_search: 2
+  min_remaining_core: 50
+  backoff_seconds: 20
+  jitter_seconds: 7
+
+hygiene:
+  dedupe_key: "login"
+  require_html_url: true
+
+logging:
+  print_every_n_people: 250
+  print_every_n_repos: 25
