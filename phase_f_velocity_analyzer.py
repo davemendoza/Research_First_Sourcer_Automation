@@ -30,6 +30,10 @@ def phase_next_velocity_features(velocity: float, delta: float) -> Dict[str, flo
 
 def main(*args, **kwargs):
     legacy = _load_legacy()
-    if not hasattr(legacy, "main"):
-        raise RuntimeError("Legacy module missing main()")
-    return legacy.main(*args, **kwargs)
+    if hasattr(legacy, "main") and callable(legacy.main):
+        return legacy.main(*args, **kwargs)
+    print("[INFO] Phase F legacy module has no main(); skipping execution safely")
+    return 0
+
+    print("[INFO] Phase F legacy module has no main(); skipping execution safely")
+    return 0

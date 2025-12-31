@@ -1,0 +1,112 @@
+{
+  "args": {
+    "continue_on_error": false,
+    "dry_run": false,
+    "entrypoints": {
+      "run_a": "run_track_a.py",
+      "run_b": "run_track_b.py",
+      "run_c": "run_track_c.py",
+      "run_d": "run_phase_d.py",
+      "run_e": "run_phase_e.py",
+      "run_f": "run_phase_f.py",
+      "run_g": "run_phase_g.py"
+    },
+    "max_retries": 3,
+    "rate_limit_rps": 1.0,
+    "resume": false,
+    "verbose": true
+  },
+  "governance": {
+    "audit_manifest_written": true,
+    "deterministic_orchestration": true,
+    "no_new_scraping_added": true
+  },
+  "log_path": "outputs/phase_h/logs/run_all.log",
+  "phase": "H",
+  "repo_root": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation",
+  "results": [
+    {
+      "cmd": [
+        "python3",
+        "run_track_c.py",
+        "--verbose",
+        "--rate-limit-rps",
+        "1.0",
+        "--max-retries",
+        "3"
+      ],
+      "name": "Track C",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "Citation profile for Geoffrey Hinton:\n  source: Semantic Scholar\n  total_citations: 585\n  h_index: 2\n  works_count: 3\n  provenance: Semantic Scholar Author Search API\n"
+    },
+    {
+      "cmd": [
+        "python3",
+        "run_phase_d.py",
+        "--verbose"
+      ],
+      "name": "Phase D",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": ""
+    },
+    {
+      "cmd": [
+        "python3",
+        "run_phase_e.py",
+        "--verbose"
+      ],
+      "name": "Phase E",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": ""
+    },
+    {
+      "cmd": [
+        "python3",
+        "run_phase_f.py",
+        "--verbose"
+      ],
+      "name": "Phase F",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "[INFO] Phase F legacy module has no main(); skipping execution safely\n"
+    },
+    {
+      "cmd": [
+        "python3",
+        "run_phase_g.py",
+        "--verbose"
+      ],
+      "name": "Phase G",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "[INFO] Phase G legacy has no main(); skipping Phase G safely\n"
+    },
+    {
+      "cmd": [
+        "python3",
+        "run_track_b.py",
+        "--verbose"
+      ],
+      "name": "Track B",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "[\u2713] demo/demo_ai_engineer_evaluation_PLACEHOLDER.csv written (50 rows \u00d7 48 cols)\n[\u2713] demo/demo_applied_evaluation_PLACEHOLDER.csv written (50 rows \u00d7 48 cols)\n[\u2713] demo/demo_frontier_evaluation_PLACEHOLDER.csv written (50 rows \u00d7 48 cols)\nAll 3 analytics-ready CSVs generated successfully.\n[\u2713] demo/demo_ai_engineer_evaluation_PLACEHOLDER.csv written (50 rows \u00d7 48 cols)\n[\u2713] demo/demo_applied_evaluation_PLACEHOLDER.csv written (50 rows \u00d7 48 cols)\n[\u2713] demo/demo_frontier_evaluation_PLACEHOLDER.csv written (50 rows \u00d7 48 cols)\nAll 3 analytics-ready CSVs generated successfully.\n"
+    },
+    {
+      "cmd": [
+        "python3",
+        "run_track_a.py",
+        "--verbose"
+      ],
+      "name": "Track A",
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "[\u2713] Generated demo/demo_ai_engineer_evaluation_PLACEHOLDER.csv (25 rows, 34 cols)\n[\u2713] Generated demo/demo_applied_evaluation_PLACEHOLDER.csv (25 rows, 34 cols)\n[\u2713] Generated demo/demo_frontier_evaluation_PLACEHOLDER.csv (25 rows, 34 cols)\nAll synthetic evaluation datasets successfully generated and schema-complete.\n"
+    }
+  ],
+  "schema_version": "phase_h_v1",
+  "timestamp_utc": "2025-12-31T02:51:43.845340+00:00"
+}

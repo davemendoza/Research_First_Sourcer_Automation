@@ -1,0 +1,61 @@
+{
+  "system_commands": {
+    "^start$|start environment|begin|init|initialize": "system_start",
+    "^demo$|run demo|show demo": "system_demo",
+    "confirm|check|show outputs|show results": "system_confirm"
+  },
+
+  "scenarios": {
+    "frontier|foundational": "S01",
+    "multi[- ]?repo|builders": "S02",
+    "research.*ship|ship.*code": "S03",
+    "tier.*repo": "S04",
+    "shortlist|outreach": "S05",
+
+    "inference|kernel|performance": "S06",
+    "cuda|gpu|acceleration": "S07",
+    "low[- ]?latency|serving": "S08",
+    "quantization|runtime": "S09",
+    "reliability|load|benchmark": "S10",
+
+    "distributed|scaling|training": "S11",
+    "orchestration|systems": "S12",
+    "infra.*shortlist": "S13",
+    "cross.*stack": "S14",
+    "frontier.*workload": "S15",
+
+    "applied|tooling|builders": "S16",
+    "developer|ecosystem": "S17",
+    "rag|retrieval": "S18",
+    "evaluation|benchmark": "S19",
+    "applied.*shortlist": "S20",
+
+    "density|ecosystem": "S21",
+    "tier 1": "S22",
+    "tier 1[- ]?2": "S23",
+    "all tiers": "S24",
+    "venue|volume": "S25",
+
+    "single[- ]?org|deep dive": "S26",
+    "rising|recent|90 days": "S27",
+    "cross[- ]?org|movers": "S28",
+    "conference|authors": "S29",
+    "patent|inventors": "S30",
+
+    "cross[- ]?lab|connectors": "S31",
+    "scaled gpt|training": "S32",
+    "rlhf|alignment": "S33",
+    "multi[- ]?modal|vision": "S34",
+    "rising.*engineer": "S35",
+    "patent.*code": "S36",
+    "benchmark.*repo": "S37",
+    "safety|interpretability": "S38",
+    "evaluation.*alignment": "S39",
+    "no.*title|influence": "S40",
+    "multi.*framework": "S41",
+    "community.*leader": "S42",
+    "paradigm.*shift": "S43",
+    "developer.*adoption": "S44",
+    "hire[- ]?ready|emerging": "S45"
+  }
+}

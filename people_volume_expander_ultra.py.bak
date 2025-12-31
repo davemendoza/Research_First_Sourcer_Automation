@@ -1,0 +1,274 @@
+#!/usr/bin/env python3
+"""
+People Volume Expander (User search + Repo-first + Contributors)
+© 2025 L. David Mendoza
+
+Outputs:
+- people_master.csv (expanded)
+- provenance columns: discovered_via, source_query, source_repo
+- checkpointed progress (resume-safe)
+"""
+import os, json, hashlib
+from datetime import datetime, timezone
+from pathlib import Path
+import pandas as pd
+import yaml
+
+from github_api_ultra import get_json
+
+def sha(s: str) -> str:
+    return hashlib.sha256(s.encode("utf-8")).hexdigest()[:16]
+
+def load_cfg():
+    return yaml.safe_load(open("volume_expansion.yaml"))
+
+def checkpoint_path(root: str, name: str) -> Path:
+    Path(root).mkdir(parents=True, exist_ok=True)
+    return Path(root) / name
+
+def save_jsonl(path: Path, records: list[dict]) -> None:
+    with path.open("a", encoding="utf-8") as f:
+        for r in records:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+
+def read_jsonl(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    out = []
+    with path.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                out.append(json.loads(line))
+    return out
+
+def search_users(api_base: str, query: str, per_page: int, pages_cap: int) -> list[dict]:
+    items = []
+    for page in range(1, pages_cap + 1):
+        url = f"{api_base}/search/users"
+        params = {"q": query, "per_page": per_page, "page": page}
+        data = get_json(url, params=params, api_base=api_base)
+        if not data or not isinstance(data, dict):
+        time.sleep(2)
+        continue
+
+    batch = data.get("items", [])
+        if not batch:
+            break
+        items.extend(batch)
+    return items
+
+def search_repos(api_base: str, query: str, per_page: int, pages_cap: int) -> list[dict]:
+    items = []
+    for page in range(1, pages_cap + 1):
+        url = f"{api_base}/search/repositories"
+        params = {"q": query, "per_page": per_page, "page": page, "sort": "stars"}
+        data = get_json(url, params=params, api_base=api_base)
+        if not data or not isinstance(data, dict):
+        time.sleep(2)
+        continue
+
+    batch = data.get("items", [])
+        if not batch:
+            break
+        items.extend(batch)
+    return items
+
+def repo_contributors(api_base: str, full_name: str, per_page: int, pages_cap: int) -> list[dict]:
+    # full_name = owner/repo
+    items = []
+    for page in range(1, pages_cap + 1):
+        url = f"{api_base}/repos/{full_name}/contributors"
+        params = {"per_page": per_page, "page": page}
+        batch = get_json(url, params=params, api_base=api_base)
+        if not isinstance(batch, list) or not batch:
+            break
+        items.extend(batch)
+    return items
+
+def main():
+    cfg = load_cfg()
+    api_base = cfg["github"]["api_base"]
+    per_page = int(cfg["github"]["per_page"])
+
+    vol = cfg["volume"]
+    rl = cfg["rate_limit"]
+    logcfg = cfg["logging"]
+
+    out_root = Path(cfg["output_root"])
+    ck_root = Path(cfg["checkpoint_root"])
+    out_root.mkdir(parents=True, exist_ok=True)
+    ck_root.mkdir(parents=True, exist_ok=True)
+
+    ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+    run_dir = out_root / f"VOL_{ts}"
+    run_dir.mkdir(parents=True, exist_ok=True)
+
+    scenario_xlsx = cfg["scenario_matrix_input"]
+    scenarios = pd.read_excel(scenario_xlsx)
+
+    required = {"scenario", "seed_value", "tier", "category"}
+    missing = required - set(scenarios.columns)
+    if missing:
+        raise SystemExit(f"❌ Scenario matrix missing columns: {missing}")
+
+    # Resume-safe checkpoints
+    people_ck = checkpoint_path(str(ck_root), "people.jsonl")
+    repos_ck = checkpoint_path(str(ck_root), "repos.jsonl")
+
+    seen_people = {r.get("login"): r for r in read_jsonl(people_ck) if r.get("login")}
+    seen_repos = {r.get("full_name"): r for r in read_jsonl(repos_ck) if r.get("full_name")}
+
+    total_people_limit = int(vol["max_total_people"])
+    total_repo_limit = int(vol["max_total_repos"])
+
+    print("🚀 Volume Expansion Starting")
+    print(f"Scenarios: {len(scenarios)}")
+    print(f"Resume people: {len(seen_people)}")
+    print(f"Resume repos: {len(seen_repos)}")
+    print(f"Run dir: {run_dir}")
+
+    people_added = 0
+    repos_added = 0
+
+    for i, s in scenarios.iterrows():
+        scenario = str(s["scenario"])
+        q = str(s["seed_value"]).strip()
+        tier = str(s["tier"])
+        category = str(s["category"])
+
+        # USER SEARCH (scaled)
+        user_q = q
+        user_items = search_users(api_base, user_q, per_page, int(vol["user_search_pages_cap"]))
+        user_items = user_items[: int(vol["user_search_per_scenario"])]
+
+        new_people_records = []
+        for u in user_items:
+            login = u.get("login")
+            if not login:
+                continue
+            if login in seen_people:
+                continue
+            rec = {
+                "login": login,
+                "html_url": u.get("html_url"),
+                "scenario": scenario,
+                "tier": tier,
+                "category": category,
+                "discovered_via": "github_user_search",
+                "source_query": user_q,
+                "source_repo": "",
+                "discovered_at_utc": datetime.now(timezone.utc).isoformat(),
+            }
+            seen_people[login] = rec
+            new_people_records.append(rec)
+
+        if new_people_records:
+            save_jsonl(people_ck, new_people_records)
+            people_added += len(new_people_records)
+            if len(seen_people) % int(logcfg["print_every_n_people"]) == 0:
+                print(f"👤 People so far: {len(seen_people)} (+{people_added} new this run)")
+
+        if len(seen_people) >= total_people_limit:
+            print("🛑 Hit max_total_people cap. Stopping.")
+            break
+
+        # REPO SEARCH + CONTRIBUTORS (the big lever)
+        repo_q = q
+        repo_items = search_repos(api_base, repo_q, per_page, int(vol["repo_search_pages_cap"]))
+        repo_items = repo_items[: int(vol["repo_search_per_scenario"])]
+
+        new_repo_records = []
+        for ritem in repo_items:
+            full_name = ritem.get("full_name")  # owner/repo
+            if not full_name:
+                continue
+            if full_name in seen_repos:
+                continue
+            rr = {
+                "full_name": full_name,
+                "html_url": ritem.get("html_url"),
+                "stars": ritem.get("stargazers_count", 0),
+                "scenario": scenario,
+                "tier": tier,
+                "category": category,
+                "source_query": repo_q,
+                "added_at_utc": datetime.now(timezone.utc).isoformat(),
+            }
+            seen_repos[full_name] = rr
+            new_repo_records.append(rr)
+
+        if new_repo_records:
+            save_jsonl(repos_ck, new_repo_records)
+            repos_added += len(new_repo_records)
+            if len(seen_repos) % int(logcfg["print_every_n_repos"]) == 0:
+                print(f"📦 Repos so far: {len(seen_repos)} (+{repos_added} new this run)")
+
+        if len(seen_repos) >= total_repo_limit:
+            print("🛑 Hit max_total_repos cap. Stopping repo discovery.")
+            break
+
+        # Contributor enumeration per repo
+        for rr in repo_items:
+            full_name = rr.get("full_name")
+            if not full_name:
+                continue
+
+            # contributors pagination cap derived from requested count
+            contrib_pages = max(1, int(vol["contributors_per_repo"]) // per_page + 1)
+            contributors = repo_contributors(api_base, full_name, per_page, contrib_pages)
+            contributors = contributors[: int(vol["contributors_per_repo"])]
+
+            new_people = []
+            for c in contributors:
+                login = c.get("login")
+                if not login:
+                    continue
+                if login in seen_people:
+                    continue
+                rec = {
+                    "login": login,
+                    "html_url": c.get("html_url"),
+                    "scenario": scenario,
+                    "tier": tier,
+                    "category": category,
+                    "discovered_via": "github_repo_contributor",
+                    "source_query": repo_q,
+                    "source_repo": full_name,
+                    "discovered_at_utc": datetime.now(timezone.utc).isoformat(),
+                }
+                seen_people[login] = rec
+                new_people.append(rec)
+
+            if new_people:
+                save_jsonl(people_ck, new_people)
+                people_added += len(new_people)
+                if len(seen_people) % int(logcfg["print_every_n_people"]) == 0:
+                    print(f"👤 People so far: {len(seen_people)} (+{people_added} new this run)")
+
+            if len(seen_people) >= total_people_limit:
+                print("🛑 Hit max_total_people cap during contributors. Stopping.")
+                break
+
+        if len(seen_people) >= total_people_limit:
+            break
+
+    # Write expanded people_master
+    people_df = pd.DataFrame(list(seen_people.values()))
+    people_df = people_df.drop_duplicates(subset=[cfg["hygiene"]["dedupe_key"]]).reset_index(drop=True)
+    out_csv = run_dir / "people_master.csv"
+    out_xlsx = run_dir / "people_master.xlsx"
+    people_df.to_csv(out_csv, index=False)
+    people_df.to_excel(out_xlsx, index=False)
+
+    # Write repo inventory (useful for audits)
+    repos_df = pd.DataFrame(list(seen_repos.values())).drop_duplicates(subset=["full_name"]).reset_index(drop=True)
+    repos_df.to_csv(run_dir / "repos_inventory.csv", index=False)
+
+    print("\n✅ VOLUME EXPANSION COMPLETE")
+    print(f"Unique people: {len(people_df)}")
+    print(f"Unique repos:   {len(repos_df)}")
+    print(f"Output: {out_csv}")
+    print(f"Folder: {run_dir}")
+if __name__ == "__main__":
+    main()

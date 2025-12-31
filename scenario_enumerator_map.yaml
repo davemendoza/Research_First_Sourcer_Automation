@@ -1,0 +1,115 @@
+# AI Talent Engine – Scenario → Enumerator Map
+# Version: v1.0.0-ultra
+# Date: 2025-12-30
+# © 2025 L. David Mendoza. All Rights Reserved.
+#
+# PURPOSE
+# Maps scenario labels into enumerator strategies and minimum yield guarantees.
+# The pipeline will still auto-infer strategy when scenarios are unfamiliar, but
+# this file locks expected behavior for interview-safe determinism.
+
+defaults:
+  min_people_per_scenario: 120
+  min_people_total: 600
+  openalex_per_scenario_target: 250
+  github_per_scenario_target: 200
+  max_total_people: 2000
+  require_evidence_urls: true
+
+strategies:
+  FOUNDATIONAL:
+    enumerators: ["openalex", "github"]
+    openalex_topics:
+      - "foundation model"
+      - "large language model"
+      - "transformer"
+      - "scaling law"
+      - "mixture of experts"
+      - "diffusion model"
+      - "multimodal"
+      - "reinforcement learning from human feedback"
+    github_topics:
+      - "llm"
+      - "transformer"
+      - "rlhf"
+      - "megatron"
+      - "deepspeed"
+      - "triton"
+      - "jax"
+      - "pytorch"
+      - "vllm"
+
+  APPLIED:
+    enumerators: ["openalex", "github"]
+    openalex_topics:
+      - "retrieval augmented generation"
+      - "rag"
+      - "vector database"
+      - "llm applications"
+      - "agent"
+      - "langchain"
+      - "llamaindex"
+    github_topics:
+      - "rag"
+      - "langchain"
+      - "llamaindex"
+      - "vector database"
+      - "qdrant"
+      - "milvus"
+      - "weaviate"
+      - "faiss"
+      - "ollama"
+
+  INFRA:
+    enumerators: ["github", "openalex"]
+    openalex_topics:
+      - "distributed training"
+      - "inference optimization"
+      - "gpu"
+      - "cuda"
+      - "tensor parallel"
+      - "pipeline parallel"
+    github_topics:
+      - "cuda"
+      - "nccl"
+      - "triton"
+      - "tensorrt"
+      - "kubernetes"
+      - "ray"
+      - "vllm"
+      - "tgi"
+      - "llama.cpp"
+      - "onnx"
+
+  HEALTHCARE:
+    enumerators: ["openalex"]
+    openalex_topics:
+      - "biomedical"
+      - "clinical"
+      - "healthcare"
+      - "medical imaging"
+      - "genomics"
+      - "bioinformatics"
+
+  ROBOTICS:
+    enumerators: ["openalex", "github"]
+    openalex_topics:
+      - "robotics"
+      - "autonomy"
+      - "control"
+      - "computer vision"
+      - "reinforcement learning"
+    github_topics:
+      - "robotics"
+      - "ros"
+      - "slam"
+      - "reinforcement learning"
+      - "vision"
+
+scenario_aliases:
+  # Map any scenario names you use into one of the strategies above
+  # Examples (extend freely):
+  "scenario_FOUNDATIONAL_TOP_200": "FOUNDATIONAL"
+  "scenario_APPLIED_AI_TOP_300": "APPLIED"
+  "scenario_INFRA_TOP_300": "INFRA"
+  "scenario_TOP_300_OVERALL": "FOUNDATIONAL"

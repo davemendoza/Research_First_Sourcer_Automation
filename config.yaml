@@ -1,0 +1,16 @@
+data_dir: "data"
+output_dir: "output"
+
+weights:
+  signal_score: 0.5
+  influence_math: 0.3
+  influence_percentile: 0.2
+
+enrichment:
+  max_threads: 8
+  delay_seconds: 0.2
+
+tokens:
+  github: "ghp_xxxxx"
+  huggingface: "hf_xxxxx"
+  semantic: "sem_xxxxx"
