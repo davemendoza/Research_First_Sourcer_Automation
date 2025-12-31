@@ -42,3 +42,25 @@ final_frontier_radar.xlsx
 demo_autorun.py
 demo_autorun.py
 outputs/phase_h/manifests/
+
+# --------------------------------------------------
+# Autogen / Backup / Duplicate Artifacts (Intentional)
+# --------------------------------------------------
+.autogen_backups/
+backups/
+checkpoints/
+
+# Duplicate files created by editor / autogen suffixes
+* 2.py
+* 2.md
+* 2.sh
+* 2.docx
+* 2.xlsx
+* 2.json
+* 2.yaml
+* 2.txt
+
+# Temporary or exploratory outputs
+outputs/demo/
+outputs/scenarios/
+
