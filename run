@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ============================================================
+# AI Talent Engine — Single Human Interface
+# ============================================================
+# Usage:
+#   run <plain-english role>
+#
+# Examples:
+#   run frontier
+#   run ai infra
+#   run gpu infra
+#   run inference
+#   run mlops
+#   run devrel
+#   run applied ml
+#
+# Humans never type Python.
+# ============================================================
+
+if [[ $# -lt 1 ]]; then
+  echo "Usage: run <role>"
+  exit 1
+fi
+
+ROLE_INPUT="$*"
+
+echo
+echo "==============================================="
+echo "AI TALENT ENGINE"
+echo "ROLE INTENT: $ROLE_INPUT"
+echo "==============================================="
+echo
+
+python3 orchestrator.py "$ROLE_INPUT"
