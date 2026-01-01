@@ -1,0 +1,13 @@
+{
+  "version": "v1.0.0",
+  "purpose": "Auditable artifact contract for demos and real runs",
+  "artifacts": [
+    {
+      "scenario": "frontier",
+      "type": "csv",
+      "caller_output_path": "REQUIRED (--output)",
+      "upstream_master_pattern": "output/scenarios/**/scenario_ALL_*.csv",
+      "materialization": "run_demo_frontier must materialize a bounded flat CSV at --output"
+    }
+  ]
+}
