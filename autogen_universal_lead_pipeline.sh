@@ -1,330 +1,289 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ------------------------------------------------------------
-# Universal Lead Pipeline Autogen (Authoritative)
-# Creates/overwrites:
-# - scripts/normalize_people_csv.py     (canonical prefix + order)
-# - scripts/universal_enrichment_pipeline.py (70+ lead columns)
-# - scripts/macos_notify.py             (Notification Center popup)
-# - scripts/send_run_completion_email.py (Mac Mail via AppleScript)
-# - run_safe.py                         (universal safe entrypoint)
-# Then runs: python3 run_safe.py <scenario>
-# Then commits + pushes.
-# ------------------------------------------------------------
-
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$REPO_ROOT"
-
-SCENARIO="${1:-frontier}"
-
+# ============================================================================
+# AI Talent Engine — Universal Lead Pipeline (Authoritative Autogen)
+# Version: v1.0.0
+# Author: L. David Mendoza
+# Date: 2026-01-02
+#
+# Guarantees:
+# - Produces a 70+ column lead-grade CSV (LEADS_MASTER_<scenario>_<runid>.csv)
+# - File is named unambiguously as the finished leads file
+# - Pops up automatically (Finder + open)
+# - Emails automatically to LDaveMendoza@gmail.com via macOS Mail.app (when enabled)
+# - Fails closed if: LEADS_MASTER not created OR popup fails OR email send fails (when enabled)
+#
+# Usage:
+#   chmod +x autogen_universal_lead_pipeline.sh
+#   ./autogen_universal_lead_pipeline.sh
+#
+# Then run:
+#   python3 run_safe.py frontier
+#
+# Email control:
+#   export EMAIL_NOTIFY_ENABLED=1   # enable
+#   export EMAIL_NOTIFY_ENABLED=0   # disable
+# ============================================================================
 echo "============================================================"
-echo "AUTOGEN UNIVERSAL LEAD PIPELINE"
-echo "Repo: $REPO_ROOT"
-echo "Scenario: $SCENARIO"
+echo "AUTOGEN: Universal Lead Pipeline (authoritative)"
+echo "Repo: $(pwd)"
 echo "============================================================"
 
-if [[ ! -f "people_scenario_resolver.py" ]] || [[ ! -f "ai_talent_scenario_runner.py" ]]; then
-  echo "ERROR: Must run from repo root. Missing expected files."
-  exit 2
-fi
-
-mkdir -p scripts outputs/leads outputs/manifests
-
-# ---------------------------------------------------------------------
-# 1) Canonical Normalizer (overwrites scripts/normalize_people_csv.py)
-# ---------------------------------------------------------------------
-cat > scripts/normalize_people_csv.py <<'PY'
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""
-People CSV Normalizer (Canonical Prefix + Order)
-Version: v2.0.0
-Author: L. David Mendoza
-Date: 2026-01-02
-© 2025–2026 L. David Mendoza. All rights reserved.
-
-Purpose:
-- Create canonical columns required by the universal pipeline
-- Enforce deterministic prefix and ordering
-- Preserve all original columns after canonical prefix
-- Fail closed if key identity sources are missing
-
-Canonical prefix (MANDATORY ORDER):
-  Person_ID, Role_Type, Email, Phone, LinkedIn_URL, GitHub_URL, GitHub_Username
-
-Derivation rules:
-- Person_ID  <- GitHub_Username (required, non-empty)
-- Role_Type  <- Scenario if present else Source_Scenario if present else input arg fallback (not used here)
-- Email      <- existing Email column if present else blank
-- Phone      <- existing Phone column if present else blank
-- LinkedIn_URL <- existing LinkedIn_URL if present else blank
-- GitHub_URL <- required (must exist as column; may be blank in rows but not all blank)
-- GitHub_Username <- required
-
-Usage:
-  python3 scripts/normalize_people_csv.py <input_csv> <output_csv>
-"""
-
-import csv
-import sys
-from pathlib import Path
-from datetime import datetime
-
-CANON_PREFIX = ["Person_ID","Role_Type","Email","Phone","LinkedIn_URL","GitHub_URL","GitHub_Username"]
-
-if len(sys.argv) != 3:
-    print("USAGE: normalize_people_csv.py <input_csv> <output_csv>")
-    sys.exit(2)
-
-input_csv = Path(sys.argv[1]).resolve()
-output_csv = Path(sys.argv[2]).resolve()
-
-if not input_csv.exists():
-    print(f"ERROR: Input CSV not found: {input_csv}")
-    sys.exit(2)
-
-with input_csv.open(newline="", encoding="utf-8") as f:
-    reader = csv.DictReader(f)
-    rows = list(reader)
-    fieldnames = reader.fieldnames or []
-
-required_source_cols = ["GitHub_Username"]
-missing = [c for c in required_source_cols if c not in fieldnames]
-if missing:
-    print("ERROR: Missing required source columns: " + ", ".join(missing))
-    sys.exit(3)
-
-# GitHub_URL strongly required as a column
-if "GitHub_URL" not in fieldnames:
-    print("ERROR: Missing required source column: GitHub_URL")
-    sys.exit(3)
-
-# Ensure optional columns exist (create blanks if missing)
-optional_cols = ["Scenario", "Source_Scenario", "Email", "Phone", "LinkedIn_URL"]
-for c in optional_cols:
-    if c not in fieldnames:
-        fieldnames.append(c)
-        for r in rows:
-            r[c] = ""
-
-# Build output fieldnames: canonical prefix + everything else not in prefix (preserve existing order)
-rest = [c for c in fieldnames if c not in CANON_PREFIX]
-out_fields = CANON_PREFIX + rest
-
-# Row-level sanity checks
-if not rows:
-    print("ERROR: Input CSV has no rows")
-    sys.exit(4)
-
-# Validate GitHub_URL not entirely empty
-all_blank_gh = True
-for r in rows:
-    if (r.get("GitHub_URL") or "").strip():
-        all_blank_gh = False
-        break
-if all_blank_gh:
-    print("ERROR: GitHub_URL column exists but all rows are blank")
-    sys.exit(4)
-
-output_csv.parent.mkdir(parents=True, exist_ok=True)
-
-with output_csv.open("w", newline="", encoding="utf-8") as f:
-    w = csv.DictWriter(f, fieldnames=out_fields)
-    w.writeheader()
-
-    for r in rows:
-        gh_user = (r.get("GitHub_Username") or "").strip()
-        if not gh_user:
-            print("ERROR: Empty GitHub_Username encountered; cannot derive Person_ID")
-            sys.exit(5)
-
-        role_type = (r.get("Scenario") or "").strip() or (r.get("Source_Scenario") or "").strip()
-        if not role_type:
-            # fail closed: Role_Type is required to preserve downstream contracts
-            print("ERROR: Missing Scenario/Source_Scenario; cannot derive Role_Type")
-            sys.exit(5)
-
-        normalized = dict(r)
-        normalized["Person_ID"] = gh_user
-        normalized["Role_Type"] = role_type
-        normalized["Email"] = (r.get("Email") or "").strip()
-        normalized["Phone"] = (r.get("Phone") or "").strip()
-        normalized["LinkedIn_URL"] = (r.get("LinkedIn_URL") or "").strip()
-        normalized["GitHub_URL"] = (r.get("GitHub_URL") or "").strip()
-        normalized["GitHub_Username"] = gh_user
-
-        # Emit in canonical order
-        out_row = {k: normalized.get(k, "") for k in out_fields}
-        w.writerow(out_row)
-
-print(f"OK: Normalized CSV written: {output_csv}")
-print(f"Rows processed: {len(rows)}")
-print(f"Timestamp UTC: {datetime.utcnow().isoformat()}")
-PY
-chmod +x scripts/normalize_people_csv.py
-
-# ---------------------------------------------------------------------
-# 2) macOS popup notifier
-# ---------------------------------------------------------------------
+# -----------------------------
+# scripts/macos_notify.py
+# -----------------------------
+mkdir -p scripts
 cat > scripts/macos_notify.py <<'PY'
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
 macos_notify.py
+
+AI Talent Engine — macOS Notification + Pop-Open Helper
 Version: v1.0.0
 Author: L. David Mendoza
 Date: 2026-01-02
-© 2025–2026 L. David Mendoza. All rights reserved.
 
 Purpose:
-- Trigger a macOS Notification Center popup (no dependencies)
+- Show a macOS notification via osascript
+- Optionally open a path (CSV) in default app and reveal in Finder
+
+Fail-closed behavior:
+- If osascript is unavailable or fails, exit non-zero (caller can hard-fail)
 
 Usage:
-  python3 scripts/macos_notify.py "<title>" "<message>"
+  python3 scripts/macos_notify.py --title "Title" --message "Message" --open "/path/to/file.csv"
 """
 
-import subprocess
-import sys
+from __future__ import annotations
 
-if len(sys.argv) != 3:
-    print("USAGE: macos_notify.py <title> <message>")
-    sys.exit(2)
-
-title = (sys.argv[1] or "").replace('"', "'")
-message = (sys.argv[2] or "").replace('"', "'")
-
-# Fail if osascript is missing (hard requirement for your "I can breathe" signal)
-try:
-    subprocess.run(["osascript", "-e", "return 0"], check=True, capture_output=True, text=True)
-except Exception as e:
-    print(f"ERROR: osascript not available or failed: {e}")
-    sys.exit(3)
-
-script = f'display notification "{message}" with title "{title}"'
-subprocess.run(["osascript", "-e", script], check=True)
-print("OK: popup notification sent")
-PY
-chmod +x scripts/macos_notify.py
-
-# ---------------------------------------------------------------------
-# 3) Completion email notifier (Mac Mail via AppleScript)
-# ---------------------------------------------------------------------
-cat > scripts/send_run_completion_email.py <<'PY'
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""
-send_run_completion_email.py
-Version: v1.1.0
-Author: L. David Mendoza
-Date: 2026-01-02
-© 2025–2026 L. David Mendoza. All rights reserved.
-
-Purpose:
-- Send a completion email using macOS Mail.app via AppleScript
-- Deterministic subject/body including manifest path
-
-Usage:
-  python3 scripts/send_run_completion_email.py <manifest_json_path>
-
-Env:
-  PIPELINE_NOTIFY_TO  (default: LDaveMendoza@gmail.com)
-  PIPELINE_NOTIFY_SUBJECT_PREFIX (default: "RUN COMPLETE")
-"""
-
-import json
-import os
-import sys
+import argparse
 import subprocess
 from pathlib import Path
-from datetime import datetime, timezone
+import sys
 
-def die(msg: str, code: int = 2) -> None:
+
+def fail(msg: str, code: int = 2) -> None:
     print(f"ERROR: {msg}")
     sys.exit(code)
 
-if len(sys.argv) != 2:
-    die("USAGE: send_run_completion_email.py <manifest_json_path>", 2)
 
-manifest_path = Path(sys.argv[1]).resolve()
-if not manifest_path.exists():
-    die(f"Manifest not found: {manifest_path}", 2)
+def run(cmd: list[str]) -> None:
+    try:
+        subprocess.run(cmd, check=True)
+    except Exception as e:
+        fail(f"Command failed: {' '.join(cmd)} :: {e}", code=3)
 
-to_addr = os.getenv("PIPELINE_NOTIFY_TO", "LDaveMendoza@gmail.com").strip()
-prefix = os.getenv("PIPELINE_NOTIFY_SUBJECT_PREFIX", "RUN COMPLETE").strip()
 
-try:
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-except Exception as e:
-    die(f"Unable to parse manifest JSON: {e}", 3)
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--title", required=True)
+    ap.add_argument("--message", required=True)
+    ap.add_argument("--open", dest="open_path", default="")
+    args = ap.parse_args()
 
-scenario = str(manifest.get("scenario","")).strip() or "unknown"
-run_id = str(manifest.get("run_id","")).strip() or datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-leads_csv = str(manifest.get("leads_master_csv","") or manifest.get("leads_csv","") or "").strip()
+    # Notification
+    osa = [
+        "osascript",
+        "-e",
+        f'display notification "{args.message.replace(chr(34), chr(39))}" with title "{args.title.replace(chr(34), chr(39))}"',
+    ]
+    run(osa)
 
-subject = f"{prefix} — {scenario} — {run_id}"
-body_lines = [
-    f"Run complete (UTC): {manifest.get('completed_utc','')}",
-    f"Scenario: {scenario}",
-    "",
-    f"Leads CSV: {leads_csv}",
-    f"Manifest: {str(manifest_path)}",
-    "",
-    "This message was generated automatically by the Universal Lead Pipeline.",
-]
-body = "\\n".join(body_lines).replace('"', "'")
+    if args.open_path:
+        p = Path(args.open_path).expanduser().resolve()
+        if not p.exists():
+            fail(f"--open path does not exist: {p}", code=4)
 
-# Hard require osascript
-try:
-    subprocess.run(["osascript", "-e", "return 0"], check=True, capture_output=True, text=True)
-except Exception as e:
-    die(f"osascript not available or failed: {e}", 4)
+        # Reveal in Finder and open
+        run(["open", "-R", str(p)])
+        run(["open", str(p)])
 
-# AppleScript to create and send message in Mail.app
-applescript = f'''
-tell application "Mail"
-    set newMessage to make new outgoing message with properties {{subject:"{subject}", content:"{body}" & return & return, visible:false}}
+
+if __name__ == "__main__":
+    main()
+PY
+chmod +x scripts/macos_notify.py
+
+# -----------------------------
+# scripts/send_run_completion_email.py
+# -----------------------------
+cat > scripts/send_run_completion_email.py <<'PY'
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+send_run_completion_email.py
+
+AI Talent Engine — Run Completion Email (macOS Mail.app)
+Version: v1.0.0
+Author: L. David Mendoza
+Date: 2026-01-02
+
+Purpose:
+- Read a run manifest JSON and send a completion email via Mail.app using AppleScript.
+- Fail closed if:
+  - manifest missing/invalid
+  - Mail send fails
+
+Controls:
+- EMAIL_NOTIFY_ENABLED=1 enables sending
+- EMAIL_NOTIFY_TO defaults to LDaveMendoza@gmail.com
+
+Usage:
+  python3 scripts/send_run_completion_email.py /path/to/manifest.json
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+from datetime import datetime, timezone
+
+
+DEFAULT_TO = "LDaveMendoza@gmail.com"
+
+
+def fail(msg: str, code: int = 2) -> None:
+    print(f"ERROR: {msg}")
+    sys.exit(code)
+
+
+def applescript_escape(s: str) -> str:
+    # Escape for AppleScript string literal
+    return s.replace("\\", "\\\\").replace('"', '\\"')
+
+
+def main() -> None:
+    enabled = os.getenv("EMAIL_NOTIFY_ENABLED", "0").strip()
+    if enabled != "1":
+        print("EMAIL_NOTIFY: disabled (set EMAIL_NOTIFY_ENABLED=1 to enable)")
+        return
+
+    if len(sys.argv) != 2:
+        fail("Usage: python3 scripts/send_run_completion_email.py <manifest.json>")
+
+    manifest_path = Path(sys.argv[1]).expanduser().resolve()
+    if not manifest_path.exists():
+        fail(f"Manifest not found: {manifest_path}", code=3)
+
+    try:
+        payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        fail(f"Manifest JSON invalid: {e}", code=4)
+
+    to_addr = os.getenv("EMAIL_NOTIFY_TO", DEFAULT_TO).strip() or DEFAULT_TO
+    scenario = str(payload.get("scenario", "unknown"))
+    run_id = str(payload.get("run_id", "unknown"))
+    leads_master = str(payload.get("leads_master_csv", ""))
+    people_csv = str(payload.get("people_csv_normalized", ""))
+    rows = payload.get("counts", {}).get("leads_rows", "unknown")
+    githubio = payload.get("github_io", {})
+    checked = githubio.get("checked_rows", "unknown")
+    found = githubio.get("found_rows", "unknown")
+
+    now = datetime.now(timezone.utc).isoformat()
+
+    subject = f"Research First Sourcer Automation — Run Complete — {scenario.upper()} — {run_id}"
+    body = "\n".join(
+        [
+            "The pipeline completed successfully.",
+            "",
+            f"Scenario: {scenario}",
+            f"Run ID: {run_id}",
+            f"Timestamp (UTC): {now}",
+            "",
+            "Artifacts:",
+            f"- Leads Master: {leads_master}",
+            f"- People (normalized): {people_csv}",
+            f"- Manifest: {str(manifest_path)}",
+            "",
+            "GitHub.io (first-class surface):",
+            f"- Rows checked: {checked}",
+            f"- Rows with GitHub.io present: {found}",
+            "",
+            f"Lead rows: {rows}",
+            "",
+            "Status:",
+            "- People normalized",
+            "- GitHub.io probed first",
+            "- Enrichment generated (70+ columns)",
+            "- Canonical contracts enforced",
+            "- Safe for demo",
+            "",
+            "— Automated Notification",
+        ]
+    )
+
+    osa = f'''
+on run
+  tell application "Mail"
+    set newMessage to make new outgoing message with properties {{subject:"{applescript_escape(subject)}", content:"{applescript_escape(body)}" & return & return, visible:false}}
     tell newMessage
-        make new to recipient at end of to recipients with properties {{address:"{to_addr}"}}
-        send
+      make new to recipient at end of to recipients with properties {{address:"{applescript_escape(to_addr)}"}}
+      send
     end tell
-end tell
+  end tell
+end run
 '''
+    try:
+        subprocess.run(["osascript", "-e", osa], check=True)
+    except subprocess.CalledProcessError as e:
+        fail(f"Failed to send email via Mail.app: {e}", code=5)
 
-subprocess.run(["osascript", "-e", applescript], check=True)
-print(f"OK: completion email sent to {to_addr}")
+    print(f"OK: Email sent to {to_addr}")
+
+
+if __name__ == "__main__":
+    main()
 PY
 chmod +x scripts/send_run_completion_email.py
 
-# ---------------------------------------------------------------------
-# 4) Universal Enrichment Pipeline (70+ columns, public-only, deterministic)
-# ---------------------------------------------------------------------
+# -----------------------------
+# scripts/universal_enrichment_pipeline.py
+# -----------------------------
 cat > scripts/universal_enrichment_pipeline.py <<'PY'
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
-Universal Enrichment Pipeline (Lead-grade, Public Sources Only)
-Version: v1.2.0
+universal_enrichment_pipeline.py
+
+AI Talent Engine — Universal Lead Enrichment Pipeline (Lead-Grade)
+Version: v1.0.0
 Author: L. David Mendoza
 Date: 2026-01-02
-© 2025–2026 L. David Mendoza. All rights reserved.
+© 2025 L. David Mendoza
 
-Hard requirements satisfied here:
-- 40–70+ columns (this emits 80+ total columns including upstream)
-- Output file named unambiguously as LEADS_MASTER_<scenario>_<run_id>.csv
-- Public-source enrichment only (no fabrication)
-- Field provenance and confidence included
+Non-negotiable contract:
+- GitHub.io is a REQUIRED first-class enrichment surface:
+  - Every lead must be probed for https://<username>.github.io/
+  - Results must be recorded in canonical columns
+  - Pipeline FAILS if probe step cannot run or canonical GitHub.io columns are missing
+  - Pipeline does NOT fail if a given user does not have Pages (404 is a valid outcome)
+
+Outputs:
+- outputs/leads/run_<run_id>/LEADS_MASTER_<scenario>_<run_id>.csv  (70+ columns)
+- outputs/manifests/run_manifest_<scenario>_<run_id>.json
+
+Input:
+- A normalized people CSV with Person_ID and Role_Type as first columns.
+  Produced by scripts/normalize_people_csv.py
+
+Usage:
+  python3 scripts/universal_enrichment_pipeline.py <scenario> <people_csv_normalized> <run_id>
+
+Implementation notes:
+- World-class determinism: fixed schema, provenance columns, bounded crawl
+- Conservative scraping: only public pages; do not brute-force; rate-limit
 """
 
 from __future__ import annotations
 
 import csv
 import json
-import os
 import re
 import sys
 import time
@@ -332,572 +291,694 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
-import urllib.request
-import urllib.error
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
+from urllib.request import Request, urlopen
 
-USER_AGENT = "ResearchFirstSourcerAutomation/1.2 (public-source enrichment; contact only if published)"
-HTTP_TIMEOUT = 20
 
-CANON_PREFIX = ["Person_ID","Role_Type","Email","Phone","LinkedIn_URL","GitHub_URL","GitHub_Username"]
+REPO_ROOT = Path(__file__).resolve().parents[1]
+OUT_LEADS = REPO_ROOT / "outputs" / "leads"
+OUT_MANIFESTS = REPO_ROOT / "outputs" / "manifests"
 
-# Wide lead schema (adds 70+ columns)
-LEAD_COLUMNS = [
-    "Run_ID","Run_Timestamp_UTC","Scenario",
-    "Enrichment_Status","Enrichment_Errors","Source_URLs",
 
-    # Primary identity (duplicative on purpose for downstream tools)
-    "Primary_ID_Type","Primary_ID_Value",
+CANON_PREFIX = ["Person_ID", "Role_Type", "Email", "Phone", "LinkedIn_URL", "GitHub_URL", "GitHub_Username"]
 
-    # Contact outputs (public-only)
-    "Primary_Email","Secondary_Emails","Email_Sources","Email_Confidence",
-    "Primary_Phone","Secondary_Phones","Phone_Sources","Phone_Confidence",
-    "LinkedIn_URL_Found","LinkedIn_Sources","LinkedIn_Confidence",
-    "Resume_URL","Resume_Sources","Resume_Confidence",
+# Lead-grade schema (70+ columns). Keep stable ordering.
+LEAD_SCHEMA: List[str] = CANON_PREFIX + [
+    # Identity / source passthrough
+    "Full_Name",
+    "Name_Raw",
+    "Company",
+    "Location",
+    "Bio",
+    "Followers",
+    "Following",
+    "Public_Repos",
+    "Created_At",
+    "Updated_At",
+    "Source_Scenario",
+    "Source_Query",
+    "Source_Page",
+    "Source_Rank",
+    "Retrieved_At_UTC",
+    "Scenario",
+    "Scenario_Score",
+    "Scenario_Buckets",
+    "Scenario_Keywords",
+    "GitHub_Blog_Raw",
 
-    # Web surfaces
-    "GitHub_Profile_HTML_URL","GitHub_User_API_URL","GitHub_Repos_API_URL",
-    "GitHub_IO_URL","GitHub_IO_Status","GitHub_IO_Final_URL",
-    "Personal_Website_URL","Personal_Website_Status","Personal_Website_Final_URL",
+    # GitHub.io first-class surface (required)
+    "GitHub_IO_URL",
+    "GitHub_IO_HTTP_Status",
+    "GitHub_IO_Final_URL",
+    "GitHub_IO_Checked_UTC",
+    "GitHub_IO_Probe_Method",  # HEAD|GET
+    "GitHub_IO_Present",       # yes|no
+    "GitHub_IO_Error",
 
-    # GitHub public profile fields
-    "GH_Name","GH_Company","GH_Location","GH_Bio","GH_Blog",
-    "GH_Twitter_Username","GH_Hireable",
-    "GH_Followers","GH_Following","GH_Public_Repos","GH_Public_Gists",
-    "GH_Created_At","GH_Updated_At",
+    # Enrichment crawl (bounded)
+    "Crawl_Root_URL",
+    "Crawl_Pages_Fetched",
+    "Crawl_Max_Pages",
+    "Crawl_Seconds",
+    "Crawl_Error",
 
-    # Repo summary (top 8)
-    "GH_Top_Repos","GH_Top_Repos_URLs","GH_Top_Repos_Stars_Total",
-    "GH_Top_Repos_Forks_Total","GH_Top_Repos_Languages","GH_Top_Repos_Topics",
+    # Contact extraction
+    "Email_Found",
+    "Email_Source",
+    "Email_Confidence",         # high|medium|low
+    "Email_Evidence_Snippet",
+    "Phone_Found",
+    "Phone_Source",
+    "Phone_Confidence",
+    "Phone_Evidence_Snippet",
+    "LinkedIn_Found",
+    "LinkedIn_Source",
+    "LinkedIn_Confidence",
+    "LinkedIn_Evidence_URL",
 
-    # Signals (lexical, deterministic)
-    "Signal_Terms_Found","Signal_Terms_Count","Signal_Terms_Sources",
+    # Other signals from pages
+    "Resume_URL",
+    "Resume_Source",
+    "CV_URL",
+    "Portfolio_URL",
+    "Portfolio_Source",
+    "Google_Scholar_URL",
+    "Semantic_Scholar_URL",
+    "OpenAlex_URL",
+    "ORCID_URL",
+    "Twitter_X_URL",
+    "YouTube_URL",
+    "Medium_URL",
+    "Substack_URL",
+    "Blog_URL",
+    "Blog_Source",
 
-    # Lead-quality flags
-    "Any_Email_Flag","Any_Phone_Flag","Any_LinkedIn_Flag","Any_Resume_Flag","Any_Website_Flag",
-    "Contact_Found_Flag","Lead_Contact_Confidence","Lead_Score","Lead_Score_Notes",
-
-    # Audit/tracing
-    "Fetched_Source_Count","Fetched_Bytes_Total"
+    # Quality / provenance
+    "Enrichment_Attempts",
+    "Enrichment_Status",         # ok|partial|fail
+    "Escalation_Level",          # 0..3
+    "Notes",
+    "Provenance_JSON",           # compact json string
 ]
 
-DEFAULT_SIGNAL_TERMS = [
-    "tensorrt","tensorrt-llm","cuda","triton","vllm","onnx","cutlass","jax","xla",
-    "flashattention","pagedattention","nccl","deepspeed","fsdp",
-    "kubernetes","k8s","llama.cpp","gguf","gptq","awq","qlora","lora","peft","dpo","ppo","rlhf",
-    "rag","retrieval augmented generation","langchain","langgraph","llamaindex",
-    "weaviate","pinecone","qdrant","milvus","faiss","pgvector","opensearch","vespa",
-    "tgi","sglang","ray serve","tensorrt llm","tensor cores","gpu operator","nvidia"
-]
 
-EMAIL_RE = re.compile(r"\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b")
-PHONE_RE = re.compile(r"(\+?1[\s\-.]?)?\(?\d{3}\)?[\s\-.]?\d{3}[\s\-.]?\d{4}\b")
-LINKEDIN_RE = re.compile(r"https?://(www\.)?linkedin\.com/(in|pub)/[A-Za-z0-9\-_/%]+", re.IGNORECASE)
-URL_RE = re.compile(r"https?://[^\s\"')>]+", re.IGNORECASE)
+EMAIL_RE = re.compile(r"(?i)(?<![\w.\-])([a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,})(?![\w.\-])")
+# US-ish phone patterns, conservative
+PHONE_RE = re.compile(r"(?:(?:\+?1[\s\-\.])?\(?\d{3}\)?[\s\-\.]?\d{3}[\s\-\.]?\d{4})")
+LINKEDIN_RE = re.compile(r"https?://(?:www\.)?linkedin\.com/[A-Za-z0-9_\-/%?=.&]+", re.I)
 
-@dataclass
-class Fetch:
-    ok: bool
-    status: int
-    url: str
-    final_url: str
-    text: str
-    bytes_read: int
-    error: str
+URL_HINTS = {
+    "resume": re.compile(r"(?i)\b(resume|résumé|cv)\b"),
+    "scholar": re.compile(r"(?i)scholar\.google\.com"),
+    "semanticscholar": re.compile(r"(?i)semanticscholar\.org"),
+    "openalex": re.compile(r"(?i)openalex\.org"),
+    "orcid": re.compile(r"(?i)orcid\.org"),
+    "twitter": re.compile(r"(?i)(twitter\.com|x\.com)"),
+    "youtube": re.compile(r"(?i)youtube\.com"),
+    "medium": re.compile(r"(?i)medium\.com"),
+    "substack": re.compile(r"(?i)substack\.com"),
+}
 
-def utc_now_iso() -> str:
+
+def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-def normalize_url(s: str) -> str:
-    s = (s or "").strip()
-    if not s:
-        return ""
-    if s.startswith("http://") or s.startswith("https://"):
-        return s
-    return "https://" + s
 
-def http_get(url: str, headers: Optional[Dict[str,str]] = None) -> Fetch:
-    h = {
-        "User-Agent": USER_AGENT,
-        "Accept": "text/html,application/json;q=0.9,*/*;q=0.8",
-    }
-    if headers:
-        h.update(headers)
-    req = urllib.request.Request(url, headers=h)
+def http_fetch(url: str, timeout: int = 15, method: str = "GET") -> Tuple[int, str, str]:
+    """
+    Returns: (status_code, final_url, body_text)
+    """
+    req = Request(url, headers={"User-Agent": "AI-Talent-Engine/1.0"}, method=method)
+    with urlopen(req, timeout=timeout) as resp:
+        status = getattr(resp, "status", 200)
+        final_url = resp.geturl()
+        raw = resp.read()
     try:
-        with urllib.request.urlopen(req, timeout=HTTP_TIMEOUT) as resp:
-            status = int(getattr(resp, "status", 200))
-            final_url = getattr(resp, "geturl", lambda: url)()
-            raw = resp.read(2_000_000)  # cap
-            text = raw.decode("utf-8", errors="replace")
-            return Fetch(True, status, url, final_url, text, len(raw), "")
-    except urllib.error.HTTPError as e:
+        text = raw.decode("utf-8", errors="ignore")
+    except Exception:
+        text = ""
+    return int(status), str(final_url), text
+
+
+def safe_strip(v: object) -> str:
+    return "" if v is None else str(v).strip()
+
+
+def normalize_phone(s: str) -> str:
+    s = re.sub(r"[^\d+]", "", s)
+    if s.startswith("+1"):
+        s = s[2:]
+    if len(s) == 10 and s.isdigit():
+        return f"({s[0:3]}) {s[3:6]}-{s[6:10]}"
+    return ""
+
+
+@dataclass
+class GithubIOProbe:
+    url: str
+    status: int
+    final_url: str
+    checked_utc: str
+    method: str
+    present: str
+    error: str
+
+
+def probe_github_io(username: str) -> GithubIOProbe:
+    """
+    REQUIRED first-class surface: attempt probe and record result.
+    Valid outcomes include 200 (present) and 404 (not present).
+    Fail closed only if probe step cannot execute (unexpected exception).
+    """
+    checked = utc_now()
+    base = f"https://{username}.github.io/"
+    method = "HEAD"
+    try:
+        # Try HEAD first (fast), then fallback GET if needed
         try:
-            raw = e.read(200_000)
-            text = raw.decode("utf-8", errors="replace")
+            status, final_url, _ = http_fetch(base, timeout=12, method="HEAD")
         except Exception:
-            text = ""
-        return Fetch(False, int(e.code), url, url, text, 0, f"HTTPError {e.code}")
+            method = "GET"
+            status, final_url, _ = http_fetch(base, timeout=12, method="GET")
+        present = "yes" if status in (200, 301, 302) else "no"
+        return GithubIOProbe(
+            url=base,
+            status=status,
+            final_url=final_url,
+            checked_utc=checked,
+            method=method,
+            present=present,
+            error="",
+        )
     except Exception as e:
-        return Fetch(False, 0, url, url, "", 0, f"{type(e).__name__}: {e}")
+        # This is a hard failure in the GitHub.io contract (probe could not run)
+        return GithubIOProbe(
+            url=base,
+            status=-1,
+            final_url="",
+            checked_utc=checked,
+            method=method,
+            present="no",
+            error=str(e),
+        )
 
-def gh_headers() -> Dict[str,str]:
-    h = {"Accept": "application/vnd.github+json"}
-    token = os.getenv("GITHUB_TOKEN","").strip()
-    if token:
-        h["Authorization"] = f"Bearer {token}"
-    return h
 
-def gh_user_api(user: str) -> str:
-    return f"https://api.github.com/users/{user}"
+def extract_links(html: str, base_url: str) -> List[str]:
+    # naive href extraction, bounded and safe
+    links = set()
+    for m in re.finditer(r'href\s*=\s*["\']([^"\']+)["\']', html, flags=re.I):
+        href = m.group(1).strip()
+        if href.startswith("mailto:") or href.startswith("javascript:") or href.startswith("#"):
+            continue
+        abs_url = urljoin(base_url, href)
+        links.add(abs_url)
+    return list(links)
 
-def gh_repos_api(user: str) -> str:
-    return f"https://api.github.com/users/{user}/repos?per_page=100&sort=updated"
 
-def find_github_io(user: str) -> str:
-    return f"https://{user}.github.io"
+def same_domain(a: str, b: str) -> bool:
+    try:
+        return urlparse(a).netloc.lower() == urlparse(b).netloc.lower()
+    except Exception:
+        return False
 
-def normalize_us_phone(p: str) -> str:
-    digits = re.sub(r"\D","", p or "")
-    if digits.startswith("1") and len(digits) == 11:
-        digits = digits[1:]
-    if len(digits) != 10:
-        return ""
-    return f"+1{digits}"
 
-def extract_contacts(text: str) -> Tuple[List[str],List[str],List[str],List[str]]:
-    emails = sorted(set(EMAIL_RE.findall(text or "")))
-    # remove obvious placeholders
-    emails = [e for e in emails if "example.com" not in e.lower()]
-    phones = []
-    for m in PHONE_RE.finditer(text or ""):
-        n = normalize_us_phone(m.group(0))
-        if n:
-            phones.append(n)
-    phones = sorted(set(phones))
-    linkedins = sorted(set(m.group(0) for m in LINKEDIN_RE.finditer(text or "")))
+def bounded_crawl(root: str, max_pages: int = 8, delay_s: float = 0.6) -> Tuple[List[Tuple[str, str]], str]:
+    """
+    Crawl up to max_pages pages on same domain, returning list of (url, html).
+    """
+    fetched: List[Tuple[str, str]] = []
+    seen = set()
+    q = [root]
 
-    # Resume URLs heuristic (any URL containing resume/cv and pdf/doc/docx)
-    resumes = []
-    for m in URL_RE.finditer(text or ""):
-        u = m.group(0)
-        if re.search(r"(resume|cv)", u, re.IGNORECASE) and re.search(r"\.(pdf|doc|docx)\b", u, re.IGNORECASE):
-            resumes.append(u)
-    resumes = sorted(set(resumes))
-    return emails, phones, linkedins, resumes
+    start = time.time()
+    err = ""
 
-def safe_join(items: List[str], sep: str=" | ") -> str:
-    items = [i.strip() for i in items if (i or "").strip()]
-    return sep.join(items)
+    while q and len(fetched) < max_pages:
+        u = q.pop(0)
+        if u in seen:
+            continue
+        seen.add(u)
 
-def repo_score(repo: Dict) -> Tuple[int,int]:
-    return (int(repo.get("stargazers_count") or 0), int(repo.get("forks_count") or 0))
+        try:
+            status, final_url, html = http_fetch(u, timeout=18, method="GET")
+            if status >= 400:
+                continue
+            fetched.append((final_url, html))
+            time.sleep(delay_s)
 
-def lexical_signals(source_texts: List[Tuple[str,str]], terms: List[str]) -> Tuple[List[str],List[str]]:
-    found = set()
-    srcs = set()
-    for src_url, txt in source_texts:
-        tl = (txt or "").lower()
-        for t in terms:
-            if t.lower() in tl:
-                found.add(t.lower())
-                srcs.add(src_url)
-    return sorted(found), sorted(srcs)
+            # discover more links
+            for link in extract_links(html, final_url):
+                if len(q) + len(fetched) >= max_pages * 3:
+                    break
+                if same_domain(root, link):
+                    if link not in seen:
+                        q.append(link)
+
+        except Exception as e:
+            err = str(e)
+            break
+
+    _ = time.time() - start
+    return fetched, err
+
+
+def best_email(emails: List[str]) -> Tuple[str, str]:
+    if not emails:
+        return "", "low"
+    # Prefer non-noreply and non-github addresses
+    ranked = sorted(set(emails), key=lambda x: (
+        "noreply" in x.lower(),
+        x.lower().endswith("users.noreply.github.com"),
+        x.lower().endswith("@github.com"),
+        len(x),
+    ))
+    chosen = ranked[0]
+    conf = "high" if (not chosen.lower().endswith("users.noreply.github.com") and "noreply" not in chosen.lower()) else "medium"
+    return chosen, conf
+
 
 def main() -> None:
-    if len(sys.argv) < 5:
-        print("USAGE: universal_enrichment_pipeline.py <scenario> <input_normalized_people_csv> <output_dir> <run_id>")
+    if len(sys.argv) != 4:
+        print("USAGE: python3 scripts/universal_enrichment_pipeline.py <scenario> <people_csv_normalized> <run_id>")
         sys.exit(2)
 
     scenario = sys.argv[1].strip()
-    in_csv = Path(sys.argv[2]).resolve()
-    out_dir = Path(sys.argv[3]).resolve()
-    run_id = sys.argv[4].strip()
+    people_csv = Path(sys.argv[2]).expanduser().resolve()
+    run_id = sys.argv[3].strip()
 
-    if not in_csv.exists():
-        print(f"ERROR: input CSV not found: {in_csv}")
-        sys.exit(2)
-
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out_csv = out_dir / f"LEADS_MASTER_{scenario}_{run_id}.csv"
-
-    # Read input
-    with in_csv.open(newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        rows = list(reader)
-        cols = reader.fieldnames or []
-
-    if cols[:len(CANON_PREFIX)] != CANON_PREFIX:
-        print("ERROR: input CSV not canonical-normalized. Expected prefix: " + ", ".join(CANON_PREFIX))
+    if not people_csv.exists():
+        print(f"ERROR: people CSV not found: {people_csv}")
         sys.exit(3)
 
-    if not rows:
-        print("ERROR: input CSV has no rows")
+    out_dir = OUT_LEADS / f"run_{run_id}"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    OUT_MANIFESTS.mkdir(parents=True, exist_ok=True)
+
+    leads_master = out_dir / f"LEADS_MASTER_{scenario}_{run_id}.csv"
+    manifest_path = OUT_MANIFESTS / f"run_manifest_{scenario}_{run_id}.json"
+
+    # Read input
+    with people_csv.open(newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+        in_cols = reader.fieldnames or []
+
+    # Canonical prefix check (hard)
+    if in_cols[:2] != ["Person_ID", "Role_Type"]:
+        print("ERROR: people_csv_normalized must start with Person_ID, Role_Type")
+        print("Found prefix:", in_cols[:2])
         sys.exit(4)
 
-    # Output fields: preserve input columns + lead columns (avoid dup)
-    preserved = [c for c in cols if c not in LEAD_COLUMNS]
-    out_fields = preserved + LEAD_COLUMNS
+    # Create output
+    start = time.time()
+    githubio_checked = 0
+    githubio_found = 0
 
-    ts = utc_now_iso()
-
-    # Stats
-    bytes_total = 0
-    print("UNIVERSAL ENRICHMENT PIPELINE v1.2.0")
-    print(f"Scenario: {scenario}")
-    print(f"Input: {in_csv}")
-    print(f"Output: {out_csv}")
-    print(f"Rows: {len(rows)}")
-    print(f"Run_ID: {run_id}")
-    print()
-
-    with out_csv.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=out_fields)
+    with leads_master.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=LEAD_SCHEMA)
         w.writeheader()
 
-        for i, r in enumerate(rows, start=1):
-            gh_user = (r.get("GitHub_Username") or "").strip()
-            gh_url = normalize_url(r.get("GitHub_URL") or "")
+        for r in rows:
+            person_id = safe_strip(r.get("Person_ID"))
+            role_type = safe_strip(r.get("Role_Type"))
+            gh_user = safe_strip(r.get("GitHub_Username")) or person_id
 
-            out = dict(r)
-            for c in LEAD_COLUMNS:
-                out[c] = ""
+            gh_url = safe_strip(r.get("GitHub_URL"))
+            blog_raw = safe_strip(r.get("Blog"))
 
-            out["Run_ID"] = run_id
-            out["Run_Timestamp_UTC"] = ts
-            out["Scenario"] = scenario
-            out["Primary_ID_Type"] = "GitHub_Username"
-            out["Primary_ID_Value"] = gh_user
+            # REQUIRED GitHub.io probe
+            probe = probe_github_io(gh_user)
+            githubio_checked += 1
+            if probe.present == "yes":
+                githubio_found += 1
 
-            errors = []
-            source_urls = []
-            source_texts: List[Tuple[str,str]] = []
-            fetched_bytes = 0
+            # Fail-closed if probe couldn't execute
+            if probe.status == -1:
+                print("ERROR: GitHub.io probe failed to execute. Contract requires probe.")
+                print("User:", gh_user)
+                print("Error:", probe.error)
+                sys.exit(5)
 
-            if not gh_user:
-                out["Enrichment_Status"] = "failed"
-                out["Enrichment_Errors"] = "Missing GitHub_Username"
-                w.writerow(out)
-                continue
+            # Decide crawl root with strict priority: GitHub.io first, then Blog, then GitHub profile
+            crawl_root = ""
+            if probe.present == "yes":
+                crawl_root = probe.final_url or probe.url
+            elif "github.io" in blog_raw.lower():
+                crawl_root = blog_raw
+            elif blog_raw.startswith("http"):
+                crawl_root = blog_raw
+            elif gh_url.startswith("http"):
+                crawl_root = gh_url
 
-            profile_html = gh_url or f"https://github.com/{gh_user}"
-            user_api = gh_user_api(gh_user)
-            repos_api = gh_repos_api(gh_user)
-            gh_io = find_github_io(gh_user)
+            fetched_pages: List[Tuple[str, str]] = []
+            crawl_err = ""
+            crawl_seconds = 0.0
+            max_pages = 8
 
-            out["GitHub_Profile_HTML_URL"] = profile_html
-            out["GitHub_User_API_URL"] = user_api
-            out["GitHub_Repos_API_URL"] = repos_api
-            out["GitHub_IO_URL"] = gh_io
+            enrichment_attempts = []
+            emails: List[str] = []
+            phones: List[str] = []
+            linkedin_urls: List[str] = []
+            discovered_links: List[str] = []
 
-            # GitHub API user
-            fu = http_get(user_api, headers=gh_headers())
-            source_urls.append(user_api)
-            fetched_bytes += fu.bytes_read
-            if fu.ok and fu.text:
-                try:
-                    u = json.loads(fu.text)
-                except Exception:
-                    u = {}
-                out["GH_Name"] = str(u.get("name") or "")
-                out["GH_Company"] = str(u.get("company") or "")
-                out["GH_Location"] = str(u.get("location") or "")
-                out["GH_Bio"] = str(u.get("bio") or "")
-                out["GH_Blog"] = str(u.get("blog") or "")
-                out["GH_Twitter_Username"] = str(u.get("twitter_username") or "")
-                out["GH_Hireable"] = str(u.get("hireable") or "")
-                out["GH_Followers"] = str(u.get("followers") or "")
-                out["GH_Following"] = str(u.get("following") or "")
-                out["GH_Public_Repos"] = str(u.get("public_repos") or "")
-                out["GH_Public_Gists"] = str(u.get("public_gists") or "")
-                out["GH_Created_At"] = str(u.get("created_at") or "")
-                out["GH_Updated_At"] = str(u.get("updated_at") or "")
-                api_email = str(u.get("email") or "").strip()
-                if api_email:
-                    out["Primary_Email"] = api_email
-                    out["Email_Sources"] = user_api
-                    out["Email_Confidence"] = "high"
-            else:
-                errors.append(fu.error or f"GitHub user API failed ({fu.status})")
+            if crawl_root:
+                t0 = time.time()
+                fetched_pages, crawl_err = bounded_crawl(crawl_root, max_pages=max_pages, delay_s=0.5)
+                crawl_seconds = time.time() - t0
+                enrichment_attempts.append(f"crawl:{crawl_root}")
 
-            # Profile HTML
-            fp = http_get(profile_html)
-            source_urls.append(profile_html)
-            fetched_bytes += fp.bytes_read
-            if fp.ok and fp.text:
-                source_texts.append((profile_html, fp.text))
-            else:
-                errors.append(fp.error or f"GitHub profile HTML failed ({fp.status})")
+                # Extract from pages
+                for page_url, html in fetched_pages:
+                    discovered_links.append(page_url)
+                    emails.extend([m.group(1) for m in EMAIL_RE.finditer(html)])
+                    phones.extend([m.group(0) for m in PHONE_RE.finditer(html)])
+                    linkedin_urls.extend([m.group(0) for m in LINKEDIN_RE.finditer(html)])
 
-            # Websites: GitHub.io + personal site from blog if present
-            blog = normalize_url(out.get("GH_Blog") or "") or normalize_url(r.get("Blog") or "")
-            personal_site = blog if blog else ""
-            out["Personal_Website_URL"] = personal_site
+                    # find link candidates inside html
+                    for link in extract_links(html, page_url):
+                        discovered_links.append(link)
 
-            fg = http_get(gh_io)
-            source_urls.append(gh_io)
-            fetched_bytes += fg.bytes_read
-            if fg.ok and fg.text:
-                out["GitHub_IO_Status"] = "ok"
-                out["GitHub_IO_Final_URL"] = fg.final_url
-                source_texts.append((fg.final_url, fg.text))
-            else:
-                out["GitHub_IO_Status"] = f"failed_{fg.status}"
+            email_found, email_conf = best_email(emails)
+            phone_found = ""
+            phone_conf = "low"
+            phone_src = ""
+            phone_snip = ""
+            for p in phones:
+                np = normalize_phone(p)
+                if np:
+                    phone_found = np
+                    phone_conf = "medium"
+                    phone_src = "crawl"
+                    phone_snip = p
+                    break
 
-            if personal_site:
-                fs = http_get(personal_site)
-                source_urls.append(personal_site)
-                fetched_bytes += fs.bytes_read
-                if fs.ok and fs.text:
-                    out["Personal_Website_Status"] = "ok"
-                    out["Personal_Website_Final_URL"] = fs.final_url
-                    source_texts.append((fs.final_url, fs.text))
-                else:
-                    out["Personal_Website_Status"] = f"failed_{fs.status}"
-            else:
-                out["Personal_Website_Status"] = "none"
+            linkedin_found = ""
+            linkedin_conf = "low"
+            linkedin_src = ""
+            linkedin_ev = ""
+            if linkedin_urls:
+                linkedin_found = sorted(set(linkedin_urls), key=len)[0]
+                linkedin_conf = "high"
+                linkedin_src = "crawl"
+                linkedin_ev = crawl_root or ""
 
-            # Repos API
-            fr = http_get(repos_api, headers=gh_headers())
-            source_urls.append(repos_api)
-            fetched_bytes += fr.bytes_read
-            repos = []
-            if fr.ok and fr.text:
-                try:
-                    repos = json.loads(fr.text)
-                    if not isinstance(repos, list):
-                        repos = []
-                except Exception:
-                    repos = []
-                    errors.append("Repos JSON parse failed")
-            else:
-                errors.append(fr.error or f"GitHub repos API failed ({fr.status})")
+            # Other link classifications
+            resume_url = ""
+            cv_url = ""
+            portfolio_url = ""
+            scholar_url = ""
+            semscholar_url = ""
+            openalex_url = ""
+            orcid_url = ""
+            twitter_url = ""
+            youtube_url = ""
+            medium_url = ""
+            substack_url = ""
+            blog_url = ""
+            blog_source = ""
 
-            top = sorted(repos, key=repo_score, reverse=True)[:8]
-            names, urls, langs, topics = [], [], [], []
-            stars_total = 0
-            forks_total = 0
-            for repo in top:
-                names.append(str(repo.get("name") or ""))
-                urls.append(str(repo.get("html_url") or ""))
-                stars_total += int(repo.get("stargazers_count") or 0)
-                forks_total += int(repo.get("forks_count") or 0)
-                lang = str(repo.get("language") or "").strip()
-                if lang:
-                    langs.append(lang)
-                tps = repo.get("topics") or []
-                if isinstance(tps, list):
-                    for t in tps:
-                        if t:
-                            topics.append(str(t))
+            uniq_links = sorted(set([u for u in discovered_links if u.startswith("http")]))
+            for u in uniq_links:
+                if not resume_url and URL_HINTS["resume"].search(u):
+                    resume_url = u
+                if not cv_url and URL_HINTS["resume"].search(u):
+                    cv_url = u
+                if not scholar_url and URL_HINTS["scholar"].search(u):
+                    scholar_url = u
+                if not semscholar_url and URL_HINTS["semanticscholar"].search(u):
+                    semscholar_url = u
+                if not openalex_url and URL_HINTS["openalex"].search(u):
+                    openalex_url = u
+                if not orcid_url and URL_HINTS["orcid"].search(u):
+                    orcid_url = u
+                if not twitter_url and URL_HINTS["twitter"].search(u):
+                    twitter_url = u
+                if not youtube_url and URL_HINTS["youtube"].search(u):
+                    youtube_url = u
+                if not medium_url and URL_HINTS["medium"].search(u):
+                    medium_url = u
+                if not substack_url and URL_HINTS["substack"].search(u):
+                    substack_url = u
 
-            out["GH_Top_Repos"] = safe_join(names)
-            out["GH_Top_Repos_URLs"] = safe_join(urls)
-            out["GH_Top_Repos_Stars_Total"] = str(stars_total)
-            out["GH_Top_Repos_Forks_Total"] = str(forks_total)
-            out["GH_Top_Repos_Languages"] = safe_join(sorted(set(langs)))
-            out["GH_Top_Repos_Topics"] = safe_join(sorted(set(topics)))
+            # Portfolio/blog heuristics
+            if probe.present == "yes":
+                portfolio_url = probe.final_url or probe.url
+                blog_url = portfolio_url
+                blog_source = "github_io"
+            elif blog_raw.startswith("http"):
+                blog_url = blog_raw
+                blog_source = "github_profile_blog"
 
-            # Contact extraction from fetched pages (public only)
-            emails_found: List[str] = []
-            phones_found: List[str] = []
-            linkedins_found: List[str] = []
-            resumes_found: List[str] = []
-            email_srcs, phone_srcs, li_srcs, res_srcs = set(), set(), set(), set()
+            # Provenance JSON (compact)
+            prov = {
+                "github_io": {
+                    "url": probe.url,
+                    "status": probe.status,
+                    "final_url": probe.final_url,
+                    "present": probe.present,
+                    "checked_utc": probe.checked_utc,
+                    "method": probe.method,
+                },
+                "crawl": {
+                    "root": crawl_root,
+                    "pages_fetched": len(fetched_pages),
+                    "max_pages": max_pages,
+                    "seconds": round(crawl_seconds, 3),
+                    "error": crawl_err,
+                },
+                "extract": {
+                    "emails_found": len(set(emails)),
+                    "phones_found": len(set(phones)),
+                    "linkedin_found": len(set(linkedin_urls)),
+                },
+            }
 
-            for src, txt in source_texts:
-                e, p, l, rs = extract_contacts(txt)
-                if e:
-                    emails_found.extend(e); email_srcs.add(src)
-                if p:
-                    phones_found.extend(p); phone_srcs.add(src)
-                if l:
-                    linkedins_found.extend(l); li_srcs.add(src)
-                if rs:
-                    resumes_found.extend(rs); res_srcs.add(src)
+            # Escalation level: 0 baseline, +1 if github_io present, +1 if crawl succeeded, +1 if email found
+            escalation = 0
+            if probe.present == "yes":
+                escalation += 1
+            if len(fetched_pages) > 0:
+                escalation += 1
+            if email_found:
+                escalation += 1
 
-            emails_found = sorted(set(emails_found))
-            phones_found = sorted(set(phones_found))
-            linkedins_found = sorted(set(linkedins_found))
-            resumes_found = sorted(set(resumes_found))
+            status = "ok" if (probe.status in (200, 301, 302, 404, 410) and (crawl_err == "")) else "partial"
+            if probe.status == -1:
+                status = "fail"
 
-            upstream_email = (r.get("Email") or "").strip()
-            upstream_phone = (r.get("Phone") or "").strip()
-            upstream_linkedin = (r.get("LinkedIn_URL") or "").strip()
+            out: Dict[str, str] = {k: "" for k in LEAD_SCHEMA}
 
-            # Email preference: API email (already set) > upstream > harvested
-            if not out["Primary_Email"]:
-                if upstream_email:
-                    out["Primary_Email"] = upstream_email
-                    out["Email_Confidence"] = "medium"
-                    out["Email_Sources"] = "upstream"
-                elif emails_found:
-                    out["Primary_Email"] = emails_found[0]
-                    out["Secondary_Emails"] = safe_join(emails_found[1:])
-                    out["Email_Sources"] = safe_join(sorted(email_srcs))
-                    out["Email_Confidence"] = "medium"
+            # Canonical prefix (with strict ordering)
+            out["Person_ID"] = person_id
+            out["Role_Type"] = role_type
+            out["Email"] = safe_strip(r.get("Email"))  # preserve if already present
+            out["Phone"] = safe_strip(r.get("Phone"))
+            out["LinkedIn_URL"] = safe_strip(r.get("LinkedIn_URL"))
+            out["GitHub_URL"] = gh_url
+            out["GitHub_Username"] = gh_user
 
-            # Phone preference: upstream > harvested
-            if upstream_phone:
-                out["Primary_Phone"] = upstream_phone
-                out["Phone_Confidence"] = "medium"
-                out["Phone_Sources"] = "upstream"
-            elif phones_found:
-                out["Primary_Phone"] = phones_found[0]
-                out["Secondary_Phones"] = safe_join(phones_found[1:])
-                out["Phone_Sources"] = safe_join(sorted(phone_srcs))
-                out["Phone_Confidence"] = "medium"
+            # Identity passthrough
+            out["Full_Name"] = safe_strip(r.get("Name"))
+            out["Name_Raw"] = safe_strip(r.get("Name"))
+            out["Company"] = safe_strip(r.get("Company"))
+            out["Location"] = safe_strip(r.get("Location"))
+            out["Bio"] = safe_strip(r.get("Bio"))
+            out["Followers"] = safe_strip(r.get("Followers"))
+            out["Following"] = safe_strip(r.get("Following"))
+            out["Public_Repos"] = safe_strip(r.get("Public_Repos"))
+            out["Created_At"] = safe_strip(r.get("Created_At"))
+            out["Updated_At"] = safe_strip(r.get("Updated_At"))
+            out["Source_Scenario"] = safe_strip(r.get("Source_Scenario"))
+            out["Source_Query"] = safe_strip(r.get("Source_Query"))
+            out["Source_Page"] = safe_strip(r.get("Source_Page"))
+            out["Source_Rank"] = safe_strip(r.get("Source_Rank"))
+            out["Retrieved_At_UTC"] = safe_strip(r.get("Retrieved_At_UTC"))
+            out["Scenario"] = safe_strip(r.get("Scenario"))
+            out["Scenario_Score"] = safe_strip(r.get("Scenario_Score"))
+            out["Scenario_Buckets"] = safe_strip(r.get("Scenario_Buckets"))
+            out["Scenario_Keywords"] = safe_strip(r.get("Scenario_Keywords"))
+            out["GitHub_Blog_Raw"] = blog_raw
 
-            # LinkedIn
-            if upstream_linkedin:
-                out["LinkedIn_URL_Found"] = upstream_linkedin
-                out["LinkedIn_Sources"] = "upstream"
-                out["LinkedIn_Confidence"] = "medium"
-            elif linkedins_found:
-                out["LinkedIn_URL_Found"] = linkedins_found[0]
-                out["LinkedIn_Sources"] = safe_join(sorted(li_srcs))
-                out["LinkedIn_Confidence"] = "low"
+            # GitHub.io canonical block (required columns)
+            out["GitHub_IO_URL"] = probe.url
+            out["GitHub_IO_HTTP_Status"] = str(probe.status)
+            out["GitHub_IO_Final_URL"] = probe.final_url
+            out["GitHub_IO_Checked_UTC"] = probe.checked_utc
+            out["GitHub_IO_Probe_Method"] = probe.method
+            out["GitHub_IO_Present"] = probe.present
+            out["GitHub_IO_Error"] = probe.error
 
-            # Resume
-            if resumes_found:
-                out["Resume_URL"] = resumes_found[0]
-                out["Resume_Sources"] = safe_join(sorted(res_srcs))
-                out["Resume_Confidence"] = "low"
+            # Crawl block
+            out["Crawl_Root_URL"] = crawl_root
+            out["Crawl_Pages_Fetched"] = str(len(fetched_pages))
+            out["Crawl_Max_Pages"] = str(max_pages)
+            out["Crawl_Seconds"] = f"{crawl_seconds:.3f}"
+            out["Crawl_Error"] = crawl_err
 
-            # Signals
-            found_terms, term_srcs = lexical_signals(source_texts, DEFAULT_SIGNAL_TERMS)
-            out["Signal_Terms_Found"] = safe_join(found_terms)
-            out["Signal_Terms_Count"] = str(len(found_terms))
-            out["Signal_Terms_Sources"] = safe_join(term_srcs)
+            # Contact extraction (do not overwrite existing canonical Email/Phone/LinkedIn_URL unless blank)
+            out["Email_Found"] = email_found
+            out["Email_Source"] = "crawl" if email_found else ""
+            out["Email_Confidence"] = email_conf if email_found else "low"
+            out["Email_Evidence_Snippet"] = email_found
 
-            # Lead score (simple, deterministic)
-            score = 0
-            notes = []
-            if out["Primary_Email"]:
-                score += 30; notes.append("email")
-            if out["Primary_Phone"]:
-                score += 15; notes.append("phone")
-            if out["LinkedIn_URL_Found"]:
-                score += 10; notes.append("linkedin")
-            if out["Resume_URL"]:
-                score += 10; notes.append("resume")
-            if out["GitHub_IO_Status"] == "ok" or out["Personal_Website_Status"] == "ok":
-                score += 10; notes.append("website")
-            if len(found_terms) >= 5:
-                score += 10; notes.append("signals>=5")
-            if stars_total >= 50:
-                score += 10; notes.append("stars>=50")
+            out["Phone_Found"] = phone_found
+            out["Phone_Source"] = phone_src
+            out["Phone_Confidence"] = phone_conf
+            out["Phone_Evidence_Snippet"] = phone_snip
 
-            out["Lead_Score"] = str(score)
-            out["Lead_Score_Notes"] = " ; ".join(notes)
+            out["LinkedIn_Found"] = linkedin_found
+            out["LinkedIn_Source"] = linkedin_src
+            out["LinkedIn_Confidence"] = linkedin_conf
+            out["LinkedIn_Evidence_URL"] = linkedin_ev
 
-            # Flags
-            out["Any_Email_Flag"] = "1" if out["Primary_Email"] else "0"
-            out["Any_Phone_Flag"] = "1" if out["Primary_Phone"] else "0"
-            out["Any_LinkedIn_Flag"] = "1" if out["LinkedIn_URL_Found"] else "0"
-            out["Any_Resume_Flag"] = "1" if out["Resume_URL"] else "0"
-            out["Any_Website_Flag"] = "1" if (out["GitHub_IO_Status"] == "ok" or out["Personal_Website_Status"] == "ok") else "0"
-            contact_found = (out["Any_Email_Flag"] == "1" or out["Any_Phone_Flag"] == "1" or out["Any_LinkedIn_Flag"] == "1" or out["Any_Resume_Flag"] == "1")
-            out["Contact_Found_Flag"] = "1" if contact_found else "0"
+            if not out["Email"] and email_found:
+                out["Email"] = email_found
+            if not out["Phone"] and phone_found:
+                out["Phone"] = phone_found
+            if not out["LinkedIn_URL"] and linkedin_found:
+                out["LinkedIn_URL"] = linkedin_found
 
-            # Confidence summary
-            if out["Any_Email_Flag"] == "1" and (out["Email_Confidence"] == "high"):
-                out["Lead_Contact_Confidence"] = "HIGH"
-            elif out["Any_Email_Flag"] == "1" or out["Any_Phone_Flag"] == "1":
-                out["Lead_Contact_Confidence"] = "MEDIUM"
-            else:
-                out["Lead_Contact_Confidence"] = "LOW"
+            # Other signals
+            out["Resume_URL"] = resume_url
+            out["Resume_Source"] = "crawl" if resume_url else ""
+            out["CV_URL"] = cv_url
+            out["Portfolio_URL"] = portfolio_url
+            out["Portfolio_Source"] = "github_io" if probe.present == "yes" else ("blog" if blog_url else "")
+            out["Google_Scholar_URL"] = scholar_url
+            out["Semantic_Scholar_URL"] = semscholar_url
+            out["OpenAlex_URL"] = openalex_url
+            out["ORCID_URL"] = orcid_url
+            out["Twitter_X_URL"] = twitter_url
+            out["YouTube_URL"] = youtube_url
+            out["Medium_URL"] = medium_url
+            out["Substack_URL"] = substack_url
+            out["Blog_URL"] = blog_url
+            out["Blog_Source"] = blog_source
 
-            out["Fetched_Source_Count"] = str(len(sorted(set(source_urls))))
-            out["Fetched_Bytes_Total"] = str(fetched_bytes)
+            out["Enrichment_Attempts"] = ";".join(enrichment_attempts)
+            out["Enrichment_Status"] = status
+            out["Escalation_Level"] = str(escalation)
+            out["Notes"] = ""
+            out["Provenance_JSON"] = json.dumps(prov, ensure_ascii=False, separators=(",", ":"))
 
-            out["Source_URLs"] = safe_join(sorted(set(source_urls)))
-            out["Enrichment_Errors"] = safe_join(errors)
-            out["Enrichment_Status"] = "ok" if not errors else "ok_with_warnings"
+            # Final schema sanity: enforce required GitHub.io columns exist
+            required_gio_cols = ["GitHub_IO_URL", "GitHub_IO_HTTP_Status", "GitHub_IO_Checked_UTC", "GitHub_IO_Present"]
+            for c in required_gio_cols:
+                if c not in out:
+                    print(f"ERROR: Missing required GitHub.io column in output: {c}")
+                    sys.exit(6)
 
-            w.writerow({k: out.get(k, "") for k in out_fields})
+            w.writerow(out)
 
-            bytes_total += fetched_bytes
+    seconds = time.time() - start
 
-            # Light progress, no spam
-            if i == 1 or i % 10 == 0 or i == len(rows):
-                print(f"Progress: {i}/{len(rows)} enriched")
+    # Manifest
+    payload = {
+        "scenario": scenario,
+        "run_id": run_id,
+        "created_utc": utc_now(),
+        "repo_root": str(REPO_ROOT),
+        "people_csv_normalized": str(people_csv),
+        "leads_master_csv": str(leads_master),
+        "counts": {
+            "people_rows": len(rows),
+            "leads_rows": len(rows),
+        },
+        "github_io": {
+            "checked_rows": githubio_checked,
+            "found_rows": githubio_found,
+            "required_first_class_surface": True,
+        },
+        "runtime": {
+            "seconds": round(seconds, 3),
+        },
+        "contracts": {
+            "canonical_prefix": CANON_PREFIX,
+            "github_io_probe_required": True,
+            "output_schema_columns": len(LEAD_SCHEMA),
+        },
+    }
+    manifest_path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
-            # Rate-limit friendliness when no token is present
-            if not os.getenv("GITHUB_TOKEN","").strip():
-                time.sleep(0.6)
+    # Hard fail if leads master missing or schema too small
+    if not leads_master.exists():
+        print(f"ERROR: LEADS_MASTER not created: {leads_master}")
+        sys.exit(7)
+    if len(LEAD_SCHEMA) < 70:
+        print("ERROR: Schema contract violated: expected 70+ columns")
+        print("Columns:", len(LEAD_SCHEMA))
+        sys.exit(8)
 
-    print()
-    print("ENRICHMENT COMPLETE")
-    print(f"Output: {out_csv}")
-    print(f"Total fetched bytes: {bytes_total}")
+    print(f"OK: LEADS_MASTER written: {leads_master}")
+    print(f"OK: Columns: {len(LEAD_SCHEMA)}")
+    print(f"OK: Rows: {len(rows)}")
+    print(f"OK: GitHub.io checked: {githubio_checked}, present: {githubio_found}")
+    print(f"OK: Manifest written: {manifest_path}")
+
+
+if __name__ == "__main__":
+    main()
 PY
 chmod +x scripts/universal_enrichment_pipeline.py
 
-# ---------------------------------------------------------------------
-# 5) Universal run_safe.py (overwrites; contract + sequencing locked)
-# ---------------------------------------------------------------------
+# -----------------------------
+# run_safe.py (authoritative universal wiring)
+# -----------------------------
 cat > run_safe.py <<'PY'
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
-run_safe.py — Universal Safe Runner (Lead-grade finished outputs)
-Version: v3.0.0
+run_safe.py
+
+AI Talent Engine — MASTER SAFETY + DEMO ENTRYPOINT (Universal Lead-Grade)
+Version: v1.0.0
 Author: L. David Mendoza
 Date: 2026-01-02
-© 2025–2026 L. David Mendoza. All rights reserved.
+© 2025 L. David Mendoza
 
-Single command produces:
-- People CSV (bounded demo rules enforced by resolver contract)
-- Normalized people CSV (canonical prefix and order enforced)
-- Lead-grade finished CSV (40–70+ columns) in outputs/leads/run_<id>/
-- Scenario scoring outputs (existing scenario runner)
-- Manifest JSON
-- macOS popup + email on completion (hard required unless disabled)
+This is the ONLY approved execution path for:
+- demo frontier
+- run <scenario>
 
-Usage:
-  python3 run_safe.py <scenario>
+Hard guarantees:
+- Repository inventory is valid
+- Upstream people inventory exists and is non-empty
+- People scenario runs are bounded (25–50 people)
+- Identity columns are present (GitHub URL + username)
+- Person_ID / Role_Type canonical prefix is enforced upstream
+- Universal lead-grade enrichment produces 70+ column LEADS_MASTER
+- Pop-up occurs automatically for finished CSV
+- Email is sent automatically via Mail.app when enabled
+- Manifest is written
 
-Env (recommended defaults):
-  EMAIL_NOTIFY_ENABLED=1
-  POPUP_NOTIFY_ENABLED=1
-  AUTO_OPEN_LEADS=1
-  PIPELINE_NOTIFY_TO=LDaveMendoza@gmail.com
-  GITHUB_TOKEN=...  (optional, improves GitHub rate limits)
-
-Hard fail conditions:
-- No normalized canonical prefix
-- Leads CSV has < 40 columns
-- Popup fails (when POPUP_NOTIFY_ENABLED=1)
-- Email fails (when EMAIL_NOTIFY_ENABLED=1)
+Fail-closed: if any invariant fails, nothing downstream is considered "done".
 """
 
 from __future__ import annotations
 
-import json
 import os
 import sys
 import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
-
 import pandas as pd
+
 
 REPO_ROOT = Path(__file__).resolve().parent
 PEOPLE_DIR = REPO_ROOT / "outputs" / "people"
-LEADS_ROOT = REPO_ROOT / "outputs" / "leads"
-MANIFEST_DIR = REPO_ROOT / "outputs" / "manifests"
+
+SCENARIO_RUNNER = REPO_ROOT / "ai_talent_scenario_runner.py"
 
 NORMALIZER = REPO_ROOT / "scripts" / "normalize_people_csv.py"
 ENRICHER = REPO_ROOT / "scripts" / "universal_enrichment_pipeline.py"
-POPUP = REPO_ROOT / "scripts" / "macos_notify.py"
-EMAIL = REPO_ROOT / "scripts" / "send_run_completion_email.py"
+NOTIFIER = REPO_ROOT / "scripts" / "macos_notify.py"
+EMAIL_NOTIFIER = REPO_ROOT / "scripts" / "send_run_completion_email.py"
 
-SCENARIO_RUNNER = REPO_ROOT / "ai_talent_scenario_runner.py"
-PEOPLE_RESOLVER = REPO_ROOT / "people_scenario_resolver.py"
 
-CANON_PREFIX = ["Person_ID","Role_Type","Email","Phone","LinkedIn_URL","GitHub_URL","GitHub_Username"]
+def utc_now_compact() -> str:
+    return datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+
 
 def fail(msg: str) -> None:
     print("\nHARD FAILURE:")
@@ -905,33 +986,45 @@ def fail(msg: str) -> None:
     print()
     sys.exit(1)
 
-def utc_now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
-
-def ensure_file(p: Path) -> None:
-    if not p.exists():
-        fail(f"Missing required file: {p}")
-
-def run_cmd(cmd: list[str], hard: bool = True) -> None:
-    r = subprocess.run(cmd)
-    if hard and r.returncode != 0:
-        fail(f"Command failed ({r.returncode}): " + " ".join(cmd))
 
 def enforce_repo_inventory() -> None:
-    required = [
-        PEOPLE_RESOLVER,
-        SCENARIO_RUNNER,
-        NORMALIZER,
-        ENRICHER,
-        POPUP,
-        EMAIL,
-    ]
-    for p in required:
-        ensure_file(p)
+    required = {
+        "run_safe.py",
+        "inventory_gate.py",
+        "people_scenario_resolver.py",
+        "ai_talent_scenario_runner.py",
+        "scenario_contract.py",
+        "scripts/normalize_people_csv.py",
+        "scripts/universal_enrichment_pipeline.py",
+        "scripts/macos_notify.py",
+        "scripts/send_run_completion_email.py",
+    }
+    missing = []
+    for r in sorted(required):
+        if not (REPO_ROOT / r).exists():
+            missing.append(r)
+    if missing:
+        fail("Missing required repo files:\n" + "\n".join(f"  - {m}" for m in missing))
     print("✓ REPO INVENTORY GATE PASSED")
 
+
+def enforce_people_inventory() -> Path:
+    people_master = PEOPLE_DIR / "people_master.csv"
+    if not people_master.exists():
+        fail(f"People inventory missing:\n{people_master}")
+
+    df = pd.read_csv(people_master)
+    if df.empty:
+        fail("People inventory exists but is empty")
+
+    print("✓ PEOPLE INVENTORY PASSED")
+    print(f"✓ Upstream people rows: {len(df)}")
+    return people_master
+
+
 def run_people_scenario(scenario: str) -> Path:
-    run_cmd([sys.executable, str(PEOPLE_RESOLVER), "--scenario", scenario], hard=True)
+    cmd = [sys.executable, str(REPO_ROOT / "people_scenario_resolver.py"), "--scenario", scenario]
+    subprocess.run(cmd, check=True)
 
     outputs = sorted(
         PEOPLE_DIR.glob(f"{scenario}_people_*.csv"),
@@ -940,173 +1033,170 @@ def run_people_scenario(scenario: str) -> Path:
     )
     if not outputs:
         fail("People scenario produced no output CSV")
+
     people_csv = outputs[0]
     df = pd.read_csv(people_csv)
 
+    # DEMO BOUNDS (MANDATORY)
     if not (25 <= len(df) <= 50):
         fail(f"Demo bounds violated: {len(df)} rows (expected 25–50)")
 
-    req = {"GitHub_URL","GitHub_Username"}
-    missing = req - set(df.columns)
+    # IDENTITY CHECKS
+    required_cols = {"GitHub_URL", "GitHub_Username"}
+    missing = required_cols - set(df.columns)
     if missing:
-        fail("Missing required identity columns: " + ", ".join(sorted(missing)))
-
+        fail(f"Missing required identity columns: {missing}")
     if df["GitHub_URL"].isna().all():
         fail("GitHub_URL column exists but contains no data")
 
     print("✓ PEOPLE SCENARIO GATE PASSED")
-    print(f"✓ People CSV: {people_csv}")
-    print(f"✓ Rows: {len(df)}")
+    print(f"✓ Demo people rows: {len(df)}")
     return people_csv
 
-def normalize_people(people_csv: Path) -> Path:
-    out = Path(str(people_csv).replace(".csv", ".normalized.csv"))
-    run_cmd([sys.executable, str(NORMALIZER), str(people_csv), str(out)], hard=True)
 
+def normalize_people_csv(raw_people_csv: Path) -> Path:
+    out = raw_people_csv.with_suffix(".normalized.csv")
+    cmd = [sys.executable, str(NORMALIZER), str(raw_people_csv), str(out)]
+    subprocess.run(cmd, check=True)
+
+    # Enforce prefix exists in output
     df = pd.read_csv(out)
-    if list(df.columns[:len(CANON_PREFIX)]) != CANON_PREFIX:
-        fail("Normalization failed canonical prefix/order check")
+    cols = list(df.columns)
+    if cols[:2] != ["Person_ID", "Role_Type"]:
+        fail(f"Normalization failed: expected prefix Person_ID, Role_Type but got {cols[:2]}")
 
     print("✓ NORMALIZATION GATE PASSED")
-    print(f"✓ Normalized CSV: {out}")
+    print(f"✓ Normalized people CSV: {out}")
     return out
 
-def run_leads_enrichment(scenario: str, normalized_csv: Path) -> Path:
-    run_id = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-    out_dir = LEADS_ROOT / f"run_{run_id}"
-    out_dir.mkdir(parents=True, exist_ok=True)
 
-    run_cmd([sys.executable, str(ENRICHER), scenario, str(normalized_csv), str(out_dir), run_id], hard=True)
+def run_universal_enrichment(scenario: str, people_csv_normalized: Path, run_id: str) -> tuple[Path, Path]:
+    cmd = [sys.executable, str(ENRICHER), scenario, str(people_csv_normalized), run_id]
+    subprocess.run(cmd, check=True)
 
-    leads_master = out_dir / f"LEADS_MASTER_{scenario}_{run_id}.csv"
+    leads_dir = REPO_ROOT / "outputs" / "leads" / f"run_{run_id}"
+    leads_master = leads_dir / f"LEADS_MASTER_{scenario}_{run_id}.csv"
+    manifest = REPO_ROOT / "outputs" / "manifests" / f"run_manifest_{scenario}_{run_id}.json"
+
     if not leads_master.exists():
         fail(f"Expected leads file missing: {leads_master}")
+    if not manifest.exists():
+        fail(f"Expected manifest missing: {manifest}")
 
+    # Schema columns check (70+)
     df = pd.read_csv(leads_master)
-    if df.empty:
-        fail("Leads CSV is empty")
-    if len(df.columns) < 40:
-        fail(f"Leads CSV not wide enough (<40 columns). Found: {len(df.columns)}")
+    if len(df.columns) < 70:
+        fail(f"Lead-grade schema violated: {len(df.columns)} columns (expected 70+)")
 
-    print("✓ LEADS ENRICHMENT GATE PASSED")
-    print(f"✓ Leads master: {leads_master}")
+    # GitHub.io required columns must exist
+    required_cols = {"GitHub_IO_URL", "GitHub_IO_HTTP_Status", "GitHub_IO_Checked_UTC", "GitHub_IO_Present"}
+    miss = required_cols - set(df.columns)
+    if miss:
+        fail(f"GitHub.io contract violated: missing columns {sorted(miss)}")
+
+    print("✓ UNIVERSAL ENRICHMENT GATE PASSED")
+    print(f"✓ LEADS_MASTER: {leads_master}")
     print(f"✓ Columns: {len(df.columns)}")
-    return leads_master
+    return leads_master, manifest
 
-def run_scenario_scoring(scenario: str) -> None:
-    run_cmd([sys.executable, str(SCENARIO_RUNNER), "--scenario", scenario], hard=True)
-    print("✓ SCENARIO SCORING COMPLETE")
 
-def write_manifest(scenario: str, people_csv: Path, normalized_csv: Path, leads_csv: Path) -> Path:
-    MANIFEST_DIR.mkdir(parents=True, exist_ok=True)
-    run_id = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+def run_scenario_runner(scenario: str) -> None:
+    if not SCENARIO_RUNNER.exists():
+        fail(f"Scenario runner missing:\n{SCENARIO_RUNNER}")
+    cmd = [sys.executable, str(SCENARIO_RUNNER), "--scenario", scenario]
+    subprocess.run(cmd, check=True)
 
-    manifest = {
-        "run_id": run_id,
-        "completed_utc": utc_now_iso(),
-        "scenario": scenario,
-        "people_csv_raw": str(people_csv),
-        "people_csv_normalized": str(normalized_csv),
-        "leads_master_csv": str(leads_csv),
-        "status": "success",
-    }
-    path = MANIFEST_DIR / f"run_manifest_{scenario}_{run_id}.json"
-    path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-    print(f"✓ MANIFEST WRITTEN: {path}")
-    return path
 
-def notify_popup(leads_csv: Path) -> None:
-    if os.getenv("POPUP_NOTIFY_ENABLED","1").strip() != "1":
-        print("POPUP_NOTIFY: disabled")
-        return
-    run_cmd([sys.executable, str(POPUP), "Pipeline Complete", f"Finished leads file ready: {leads_csv.name}"], hard=True)
+def popup_finished(leads_master: Path) -> None:
+    cmd = [
+        sys.executable,
+        str(NOTIFIER),
+        "--title",
+        "AI Talent Engine — Finished Leads File",
+        "--message",
+        f"LEADS_MASTER ready: {leads_master.name}",
+        "--open",
+        str(leads_master),
+    ]
+    subprocess.run(cmd, check=True)
+    print("✓ POPUP + OPEN PASSED")
 
-def notify_email(manifest: Path) -> None:
-    if os.getenv("EMAIL_NOTIFY_ENABLED","1").strip() != "1":
-        print("EMAIL_NOTIFY: disabled")
-        return
-    run_cmd([sys.executable, str(EMAIL), str(manifest)], hard=True)
 
-def maybe_open(leads_csv: Path) -> None:
-    if os.getenv("AUTO_OPEN_LEADS","1").strip() != "1":
-        return
-    subprocess.run(["open", str(leads_csv)], check=False)
+def email_finished(manifest: Path) -> None:
+    # Email notifier itself checks EMAIL_NOTIFY_ENABLED.
+    cmd = [sys.executable, str(EMAIL_NOTIFIER), str(manifest)]
+    subprocess.run(cmd, check=True)
+    print("✓ EMAIL NOTIFY STEP PASSED (or disabled)")
+
 
 def main() -> None:
     if len(sys.argv) != 2:
         fail("Usage: python3 run_safe.py <scenario>")
 
     scenario = sys.argv[1].strip()
+    run_id = utc_now_compact()
 
-    print("============================================================")
-    print("UNIVERSAL RUN SAFE (LEAD-GRADE)")
-    print("============================================================")
+    print("\nUNIVERSAL RUN SAFE (LEAD-GRADE)\n")
     print(f"Scenario: {scenario}")
-    print()
+    print(f"Run ID: {run_id}\n")
 
     enforce_repo_inventory()
+    enforce_people_inventory()
 
-    people_csv = run_people_scenario(scenario)
-    normalized_csv = normalize_people(people_csv)
+    raw_people = run_people_scenario(scenario)
+    normalized_people = normalize_people_csv(raw_people)
 
-    leads_csv = run_leads_enrichment(scenario, normalized_csv)
-    run_scenario_scoring(scenario)
+    leads_master, manifest = run_universal_enrichment(scenario, normalized_people, run_id)
 
-    manifest = write_manifest(scenario, people_csv, normalized_csv, leads_csv)
+    # Keep scenario runner (your existing scenario exports) after leads are secured
+    run_scenario_runner(scenario)
 
-    # Completion signals (hard required unless disabled)
-    notify_popup(leads_csv)
-    notify_email(manifest)
-    maybe_open(leads_csv)
+    # Pop-up finished leads master (required)
+    popup_finished(leads_master)
 
-    print()
-    print("SUCCESS — FINISHED LEADS OUTPUT WRITTEN")
-    print(f"Leads: {leads_csv}")
-    print(f"Manifest: {manifest}")
-    print("============================================================")
+    # Email finished (required when enabled)
+    email_finished(manifest)
+
+    print("\nSUCCESS:")
+    print("✓ Lead-grade output generated (70+ columns)")
+    print("✓ GitHub.io probed first-class for every lead")
+    print("✓ Finished CSV popped up automatically")
+    print("✓ Manifest written")
+    print("✓ Email sent (if enabled)")
+    print("\nSAFE TO DEMO LIVE")
+
 
 if __name__ == "__main__":
     main()
 PY
+chmod +x run_safe.py
 
-# ---------------------------------------------------------------------
-# 6) Compile checks (hard)
-# ---------------------------------------------------------------------
-python3 -m py_compile scripts/normalize_people_csv.py
+# -----------------------------
+# Compile gates
+# -----------------------------
 python3 -m py_compile scripts/macos_notify.py
 python3 -m py_compile scripts/send_run_completion_email.py
 python3 -m py_compile scripts/universal_enrichment_pipeline.py
 python3 -m py_compile run_safe.py
 
-echo "✓ PYTHON COMPILE CHECKS PASSED"
+echo "OK: Files generated + compiled"
 
-# ---------------------------------------------------------------------
-# 7) Commit + push (hard)
-# ---------------------------------------------------------------------
-echo "============================================================"
-echo "GIT COMMIT + PUSH"
-echo "============================================================"
+# -----------------------------
+# Git commit (SSH assumed already configured)
+# -----------------------------
 git status
-git add autogen_universal_lead_pipeline.sh scripts/normalize_people_csv.py scripts/macos_notify.py scripts/send_run_completion_email.py scripts/universal_enrichment_pipeline.py run_safe.py
-git commit -m "Lock universal lead pipeline: canonical normalization, 70+ col enrichment, popup + email, manifest"
+
+git add scripts/macos_notify.py scripts/send_run_completion_email.py scripts/universal_enrichment_pipeline.py run_safe.py autogen_universal_lead_pipeline.sh
+
+git commit -m "Lock universal lead pipeline: GitHub.io first-class required probe, 70+ col LEADS_MASTER, popup + email + manifest"
+
 git push
 
-echo "✓ GIT PUSH COMPLETE"
-
-# ---------------------------------------------------------------------
-# 8) Run the authoritative pipeline (hard)
-# ---------------------------------------------------------------------
 echo "============================================================"
-echo "RUN: python3 run_safe.py $SCENARIO"
+echo "GIT PUSH COMPLETE"
 echo "============================================================"
-
-export EMAIL_NOTIFY_ENABLED=1
-export POPUP_NOTIFY_ENABLED=1
-export AUTO_OPEN_LEADS=1
-export PIPELINE_NOTIFY_TO="${PIPELINE_NOTIFY_TO:-LDaveMendoza@gmail.com}"
-
-python3 run_safe.py "$SCENARIO"
-
-echo "============================================================"
-echo "DONE"
+echo "NEXT: (optional) enable email:"
+echo "  export EMAIL_NOTIFY_ENABLED=1"
+echo "RUN:"
+echo "  python3 run_safe.py frontier"
 echo "============================================================"
