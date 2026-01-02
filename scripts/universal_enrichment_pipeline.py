@@ -222,9 +222,13 @@ def main() -> None:
         rows = list(reader)
         cols = reader.fieldnames or []
 
-    if cols[:len(CANON_PREFIX)] != CANON_PREFIX:
-        print("ERROR: input CSV not canonical-normalized. Expected prefix: " + ", ".join(CANON_PREFIX))
-        sys.exit(3)
+    # Canonical enforcement: ensure prefix columns exist and are ordered first
+    for i, col in enumerate(CANON_PREFIX):
+        if i >= len(cols) or cols[i] != col:
+            print("ERROR: input CSV failed canonical prefix check.")
+            print("Expected prefix:", CANON_PREFIX)
+            print("Found prefix:", cols[:len(CANON_PREFIX)])
+            sys.exit(3)
 
     if not rows:
         print("ERROR: input CSV has no rows")
