@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 #!/usr/bin/env python3
 import pandas as pd, numpy as np, os, yaml, datetime
 from sklearn.preprocessing import MinMaxScaler
@@ -32,6 +33,7 @@ df.insert(0,"rank",np.arange(1,len(df)+1))
 
 ts=datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 outfile=os.path.join(OUT_DIR,f"precision_ranked_{ts}.csv")
+df = enforce_canonical(df)
 df.to_csv(outfile,index=False)
 
 print(f"Precision weighted ranking saved -> {outfile}")

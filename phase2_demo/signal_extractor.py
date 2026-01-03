@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 # © 2025 Dave Mendoza, DBA AI Craft, Inc. All rights reserved. Strictly proprietary; no copying, derivative works, reverse engineering, redistribution, or commercial/personal use permitted without written authorization. Governed by Colorado, USA law.
 # ==============================================
 # AI TALENT ENGINE – Phase 3.3 (Demo-Proof Build)
@@ -122,6 +123,7 @@ def extract_signals(df):
 # Save Output
 # ==============================================
 def save_ranked(df, output=OUTPUT_PATH):
+df = enforce_canonical(df)
     df.to_csv(output, index=False)
     console.print(f"[bold green]Saved ranked signals to {output}[/bold green]")
 

@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 # © 2025 Dave Mendoza, DBA AI Craft, Inc. All rights reserved. Strictly proprietary; no copying, derivative works, reverse engineering, redistribution, or commercial/personal use permitted without written authorization. Governed by Colorado, USA law.
 # ============================================================
 # AI TALENT ENGINE – Phase 2 Demo
@@ -73,6 +74,7 @@ if __name__ == "__main__":
     display_results(all_results)
 
     df = pd.DataFrame(all_results)
+df = enforce_canonical(df)
     df.to_csv("ai_talent_leads.csv", index=False)
     console.print(f"[bold green]✅ Results saved to ai_talent_leads.csv[/bold green]")
 

@@ -1,0 +1,7 @@
+{
+  "canonical_schema_json": "schemas/canonical_people_schema_82.json",
+  "leads_csv": "outputs/leads/run_20260103T011241Z_5768b3cc/LEADS_MASTER_frontier_20260103T011241Z_5768b3cc.csv",
+  "required": true,
+  "scenario": "frontier",
+  "slim_csv": "outputs/leads/run_20260103T011241Z_5768b3cc/LEADS_SLIM_frontier_20260103T011241Z_5768b3cc.csv"
+}

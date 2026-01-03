@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 # © 2025 Dave Mendoza, DBA AI Craft, Inc. All rights reserved. Strictly proprietary; no copying, derivative works, reverse engineering, redistribution, or commercial/personal use permitted without written authorization. Governed by Colorado, USA law.
 # Phase 4 Master Talent Intelligence Engine
 # Unified Script with High-End Stretch Scoring
@@ -251,6 +252,7 @@ if __name__ == "__main__":
     df = load_data()
     if not df.empty:
         result = process(df)
+result = enforce_canonical(result)
         result.to_csv(OUTPUT_CSV, index=False)
         display(result)
         console.print(f"[green]Saved: {OUTPUT_CSV}[/green]")

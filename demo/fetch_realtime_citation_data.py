@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 # ======================================================
 #  AI Talent Engine — Real-Time Citation Data Fetcher v2.0 (Final, Best-in-Class)
 #  © 2025 L. David Mendoza · All Rights Reserved
@@ -129,6 +130,7 @@ def build_realtime_dataframe(names, quiet=False):
                   f"R={r['Influence_Rank_Change']}, C={r['CoAuthor_Influence_Velocity']}")
         time.sleep(0.25)
     df = pd.DataFrame(rows)
+df = enforce_canonical(df)
     df.to_csv(OUT_CSV, index=False)
     json.dump(rows, open(OUT_JSON, "w"), indent=2)
     sha = sha256sum(OUT_CSV)

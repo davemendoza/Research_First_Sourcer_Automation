@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 #!/usr/bin/env python3
 import pandas as pd, os
 
@@ -33,5 +34,6 @@ for col in required_cols:
 
 df.columns = [c.strip().lower().replace(" ", "_") for c in df.columns]
 
+df = enforce_canonical(df)
 df.to_csv(DST, index=False)
 print(f"✅ Fixed Phase 7 file written: {DST}")

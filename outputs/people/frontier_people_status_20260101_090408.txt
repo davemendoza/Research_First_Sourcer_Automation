@@ -1,0 +1,14 @@
+scenario=frontier
+people_master=/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/outputs/people/people_master.csv
+accepted_pre_cap=49
+accepted_post_cap=49
+discarded_rows=3
+min_required=25
+max_rows_demo_cap=50
+output_csv=/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/outputs/people/frontier_people_20260101_090408.csv
+discards_csv=/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/outputs/people/frontier_discards_20260101_090408.csv
+non_empty_github_username=49
+non_empty_github_url=49
+was_capped=false
+top_keywords=tensorrt:49,nvidia:20,cuda:9,pytorch:7,onnx:4,tensorrt-llm:4,triton:4,vllm:2,cutlass:1,gpu:1,jax:1,kernel:1,sglang:1,transformer:1
+proof_first_usernames=farhan333,alivnavc,akmal-ali,Girish10-AGENTIC-AI,davesl,strawhat98,ericardoa,jdemouth,nedrezz,sumedhreddy90

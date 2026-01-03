@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 #!/usr/bin/env python3
 """
 Scenario Runner – Unified Entry Point
@@ -59,6 +60,7 @@ def run_scenario(name, input_path, allow_fallback=True):
     out_dir = OUTPUT_ROOT / name
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / f"{name}.csv"
+result = enforce_canonical(result)
     result.to_csv(out_path, index=False)
 
     print("✅ Scenario run complete")

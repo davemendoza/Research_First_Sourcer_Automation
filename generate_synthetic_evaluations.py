@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -125,6 +126,7 @@ if __name__=="__main__":
     random.seed(42); np.random.seed(42)
     for cat in FILES.keys():
         df=generate_dataset(cat,25)
+df = enforce_canonical(df)
         df.to_csv(FILES[cat],index=False)
         print(f"[✓] Generated {FILES[cat]} ({len(df)} rows, {len(df.columns)} cols)")
     print("All synthetic evaluation datasets successfully generated and schema-complete.")

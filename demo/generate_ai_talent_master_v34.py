@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 # ======================================================
 #  AI Talent Engine — Master Generator v3.5 (Schema-Locked 40-Column Final)
 #  © 2025 L. David Mendoza · All Rights Reserved
@@ -136,6 +137,7 @@ def generate_charts(df: pd.DataFrame, prefix: str):
 # ------------------------------------------------------
 def save_with_hash(df: pd.DataFrame, path: str):
     """Save dataset and log hash to audit file."""
+df = enforce_canonical(df)
     df.to_csv(path, index=False)
     sha = sha256sum(path)
     with open(os.path.join(LOG_DIR, "master_hashes.log"), "a") as log:

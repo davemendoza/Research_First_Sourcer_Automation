@@ -1,36 +1,26 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ============================================================
-# AI Talent Engine — Single Human Interface
-# ============================================================
-# Usage:
-#   run <plain-english role>
-#
-# Examples:
-#   run frontier
-#   run ai infra
-#   run gpu infra
-#   run inference
-#   run mlops
-#   run devrel
-#   run applied ml
-#
-# Humans never type Python.
-# ============================================================
-
-if [[ $# -lt 1 ]]; then
-  echo "Usage: run <role>"
+if [[ "$#" -lt 2 ]]; then
+  echo "USAGE:"
+  echo "  run demo <role>"
+  echo "  run real <role>"
+  echo "  run gpt-slim <role>"
   exit 1
 fi
 
-ROLE_INPUT="$*"
+MODE="$1"
+ROLE="$2"
 
-echo
-echo "==============================================="
-echo "AI TALENT ENGINE"
-echo "ROLE INTENT: $ROLE_INPUT"
-echo "==============================================="
-echo
-
-python3 orchestrator.py "$ROLE_INPUT"
+case "$MODE" in
+  demo|real)
+    python3 orchestrator.py "$ROLE" --mode "$MODE"
+    ;;
+  gpt-slim)
+    python3 run_gpt_slim.py --input "outputs/*/${ROLE}__FINAL.csv" --output "outputs/*/${ROLE}__GPT_SLIM.csv" --open
+    ;;
+  *)
+    echo "Unknown mode: $MODE"
+    exit 2
+    ;;
+esac

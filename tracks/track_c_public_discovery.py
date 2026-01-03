@@ -2,6 +2,7 @@ import argparse
 import pandas as pd
 from utils.runtime import create_run_context
 from utils.snapshot import persist_snapshot
+from contracts.canonical_people_schema import enforce_canonical
 
 
 def main():
@@ -56,6 +57,7 @@ def main():
 
     # Persist Track C output
     output_path = f"{ctx.run_dir}/track_c_output.csv"
+df = enforce_canonical(df)
     df.to_csv(output_path, index=False)
 
     print("Track C OK")

@@ -1,5 +1,6 @@
 import argparse
 import pandas as pd
+from contracts.canonical_people_schema import enforce_canonical
 
 
 def main():
@@ -21,6 +22,7 @@ def main():
     # Determinative inference remains deterministic and point-in-time
     df["Determinative_Flags"] = ",".join(args.temporal_flags)
 
+df = enforce_canonical(df)
     df.to_csv(args.output, index=False)
 
     print("Track B OK")

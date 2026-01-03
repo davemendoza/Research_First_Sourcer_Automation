@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 #!/usr/bin/env python3
 import os, sys
 from datetime import datetime
@@ -83,7 +84,8 @@ def main():
 
     if all_rows:
         m = pd.concat(all_rows).drop_duplicates()
-        mp = os.path.join(outdir, f"scenarios_ALL_{ts}.csv")
+     m = enforce_canonical(m)
+   mp = os.path.join(outdir, f"scenarios_ALL_{ts}.csv")
         m.to_csv(mp, index=False)
         print(f"\n🔥 MASTER → {mp} ({len(m)} rows)")
     else:

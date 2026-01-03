@@ -1,0 +1,36 @@
+{
+  "artifacts": {
+    "canonical_schema_json": {
+      "path": "schemas/canonical_people_schema_82.json",
+      "sha256": "ce456f2ccff22d28ac42c817e2ed237b876a4998ca3fcb4e50c9cccb6d7943e4"
+    },
+    "gpt_slim_request_json": {
+      "path": "outputs/leads/run_20260103T011241Z_5768b3cc/gpt_slim_request.json",
+      "sha256": "44d35e75c5d25cc920178a18c6907e6a3077b6b3997063bfc5a1726111fc7c38"
+    },
+    "gpt_slim_result_json": {
+      "path": "outputs/leads/run_20260103T011241Z_5768b3cc/gpt_slim_result.json",
+      "sha256": "3da8522b61228321dbd84c5bb946093d090c19cce2459b2d9e52fba74685273d"
+    },
+    "leads_master_csv": {
+      "path": "outputs/leads/run_20260103T011241Z_5768b3cc/LEADS_MASTER_frontier_20260103T011241Z_5768b3cc.csv",
+      "sha256": "3d73da5fe0caa739b57aa2c86d7916ad8f0e95a81282fc1a80743af7a5689957"
+    },
+    "leads_slim_csv": {
+      "path": "outputs/leads/run_20260103T011241Z_5768b3cc/LEADS_SLIM_frontier_20260103T011241Z_5768b3cc.csv",
+      "sha256": "aa843663fd36afac14c6689cc4d0ea8319aa792c329144626784df9c0b0f3a71"
+    },
+    "people_master_csv": {
+      "path": "outputs/people/people_master.csv",
+      "sha256": "3d73da5fe0caa739b57aa2c86d7916ad8f0e95a81282fc1a80743af7a5689957"
+    },
+    "scenario_registry_json": {
+      "path": "scenario_registry.json",
+      "sha256": "fbcd6ead83b7ca29e06396fba5b0b16c081cf22e2c90a6be3fff7fe2c0323dfb"
+    }
+  },
+  "created_utc": "2026-01-03T01:14:14+00:00",
+  "mode": "demo",
+  "run_id": "20260103T011241Z_5768b3cc",
+  "scenario": "frontier"
+}

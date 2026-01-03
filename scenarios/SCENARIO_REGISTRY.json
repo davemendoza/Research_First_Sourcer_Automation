@@ -1,0 +1,23 @@
+{
+  "frontier": {
+    "enabled": true,
+    "allowed_modes": ["demo", "real"],
+    "runner": "frontier_runner.run_frontier",
+    "csv_required": true,
+    "min_rows": 25,
+    "max_rows": 50,
+    "placeholder_policy": "forbidden",
+    "required_columns": [
+      "Person_ID",
+      "Full_Name",
+      "Role_Type",
+      "Email",
+      "Phone",
+      "LinkedIn_URL",
+      "GitHub_URL",
+      "GitHub_IO_URL",
+      "Google_Scholar_URL",
+      "Resume_or_CV_URL"
+    ]
+  }
+}

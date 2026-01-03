@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 #!/usr/bin/env python3
 import os, yaml, pandas as pd, requests, time, concurrent.futures, datetime, numpy as np
 from sklearn.preprocessing import MinMaxScaler
@@ -137,6 +138,7 @@ df_enriched.insert(0,"rank",np.arange(1,len(df_enriched)+1))
 # ---------- Export ----------
 ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 outfile = os.path.join(OUT_DIR, f"final_talent_ranked_pro_{ts}.csv")
+df_enriched = enforce_canonical(df_enriched)
 df_enriched.to_csv(outfile, index=False)
 
 print(f"✅ Enrichment + Ranking complete → {outfile}")

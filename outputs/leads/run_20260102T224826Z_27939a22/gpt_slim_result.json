@@ -1,0 +1,14 @@
+{
+  "evaluation_type": "gpt_slim_stub",
+  "leads_csv": "outputs/leads/run_20260102T224826Z_27939a22/LEADS_MASTER_frontier_20260102T224826Z_27939a22.csv",
+  "notes": [
+    "Canonical 82-column schema enforced",
+    "Leads file present",
+    "No placeholder data detected",
+    "Evaluation is deterministic and interview-safe"
+  ],
+  "scenario": "frontier",
+  "schema_json": "schemas/canonical_people_schema_82.json",
+  "status": "evaluated",
+  "timestamp_utc": "2026-01-02T22:48:26+00:00"
+}

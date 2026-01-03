@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -107,6 +108,7 @@ def generate(category,n=50):
 
 for key,path in FILES.items():
     df=generate(key,50)
+df = enforce_canonical(df)
     df.to_csv(path,index=False)
     print(f"[✓] {path} written ({len(df)} rows × {len(df.columns)} cols)")
 print("All 3 analytics-ready CSVs generated successfully.")

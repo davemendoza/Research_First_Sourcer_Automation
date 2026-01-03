@@ -1,5 +1,6 @@
 import argparse
 import pandas as pd
+from contracts.canonical_people_schema import enforce_canonical
 
 
 def main():
@@ -15,6 +16,7 @@ def main():
     print("========================================")
 
     df = pd.read_csv(args.input)
+df = enforce_canonical(df)
     df.to_csv(args.output, index=False)
 
     print("Track A OK")

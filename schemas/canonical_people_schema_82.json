@@ -1,0 +1,337 @@
+{
+  "columns": [
+    {
+      "description": "Stable unique identifier for the person across all runs",
+      "name": "Person_ID"
+    },
+    {
+      "description": "Universal 0\u2013100 rank percentile (role-agnostic)",
+      "name": "Talent_Rank_Percentile"
+    },
+    {
+      "description": "Resolved full name (best available)",
+      "name": "Full_Name"
+    },
+    {
+      "description": "Parsed first name (nullable)",
+      "name": "First_Name"
+    },
+    {
+      "description": "Parsed last name (nullable)",
+      "name": "Last_Name"
+    },
+    {
+      "description": "Canonical AI role type classification",
+      "name": "AI_Role_Type"
+    },
+    {
+      "description": "Publicly published email only (never guessed)",
+      "name": "Primary_Email"
+    },
+    {
+      "description": "Publicly published phone only (never guessed",
+      "name": "Primary_Phone"
+    },
+    {
+      "description": "Current or most recent title",
+      "name": "Current_Title"
+    },
+    {
+      "description": "Current or most recent employer",
+      "name": "Current_Company"
+    },
+    {
+      "description": "City (normalized when possible)",
+      "name": "Location_City"
+    },
+    {
+      "description": "State/region (normalized when possible)",
+      "name": "Location_State"
+    },
+    {
+      "description": "Country (normalized when possible)",
+      "name": "Location_Country"
+    },
+    {
+      "description": "Public LinkedIn URL (if found)",
+      "name": "LinkedIn_Public_URL"
+    },
+    {
+      "description": "Resume link when explicitly published",
+      "name": "Resume_URL"
+    },
+    {
+      "description": "Top determinative skill areas (high confidence)",
+      "name": "Determinative_Skill_Areas"
+    },
+    {
+      "description": "MMLU/HELM/HellaSwag/BIG-bench/Arena/etc.",
+      "name": "Benchmarks_Worked_On"
+    },
+    {
+      "description": "Model families worked with/built (GPT/LLaMA/etc.)",
+      "name": "Primary_Model_Families"
+    },
+    {
+      "description": "Production, research, or hybrid evidence",
+      "name": "Production_vs_Research_Indicator"
+    },
+    {
+      "description": "Brief rationale tying repo to role fit",
+      "name": "GitHub_Repo_Evidence_Why"
+    },
+    {
+      "description": "High-signal repo topics/keywords",
+      "name": "Repo_Topics_Keywords"
+    },
+    {
+      "description": "Evidence of reuse: forks/stars/citations/users",
+      "name": "Downstream_Adoption_Signal"
+    },
+    {
+      "description": "Top coauthors list (names/ids)",
+      "name": "Top_Coauthors"
+    },
+    {
+      "description": "Total publications (best source)",
+      "name": "Publication_Count"
+    },
+    {
+      "description": "Raw citation count (best source)",
+      "name": "Citation_Count_Raw"
+    },
+    {
+      "description": "Normalized citation count (cross-source comparable)",
+      "name": "Normalized_Citation_Count"
+    },
+    {
+      "description": "Time-normalized citations",
+      "name": "Citations_per_Year"
+    },
+    {
+      "description": "Recent velocity (3-year)",
+      "name": "Citation_Velocity_3yr"
+    },
+    {
+      "description": "Recent velocity (5-year)",
+      "name": "Citation_Velocity_5yr"
+    },
+    {
+      "description": "h-index (if available)",
+      "name": "h_index"
+    },
+    {
+      "description": "i10-index (if available)",
+      "name": "i10_index"
+    },
+    {
+      "description": "Tier label derived from percentile",
+      "name": "Influence_Tier"
+    },
+    {
+      "description": "Exact percentile backing the tier",
+      "name": "Influence_Tier_Percentile"
+    },
+    {
+      "description": "Cross-org/lab collaboration evidence",
+      "name": "Cross_Lab_Collaboration_Signal"
+    },
+    {
+      "description": "0\u2013100 identity strength score",
+      "name": "Identity_Strength_Score"
+    },
+    {
+      "description": "0\u2013100 evidence richness score",
+      "name": "Evidence_Richness_Score"
+    },
+    {
+      "description": "Which sources contributed to citation metrics",
+      "name": "Citation_Provenance"
+    },
+    {
+      "description": "Origin surface type used to find the person",
+      "name": "Seed_Source_Type"
+    },
+    {
+      "description": "Exact discovery URL for the lead",
+      "name": "Seed_Source_URL"
+    },
+    {
+      "description": "Human-readable label for the seed surface",
+      "name": "Seed_Source_Label"
+    },
+    {
+      "description": "Query/handle used to surface the lead",
+      "name": "Seed_Query_Or_Handle"
+    },
+    {
+      "description": "Seed repos/models that led to discovery",
+      "name": "Seed_Repo_or_Model_URLs"
+    },
+    {
+      "description": "GitHub Pages URL candidate (user.github.io)",
+      "name": "GitHub_IO_URL"
+    },
+    {
+      "description": "GitHub handle (primary code anchor)",
+      "name": "GitHub_Username"
+    },
+    {
+      "description": "GitHub profile URL",
+      "name": "GitHub_URL"
+    },
+    {
+      "description": "Top AI-relevant repo URLs (1\u20135)",
+      "name": "Key_GitHub_AI_Repos"
+    },
+    {
+      "description": "Why repo matters (research/infra/applied/etc.)",
+      "name": "GitHub_Repo_Signal_Type"
+    },
+    {
+      "description": "GitHub followers count (signal)",
+      "name": "GitHub_Followers"
+    },
+    {
+      "description": "Any additional OSS impact notes",
+      "name": "Open_Source_Impact_Notes"
+    },
+    {
+      "description": "HF handle (if present)",
+      "name": "HuggingFace_Username"
+    },
+    {
+      "description": "HF profile URL",
+      "name": "HuggingFace_Profile_URL"
+    },
+    {
+      "description": "Key HF models/datasets URLs/names",
+      "name": "HuggingFace_Models_Datasets"
+    },
+    {
+      "description": "vLLM/TensorRT/CUDA/Triton/NCCL/etc.",
+      "name": "Inference_Training_Infra_Signals"
+    },
+    {
+      "description": "SFT/RM/PPO/DPO/LoRA/QLoRA/etc.",
+      "name": "RLHF_Alignment_Signals"
+    },
+    {
+      "description": "Company research/team/blog author pages scraped",
+      "name": "Company_XRay_Source_URLs"
+    },
+    {
+      "description": "Notes from company public-domain x-ray",
+      "name": "Company_XRay_Notes"
+    },
+    {
+      "description": "Patent URLs (Google Patents/USPTO/WIPO/etc.)",
+      "name": "Patent_URLs"
+    },
+    {
+      "description": "Total patents count",
+      "name": "Patent_Count"
+    },
+    {
+      "description": "Notes about patent relevance/coverage",
+      "name": "Patent_Notes"
+    },
+    {
+      "description": "Scholar profile URLs",
+      "name": "Google_Scholar_URLs"
+    },
+    {
+      "description": "Semantic Scholar author/papers URLs",
+      "name": "Semantic_Scholar_URLs"
+    },
+    {
+      "description": "OpenAlex author/works URLs",
+      "name": "OpenAlex_URLs"
+    },
+    {
+      "description": "ORCID URLs/IDs",
+      "name": "ORCID_URLs"
+    },
+    {
+      "description": "arXiv paper URLs",
+      "name": "arXiv_URLs"
+    },
+    {
+      "description": "Talks/slides/videos URLs",
+      "name": "Conference_Presentations_URLs"
+    },
+    {
+      "description": "NeurIPS/ICML/ICLR/etc. names found",
+      "name": "Conference_Names"
+    },
+    {
+      "description": "Surface where resume was found",
+      "name": "Resume_Source"
+    },
+    {
+      "description": "CV/Curriculum Vitae link when explicitly published",
+      "name": "CV_URL"
+    },
+    {
+      "description": "Portfolio links (github.io/personal site/etc.)",
+      "name": "Portfolio_URLs"
+    },
+    {
+      "description": "Personal website links",
+      "name": "Personal_Website_URLs"
+    },
+    {
+      "description": "Academic homepage links",
+      "name": "Academic_Homepage_URLs"
+    },
+    {
+      "description": "Blog/Substack/Medium author links",
+      "name": "Blog_URLs"
+    },
+    {
+      "description": "Slide deck links",
+      "name": "Slides_URLs"
+    },
+    {
+      "description": "Video/demo links",
+      "name": "Videos_URLs"
+    },
+    {
+      "description": "X/Twitter profile URLs",
+      "name": "X_URLs"
+    },
+    {
+      "description": "YouTube channel URLs",
+      "name": "YouTube_URLs"
+    },
+    {
+      "description": "yes|no eligibility for GPT-slim evaluation",
+      "name": "GPT_Slim_Input_Eligible"
+    },
+    {
+      "description": "Why eligible/ineligible; compact rationale",
+      "name": "GPT_Slim_Rationale"
+    },
+    {
+      "description": "Per-field provenance map (compact JSON)",
+      "name": "Field_Level_Provenance_JSON"
+    },
+    {
+      "description": "valid|partial|invalid for downstream gates",
+      "name": "Row_Validity_Status"
+    },
+    {
+      "description": "Pipeline version string (locks behavior)",
+      "name": "Pipeline_Version"
+    },
+    {
+      "description": "Absolute path to output artifact",
+      "name": "Output_File_Path"
+    }
+  ],
+  "count": 82,
+  "created_utc": "2026-01-02T22:43:07+00:00",
+  "schema_name": "AI Talent Engine \u2013 Canonical People Schema (LOCKED, 82 Columns, Determinative-First)",
+  "source_docx": "1 AI_Talent_Engine_Canonical_People_Schema_LOCKED_82_DETERMINATIVE_FIRST.docx",
+  "version": "locked-82"
+}

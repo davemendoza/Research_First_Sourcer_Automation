@@ -1,3 +1,4 @@
+from contracts.canonical_people_schema import enforce_canonical
 #!/usr/bin/env python3
 import os, yaml, pandas as pd, requests, time, concurrent.futures, datetime
 
@@ -99,6 +100,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=SET["max_threads"]) as ex
 df_enriched = pd.DataFrame(results)
 ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 outfile = os.path.join(OUT_DIR, f"enriched_talent_pro_{ts}.csv")
+df_enriched = enforce_canonical(df_enriched)
 df_enriched.to_csv(outfile, index=False)
 
 print(f"✅ PRO Enrichment complete → {outfile}")

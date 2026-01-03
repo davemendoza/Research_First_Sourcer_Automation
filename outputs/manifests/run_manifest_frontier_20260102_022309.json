@@ -1,0 +1,8 @@
+{
+  "run_id": "20260102_022309",
+  "timestamp_utc": "2026-01-02T02:23:09.780621+00:00",
+  "scenario": "frontier",
+  "people_csv_raw": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/outputs/people/frontier_people_20260102_022308.csv",
+  "people_csv_normalized": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/outputs/people/frontier_people_20260102_022308.normalized.csv",
+  "status": "success"
+}

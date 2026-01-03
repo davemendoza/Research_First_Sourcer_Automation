@@ -1,0 +1,10 @@
+{
+  "scenario": "frontier",
+  "run_id": "20260102_214251",
+  "timestamp_utc": "2026-01-02T21:42:51.929706",
+  "status": "success",
+  "artifacts": {
+    "leads_master": "outputs/leads/run_20260102_214251/LEADS_MASTER_frontier_20260102_214251.csv",
+    "people_master": "outputs/people/people_master.csv"
+  }
+}

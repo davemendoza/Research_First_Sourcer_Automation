@@ -1,0 +1,5 @@
+scenario=frontier
+accepted=50
+discarded=0
+people_csv=/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/outputs/people/frontier_people_20260102_130255.csv
+discards_csv=/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/outputs/people/frontier_discards_20260102_130255.csv

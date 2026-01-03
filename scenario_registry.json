@@ -1,0 +1,133 @@
+{
+  "version": "v1.0.0",
+  "note": "Authoritative scenario registry. Single source of truth for demo/scenario names and GitHub search seeds.",
+  "scenarios": {
+    "frontier": {
+      "queries": [
+        "llm researcher OR transformer OR scaling laws OR diffusion OR multimodal language:python",
+        "cuda OR triton OR jax OR xla OR fsdp OR deepspeed researcher:python",
+        "mistral OR llama OR qwen OR deepseek OR mixtral OR moe language:python"
+      ]
+    },
+    "foundational_ai": {
+      "queries": [
+        "foundation model OR pretraining OR self-supervised OR transformer language:python",
+        "mixture of experts OR moe OR routing OR sparse transformer language:python"
+      ]
+    },
+    "ai_research_scientist": {
+      "queries": [
+        "iclr OR neurips OR icml OR acl OR emnlp language:python",
+        "language model evaluation OR mmlu OR helm OR hellaswag language:python"
+      ]
+    },
+    "research_scientist_llm": {
+      "queries": [
+        "instruction tuning OR sft OR preference modeling OR dpo language:python",
+        "rlhf OR reward model OR ppo OR dpo language:python"
+      ]
+    },
+    "rlhf_researcher": {
+      "queries": [
+        "rlhf OR reward modeling OR preference optimization OR dpo OR ppo language:python",
+        "alignment OR safety OR red teaming OR eval harness language:python"
+      ]
+    },
+    "alignment_researcher": {
+      "queries": [
+        "alignment OR interpretability OR mechanistic interpretability language:python",
+        "evals OR safety benchmark OR red teaming language:python"
+      ]
+    },
+    "ai_engineer": {
+      "queries": [
+        "langchain OR llamaindex OR rag OR vector database language:python",
+        "vllm OR tgi OR tensorrt-llm OR triton inference language:python"
+      ]
+    },
+    "genai_engineer": {
+      "queries": [
+        "rag OR retrieval augmented generation OR embeddings language:python",
+        "llmops OR prompt routing OR agentic workflows language:python"
+      ]
+    },
+    "machine_learning_engineer": {
+      "queries": [
+        "pytorch OR tensorflow OR jax language:python",
+        "mlops OR model deployment OR feature store language:python"
+      ]
+    },
+    "ml_engineer": {
+      "queries": [
+        "pytorch OR xgboost OR lightgbm language:python",
+        "ml pipelines OR kubeflow OR airflow language:python"
+      ]
+    },
+    "applied_ai_engineer": {
+      "queries": [
+        "rag OR vector search OR semantic search language:python",
+        "production llm OR inference service OR api integration language:python"
+      ]
+    },
+    "ai_performance_engineer": {
+      "queries": [
+        "tensorrt OR tensorrt-llm OR onnxruntime OR cuda graphs language:cpp",
+        "triton OR flashattention OR kernel optimization language:python"
+      ]
+    },
+    "inference_engineer": {
+      "queries": [
+        "vllm OR tgi OR triton inference OR sglang language:python",
+        "quantization OR gptq OR awq OR gguf OR llama.cpp language:python"
+      ]
+    },
+    "llm_inference_engineer": {
+      "queries": [
+        "paged attention OR kv cache OR speculative decoding language:python",
+        "tensor parallel OR pipeline parallel OR inference serving language:python"
+      ]
+    },
+    "model_optimization_engineer": {
+      "queries": [
+        "quantization OR pruning OR distillation language:python",
+        "onnx OR tensorrt OR kernel fusion language:python"
+      ]
+    },
+    "ai_infra": {
+      "queries": [
+        "kubernetes gpu OR nvidia gpu operator OR cuda language:yaml",
+        "ray serve OR distributed serving OR orchestration language:python"
+      ]
+    },
+    "ai_infrastructure_engineer": {
+      "queries": [
+        "kubernetes OR terraform OR observability gpu language:yaml",
+        "distributed systems OR rpc OR service mesh language:go"
+      ]
+    },
+    "ml_infra_engineer": {
+      "queries": [
+        "mlflow OR kubeflow OR feature store OR model registry language:python",
+        "airflow OR dagster OR data pipelines language:python"
+      ]
+    },
+    "platform_engineer_ai": {
+      "queries": [
+        "platform engineering OR internal developer platform gpu language:go",
+        "kubernetes OR helm OR argo cd language:yaml"
+      ]
+    },
+    "gpu_infra_engineer": {
+      "queries": [
+        "nvidia nccl OR infiniband OR rdma OR gpudirect language:cpp",
+        "cuda OR triton OR performance profiling language:python"
+      ]
+    },
+    "distributed_systems_engineer": {
+      "queries": [
+        "distributed systems OR consensus OR raft OR paxos language:go",
+        "high throughput OR low latency OR rpc language:cpp"
+      ]
+    }
+  }
+}

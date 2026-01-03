@@ -1,0 +1,52 @@
+{
+  "input_csv": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/outputs/people/frontier_people_99999999_NORMALIZED_TMP.csv",
+  "missing_required_canonical_columns": [],
+  "notes": [
+    "Alias resolution is explicit and read-only.",
+    "No columns are renamed or modified.",
+    "No fuzzy matching is permitted.",
+    "Wiring is blocked if any canonical requirement is unmet."
+  ],
+  "required_columns": {
+    "Person_ID": [
+      "Person_ID",
+      "person_id",
+      "PersonID",
+      "personId",
+      "ID"
+    ],
+    "Public_Email": [
+      "Public_Email",
+      "Email",
+      "Work_Email",
+      "Primary_Email"
+    ],
+    "Public_Phone": [
+      "Public_Phone",
+      "Phone",
+      "Phone_Number",
+      "Mobile_Phone",
+      "Mobile",
+      "Cell_Phone",
+      "Cell"
+    ],
+    "Role_Type": [
+      "Role_Type",
+      "Role",
+      "Primary_Role",
+      "Primary_Role_Type",
+      "Role_Family"
+    ]
+  },
+  "resolved_column_map": {
+    "Person_ID": "Person_ID",
+    "Public_Email": "Email",
+    "Public_Phone": "Phone",
+    "Role_Type": "Role_Type"
+  },
+  "run_id": "99999999_NORMALIZED_TMP",
+  "scenario": "frontier",
+  "status": "design_only_no_model_calls",
+  "timestamp_utc": "2026-01-02T02:00:04.181984+00:00",
+  "version": "v1.0.4-gptslim-dryrun-universal"
+}

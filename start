@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /Users/davemendoza/Desktop/Research_First_Sourcer_Automation
+
+echo "🚀 AI Talent Engine ready"
+echo "Examples:"
+echo "  run demo frontier"
+echo "  run demo ai_engineer"
+echo "  run real rlhf_researcher"
+echo "  confirm last"
+
+function run() {
+  local mode="$1"
+  local scenario="$2"
+
+  if [[ "$mode" == "demo" ]]; then
+    python3 run_safe.py "$scenario" --mode demo
+  elif [[ "$mode" == "real" ]]; then
+    python3 run_safe.py "$scenario" --mode real
+  else
+    echo "Unknown mode: $mode"
+    return 2
+  fi
+}
+
+function confirm() {
+  local last
+  last="$(ls -t outputs/leads/run_*/gpt_slim_result.json 2>/dev/null | head -n 1 || true)"
+  if [[ -z "$last" ]]; then
+    echo "No GPT Slim results found."
+    return 1
+  fi
+  echo "Last GPT Slim result:"
+  echo "  $last"
+}
+
+export -f run
+export -f confirm
+
+echo "Type: run demo frontier"
