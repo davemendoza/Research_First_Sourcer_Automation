@@ -1,66 +1,24 @@
-# ===============================================
-#  © 2025 Dave Mendoza, DBA AI Craft, Inc. All rights reserved.
-#  Proprietary and Confidential — Unauthorized copying or distribution is prohibited.
-# ===============================================
-
+# Python
 __pycache__/
-.DS_Store
-*.pyc
-.vscode/
-*.log
-.env
-venv/
-*.csv
-
-
-# ─────────────────────────────────────────────
-# Phase9 Clean History Policy
-# Exclude transient output artifacts, logs, and temp caches
-# ─────────────────────────────────────────────
-
-# Auto-generated outputs and validation JSONs
-outputs/*.json
-outputs/*_audit_log.txt
-outputs/*_validation.json
-
-# Runtime logs and execution traces
-output/demo_run_log.txt
-output/*.txt
-*.log
-
-# Python cache and temporary files
-__pycache__/
-*.pyc
+*.py[cod]
 *.pyo
-*.tmp
-*.swp
+*.pyd
+*.egg-info/
+.dist/
+.build/
+.venv/
+venv/
 
-# Backup and system scripts
-lock_project_root.sh
-final_frontier_radar.xlsx
+# macOS
 .DS_Store
-demo_autorun.py
-demo_autorun.py
-outputs/phase_h/manifests/
 
-# --------------------------------------------------
-# Autogen / Backup / Duplicate Artifacts (Intentional)
-# --------------------------------------------------
-.autogen_backups/
-backups/
-checkpoints/
+# Outputs & artifacts
+outputs/
+EXECUTION_CORE/outputs/
+*.csv
+*.log
+*.tmp
 
-# Duplicate files created by editor / autogen suffixes
-* 2.py
-* 2.md
-* 2.sh
-* 2.docx
-* 2.xlsx
-* 2.json
-* 2.yaml
-* 2.txt
-
-# Temporary or exploratory outputs
-outputs/demo/
-outputs/scenarios/
-
+# Archive/quarantine
+_ARCHIVE/
+_QUARANTINE/
