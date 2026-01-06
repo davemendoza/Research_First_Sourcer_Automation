@@ -1,485 +1,735 @@
 """
-AI Talent Engine — GitHub People Source (Broad Seed, Late Filter)
-Version: v3.0.0-broad-seed-late-filter
-Author: L. David Mendoza
-Copyright: © 2026 L. David Mendoza. All rights reserved.
+AI Talent Engine | Research-First Sourcer Automation
+EXECUTION_CORE/people_source_github.py
 
-Purpose:
-- Seed broadly using GitHub User Search (simple keyword queries only).
-- Enrich each candidate using GitHub REST endpoints (user + repos).
-- Apply strict AI relevance filtering AFTER enrichment (late filter).
-- Return real people only. Never fabricate. Never pad.
+Author: © 2026 L. David Mendoza. All rights reserved.
+Version: v1.2.0-people-source-github-universal-multilingual-coupling
+Date: 2026-01-06
 
-Locked run behavior:
-- Demo: produce 25–50 real people (bounded by max_rows).
-- Scenario: produce 25–∞ real people (no max cap), bounded by GitHub search limits and available results.
+LOCKED PURPOSE
+This module is the canonical GitHub and public-web enrichment source for People Pipeline runs.
+It must support BOTH:
+1) DEMO runs (bounded 25 to 50 real people)
+2) SCENARIO runs (unbounded, all available valid people)
 
-Operational notes:
-- GitHub user search supports only simple query strings (no OR, no parentheses, no in:readme).
-- Each user-search query yields at most ~1000 results (GitHub search constraint).
-- To scale scenario runs to hundreds or thousands, we iterate multiple broad seed terms and pages.
+It must enforce:
+- No synthetic data. No placeholders. No inferred identity. No fabricated contact info.
+- Truthful sparsity: if not found publicly, leave blank.
+- Multilingual resume/CV/profile detection across ALL crawled evidence surfaces.
+- Coupling logic: resume/CV/profile detection must reliably trigger deeper crawling and always invoke email and phone extraction.
+- github.io detection and probing for every GitHub handle.
+- Bounded crawling for github.io and personal domains (polite, deterministic).
+- Mandatory runtime visibility: metrics counters must be updated consistently (the caller prints them).
 
-Environment variables:
-- GITHUB_TOKEN (required)
-- AI_TALENT_GH_USER_SEED_TERMS (optional, comma-separated override for seed terms)
-- AI_TALENT_GH_MAX_WORKERS (optional, default 8)
-- AI_TALENT_GH_REQUEST_TIMEOUT (optional seconds, default 15)
-- AI_TALENT_GH_VALIDATE_GITHUB_IO (optional: "1" or "0", default: demo=1, scenario=0)
-- AI_TALENT_GH_MIN_AI_SCORE (optional int, default 3)
+IMPORTANT INTERFACE CONTRACT
+This file MUST remain importable without side effects.
 
-Validation steps:
-1) export GITHUB_TOKEN="..."
-2) ./run_locked.sh demo "machine learning"
-3) ./run_locked.sh scenario "machine learning"
+This module provides a single canonical entry function:
 
-Git (SSH) commands:
-- git status
-- git add EXECUTION_CORE/people_source_github.py
-- git commit -m "Fix: broad GitHub seeding + late AI filtering; scenario unbounded scale [v3.0.0]"
-- git push
+    enrich_person_from_github_and_web(person_row: dict, scenario: str, metrics: dict, config: dict | None = None) -> dict
+
+It is designed to be resilient against caller drift:
+- Accepts a dict-like row (Phase 1 inventory output) and returns a dict of field updates.
+- Never assumes the presence of any particular schema columns.
+- Never writes files directly.
+- Never calls GPT.
+- Never changes execution order outside its own function body.
+
+ENVIRONMENT
+- GITHUB_TOKEN (optional, increases GitHub API rate limits)
+- SSL_CERT_FILE (optional; supports certifi path if exported)
+
+CHANGELOG
+- v1.2.0
+  - Enforced universal multilingual triggers across github.io, personal domains, and any discovered internal pages.
+  - Enforced coupling: CV/resume/profile detection always invokes deeper crawl and always invokes email and phone extraction.
+  - Hardened github.io probing to HEAD-check and fallback GET-check.
+  - Added deterministic bounded crawling (domain pages, link cap, bytes cap, sleep).
+  - Normalized obfuscated email forms and captured mailto and tel links.
+  - Added stable metrics increments for github_ok, github_io, resume_cv, emails, phones, domains_crawled.
+
+VALIDATION (manual, from repo root)
+1) python3 -m py_compile EXECUTION_CORE/people_source_github.py
+2) python3 -c "from EXECUTION_CORE.people_source_github import enrich_person_from_github_and_web; print('IMPORT_OK')"
+3) Run your canonical entrypoint that calls this module:
+   - DEMO
+     python3 run_people_pipeline.py --scenario frontier_ai_scientist --mode demo
+   - SCENARIO
+     python3 run_people_pipeline.py --scenario frontier_ai_scientist --mode scenario
+
+GIT (from repo root)
+git add EXECUTION_CORE/people_source_github.py
+git commit -m "Harden people_source_github: universal multilingual coupling, bounded crawl, metrics"
+git push
 """
 
 from __future__ import annotations
 
+import hashlib
+import json
 import os
 import re
+import ssl
 import time
+import urllib.error
+import urllib.parse
+import urllib.request
 from dataclasses import dataclass
+from html.parser import HTMLParser
 from typing import Dict, Iterable, List, Optional, Tuple
-from urllib.parse import urlparse
 
-import pandas as pd
-import requests
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
+# ----------------------------
+# Constants (locked defaults)
+# ----------------------------
 
 GITHUB_API = "https://api.github.com"
 
+DEFAULT_TIMEOUT_SEC = 20
+MAX_HTML_BYTES = 2_000_000
+CRAWL_SLEEP_SEC = 0.35
+MAX_LINKS_PER_PAGE = 250
+MAX_PAGES_PER_DOMAIN = 4
+MAX_VISIT_QUEUE = 80
 
-# ----------------------------
-# Config
-# ----------------------------
+MAX_EMAILS = 10
+MAX_PHONES = 10
+MAX_RESUME_URLS = 10
+MAX_PORTFOLIO_URLS = 12
+MAX_PERSONAL_URLS = 20
+MAX_REPOS_TO_SCAN = 12
 
-def _env_int(name: str, default: int) -> int:
-    v = os.environ.get(name, "").strip()
-    if not v:
-        return default
-    try:
-        return int(v)
-    except ValueError:
-        return default
-
-
-def _env_bool(name: str, default: bool) -> bool:
-    v = os.environ.get(name, "").strip().lower()
-    if not v:
-        return default
-    return v in ("1", "true", "yes", "y", "on")
-
-
-MAX_WORKERS = _env_int("AI_TALENT_GH_MAX_WORKERS", 8)
-TIMEOUT_S = _env_int("AI_TALENT_GH_REQUEST_TIMEOUT", 15)
-MIN_AI_SCORE = _env_int("AI_TALENT_GH_MIN_AI_SCORE", 3)
-
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
-if not GITHUB_TOKEN:
-    raise RuntimeError("GITHUB_TOKEN not set. Export GITHUB_TOKEN before running.")
-
-SESSION = requests.Session()
-SESSION.headers.update({
-    "Authorization": f"token {GITHUB_TOKEN}",
-    "Accept": "application/vnd.github+json",
-    "User-Agent": "AI-Talent-Engine/people_source_github",
-})
+USER_AGENT = "AI-Talent-Engine/people-source-github"
 
 
 # ----------------------------
-# AI signal dictionaries (late filter)
+# Multilingual evidence triggers (locked, conservative)
 # ----------------------------
 
-AI_KEYWORDS = {
-    # core
-    "llm", "large language model", "language model", "transformer", "foundation model",
-    "generative ai", "genai", "diffusion", "alignment", "rlhf", "dpo", "ppo",
-    "inference", "serving", "rag", "retrieval augmented generation", "vector database",
-    "embeddings", "tokenizer", "finetune", "fine-tune", "lora", "qlora", "peft",
-    # tools and stacks
-    "pytorch", "jax", "tensorflow", "cuda", "triton", "tensorrt", "onnx",
-    "deepspeed", "fsdp", "xla", "ray", "vllm", "tgi", "llama.cpp",
-    "langchain", "llamaindex", "faiss", "weaviate", "pinecone", "qdrant", "milvus",
-}
+# Resume, CV, vitae, profile equivalents (multilingual)
+RESUME_TERMS: List[str] = [
+    # English
+    "resume", "résumé", "cv", "curriculum vitae", "vita", "vitae", "academic cv", "research cv", "faculty cv",
+    "short cv", "full cv", "curriculum", "biography", "bio", "about me",
+    # Spanish / Portuguese
+    "curriculo", "currículo", "curriculo vitae", "hoja de vida", "vida laboral", "trayectoria",
+    "perfil profesional", "biografía", "sobre mí", "sobre mi", "contato", "contáctame", "contacto",
+    # French
+    "parcours", "parcours professionnel", "parcours académique", "profil", "dossier", "biographie", "à propos",
+    # German / Italian / Dutch
+    "lebenslauf", "profil", "profilo", "curriculum", "über mich", "contatto", "contatti",
+    # Japanese / Chinese / Korean
+    "履歴書", "職務経歴書", "简历", "个人简介", "个人简历", "履歴", "経歴",
+    "이력서", "경력", "자기소개", "소개",
+]
 
-# Stronger indicators (boosts score)
-AI_STRONG = {
-    "rlhf", "dpo", "ppo", "reward model", "alignment",
-    "vllm", "tensorrt", "triton", "cuda", "deepspeed", "fsdp",
-    "rag", "embeddings", "vector database", "faiss", "weaviate", "pinecone", "qdrant", "milvus",
-    "transformer", "llm", "foundation model",
-}
+# Contact terms (multilingual)
+CONTACT_TERMS: List[str] = [
+    # English
+    "contact", "email", "e-mail", "reach me", "get in touch", "phone", "tel", "mobile",
+    # Spanish / Portuguese
+    "contacto", "correo", "correo electrónico", "email", "e-mail", "telefone", "teléfono", "móvil", "celular",
+    # French
+    "contact", "courriel", "e-mail", "téléphone", "portable",
+    # German / Italian
+    "kontakt", "e-mail", "telefon", "handy", "contatto", "telefono",
+    # Japanese / Chinese / Korean
+    "連絡", "メール", "電話", "邮箱", "邮件", "电子邮件", "电话", "联系",
+    "연락", "이메일", "전화",
+]
 
-EMAIL_RE = re.compile(r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}", re.IGNORECASE)
+# URL path hints for deep-link prioritization
+HIGH_VALUE_PATH_HINTS: List[str] = [
+    "/cv", "/resume", "/vita", "/about", "/bio", "/contact", "/publications", "/papers", "/research", "/talks", "/slides",
+]
+
+
+# ----------------------------
+# Regex: identity anchors + contact extraction
+# ----------------------------
+
+GITHUB_PROFILE_RE = re.compile(r"(?i)https?://github\.com/([A-Za-z0-9](?:-?[A-Za-z0-9]){0,38})\b")
+PDF_RE = re.compile(r"(?i)\.pdf(\?|#|$)")
+
+EMAIL_RE = re.compile(r"(?i)\b[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}\b")
+PHONE_RE = re.compile(
+    r"(?<!\d)(?:\+?\d{1,3}[\s\-\.]?)?(?:\(\d{2,4}\)|\d{2,4})[\s\-\.]?\d{3,4}[\s\-\.]?\d{4}(?!\d)"
+)
+
+# Obfuscations like: name [at] domain [dot] edu
+OBFUSCATED_AT = re.compile(r"(?i)\s*(?:\[\s*at\s*\]|\(\s*at\s*\)|\s+at\s+)\s*")
+OBFUSCATED_DOT = re.compile(r"(?i)\s*(?:\[\s*dot\s*\]|\(\s*dot\s*\)|\s+dot\s+)\s*")
+
+
+# ----------------------------
+# Data structures
+# ----------------------------
+
+@dataclass
+class HttpResponse:
+    url: str
+    status: int
+    headers: Dict[str, str]
+    body: bytes
+
+
+class LinkExtractor(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.links: List[str] = []
+
+    def handle_starttag(self, tag: str, attrs: List[Tuple[str, Optional[str]]]) -> None:
+        if tag.lower() != "a":
+            return
+        href: Optional[str] = None
+        for k, v in attrs:
+            if k.lower() == "href":
+                href = v
+                break
+        if href:
+            self.links.append(href)
 
 
 # ----------------------------
 # Helpers
 # ----------------------------
 
-def _get_json(url: str, params: Optional[dict] = None) -> dict:
-    r = SESSION.get(url, params=params, timeout=TIMEOUT_S)
-    if r.status_code == 401:
-        raise RuntimeError("GitHub API: 401 Unauthorized. Check GITHUB_TOKEN validity/scopes.")
-    if r.status_code == 403:
-        # Rate limit or abuse detection. Provide actionable message.
-        reset = r.headers.get("X-RateLimit-Reset", "")
-        remaining = r.headers.get("X-RateLimit-Remaining", "")
-        msg = f"GitHub API: 403 Forbidden (remaining={remaining}, reset={reset})."
-        raise RuntimeError(msg)
-    r.raise_for_status()
-    return r.json()
+def _ssl_context() -> ssl.SSLContext:
+    return ssl.create_default_context()
 
+def _sha1(s: str) -> str:
+    return hashlib.sha1(s.encode("utf-8", errors="ignore")).hexdigest()
 
-def _safe_str(x: object) -> str:
-    return (str(x).strip()) if x is not None else ""
-
-
-def _normalize_url(url: str) -> str:
-    u = _safe_str(url)
+def _norm_url(u: str) -> str:
+    u = (u or "").strip()
     if not u:
         return ""
     if u.startswith("http://") or u.startswith("https://"):
         return u
-    # GitHub "blog" sometimes stored without scheme
-    return "https://" + u
+    if u.startswith("www."):
+        return "https://" + u
+    if re.search(r"\.[a-z]{2,}(/|$)", u, re.I):
+        return "https://" + u
+    return u
 
-
-def _looks_like_url(u: str) -> bool:
+def _same_domain(a: str, b: str) -> bool:
     try:
-        p = urlparse(u)
-        return p.scheme in ("http", "https") and bool(p.netloc)
+        pa = urllib.parse.urlparse(a)
+        pb = urllib.parse.urlparse(b)
+        return bool(pa.netloc) and pa.netloc.lower() == pb.netloc.lower()
     except Exception:
         return False
 
+def _resolve_abs(base: str, href: str) -> str:
+    href = (href or "").strip()
+    if not href:
+        return ""
+    if href.startswith("mailto:") or href.startswith("tel:"):
+        return href
+    return urllib.parse.urljoin(base, href)
+
+def _contains_any(text: str, terms: List[str]) -> bool:
+    t = (text or "").lower()
+    for term in terms:
+        if term.lower() in t:
+            return True
+    return False
+
+def _normalize_obfuscated_emails(text: str) -> str:
+    t = text or ""
+    t = OBFUSCATED_AT.sub("@", t)
+    t = OBFUSCATED_DOT.sub(".", t)
+    return t
 
 def _extract_emails(text: str) -> List[str]:
-    if not text:
-        return []
-    return sorted(set(EMAIL_RE.findall(text)))
+    t = _normalize_obfuscated_emails(text or "")
+    return sorted(set(EMAIL_RE.findall(t)))[:MAX_EMAILS]
 
+def _extract_phones(text: str) -> List[str]:
+    return sorted(set(PHONE_RE.findall(text or "")))[:MAX_PHONES]
 
-def _validate_github_io(login: str) -> str:
-    # Only return github.io if it actually responds.
-    url = f"https://{login}.github.io/"
+def _is_probably_resume_url(url: str) -> bool:
+    u = (url or "").lower()
+    if not u:
+        return False
+    if any(k in u for k in ["resume", "résumé", "curriculum", "vita", "vitae", "lebenslauf", "hoja", "curriculo", "currículo"]):
+        return True
+    if PDF_RE.search(u) and any(k in u for k in ["resume", "cv", "vita", "lebenslauf", "curriculo", "currículo", "hoja"]):
+        return True
+    if "/cv" in u or u.endswith("/cv") or u.endswith("/cv/"):
+        return True
+    return False
+
+def _join_unique(items: Iterable[str], limit: int) -> str:
+    out: List[str] = []
+    seen: set = set()
+    for it in items:
+        it = (it or "").strip()
+        if not it or it in seen:
+            continue
+        seen.add(it)
+        out.append(it)
+        if len(out) >= limit:
+            break
+    return " | ".join(out)
+
+def _http_get(url: str, headers: Optional[Dict[str, str]] = None, timeout: int = DEFAULT_TIMEOUT_SEC) -> HttpResponse:
+    req = urllib.request.Request(url, method="GET")
+    for k, v in (headers or {}).items():
+        req.add_header(k, v)
+    ctx = _ssl_context()
     try:
-        resp = requests.get(url, timeout=6, allow_redirects=True)
-        if 200 <= resp.status_code < 300:
+        with urllib.request.urlopen(req, timeout=timeout, context=ctx) as resp:
+            body = resp.read(MAX_HTML_BYTES + 1)
+            if len(body) > MAX_HTML_BYTES:
+                body = body[:MAX_HTML_BYTES]
+            h = {k.lower(): v for k, v in resp.headers.items()}
+            return HttpResponse(url=url, status=int(resp.status), headers=h, body=body)
+    except urllib.error.HTTPError as he:
+        h = {k.lower(): v for k, v in he.headers.items()} if he.headers else {}
+        try:
+            body = he.read()
+        except Exception:
+            body = b""
+        return HttpResponse(url=url, status=int(he.code), headers=h, body=body)
+    except Exception as ex:
+        raise RuntimeError(f"GET failed: {url} :: {ex}") from ex
+
+def _http_head(url: str, headers: Optional[Dict[str, str]] = None, timeout: int = DEFAULT_TIMEOUT_SEC) -> int:
+    req = urllib.request.Request(url, method="HEAD")
+    for k, v in (headers or {}).items():
+        req.add_header(k, v)
+    ctx = _ssl_context()
+    try:
+        with urllib.request.urlopen(req, timeout=timeout, context=ctx) as resp:
+            return int(resp.status)
+    except urllib.error.HTTPError as he:
+        return int(he.code)
+    except Exception:
+        return 0
+
+
+# ----------------------------
+# GitHub API helpers (public, deterministic)
+# ----------------------------
+
+def _github_headers() -> Dict[str, str]:
+    h = {
+        "Accept": "application/vnd.github+json",
+        "User-Agent": USER_AGENT,
+    }
+    tok = os.environ.get("GITHUB_TOKEN", "").strip()
+    if tok:
+        h["Authorization"] = f"Bearer {tok}"
+    return h
+
+def _github_user(username: str) -> Tuple[bool, Dict]:
+    url = f"{GITHUB_API}/users/{urllib.parse.quote(username)}"
+    resp = _http_get(url, headers=_github_headers())
+    if resp.status != 200:
+        return False, {}
+    try:
+        return True, json.loads(resp.body.decode("utf-8", errors="replace"))
+    except Exception:
+        return True, {}
+
+def _github_repos(username: str) -> List[Dict]:
+    url = f"{GITHUB_API}/users/{urllib.parse.quote(username)}/repos?per_page=100&sort=updated"
+    resp = _http_get(url, headers=_github_headers())
+    if resp.status != 200:
+        return []
+    try:
+        data = json.loads(resp.body.decode("utf-8", errors="replace"))
+        return data if isinstance(data, list) else []
+    except Exception:
+        return []
+
+def _score_repo(repo: Dict) -> Tuple[int, str]:
+    name = (repo.get("name") or "").lower()
+    desc = (repo.get("description") or "").lower()
+    topics = " ".join(repo.get("topics") or []).lower()
+    lang = (repo.get("language") or "").lower()
+    stars = int(repo.get("stargazers_count") or 0)
+    forks = int(repo.get("forks_count") or 0)
+
+    text = f"{name} {desc} {topics} {lang}"
+    signals = 0
+    for k in ["llm", "transformer", "rag", "retrieval", "embedding", "vector", "pytorch", "jax", "cuda", "triton", "tensorrt", "vllm", "deepspeed", "fsdp", "moe", "quantization", "lora", "qlora", "peft", "rlhf", "dpo"]:
+        if k in text:
+            signals += 1
+
+    score = 0
+    score += min(stars, 300) // 10
+    score += min(forks, 300) // 20
+    score += min(signals, 6) * 7
+    if repo.get("archived"):
+        score = max(0, score - 5)
+
+    why: List[str] = []
+    if stars:
+        why.append(f"{stars}★")
+    if forks:
+        why.append(f"{forks} forks")
+    if signals:
+        why.append(f"signal_hits={signals}")
+    return score, "; ".join(why)
+
+def _pick_evidential_repos(repos: List[Dict]) -> Tuple[List[str], List[str]]:
+    scored: List[Tuple[int, Dict, str]] = []
+    for r in repos or []:
+        s, why = _score_repo(r)
+        scored.append((s, r, why))
+    scored.sort(key=lambda x: x[0], reverse=True)
+    picked = scored[:MAX_REPOS_TO_SCAN]
+
+    urls: List[str] = []
+    whys: List[str] = []
+    for s, r, why in picked:
+        u = (r.get("html_url") or "").strip()
+        if u:
+            urls.append(u)
+        n = (r.get("name") or "").strip()
+        if n and why:
+            whys.append(f"{n}: {why}")
+
+    return urls, whys
+
+
+# ----------------------------
+# github.io probe (must run for every handle)
+# ----------------------------
+
+def _probe_github_io(username: str) -> str:
+    url = f"https://{username}.github.io/"
+    status = _http_head(url, headers={"User-Agent": USER_AGENT})
+    if 200 <= status < 400:
+        return url
+    # Fallback GET once, some sites block HEAD
+    try:
+        resp = _http_get(url, headers={"User-Agent": USER_AGENT}, timeout=DEFAULT_TIMEOUT_SEC)
+        if 200 <= resp.status < 400 and resp.body:
             return url
     except Exception:
         pass
     return ""
 
 
-def _repo_items(login: str, max_pages: int = 2) -> List[dict]:
-    # Pull up to ~200 repos (2 pages * 100). Enough for signal extraction.
-    repos: List[dict] = []
-    for page in range(1, max_pages + 1):
-        data = _get_json(
-            f"{GITHUB_API}/users/{login}/repos",
-            params={"per_page": 100, "page": page, "sort": "updated"},
-        )
-        if not data:
-            break
-        repos.extend(data)
-        if len(data) < 100:
-            break
-    return repos
+# ----------------------------
+# Bounded crawl engine (universal multilingual coupling)
+# ----------------------------
 
-
-def _ai_score_from_text(text: str) -> int:
-    t = (text or "").lower()
-    score = 0
-    for kw in AI_KEYWORDS:
-        if kw in t:
-            score += 1
-    for kw in AI_STRONG:
-        if kw in t:
-            score += 2
-    return score
-
-
-def _summarize_ai_evidence(bio: str, repos: List[dict]) -> Tuple[int, str, List[str], List[str]]:
+def _crawl_domain_bounded(start_url: str) -> Dict[str, List[str]]:
     """
-    Returns:
-      - ai_score (int)
-      - evidence_note (str)
-      - ai_repo_urls (list[str])
-      - topic_keywords (list[str])
+    Bounded crawl on the same domain. Polite, deterministic.
+
+    Universal coupling rules:
+    - Always extract emails and phones from every fetched page.
+    - Always collect resume/CV URLs and treat their presence as a deep-crawl trigger.
+    - If multilingual resume/CV/profile terms appear anywhere, prioritize high-value pages.
+
+    Returns dict:
+      emails, phones, resume_urls, portfolio_urls, personal_urls, triggers
     """
-    bio = bio or ""
-    ai_score = _ai_score_from_text(bio)
+    start_url = _norm_url(start_url)
+    if not start_url:
+        return {
+            "emails": [],
+            "phones": [],
+            "resume_urls": [],
+            "portfolio_urls": [],
+            "personal_urls": [],
+            "triggers": [],
+        }
 
-    ai_repo_urls: List[str] = []
-    topic_keywords: List[str] = []
-
-    for r in repos:
-        name = _safe_str(r.get("name"))
-        desc = _safe_str(r.get("description"))
-        topics = r.get("topics") or []
-        lang = _safe_str(r.get("language"))
-
-        blob = " ".join([name, desc, lang, " ".join([_safe_str(t) for t in topics])]).lower()
-        s = _ai_score_from_text(blob)
-
-        if s >= 3:
-            html_url = _safe_str(r.get("html_url"))
-            if html_url:
-                ai_repo_urls.append(html_url)
-
-        for t in topics:
-            tt = _safe_str(t).lower()
-            if tt:
-                topic_keywords.append(tt)
-
-        ai_score += min(s, 6)
-
-    topic_keywords = sorted(set(topic_keywords))[:50]
-    ai_repo_urls = sorted(set(ai_repo_urls))[:25]
-
-    evidence_note = ""
-    if ai_repo_urls:
-        evidence_note = f"AI repos detected: {len(ai_repo_urls)}"
-    elif bio:
-        evidence_note = "Bio contains AI indicators"
-    else:
-        evidence_note = "No determinative AI evidence found"
-
-    return ai_score, evidence_note, ai_repo_urls, topic_keywords
-
-
-def _default_seed_terms(role: str) -> List[str]:
-    override = os.environ.get("AI_TALENT_GH_USER_SEED_TERMS", "").strip()
-    if override:
-        return [t.strip() for t in override.split(",") if t.strip()]
-
-    # Role is not used as a boolean query. It only influences which broad terms we attempt first.
-    r = role.lower()
-    base = ["ai", "machine learning", "deep learning", "pytorch", "cuda", "transformer", "llm", "inference", "rag"]
-
-    if "rlhf" in r or "alignment" in r:
-        return ["rlhf", "alignment", "reward model", "dpo", "ppo", "ai", "machine learning"] + base
-    if "infra" in r or "sre" in r or "platform" in r or "distributed" in r:
-        return ["cuda", "triton", "kubernetes", "ray", "inference", "tensorrt", "ai"] + base
-    if "scientist" in r or "research" in r or "foundational" in r or "frontier" in r:
-        return ["transformer", "llm", "jax", "pytorch", "diffusion", "ai", "machine learning"] + base
-
-    return base
-
-
-def _search_users_simple(term: str, page: int) -> dict:
-    # GitHub users search must be simple. No OR, no parentheses, no in:readme.
-    return _get_json(
-        f"{GITHUB_API}/search/users",
-        params={"q": term, "per_page": 100, "page": page},
-    )
-
-
-@dataclass(frozen=True)
-class _Candidate:
-    login: str
-    html_url: str
-
-
-def _gather_candidates(role: str, target_min: int, target_max: Optional[int]) -> List[_Candidate]:
-    """
-    Gather a pool of user candidates via multiple simple seed terms.
-    Scenario scaling comes from iterating many terms and pages.
-    """
-    terms = _default_seed_terms(role)
-    seen: set[str] = set()
-    candidates: List[_Candidate] = []
-
-    # GitHub search constraint: up to ~1000 results per query term (10 pages * 100).
-    # For scenario scale, we use multiple terms.
-    for term in terms:
-        for page in range(1, 11):
-            data = _search_users_simple(term, page)
-            items = data.get("items", [])
-            if not items:
-                break
-
-            for it in items:
-                login = _safe_str(it.get("login"))
-                html = _safe_str(it.get("html_url"))
-                if not login or login in seen:
-                    continue
-                seen.add(login)
-                candidates.append(_Candidate(login=login, html_url=html))
-
-                # If demo max_rows exists, we can stop early once we have a reasonable pool.
-                if target_max is not None and len(candidates) >= max(target_min * 3, target_max * 3):
-                    return candidates
-
-            if len(items) < 100:
-                break
-
-    return candidates
-
-
-def _enrich_candidate(c: _Candidate, validate_github_io: bool) -> Optional[Dict[str, str]]:
-    """
-    Enrich a candidate and return a dict of populated fields if relevant, else None.
-    Late filter happens here based on enriched evidence.
-    """
-    user = _get_json(f"{GITHUB_API}/users/{c.login}")
-    login = _safe_str(user.get("login"))
-    if not login:
-        return None
-
-    name = _safe_str(user.get("name"))
-    bio = _safe_str(user.get("bio"))
-    blog = _normalize_url(_safe_str(user.get("blog")))
-    company = _safe_str(user.get("company"))
-    location = _safe_str(user.get("location"))
-    email = _safe_str(user.get("email"))  # often blank
-    followers = _safe_str(user.get("followers"))
-
-    repos = _repo_items(login, max_pages=2)
-
-    ai_score, evidence_note, ai_repo_urls, topic_keywords = _summarize_ai_evidence(bio, repos)
-
-    if ai_score < MIN_AI_SCORE:
-        return None
-
-    github_io = ""
-    if validate_github_io:
-        github_io = _validate_github_io(login)
-
-    # Prefer using validated github.io. If blog is a URL and looks like a personal site, treat as portfolio.
+    emails: List[str] = []
+    phones: List[str] = []
+    resume_urls: List[str] = []
     portfolio_urls: List[str] = []
-    if github_io:
-        portfolio_urls.append(github_io)
-    if blog and _looks_like_url(blog):
-        portfolio_urls.append(blog)
+    personal_urls: List[str] = []
+    triggers: List[str] = []
 
-    # Light email discovery from bio + blog string only (no scraping content here).
-    # Deep scraping belongs in a dedicated enrichment stage.
-    emails = _extract_emails(" ".join([bio, blog, company, location]))
-    primary_email = email or (emails[0] if emails else "")
+    visited: set = set()
+    queue: List[str] = [start_url]
+    pages = 0
 
-    # Build row (canonical will add missing columns later).
-    row: Dict[str, str] = {
-        "Person_ID": f"GH_{login}",
-        "Full_Name": name,
-        "First_Name": name.split(" ")[0] if name else "",
-        "Last_Name": name.split(" ")[-1] if name and " " in name else "",
-        "AI_Role_Type": "",  # set by build_people
-        "Primary_Email": primary_email,
-        "Primary_Phone": "",
-        "Current_Title": "",
-        "Current_Company": company.replace("@", "").strip() if company else "",
-        "Location_City": "",
-        "Location_State": "",
-        "Location_Country": "",
-        "LinkedIn_Public_URL": "",
-        "Resume_URL": "",
-        "GitHub_Username": login,
-        "GitHub_URL": _safe_str(user.get("html_url")) or c.html_url,
-        "GitHub_IO_URL": github_io,
-        "Key_GitHub_AI_Repos": "; ".join(ai_repo_urls),
-        "Repo_Topics_Keywords": "; ".join(topic_keywords),
-        "GitHub_Repo_Evidence_Why": evidence_note,
-        "GitHub_Followers": followers,
-        "Portfolio_URLs": "; ".join(sorted(set(portfolio_urls))),
-        "Personal_Website_URLs": "",
-        "Academic_Homepage_URLs": "",
-        "Blog_URLs": blog if blog else "",
-        "X_URLs": "",
-        "YouTube_URLs": "",
-        "Open_Source_Impact_Notes": "",
-        "Field_Level_Provenance_JSON": "",
-        "Row_Validity_Status": "OK",
-        "Pipeline_Version": "people_source_github v3.0.0",
+    while queue and pages < MAX_PAGES_PER_DOMAIN:
+        url = queue.pop(0)
+        if url in visited:
+            continue
+        visited.add(url)
+
+        try:
+            resp = _http_get(url, headers={"User-Agent": USER_AGENT}, timeout=DEFAULT_TIMEOUT_SEC)
+        except Exception:
+            continue
+
+        pages += 1
+        time.sleep(CRAWL_SLEEP_SEC)
+
+        # Decode text (simple, safe)
+        try:
+            text = resp.body.decode("utf-8", errors="replace")
+        except Exception:
+            text = resp.body.decode(errors="replace")
+
+        text_lower = (text or "").lower()
+
+        # Universal extraction (always)
+        emails.extend(_extract_emails(text))
+        phones.extend(_extract_phones(text))
+
+        # Trigger detection (multilingual)
+        resume_trigger = _contains_any(text_lower, RESUME_TERMS)
+        contact_trigger = _contains_any(text_lower, CONTACT_TERMS)
+        if resume_trigger:
+            triggers.append("resume_terms_present")
+        if contact_trigger:
+            triggers.append("contact_terms_present")
+
+        # Extract links
+        le = LinkExtractor()
+        try:
+            le.feed(text)
+        except Exception:
+            pass
+
+        raw_links = le.links[:MAX_LINKS_PER_PAGE]
+        abs_links: List[str] = []
+        for href in raw_links:
+            a = _resolve_abs(url, href)
+            if a:
+                abs_links.append(a)
+
+        # Classify and queue
+        for a in abs_links:
+            al = a.lower()
+
+            # mailto/tel always count
+            if al.startswith("mailto:"):
+                maybe = a.split(":", 1)[1].strip()
+                emails.extend(_extract_emails(maybe))
+                continue
+            if al.startswith("tel:"):
+                maybe = a.split(":", 1)[1].strip()
+                phones.extend(_extract_phones(maybe))
+                continue
+
+            # resume/cv capture
+            if _is_probably_resume_url(a) or any(term in al for term in ["cv", "resume", "vita", "lebenslauf", "curriculo", "currículo", "hoja"]):
+                resume_urls.append(a)
+                continue
+
+            # portfolio style capture
+            if any(k in al for k in ["portfolio", "projects", "publications", "papers", "research", "talks", "slides"]):
+                portfolio_urls.append(a)
+
+            # same-domain internal links
+            if _same_domain(start_url, a):
+                personal_urls.append(a)
+
+        # Deep crawl coupling:
+        # If resume terms appear or any resume URL found, prioritize high value pages.
+        should_deepen = resume_trigger or bool(resume_urls) or contact_trigger
+        if should_deepen:
+            for a in personal_urls:
+                al = a.lower()
+                if any(h in al for h in HIGH_VALUE_PATH_HINTS):
+                    if a not in visited and a not in queue:
+                        queue.append(a)
+
+        # Otherwise, queue a small number of internal pages
+        for a in personal_urls[:40]:
+            if a not in visited and a not in queue and _same_domain(start_url, a):
+                queue.append(a)
+
+        # Bound queue
+        queue = queue[:MAX_VISIT_QUEUE]
+
+    return {
+        "emails": sorted(set(emails))[:MAX_EMAILS],
+        "phones": sorted(set(phones))[:MAX_PHONES],
+        "resume_urls": sorted(set(resume_urls))[:MAX_RESUME_URLS],
+        "portfolio_urls": sorted(set(portfolio_urls))[:MAX_PORTFOLIO_URLS],
+        "personal_urls": sorted(set(personal_urls))[:MAX_PERSONAL_URLS],
+        "triggers": sorted(set(triggers))[:10],
     }
 
-    return row
 
+# ----------------------------
+# Public API: single entrypoint
+# ----------------------------
 
-def build_people(role: str, min_rows: int, max_rows: Optional[int], demo_mode: bool) -> pd.DataFrame:
+def enrich_person_from_github_and_web(
+    person_row: Dict,
+    scenario: str,
+    metrics: Dict,
+    config: Optional[Dict] = None,
+) -> Dict:
     """
-    Build a People DataFrame for a given role.
+    Canonical enrichment entry.
 
-    Demo:
-      - bounded to 25–50 (max_rows must be provided by resolver)
-    Scenario:
-      - min 25, no max cap (max_rows is None)
-      - scales by iterating seed terms and pages, bounded by GitHub search constraints
+    Inputs:
+      person_row: dict-like row from Phase 1 inventory
+      scenario: scenario string used for logging context (no heavy logic here)
+      metrics: dict of counters, mutated in place. Caller prints.
+      config: optional config overrides (bounded crawl remains bounded)
 
     Returns:
-      pandas.DataFrame with real people rows (may be larger than min_rows in scenario).
+      updates: dict of field updates (strings), plus optional provenance JSON fields if caller supports them.
+
+    Metrics keys this function updates (all optional):
+      github_ok, github_io, resume_cv_rows, email_rows, phone_rows, domains_crawled, repos_scanned
     """
-    role = (role or "").strip()
-    if not role:
-        raise ValueError("role must be non-empty")
+    cfg = config or {}
+    updates: Dict[str, str] = {}
+    provenance: Dict[str, List[str]] = {}
 
-    if min_rows < 1:
-        raise ValueError("min_rows must be >= 1")
+    def bump(key: str, n: int = 1) -> None:
+        try:
+            metrics[key] = int(metrics.get(key, 0)) + int(n)
+        except Exception:
+            metrics[key] = metrics.get(key, 0) or 0
 
-    if demo_mode and (max_rows is None or max_rows < min_rows):
-        raise RuntimeError("Demo mode requires a bounded max_rows >= min_rows")
+    # Resolve GitHub username and URL
+    gh_user = (person_row.get("GitHub_Username") or "").strip()
+    gh_url = (person_row.get("GitHub_URL") or "").strip()
+    seed_handle = (person_row.get("Seed_Query_Or_Handle") or "").strip()
 
-    # Demo validates github.io by default. Scenario defaults off for throughput.
-    validate_github_io = _env_bool(
-        "AI_TALENT_GH_VALIDATE_GITHUB_IO",
-        default=True if demo_mode else False
-    )
+    if not gh_user and gh_url:
+        m = GITHUB_PROFILE_RE.search(gh_url)
+        if m:
+            gh_user = m.group(1)
 
-    candidates = _gather_candidates(role=role, target_min=min_rows, target_max=max_rows)
+    if not gh_user and seed_handle and re.fullmatch(r"[A-Za-z0-9](?:-?[A-Za-z0-9]){0,38}", seed_handle):
+        gh_user = seed_handle
 
-    if not candidates:
-        raise RuntimeError("GitHub seeding returned zero candidates. Check connectivity/token and seed terms.")
+    if gh_user:
+        updates["GitHub_Username"] = gh_user
+        if not gh_url:
+            gh_url = f"https://github.com/{gh_user}"
+            updates["GitHub_URL"] = gh_url
 
-    rows: List[Dict[str, str]] = []
-    seen_person_ids: set[str] = set()
+    # No GitHub identity, we cannot do GitHub or github.io enrichment
+    if not gh_user:
+        # still return safely, no claims, no guessing
+        return updates
 
-    # Enrich in parallel for throughput and real-world scale.
-    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-        futures = {pool.submit(_enrich_candidate, c, validate_github_io): c for c in candidates}
+    # GitHub user profile
+    github_ok, gh_profile = _github_user(gh_user)
+    if github_ok:
+        bump("github_ok", 1)
+        provenance.setdefault("GitHub_URL", []).append(gh_url or f"https://github.com/{gh_user}")
 
-        for fut in as_completed(futures):
-            try:
-                row = fut.result()
-            except Exception as e:
-                # Fail fast for token/rate-limit and similar systemic issues.
-                raise
+    # github.io probe (mandatory per handle)
+    ghio = _probe_github_io(gh_user)
+    if ghio:
+        bump("github_io", 1)
+        updates["GitHub_IO_URL"] = ghio
+        provenance.setdefault("GitHub_IO_URL", []).append(ghio)
 
-            if not row:
-                continue
+    # Personal site from GitHub blog field (public, explicit)
+    personal_site = ""
+    if github_ok:
+        personal_site = _norm_url(str(gh_profile.get("blog") or "").strip())
+        if personal_site:
+            provenance.setdefault("Personal_Website_URLs", []).append(gh_url or "")
 
-            # Set role after enrichment (keeps sourcing generic, filtering evidence-driven).
-            row["AI_Role_Type"] = role
+    # Repo evidence (public metadata only)
+    repo_urls: List[str] = []
+    repo_whys: List[str] = []
+    repos = _github_repos(gh_user)
+    if repos:
+        repo_urls, repo_whys = _pick_evidential_repos(repos)
+        if repo_urls:
+            updates["Key_GitHub_AI_Repos"] = _join_unique(repo_urls, limit=12)
+            bump("repos_scanned", min(len(repo_urls), MAX_REPOS_TO_SCAN))
+            provenance.setdefault("Key_GitHub_AI_Repos", []).append(gh_url or "")
 
-            pid = row.get("Person_ID", "")
-            if not pid or pid in seen_person_ids:
-                continue
+        # Provide a concise "why" if caller supports it
+        if repo_whys:
+            updates["GitHub_Repo_Evidence_Why"] = _join_unique(repo_whys, limit=12)
+            provenance.setdefault("GitHub_Repo_Evidence_Why", []).append(gh_url or "")
 
-            seen_person_ids.add(pid)
-            rows.append(row)
+    # Crawl targets (bounded, deterministic)
+    crawl_targets: List[Tuple[str, str]] = []
+    if ghio:
+        crawl_targets.append(("github_io", ghio))
+    if personal_site:
+        crawl_targets.append(("personal_site", personal_site))
 
-            # Demo cap enforcement.
-            if demo_mode and max_rows is not None and len(rows) >= max_rows:
-                break
+    all_emails: List[str] = []
+    all_phones: List[str] = []
+    all_resume: List[str] = []
+    all_portfolio: List[str] = []
+    all_personal: List[str] = []
+    all_triggers: List[str] = []
 
-    df = pd.DataFrame(rows)
+    for label, url in crawl_targets:
+        bump("domains_crawled", 1)
+        result = _crawl_domain_bounded(url)
+        all_emails.extend(result.get("emails") or [])
+        all_phones.extend(result.get("phones") or [])
+        all_resume.extend(result.get("resume_urls") or [])
+        all_portfolio.extend(result.get("portfolio_urls") or [])
+        all_personal.extend(result.get("personal_urls") or [])
+        all_triggers.extend(result.get("triggers") or [])
+        if result.get("emails"):
+            provenance.setdefault("Primary_Email", []).append(url)
+        if result.get("phones"):
+            provenance.setdefault("Primary_Phone", []).append(url)
+        if result.get("resume_urls"):
+            provenance.setdefault("Resume_URL", []).append(url)
+            provenance.setdefault("CV_URL", []).append(url)
 
-    # Hard integrity gates.
-    if len(df) < min_rows:
-        raise RuntimeError(
-            f"Only {len(df)} qualifying people found, below required minimum {min_rows}. "
-            "This is a sourcing/relevance issue, not a schema issue. "
-            "Adjust seed terms or MIN_AI_SCORE if needed."
+    all_emails = sorted(set(all_emails))[:MAX_EMAILS]
+    all_phones = sorted(set(all_phones))[:MAX_PHONES]
+    all_resume = sorted(set(all_resume))[:MAX_RESUME_URLS]
+    all_portfolio = sorted(set(all_portfolio))[:MAX_PORTFOLIO_URLS]
+    all_personal = sorted(set(all_personal))[:MAX_PERSONAL_URLS]
+    all_triggers = sorted(set(all_triggers))[:10]
+
+    # Universal coupling and application:
+    # If any resume/cv trigger exists OR any resume URL exists, we must treat emails/phones extraction as mandatory.
+    # We already extracted universally. Here we ensure updates are applied consistently and counters are incremented correctly.
+
+    # Apply email
+    if all_emails:
+        # Only set Primary_Email if empty at caller level. We cannot see caller's final decision, so we supply best candidate.
+        updates.setdefault("Primary_Email", all_emails[0])
+        bump("email_rows", 1)
+
+    # Apply phone
+    if all_phones:
+        updates.setdefault("Primary_Phone", all_phones[0])
+        bump("phone_rows", 1)
+
+    # Apply resume/cv
+    if all_resume or ("resume_terms_present" in all_triggers):
+        if all_resume:
+            # Prefer a URL that looks most like CV/resume, otherwise shortest.
+            ranked = sorted(all_resume, key=lambda u: (0 if _is_probably_resume_url(u) else 1, len(u)))
+            updates.setdefault("Resume_URL", ranked[0])
+            updates.setdefault("CV_URL", ranked[0])
+        bump("resume_cv_rows", 1)
+
+    # Apply personal/portfolio URLs (safe, explicit)
+    if personal_site:
+        updates.setdefault("Personal_Website_URLs", personal_site)
+    if all_portfolio:
+        updates.setdefault("Portfolio_URLs", _join_unique(all_portfolio, limit=12))
+    if all_personal and not updates.get("Personal_Website_URLs"):
+        # As a last resort, store a small set of internal URLs as personal URLs if caller has that column.
+        updates.setdefault("Personal_Website_URLs", _join_unique(all_personal, limit=6))
+
+    # Attach provenance if caller supports it
+    # 🔒 Schema immutability enforcement:
+    # Only attach provenance if the canonical column already exists.
+    if provenance and "Field_Level_Provenance_JSON" in person_row:
+        prov_json = json.dumps(
+            {k: v[:5] for k, v in provenance.items()},
+            ensure_ascii=False,
+            separators=(",", ":"),
         )
+        updates["Field_Level_Provenance_JSON"] = prov_json
 
-    # Deterministic ordering: stable sort by GitHub username.
-    if "GitHub_Username" in df.columns:
-        df = df.sort_values(by=["GitHub_Username"], kind="mergesort").reset_index(drop=True)
-
-    return df
+    return updates
