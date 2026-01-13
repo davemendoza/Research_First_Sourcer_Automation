@@ -1,0 +1,18 @@
+{
+  "generated_utc": "2026-01-13T00:08:34Z",
+  "repo_root": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation",
+  "git_sha": "e599b8cab2f1d7172499c25c4747a974a199ad39",
+  "source_zips": {
+    "repo_inventory_zip": "AI_Talent_Repo_Inventory_20260113T000832Z.zip",
+    "schema_inventory_zip": "AI_Talent_Schema_Inventory_20260113T000832Z.zip",
+    "downloads_snapshot_zip": "AI_Talent_Downloads_Snapshot_20260113T000832Z.zip"
+  },
+  "outputs": {
+    "inventory_manifest_json": "AI_Talent_Inventory_Manifest.json",
+    "repo_inventory_json": "AI_Talent_Repo_Inventory.json",
+    "schema_inventory_txt": "AI_Talent_Schema_Inventory.txt"
+  },
+  "diagnostics": {
+    "console_log_present": true
+  }
+}

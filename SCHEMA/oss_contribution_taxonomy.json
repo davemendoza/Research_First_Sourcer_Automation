@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "name": "OSS Contribution Intelligence Taxonomy",
+    "version": "v7.0.0",
+    "purpose": "Deterministic extraction of open-source contribution signals from existing evidence fields (repo names, descriptions, topics, README text, and other already-harvested GitHub evidence). No network calls. No inference.",
+    "author": "© 2026 L. David Mendoza",
+    "last_updated_utc": "2026-01-08T00:00:00Z"
+  },
+  "output_columns": {
+    "OSS_Repos_Relevant": {
+      "mode": "pipe",
+      "description": "Pipe-delimited list of relevant OSS repos or projects detected from evidence fields."
+    },
+    "OSS_AI_Frameworks": {
+      "mode": "pipe",
+      "description": "AI/ML/Infra frameworks and libraries detected from repo evidence."
+    },
+    "OSS_Contribution_Strength": {
+      "mode": "single",
+      "description": "Deterministic strength label derived from evidence density and presence of high-signal frameworks (High/Medium/Low)."
+    },
+    "OSS_Signal_Tier": {
+      "mode": "single",
+      "description": "Tier label: Hardcore/Applied/Generic/None based on matched signals."
+    },
+    "OSS_Evidence_Summary": {
+      "mode": "single",
+      "description": "Short evidence-backed sentence summarizing OSS signals detected (no inference)."
+    }
+  },
+  "tiers": {
+    "hardcore": {
+      "name": "Hardcore",
+      "keywords": [
+        "cuda",
+        "triton",
+        "tensorrt",
+        "tensorrt-llm",
+        "nccl",
+        "xla",
+        "deepspeed",
+        "fsdp",
+        "zero",
+        "flashattention",
+        "vllm",
+        "text-generation-inference",
+        "tgi",
+        "kernels",
+        "distributed training",
+        "gpu operator",
+        "kubernetes",
+        "k8s",
+        "ray serve",
+        "torch.compile"
+      ]
+    },
+    "applied": {
+      "name": "Applied",
+      "keywords": [
+        "langchain",
+        "langgraph",
+        "llamaindex",
+        "rag",
+        "retrieval augmented generation",
+        "faiss",
+        "weaviate",
+        "pinecone",
+        "qdrant",
+        "milvus",
+        "chromadb",
+        "pgvector",
+        "onnx",
+        "onnxruntime",
+        "huggingface",
+        "transformers",
+        "peft",
+        "lora",
+        "qlora",
+        "dpo",
+        "ppo",
+        "rlhf",
+        "inference",
+        "serving",
+        "fastapi"
+      ]
+    },
+    "generic": {
+      "name": "Generic",
+      "keywords": [
+        "pytorch",
+        "tensorflow",
+        "jax",
+        "scikit-learn",
+        "sklearn",
+        "numpy",
+        "pandas",
+        "docker",
+        "terraform",
+        "mlops",
+        "pipeline",
+        "notebook"
+      ]
+    }
+  },
+  "frameworks": [
+    { "canonical": "PyTorch", "patterns": ["\\bpytorch\\b", "\\btorch\\b"] },
+    { "canonical": "TensorFlow", "patterns": ["\\btensorflow\\b", "\\btf\\b"] },
+    { "canonical": "JAX", "patterns": ["\\bjax\\b"] },
+    { "canonical": "Hugging Face Transformers", "patterns": ["\\bhugging\\s*face\\b", "\\btransformers\\b"] },
+    { "canonical": "PEFT", "patterns": ["\\bpeft\\b"] },
+    { "canonical": "LoRA", "patterns": ["\\blora\\b"] },
+    { "canonical": "QLoRA", "patterns": ["\\bqlora\\b"] },
+    { "canonical": "RLHF", "patterns": ["\\brlhf\\b"] },
+    { "canonical": "DPO", "patterns": ["\\bdpo\\b"] },
+    { "canonical": "PPO", "patterns": ["\\bppo\\b"] },
+
+    { "canonical": "LangChain", "patterns": ["\\blangchain\\b"] },
+    { "canonical": "LangGraph", "patterns": ["\\blanggraph\\b"] },
+    { "canonical": "LlamaIndex", "patterns": ["\\bllamaindex\\b", "\\bgpt[- ]index\\b"] },
+    { "canonical": "Retrieval-Augmented Generation", "patterns": ["\\brag\\b", "retrieval[- ]augmented\\s+generation"] },
+
+    { "canonical": "FAISS", "patterns": ["\\bfaiss\\b"] },
+    { "canonical": "Weaviate", "patterns": ["\\bweaviate\\b"] },
+    { "canonical": "Pinecone", "patterns": ["\\bpinecone\\b"] },
+    { "canonical": "Qdrant", "patterns": ["\\bqdrant\\b"] },
+    { "canonical": "Milvus", "patterns": ["\\bmilvus\\b"] },
+    { "canonical": "Chroma", "patterns": ["\\bchroma\\b", "\\bchromadb\\b"] },
+    { "canonical": "pgvector", "patterns": ["\\bpgvector\\b"] },
+
+    { "canonical": "ONNX", "patterns": ["\\bonnx\\b", "\\bonnxruntime\\b"] },
+    { "canonical": "vLLM", "patterns": ["\\bvllm\\b"] },
+    { "canonical": "TensorRT-LLM", "patterns": ["\\btensorrt[- ]llm\\b"] },
+    { "canonical": "Triton", "patterns": ["\\btriton\\b"] },
+    { "canonical": "TGI", "patterns": ["\\btgi\\b", "text[- ]generation[- ]inference"] },
+    { "canonical": "FlashAttention", "patterns": ["\\bflashattention\\b", "\\bflash[- ]attention\\b"] },
+
+    { "canonical": "Kubernetes", "patterns": ["\\bkubernetes\\b", "\\bk8s\\b"] },
+    { "canonical": "Ray Serve", "patterns": ["\\bray\\s+serve\\b"] },
+    { "canonical": "FastAPI", "patterns": ["\\bfastapi\\b"] }
+  ],
+  "repo_relevance_patterns": [
+    { "canonical": "LLM Inference/Serving", "patterns": ["\\binference\\b", "\\bserving\\b", "\\bdeployment\\b", "\\bvllm\\b", "text[- ]generation[- ]inference", "\\btensorrt\\b"] },
+    { "canonical": "RAG/Vector Search", "patterns": ["\\brag\\b", "retrieval[- ]augmented\\s+generation", "\\bvector\\b", "\\bembeddings\\b", "\\bfaiss\\b", "\\bweaviate\\b", "\\bpinecone\\b", "\\bqdrant\\b", "\\bmilvus\\b", "\\bpgvector\\b"] },
+    { "canonical": "Training/Optimization", "patterns": ["\\btraining\\b", "\\bfinetun(e|ing)\\b", "\\bdeepspeed\\b", "\\bfsdp\\b", "\\bzero\\b", "\\bflashattention\\b", "\\bquantiz(e|ation)\\b"] },
+    { "canonical": "GPU/Distributed Systems", "patterns": ["\\bcuda\\b", "\\bnccl\\b", "\\bxla\\b", "\\bmpi\\b", "\\bslurm\\b", "\\bkubernetes\\b", "\\bk8s\\b", "\\bray\\b", "\\bdistributed\\b"] }
+  ]
+}

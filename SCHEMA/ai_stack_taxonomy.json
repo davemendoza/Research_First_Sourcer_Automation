@@ -1,0 +1,165 @@
+{
+  "meta": {
+    "name": "AI Stack Taxonomy",
+    "version": "v6.0.0",
+    "purpose": "Deterministic, evidence-only extraction of AI stack signals from existing text fields. No network calls. No inference.",
+    "author": "© 2026 L. David Mendoza",
+    "last_updated_utc": "2026-01-08T00:00:00Z"
+  },
+  "output_columns": {
+    "LLM_Names": {
+      "mode": "pipe",
+      "description": "Explicit LLM model families and model names detected in evidence text."
+    },
+    "VectorDB_Tech": {
+      "mode": "pipe",
+      "description": "Vector databases and vector search libraries detected in evidence text."
+    },
+    "RAG_Stack": {
+      "mode": "pipe",
+      "description": "RAG stack and orchestration frameworks detected in evidence text."
+    },
+    "Inference_Stack": {
+      "mode": "pipe",
+      "description": "Inference, serving, and deployment engines detected in evidence text."
+    },
+    "Optimization_Tech": {
+      "mode": "pipe",
+      "description": "Optimization techniques: attention kernels, quantization, MoE, compilation, etc."
+    },
+    "GPU_Infra_Signals": {
+      "mode": "pipe",
+      "description": "GPU, distributed training, orchestration, and systems signals detected in evidence text."
+    }
+  },
+  "categories": [
+    {
+      "name": "LLM_Names",
+      "items": [
+        { "canonical": "GPT-4", "patterns": ["\\bgpt[- ]?4\\b", "\\bgpt4\\b"] },
+        { "canonical": "GPT-4o", "patterns": ["\\bgpt[- ]?4o\\b", "\\bgpt4o\\b"] },
+        { "canonical": "GPT-3.5", "patterns": ["\\bgpt[- ]?3\\.5\\b", "\\bgpt[- ]?35\\b", "\\bgpt3\\.5\\b"] },
+        { "canonical": "OpenAI o1", "patterns": ["\\bo1\\b", "\\bopenai\\s+o1\\b"] },
+
+        { "canonical": "Claude", "patterns": ["\\bclaude\\b", "\\banthropic\\s+claude\\b"] },
+        { "canonical": "Gemini", "patterns": ["\\bgemini\\b", "\\bgoogle\\s+gemini\\b"] },
+        { "canonical": "LLaMA", "patterns": ["\\bllama\\b", "\\bmeta\\s+llama\\b", "\\bllama[- ]?2\\b", "\\bllama[- ]?3\\b"] },
+        { "canonical": "Mistral", "patterns": ["\\bmistral\\b"] },
+        { "canonical": "Mixtral", "patterns": ["\\bmixtral\\b"] },
+        { "canonical": "Qwen", "patterns": ["\\bqwen\\b"] },
+        { "canonical": "DeepSeek", "patterns": ["\\bdeepseek\\b", "\\bdeepseek[- ]?moe\\b"] },
+        { "canonical": "DBRX", "patterns": ["\\bdbrx\\b"] },
+        { "canonical": "Grok", "patterns": ["\\bgrok\\b"] },
+
+        { "canonical": "Falcon", "patterns": ["\\bfalcon\\b"] },
+        { "canonical": "Phi", "patterns": ["\\bphi[- ]?[23]\\b", "\\bphi\\b"] },
+        { "canonical": "Gemma", "patterns": ["\\bgemma\\b"] },
+        { "canonical": "WizardLM", "patterns": ["\\bwizardlm\\b"] },
+        { "canonical": "Orca", "patterns": ["\\borca\\b", "\\bmicrosoft\\s+orca\\b"] },
+        { "canonical": "Dolly", "patterns": ["\\bdolly\\b", "\\bdatabricks\\s+dolly\\b"] },
+        { "canonical": "Pythia", "patterns": ["\\bpythia\\b"] },
+        { "canonical": "RedPajama", "patterns": ["\\bredpajama\\b"] },
+        { "canonical": "Yi", "patterns": ["\\byi[- ]?\\d+b\\b", "\\b01\\.ai\\b", "\\byi\\b"] },
+        { "canonical": "Zephyr", "patterns": ["\\bzephyr\\b"] }
+      ]
+    },
+
+    {
+      "name": "VectorDB_Tech",
+      "items": [
+        { "canonical": "FAISS", "patterns": ["\\bfaiss\\b"] },
+        { "canonical": "Pinecone", "patterns": ["\\bpinecone\\b"] },
+        { "canonical": "Weaviate", "patterns": ["\\bweaviate\\b"] },
+        { "canonical": "Chroma", "patterns": ["\\bchroma\\b", "\\bchromadb\\b"] },
+        { "canonical": "Qdrant", "patterns": ["\\bqdrant\\b"] },
+        { "canonical": "Milvus", "patterns": ["\\bmilvus\\b"] },
+        { "canonical": "LanceDB", "patterns": ["\\blancedb\\b"] },
+        { "canonical": "Vespa", "patterns": ["\\bvespa\\b"] },
+        { "canonical": "pgvector", "patterns": ["\\bpgvector\\b"] },
+        { "canonical": "Redis Vector", "patterns": ["\\bredis\\s+vector\\b", "\\bredisearch\\b"] },
+        { "canonical": "Elastic Vector", "patterns": ["\\belastic\\s+vector\\b", "\\belasticsearch\\s+vector\\b"] },
+        { "canonical": "OpenSearch Vector", "patterns": ["\\bopensearch\\s+vector\\b"] },
+        { "canonical": "Annoy", "patterns": ["\\bannoy\\b"] },
+        { "canonical": "ScaNN", "patterns": ["\\bscann\\b"] }
+      ]
+    },
+
+    {
+      "name": "RAG_Stack",
+      "items": [
+        { "canonical": "Retrieval-Augmented Generation", "patterns": ["\\brag\\b", "retrieval[- ]augmented\\s+generation"] },
+        { "canonical": "LangChain", "patterns": ["\\blangchain\\b"] },
+        { "canonical": "LangGraph", "patterns": ["\\blanggraph\\b"] },
+        { "canonical": "LlamaIndex", "patterns": ["\\bllamaindex\\b", "\\bgpt[- ]index\\b"] },
+        { "canonical": "Haystack", "patterns": ["\\bhaystack\\b", "\\bdeepset\\s+haystack\\b"] },
+        { "canonical": "DSPy", "patterns": ["\\bdspy\\b"] },
+        { "canonical": "PromptFlow", "patterns": ["\\bpromptflow\\b"] }
+      ]
+    },
+
+    {
+      "name": "Inference_Stack",
+      "items": [
+        { "canonical": "vLLM", "patterns": ["\\bvllm\\b"] },
+        { "canonical": "TensorRT-LLM", "patterns": ["\\btensorrt[- ]llm\\b"] },
+        { "canonical": "ONNX", "patterns": ["\\bonnx\\b", "\\bonnxruntime\\b"] },
+        { "canonical": "Triton Inference Server", "patterns": ["\\btriton\\s+inference\\s+server\\b", "\\bnvidia\\s+triton\\b"] },
+        { "canonical": "TGI", "patterns": ["\\btgi\\b", "text[- ]generation[- ]inference"] },
+        { "canonical": "SGLang", "patterns": ["\\bsglang\\b"] },
+        { "canonical": "llama.cpp", "patterns": ["\\bllama\\.cpp\\b", "\\bllamacpp\\b"] },
+        { "canonical": "Ray Serve", "patterns": ["\\bray\\s+serve\\b"] },
+        { "canonical": "KServe", "patterns": ["\\bkserve\\b"] },
+        { "canonical": "BentoML", "patterns": ["\\bbentoml\\b"] },
+        { "canonical": "FastAPI", "patterns": ["\\bfastapi\\b"] }
+      ]
+    },
+
+    {
+      "name": "Optimization_Tech",
+      "items": [
+        { "canonical": "FlashAttention", "patterns": ["\\bflashattention\\b", "\\bflash[- ]attention\\b"] },
+        { "canonical": "PagedAttention", "patterns": ["\\bpaged\\s+attention\\b", "\\bpagedattention\\b"] },
+        { "canonical": "xFormers", "patterns": ["\\bxformers\\b"] },
+        { "canonical": "MQA", "patterns": ["\\bmqa\\b", "multi[- ]query\\s+attention"] },
+        { "canonical": "GQA", "patterns": ["\\bgqa\\b", "grouped\\s+query\\s+attention"] },
+        { "canonical": "MoE", "patterns": ["\\bmoe\\b", "mixture[- ]of[- ]experts", "switch\\s+transformer"] },
+
+        { "canonical": "LoRA", "patterns": ["\\blora\\b"] },
+        { "canonical": "QLoRA", "patterns": ["\\bqlora\\b"] },
+        { "canonical": "PEFT", "patterns": ["\\bpeft\\b"] },
+        { "canonical": "FSDP", "patterns": ["\\bfsdp\\b"] },
+
+        { "canonical": "GPTQ", "patterns": ["\\bgptq\\b"] },
+        { "canonical": "AWQ", "patterns": ["\\bawq\\b"] },
+        { "canonical": "GGUF", "patterns": ["\\bgguf\\b"] },
+        { "canonical": "bitsandbytes", "patterns": ["\\bbitsandbytes\\b"] },
+        { "canonical": "int8", "patterns": ["\\bint8\\b"] },
+        { "canonical": "int4", "patterns": ["\\bint4\\b"] },
+        { "canonical": "bf16", "patterns": ["\\bbf16\\b"] },
+        { "canonical": "fp16", "patterns": ["\\bfp16\\b"] }
+      ]
+    },
+
+    {
+      "name": "GPU_Infra_Signals",
+      "items": [
+        { "canonical": "CUDA", "patterns": ["\\bcuda\\b"] },
+        { "canonical": "Triton Kernels", "patterns": ["\\btriton\\b", "\\btriton\\s+kernels\\b"] },
+        { "canonical": "NCCL", "patterns": ["\\bnccl\\b"] },
+        { "canonical": "XLA", "patterns": ["\\bxla\\b"] },
+        { "canonical": "DeepSpeed", "patterns": ["\\bdeepspeed\\b"] },
+        { "canonical": "ZeRO", "patterns": ["\\bzero[- ]?[123]\\b", "\\bzero\\s+optimization\\b"] },
+        { "canonical": "Kubernetes", "patterns": ["\\bkubernetes\\b", "\\bk8s\\b"] },
+        { "canonical": "Docker", "patterns": ["\\bdocker\\b"] },
+        { "canonical": "Terraform", "patterns": ["\\bterraform\\b"] },
+        { "canonical": "Ray", "patterns": ["\\bray\\b"] },
+        { "canonical": "SLURM", "patterns": ["\\bslurm\\b"] },
+        { "canonical": "MPI", "patterns": ["\\bmpi\\b"] },
+        { "canonical": "Spark", "patterns": ["\\bspark\\b", "\\bapache\\s+spark\\b"] },
+        { "canonical": "Kafka", "patterns": ["\\bkafka\\b"] },
+        { "canonical": "Prometheus", "patterns": ["\\bprometheus\\b"] },
+        { "canonical": "Grafana", "patterns": ["\\bgrafana\\b"] }
+      ]
+    }
+  ]
+}

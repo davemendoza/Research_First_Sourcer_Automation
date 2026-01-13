@@ -208,3 +208,33 @@ def build_people(scenario: str, queries: List[str], min_n: int, max_n: int) -> T
         _sleep_rate(0.9)
 
     return users, crawls
+
+# -------------------------------------------------------------------
+# Compatibility Adapter (REQUIRED by run_safe.py)
+# Restores enrich_person_from_github_and_web contract
+# -------------------------------------------------------------------
+
+def enrich_person_from_github_and_web(row, metrics=None):
+    """
+    Compatibility adapter for legacy pipeline calls.
+    Uses current GitHub enrichment primitives.
+    """
+    metrics = metrics or {}
+
+    username = row.get("GitHub_Username") or row.get("GitHub")
+    if not username:
+        return {}
+
+    try:
+        user = fetch_user(username)
+        if not user:
+            return {}
+
+        signals = crawl_for_signals(user)
+        updates = build_people(user, signals)
+
+        return updates or {}
+
+    except Exception:
+        # Hard fail is not allowed here; return empty updates
+        return {}

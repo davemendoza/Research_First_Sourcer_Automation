@@ -1,0 +1,11 @@
+🔍 Scanning data folder: /Users/davemendoza/Desktop/Research_First_Sourcer_Automation/data
+
+✅ Inventory complete: 34 files scanned.
+🧱 Total unique columns: 92
+📄 Saved schema inventory: /Users/davemendoza/Desktop/Research_First_Sourcer_Automation/data/talent_schema_inventory.csv
+
+📘 frontier_top50_demo.csv → 6 columns
+📘 input.csv → 1 columns
+📘 frontier_input.csv → 1 columns
+📘 merged_enriched_talent.csv → 37 columns
+📘 engineers_250_demo.csv → 5 columns

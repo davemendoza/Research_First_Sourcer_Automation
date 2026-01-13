@@ -1,0 +1,160 @@
+# ===============================================
+#  © 2025 Dave Mendoza, DBA AI Craft, Inc. All rights reserved.
+#  Proprietary and Confidential — Unauthorized copying or distribution is prohibited.
+# ===============================================
+
+**Created by L. David Mendoza © 2025 – AI Talent Engine Executive Edition**
+
+# **AI Talent Engine – Research Tools Menu (Extended)**  
+
+**Introduction**  
+I built the **AI Talent Engine** as a research-grade talent intelligence system that offers research-grade mapping of authentic AI engineering talent across the modern AI ecosystem. Unlike résumé or Boolean keyword-based recruiting tools, it analyzes **verifiable technical work** — peer-reviewed publications, open-source model releases, granted patents, repositories, and conference presentations — to surface **high-quality AI talent leads** and **track emerging AI contributors** in real time. The engine uses structured ranking scores and validates strengths and weakness areas **using only publicly verifiable artifacts and traceable evidence**, evaluating code-based evidence and systematic false-positive filtering to ensure every profile is backed by **traceable evidence**. It accurately classifies AI contributors across **Frontier / Foundational LLM Development**, **RLHF / Alignment**, **Applied AI**, and **AI Infrastructure** domains and tracks key indicators like **citation growth**, **cross-lab collaborations**, and **publication frequency**, giving talent leaders a **clear, evidence-based view of who is advancing the field** — and **where to find your next hire**.  
+
+---
+
+## **I. INTELLIGENCE & SIGNAL ANALYTICS**
+
+| # | **Tool Name** | **Classification** | **Domain Focus** | **Description** | **Domain Niche** |
+|---|----------------|--------------------|------------------|-----------------|------------------|
+| 1 | **Portfolio Agent** | Research Identity Mapping | GitHub, Hugging Face, Kaggle | Extracts and verifies researcher portfolio signals. | Open-Source Provenance / Portfolio Validation |
+| 2 | **Academic Lab Signal Agent** | Institutional Analytics | Academic Labs, Publication Density | Measures institutional publication output velocity. | Academic Productivity / Research Velocity |
+| 3 | **Corporate Research X-Ray** | Corporate Intelligence | AI Divisions, Internal Networks | Maps internal AI research structures and personnel. | Corporate Research Cartography |
+| 4 | **OpenReview Intelligence Agent** | Conference Analytics | ICLR, ICML, NeurIPS | Tracks submission patterns and author presence. | Academic Network Mapping |
+| 5 | **Semantic Scholar Velocity Agent** | Citation Intelligence | Citation Growth, Co-Author Influence | Detects emerging researchers via citation acceleration. | Citation Velocity / Influence Analytics |
+
+---
+
+## **II. ALIGNMENT & SYSTEMS INTELLIGENCE**
+
+| # | **Tool Name** | **Classification** | **Domain Focus** | **Description** | **Domain Niche** |
+|---|----------------|--------------------|------------------|-----------------|------------------|
+| 6 | **RLHF & Alignment Agent** | Alignment Analytics | PPO, DPO, Reward Models | Identifies and validates authentic RLHF pipelines. | Post-Training Alignment Systems |
+| 7 | **Multimodal Intelligence Agent** | Multimodal Systems Analysis | Vision, Speech, Robotics | Detects cross-modal research in perception and language. | Vision-Language Fusion |
+| 8 | **Inference Systems Agent** | Systems Intelligence | CUDA, Triton, ONNX | Detects high-performance inference pipelines and stacks. | Inference Optimization |
+| 9 | **VectorDB & RAG Stack Agent** | Infrastructure Analytics | FAISS, Weaviate, Pinecone | Identifies RAG architecture and vector database usage. | Retrieval-Augmented Systems |
+| 10 | **Safety & Interpretability Agent** | Safety Intelligence | Robustness, Interpretability | Tracks AI-safety and explainability research trends. | Robust AI Systems |
+
+---
+
+## **III. NETWORK & INFLUENCE MAPPING**
+
+| # | **Tool Name** | **Classification** | **Domain Focus** | **Description** | **Domain Niche** |
+|---|----------------|--------------------|------------------|-----------------|------------------|
+| 11 | **Conference Network Mapper** | Community Intelligence | Author Collaboration Graphs | Maps co-authorship and collaboration networks across venues. | Academic Visibility Mapping |
+| 12 | **Patent Signal Agent** | Innovation Analytics | Patent & IP Linkage | Connects research output to patent and innovation networks. | IP Intelligence |
+| 13 | **Model Release Agent** | Open Source Analytics | Public Model Repositories | Links academic papers to open-source model releases. | Model Provenance Mapping |
+| 14 | **Publication Density Agent** | Productivity Analytics | Research Cadence, Specialization | Measures topic frequency and researcher cadence. | Publication Rhythm Analytics |
+| 15 | **Cross-Lab Collaboration Agent** | Collaboration Intelligence | Inter-Institutional Research | Detects author clusters spanning multiple institutions. | Collaboration Graph Analytics |
+| 16 | **Influence Network Mapper** | Influence Analytics | Author and Lab Connectivity | Builds co-author and institutional influence networks. | Research Influence Mapping |
+
+---
+
+## **IV. CITATION & IMPACT ANALYTICS**
+
+| # | **Tool Name** | **Classification** | **Domain Focus** | **Description** | **Domain Niche** |
+|---|----------------|--------------------|------------------|-----------------|------------------|
+| 17 | **Citation Velocity Analyzer** | Citation Intelligence | Citation Ratios | Calculates citation velocity and growth rate. | Citation Momentum Analysis |
+| 18 | **Research Impact Scorer (Baseline)** | Evaluation Analytics | Citation + Collaboration Data | Aggregates citation and authorship impact metrics. | Research Impact Evaluation |
+| 19 | **Publication Trend Forecaster** | Predictive Analytics | Time-Series Citations | Projects future publication and citation growth. | Citation Forecasting |
+| 20 | **Influence Tier Reporter** | Ranking Intelligence | Percentile-Based Tiers | Generates percentile rankings of researcher influence. | Influence Tiering |
+
+---
+
+## **V. GOVERNANCE & VALIDATION**
+
+| # | **Tool Name** | **Classification** | **Domain Focus** | **Description** | **Domain Niche** |
+|---|----------------|--------------------|------------------|-----------------|------------------|
+| 21 | **Schema Validator Agent** | Governance Intelligence | Schema Validation | Enforces schema and data consistency across systems. | Schema Enforcement |
+| 22 | **Audit & Provenance Agent** | Provenance Intelligence | Timestamping, Traceability | Tracks origin and modification history of all data. | Provenance Management |
+| 23 | **Analytics Integrator** | Data Integration | Multi-Agent Output Merge | Merges multiple agent outputs into unified analytic datasets. | Analytics Synthesis |
+| 24 | **Governance Compliance Agent** | Compliance Intelligence | Fairness, Privacy | Ensures Responsible AI compliance and ethical standards. | Responsible AI Compliance |
+
+---
+
+## **VI. CAREER INTELLIGENCE & PREDICTIVE MODULES**
+
+| # | **Tool Name** | **Classification** | **Domain Focus** | **Description** | **Domain Niche** |
+|---|----------------|--------------------|------------------|-----------------|------------------|
+| 25 | **Career Trajectory Modeler** | Career Analytics | Researcher Seniority Evolution | Models career growth and leadership trajectory. | Career Evolution Forecasting |
+| 26 | **Talent Radar Intelligence Agent** | Talent Discovery | Emerging Researchers | Detects rapidly rising contributors across domains. | Emerging Researcher Analytics |
+| 27 | **Cross-Lab Cluster Detector** | Collaboration Intelligence | Community Modularity | Identifies modularity-based research communities. | Cluster Detection |
+| 28 | **Research Impact Scorer (Fusion /Second-Order)** | Evaluation Analytics | Multi-Agent Citation + Collaboration Fusion | Provides refined scoring of research influence. | Impact Scoring Optimization |
+| 29 | **Publication Trend Forecaster (Enhanced)** | Predictive Analytics | Temporal Publication Patterns | Enhances forecasting accuracy using temporal signals. | Publication Pattern Forecasting |
+| 30 | **Influence Tier Reporter (Enhanced)** | Ranking Intelligence | High-Precision Influence Tiers | Produces high-resolution percentile influence tiers. | Precision Influence Ranking |
+| 31 | **Citation Velocity Analyzer (Enhanced)** | Longitudinal Analytics | Citation Velocity Tracking | Extends citation tracking over longitudinal data. | Long-Term Citation Dynamics |
+| 32 | **Influence Network Mapper (Enhanced)** | Global Network Intelligence | Scalable Author Graphs | Expands collaboration networks to global scale. | Global Research Network Analysis |
+
+---
+
+## VII. PREDICTIVE & GOVERNANCE ANALYTICS
+| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
+|:--:|:-----------|:----------------|:---------------|:---------------|:---------------|
+| 33 | **Predictive Career Trajectory Agent** | Predictive Analytics | Career Velocity, Seniority Modeling | Forecasts researcher career velocity and seniority progression using multi-year publication, citation, and repository data. | Predictive Career Intelligence |
+| 34 | **Emerging Talent Detector** | Predictive Analytics | Early-Career Detection | Identifies rising early-career contributors through velocity-adjusted citation and contribution patterns. | High-Velocity Talent Detection |
+| 35 | **Influence Trajectory Forecaster** | Predictive Analytics | Influence Forecasting | Projects 12-month influence deltas based on collaboration graph centrality and recent citation momentum. | Predictive Influence Analytics |
+| 36 | **Governance Integrity Agent** | Governance Analytics | Schema, Responsible-AI Checks | Audits schema compliance, provenance integrity, and Responsible-AI governance standards across all agent outputs. | Integrity & Fairness Validation |
+| 37 | **Predictive Hiring Signal Integrator** | Predictive Analytics | Hiring Readiness Scoring | Combines predictive career, influence, and compliance signals into a unified hiring-readiness index. | Predictive Hiring Intelligence |
+
+---
+
+---
+
+## VIII. COMMUNITY, CONFERENCE & ECOSYSTEM INTELLIGENCE (Phase-Next)
+
+| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
+|---|-----------|----------------|--------------|-------------|--------------|
+| 38 | Community Leadership Signal Agent | Ecosystem Intelligence | OSS Communities, Societies | Identifies maintainer roles, working-group participation, and recognized technical community authority from verifiable public artifacts. | Technical Community Leadership |
+| 39 | Speaker & Panel Role Intelligence Agent | Conference Intelligence | Conferences, Workshops | Detects speaker, panelist, and workshop leadership roles across public conference programs and artifacts. | Conference Authority Signals |
+| 40 | Podcast & Longform Technical Presence Agent | Media Intelligence | Podcasts, Interviews | Extracts technical guest appearances and topic associations from long-form public media where evidence exists. | Technical Thought Visibility |
+| 41 | Forum & Community Footprint Agent | Community Analytics | Technical Forums | Captures high-signal participation in technical and research communities when publicly observable. | Peer-Level Technical Engagement |
+| 42 | Technical Peer Reception Agent | Signal Validation | Issues, Discussions | Analyzes technical peer reception signals from issue threads, PR discussions, and paper commentary without opinion or sentiment bias. | Evidence-Based Peer Review |
+
+---
+
+## IX. MULTILINGUAL & LINGUISTIC NORMALIZATION
+
+| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
+|---|-----------|----------------|--------------|-------------|--------------|
+| 43 | Lemma & Tense Normalization Agent | Linguistic Intelligence | Text Normalization | Normalizes verb tense and lemma families to reduce false negatives across resumes, papers, and technical artifacts. | Linguistic Signal Normalization |
+| 44 | Multilingual Evidence Parser Agent | Language Intelligence | Global Sources | Extracts role-relevant evidence from multilingual sources while preserving technical meaning and confidence flags. | Cross-Language Signal Integrity |
+| 45 | Symbol & Technical Notation Agent | Semantic Intelligence | Benchmarks, Math | Parses technical notation, shorthand, and symbolic indicators used in research, benchmarks, and systems work. | Technical Notation Parsing |
+
+---
+
+## X. STANDARDS, RFC & FORMAL BODY PARTICIPATION
+
+| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
+|---|-----------|----------------|--------------|-------------|--------------|
+| 46 | RFC & Standards Participation Agent | Standards Intelligence | IETF, RFCs | Detects authorship or contribution to formal technical standards and specifications when publicly documented. | Standards Leadership |
+| 47 | Governance & Formal Body Affiliation Agent | Governance Intelligence | Boards, Committees | Identifies participation in formal technical governance bodies, societies, and working groups. | Institutional Technical Authority |
+
+---
+
+## XI. PLATFORM EXPANSION & SCHOLARLY ECOSYSTEMS
+
+| # | Tool Name | Classification | Domain Focus | Description | Domain Niche |
+|---|-----------|----------------|--------------|-------------|--------------|
+| 48 | StackOverflow & Developer Community Agent | Developer Intelligence | Q&A Platforms | Extracts developer authority signals and topic expertise clusters from public Q&A ecosystems. | Developer Reputation Signals |
+| 49 | Technical Blogging Intelligence Agent | Content Intelligence | Blogs, Dev.to | Detects original technical writing tied to implementation, systems design, or research contributions. | Technical Knowledge Artifacts |
+| 50 | Scholarly Profile Expansion Agent | Research Intelligence | ResearchGate | Expands scholarly identity coverage beyond primary indices when public and reconcilable with canonical profiles. | Scholarly Surface Expansion |
+
+---
+
+### 📘 Executive Reference  
+Part of the **AI Talent Engine GPT System**  
+Research-grade intelligence component authored by **L. David Mendoza © 2025**
+
+Proprietary Rights Notice
+------------------------
+All code, scripts, GitHub repositories, documentation, data, and GPT-integrated components of the AI Talent Engine – Signal Intelligence and Research_First_Sourcer_Automation Python Automation Sourcing Framework are strictly proprietary. All intellectual property rights, copyrights, trademarks, and related rights are exclusively owned by Dave Mendoza, DBA AI Craft, Inc.
+No individual or entity may copy, reproduce, distribute, modify, create derivative works, reverse engineer, decompile, or otherwise use any part of this system, software, or associated materials for personal or commercial purposes without explicit written authorization from Dave Mendoza.
+All rights reserved. Unauthorized use may result in legal action.
+This statement is governed by the laws of the State of Colorado, USA.
+
+---
+
+**Menu Version:** v3.3 (Extended – Phase 8)  
+**Last Updated:** December 21 2025  
+**Maintainer:** L. David Mendoza © 2025  
+**Project:** Research-First Sourcer Automation
+

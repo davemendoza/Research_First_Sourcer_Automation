@@ -1,0 +1,3 @@
+🔍 Auditing data directory...
+
+✅ Audit complete.

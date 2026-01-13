@@ -1,0 +1,11 @@
+{
+  "required_artifacts": {
+    "manifest": "INVENTORY_FINAL/AI_Talent_Inventory_Manifest.json",
+    "repo_inventory": "INVENTORY_FINAL/AI_Talent_Repo_Inventory.json",
+    "schema_inventory": "INVENTORY_FINAL/AI_Talent_Schema_Inventory.txt",
+    "hash": ".inventory_hash"
+  },
+  "writer_of_record": "pull_inventory_before_start.sh",
+  "fail_if_missing": true,
+  "fail_if_stale_minutes": 120
+}

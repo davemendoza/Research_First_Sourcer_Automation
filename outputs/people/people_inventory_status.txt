@@ -1,7 +1,7 @@
-AI Talent Engine – People Inventory Status
-Scenario: frontier
-People_Count: 88
-Generated_At_UTC: 2026-01-01T08:08:21Z
+AI Talent Engine | People Inventory Status
+Scenario: AI_Engineer
+People_Count: 200
+Generated_At_UTC: 2026-01-07T06:41:20Z
 People_Master_CSV: /Users/davemendoza/Desktop/Research_First_Sourcer_Automation/outputs/people/people_master.csv
 Discards_CSV: /Users/davemendoza/Desktop/Research_First_Sourcer_Automation/outputs/people/discards.csv
 Status: OK
