@@ -1,29 +1,40 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
 # ============================================================
-# RFS Menu (LOCKED) — single command surface
+# Research-First Sourcer Automation — Phrase-Safe Menu
+# ============================================================
+# CONTRACT:
+# - Menu items are ATOMIC PHRASES
+# - No phrase implies another
+# - No defaults are injected
+# - Selection executes EXACT phrase only
 # ============================================================
 
-export _RFS_ROOT="$HOME/Desktop/Research_First_Sourcer_Automation"
-[[ -d "$_RFS_ROOT" ]] || { echo "❌ Missing repo at $_RFS_ROOT"; return 1; }
+ROOT_DIR="$(cd "$(dirname "${(%):-%N}")/.." && pwd)"
 
-# Load dispatch (required)
-[[ -f "$_RFS_ROOT/shell/dispatch.zsh" ]] || { echo "❌ Missing shell/dispatch.zsh"; return 1; }
-source "$_RFS_ROOT/shell/dispatch.zsh" || { echo "❌ Failed to load dispatch"; return 1; }
+menu() {
+  echo ""
+  echo "Select command:"
+  echo "  1) start"
+  echo "  2) inventory"
+  echo "  3) demo frontier"
+  echo "  4) gpt slim"
+  echo "  5) talent intelligence"
+  echo ""
+  read "?Choice: " choice
 
-start() {
-  echo "start | inventory | demo <role> | scenario <role> | talent intelligence"
+  case "$choice" in
+    1) exec "$ROOT_DIR/start" ;;
+    2) exec "$ROOT_DIR/inventory" ;;
+    3) exec "$ROOT_DIR/demo" "frontier" ;;
+    4) exec "$ROOT_DIR/gpt" "slim" ;;
+    5) exec "$ROOT_DIR/tools/talent" "intelligence" ;;
+    *)
+      echo "Invalid selection"
+      exit 1
+      ;;
+  esac
 }
 
-inventory() {
-  cd "$_RFS_ROOT" || return 1
-  "$_RFS_ROOT/scripts/inventory_command.sh"
-}
-
-demo() { _rfs_dispatch Demo "$@"; }
-scenario() { _rfs_dispatch Scenario "$@"; }
-run() { _rfs_dispatch Scenario "$@"; }
-
-talent() {
-  [[ "$1" == "intelligence" ]] || { echo "Usage: talent intelligence"; return 1; }
-  cd "$_RFS_ROOT" || return 1
-  python3 talent_intel_preview.py
-}
+menu

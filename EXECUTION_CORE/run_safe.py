@@ -1,204 +1,140 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-run_safe.py
-====================================================
+EXECUTION_CORE/run_safe.py
+============================================================
 SINGLE AUTHORITATIVE PIPELINE ENTRYPOINT (LOCKED)
 
-Responsibilities:
-- Orchestrate exactly ONE people pipeline execution
-- Write exactly ONE canonical CSV
-- Invoke preview exactly ONCE (best-effort)
-- NEVER recurse
-- NEVER re-enter itself
-- NEVER write multiple CSVs per run
+Maintainer: L. David Mendoza © 2026
+Version: v3.1.0 (Final Repair: timestamp contract + no guessing)
 
-This file is the WRITER OF RECORD.
-All shell / demo / scenario paths must call THIS file only.
+Pipeline (deterministic):
+seed -> anchors -> github -> name -> schema81 -> phase6 -> phase7 -> canonical write
 
-If this file misbehaves, the system is broken.
+Non-negotiable:
+- All stage process_csv are called with (input_csv, output_csv)
+- Canonical writer requires timestamp and returns output path
+- Fail closed (no silent defaults)
 """
 
+from __future__ import annotations
+
 import sys
-import subprocess
+import time
 from pathlib import Path
+from typing import Dict, Any
 
-# ------------------------------------------------------------------
-# HARD SHADOW GUARD (ABSOLUTE)
-# ------------------------------------------------------------------
-THIS_FILE = Path(__file__).resolve()
-if THIS_FILE.parent.name != "EXECUTION_CORE":
-    print("❌ FATAL: Shadow run_safe.py executed", file=sys.stderr)
-    print(f"Found at: {THIS_FILE}", file=sys.stderr)
-    print("Expected: <repo>/EXECUTION_CORE/run_safe.py", file=sys.stderr)
-    sys.exit(1)
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
-# ------------------------------------------------------------------
-# ROOTS
-# ------------------------------------------------------------------
-REPO_ROOT = THIS_FILE.parents[1]
-EXEC = REPO_ROOT / "EXECUTION_CORE"
-OUTPUTS = REPO_ROOT / "outputs"
+EXECUTION_DIR = REPO_ROOT / "EXECUTION_CORE"
+OUTPUTS_DIR = REPO_ROOT / "OUTPUTS"
+WORK_DIR = REPO_ROOT / "_work"
+PREVIEW = EXECUTION_DIR / "talent_intel_preview.py"
 
-# ------------------------------------------------------------------
-# PIPELINE COMPONENTS (AUTHORITATIVE)
-# ------------------------------------------------------------------
-SCENARIO_RESOLVER = EXEC / "people_scenario_resolver.py"
-NAME_PASS = EXEC / "name_resolution_pass.py"
-SCHEMA_MAPPER = EXEC / "canonical_schema_mapper.py"
-PHASE6 = EXEC / "phase6_ai_stack_signals.py"
-PHASE7 = EXEC / "phase7_oss_contribution_intel.py"
-WRITER = EXEC / "canonical_people_writer.py"
-PREVIEW = EXEC / "talent_intel_preview.py"
 
-# ------------------------------------------------------------------
-# CONTRACT FILES
-# ------------------------------------------------------------------
-UPSTREAM = REPO_ROOT / "people_enriched.csv"
-NAMED = REPO_ROOT / "people_named.csv"
-MAPPED = REPO_ROOT / "people_mapped.csv"
-PHASE6_OUT = REPO_ROOT / "people_phase6.csv"
-PHASE7_OUT = REPO_ROOT / "people_phase7.csv"
-
-# ------------------------------------------------------------------
-# UTILS
-# ------------------------------------------------------------------
-def die(msg):
+def die(msg: str) -> None:
     print(f"❌ {msg}", file=sys.stderr)
     sys.exit(1)
 
-def require(path: Path, label: str):
-    if not path.exists():
-        die(f"Missing required file [{label}]: {path}")
 
-def run(cmd, label):
-    print(f"\n▶ {label}")
-    res = subprocess.run(cmd, cwd=str(REPO_ROOT))
-    if res.returncode != 0:
-        die(f"{label} FAILED")
+def require(cond: bool, msg: str) -> None:
+    if not cond:
+        die(msg)
 
-def should_skip_name_resolution(upstream: Path, named: Path) -> bool:
-    if not named.exists():
-        return False
-    return named.stat().st_mtime >= upstream.stat().st_mtime
 
-# ------------------------------------------------------------------
-# MAIN
-# ------------------------------------------------------------------
-def main(argv):
+def now_timestamp() -> str:
+    return time.strftime("%Y%m%d_%H%M%S")
+
+
+from EXECUTION_CORE.people_scenario_resolver import resolve_scenario
+from EXECUTION_CORE.anchor_exhaustion_pass import process_csv as anchors_process_csv
+from EXECUTION_CORE.people_source_github import process_csv as github_process_csv
+from EXECUTION_CORE.name_resolution_pass import process_csv as name_process_csv
+from EXECUTION_CORE.canonical_schema_mapper import process_csv as schema_map_process_csv
+from EXECUTION_CORE.phase6_ai_stack_signals import process_csv as phase6_process_csv
+from EXECUTION_CORE.phase7_oss_contribution_intel import process_csv as phase7_process_csv
+from EXECUTION_CORE.canonical_people_writer import write_canonical_people_csv
+
+
+def main(argv: list[str]) -> None:
     if len(argv) != 2:
-        die("Usage: run_safe.py <scenario_name>")
+        die("Usage: python3 -m EXECUTION_CORE.run_safe <scenario_key>")
 
-    scenario = argv[1]
+    scenario_key = argv[1].strip()
+    require(bool(scenario_key), "Scenario key must be non-empty")
 
-    # --------------------------------------------------------------
-    # 1. Scenario resolution
-    # --------------------------------------------------------------
-    require(SCENARIO_RESOLVER, "Scenario Resolver")
+    scenario: Dict[str, Any] = resolve_scenario(scenario_key)
+    require(isinstance(scenario, dict), "Scenario resolver must return dict")
 
-    proc = subprocess.run(
-        [sys.executable, str(SCENARIO_RESOLVER), scenario],
-        capture_output=True,
-        text=True,
-    )
-    if proc.returncode != 0:
-        die(proc.stderr.strip())
+    for k in ("SCENARIO_PREFIX", "SCENARIO_SEED", "ROLE_CANONICAL"):
+        require(k in scenario and isinstance(scenario[k], str) and scenario[k].strip(), f"Missing/invalid scenario key: {k}")
 
-    resolved = {}
-    for line in proc.stdout.splitlines():
-        if "=" in line:
-            k, v = line.split("=", 1)
-            resolved[k.strip()] = v.strip()
+    prefix = scenario["SCENARIO_PREFIX"].strip()
+    seed = scenario["SCENARIO_SEED"].strip()
+    role = scenario["ROLE_CANONICAL"].strip()
 
-    prefix = resolved.get("SCENARIO_PREFIX")
-    if not prefix:
-        die("Scenario resolver did not emit SCENARIO_PREFIX")
+    print("✓ Scenario resolved")
+    print(f"  PREFIX: {prefix}")
+    print(f"  SEED:   {seed}")
+    print(f"  ROLE:   {role}")
 
-    # --------------------------------------------------------------
-    # 2. Upstream contract
-    # --------------------------------------------------------------
-    require(UPSTREAM, "people_enriched.csv")
+    OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+    WORK_DIR.mkdir(parents=True, exist_ok=True)
 
-    # --------------------------------------------------------------
-    # 3. Name Resolution (idempotent)
-    # --------------------------------------------------------------
-    require(NAME_PASS, "Name Resolution Pass")
-    if should_skip_name_resolution(UPSTREAM, NAMED):
-        print("\n⚡ Skipping Name Resolution Pass (cached)")
-    else:
-        run(
-            [sys.executable, str(NAME_PASS), str(UPSTREAM), str(NAMED)],
-            "Name Resolution Pass",
-        )
+    seed_csv = OUTPUTS_DIR / f"{seed}.csv"
+    require(seed_csv.exists(), f"Seed CSV not found: {seed_csv}")
 
-    # --------------------------------------------------------------
-    # 4. Schema Mapping
-    # --------------------------------------------------------------
-    require(SCHEMA_MAPPER, "Schema Mapper")
-    run(
-        [sys.executable, str(SCHEMA_MAPPER), str(NAMED), str(MAPPED)],
-        "Canonical Schema Mapping",
-    )
+    p1 = WORK_DIR / f"{prefix}__01_anchors.csv"
+    p2 = WORK_DIR / f"{prefix}__02_github.csv"
+    p3 = WORK_DIR / f"{prefix}__03_named.csv"
+    p4 = WORK_DIR / f"{prefix}__04_schema_81.csv"
+    p5 = WORK_DIR / f"{prefix}__05_phase6.csv"
+    p6 = WORK_DIR / f"{prefix}__06_phase7.csv"
 
-    # --------------------------------------------------------------
-    # 5. Phase 6
-    # --------------------------------------------------------------
-    require(PHASE6, "Phase 6")
-    run(
-        [sys.executable, str(PHASE6), str(MAPPED), str(PHASE6_OUT)],
-        "Phase 6: AI Stack Signal Extraction",
-    )
+    anchors_process_csv(str(seed_csv), str(p1))
+    require(p1.exists(), f"Anchor output missing: {p1}")
 
-    # --------------------------------------------------------------
-    # 6. Phase 7
-    # --------------------------------------------------------------
-    require(PHASE7, "Phase 7")
-    run(
-        [sys.executable, str(PHASE7), str(PHASE6_OUT), str(PHASE7_OUT)],
-        "Phase 7: OSS Contribution Intelligence",
+    github_process_csv(str(p1), str(p2))
+    require(p2.exists(), f"GitHub output missing: {p2}")
+
+    name_process_csv(str(p2), str(p3))
+    require(p3.exists(), f"Name output missing: {p3}")
+
+    schema_map_process_csv(str(p3), str(p4))
+    require(p4.exists(), f"Schema81 output missing: {p4}")
+
+    phase6_process_csv(str(p4), str(p5))
+    require(p5.exists(), f"Phase6 output missing: {p5}")
+
+    phase7_process_csv(str(p5), str(p6))
+    require(p6.exists(), f"Phase7 output missing: {p6}")
+
+    ts = now_timestamp()
+    canonical_out = write_canonical_people_csv(
+        canonical_csv_path=str(p6),
+        output_dir=str(OUTPUTS_DIR),
+        output_prefix=prefix,
+        timestamp=ts,
+        fixed_filename=f"{prefix}_CANONICAL_81.csv",
+        pipeline_version="D30_LOCKED_GOLD_FINAL",
     )
 
-    # --------------------------------------------------------------
-    # 7. SINGLE CSV WRITE (LOCKED)
-    # --------------------------------------------------------------
-    require(WRITER, "Canonical People Writer")
-    OUTPUTS.mkdir(exist_ok=True)
+    out_csv = Path(canonical_out).resolve()
+    require(out_csv.exists(), f"Canonical CSV was not written: {out_csv}")
 
-    run(
-        [
-            sys.executable,
-            str(WRITER),
-            str(PHASE7_OUT),
-            str(OUTPUTS),
-            prefix,
-        ],
-        "Canonical CSV Writer",
-    )
+    print("\n✔ PIPELINE COMPLETE")
+    print("✔ Canonical CSV:", out_csv)
+    print("✔ Timestamp:", ts)
 
-    canonical_csv = OUTPUTS / f"{prefix}_CANONICAL.csv"
-    if not canonical_csv.exists():
-        die(f"Canonical CSV not found: {canonical_csv}")
-
-    print(f"\n✔ Wrote canonical CSV: {canonical_csv}")
-    print(f"Rows/Columns verified by writer")
-
-    # --------------------------------------------------------------
-    # 8. Preview (NON-BLOCKING, NON-RECURSIVE)
-    # --------------------------------------------------------------
     if PREVIEW.exists():
-        print("\n▶ Talent Intelligence Preview")
-        subprocess.run(
-            [
-                sys.executable,
-                str(PREVIEW),
-                str(canonical_csv),
-                "demo",
-                prefix,
-            ],
-            cwd=str(REPO_ROOT),
-        )
+        try:
+            import subprocess
+            subprocess.run([sys.executable, str(PREVIEW), str(out_csv), "demo", prefix], cwd=str(REPO_ROOT))
+        except Exception:
+            pass
 
-    print("\n✔ PIPELINE COMPLETE — SINGLE ENTRYPOINT GUARANTEED")
 
-# ------------------------------------------------------------------
 if __name__ == "__main__":
     main(sys.argv)
