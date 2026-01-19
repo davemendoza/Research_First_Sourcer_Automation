@@ -1,4 +1,54 @@
 #!/usr/bin/env bash
+#
+# PRE-COMMIT GOVERNANCE HOOK — EXECUTABLE HYGIENE (SCOPED)
+#
+# Purpose:
+# - Enforce executable discipline ONLY for active runtime code
+# - Ignore archives, backups, docs, and historical artifacts
+# - Prevent accidental executable Python entrypoints in EXECUTION_CORE
+#
+# Author: Dave Mendoza
+# Status: LOCKED (INTERVIEW-SAFE)
+#
+
 set -euo pipefail
 
-bash EXECUTION_CORE/preflight_inventory_guard.sh >/dev/null
+echo "[governance] Checking executable hygiene (scoped)…"
+
+# -------------------------------
+# Configuration (LOCKED)
+# -------------------------------
+
+ACTIVE_SCOPE_REGEX="^.*EXECUTION_CORE/"
+IGNORE_EXTENSIONS_REGEX="\\.sh$"
+
+# -------------------------------
+# Detect illegal executables
+# -------------------------------
+
+ILLEGAL_EXECUTABLES=$(git ls-files --stage \
+  | grep 100755 \
+  | grep -E "${ACTIVE_SCOPE_REGEX}" \
+  | grep -v -E "${IGNORE_EXTENSIONS_REGEX}" || true)
+
+if [[ -n "${ILLEGAL_EXECUTABLES}" ]]; then
+  echo ""
+  echo "FAIL: Illegal executable blocks detected (only protocol files may be executable)"
+  echo ""
+  echo "The following files are executable but should not be:"
+  echo ""
+  echo "${ILLEGAL_EXECUTABLES}"
+  echo ""
+  echo "Resolution:"
+  echo "  - Python files in EXECUTION_CORE must NOT be executable"
+  echo "  - Invoke via: python3 -m EXECUTION_CORE.<module>"
+  echo ""
+  echo "Governance rule:"
+  echo "  - Enforcement applies ONLY to EXECUTION_CORE"
+  echo "  - Archives, backups, docs are explicitly ignored"
+  echo ""
+  exit 1
+fi
+
+echo "[governance] Executable hygiene OK"
+exit 0

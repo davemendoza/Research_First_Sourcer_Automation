@@ -1,0 +1,101 @@
+# frontier_ai_scientist.yaml
+#
+# Seed profile for Frontier / Foundational AI Scientist
+# Inherits from seed_profile_template.yaml
+#
+# Purpose:
+# - Provide stable, repeatable seed behavior for Frontier runs
+# - Tuned for demo + real work
+# - Optimized for ~85% sample parity without overloading runtime
+#
+# Author: Dave Mendoza
+# Status: LOCKED AFTER FIRST SUCCESSFUL FRONTIER DEMO
+
+inherits_from: seed_profile_template.yaml
+
+profile_version: 1.0
+profile_type: frontier_ai_scientist
+
+# -------------------------------
+# Seed Size (Frontier Sweet Spot)
+# -------------------------------
+seed_size:
+  min: 75
+  preferred_min: 120
+  preferred_max: 180
+  absolute_max: 250
+
+# Rationale:
+# - <120 looks thin for Frontier
+# - >180 increases runtime with diminishing returns
+# - 150 ± 30 is the intended operating range
+
+# -------------------------------
+# Frontier-Specific Seed Sources
+# -------------------------------
+seed_sources:
+  github_org_people: true
+  github_repo_contributors: true
+  research_org_rosters: true
+  model_author_lists: true
+  curated_internal_lists: false
+
+# Expected org types:
+# - Frontier research labs
+# - Model development teams
+# - Large-scale research orgs
+# NOT:
+# - Generic software companies
+# - Application-only startups
+
+# -------------------------------
+# Enrichment Depth Overrides
+# -------------------------------
+enrichment_modes:
+  github:
+    enabled: true
+    priority: high
+
+  scholar_openalex:
+    enabled: true
+    priority: high
+
+# Rationale:
+# Frontier roles REQUIRE publication depth
+# This is the only role where Scholar/OpenAlex is enabled by default
+
+# -------------------------------
+# Batch & Runtime Guidance
+# -------------------------------
+batching:
+  recommended_batch_size: 150
+  max_parallel_batches: 1
+  merge_strategy: concatenate_preserve_order
+
+# -------------------------------
+# Governance & Guarantees
+# -------------------------------
+governance:
+  schema_must_match_canonical: true
+  provenance_required: true
+  silent_truncation_disallowed: true
+  person_id_optional: true
+
+# -------------------------------
+# Completion Expectations
+# -------------------------------
+completion_expectations:
+  expected_density: high
+  acceptable_sparsity:
+    - Primary_Email
+    - Primary_Phone
+    - Patent_URLs
+    - Media_URLs
+
+# -------------------------------
+# Notes
+# -------------------------------
+notes:
+  - This profile is considered correct once a single Frontier CSV reaches ~85% parity
+  - Do NOT tune further without evidence from a completed run
+  - All future Frontier runs should reference this profile
