@@ -92,12 +92,3 @@ def process_csv(input_csv: str, output_csv: str):
         writer.writerows(rows)
 
 
-if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print(
-            "Usage: people_source_github.py <input_csv> <output_csv>",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    process_csv(sys.argv[1], sys.argv[2])

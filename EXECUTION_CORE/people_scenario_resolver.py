@@ -1,65 +1,61 @@
 #!/usr/bin/env python3
+from __future__ import annotations
+
 """
-people_scenario_resolver.py
----------------------------------------
-Purpose:
-Resolve scenario parameters and orchestrate a single,
-deterministic people pipeline run per scenario.
+EXECUTION_CORE/people_scenario_resolver.py
+====================================================
+DETERMINISTIC SCENARIO CONTRACT RESOLVER (LOCKED)
 
-Guarantees:
-• ONE scenario → ONE CSV
-• No subfolders
-• No enrichment logic
-• No schema logic
-• Explicit scenario naming
+Emits a STRICT contract consumed by run_safe.py:
+
+Required keys:
+- SCENARIO_PREFIX
+- SCENARIO_SEED
+- ROLE_CANONICAL
 """
 
-import sys
-from pathlib import Path
+from typing import Dict
 
 
-def resolve_scenario(scenario_name: str):
-    """
-    Map scenario name to prefix and seed config.
-    This file DOES NOT run enrichment; it only resolves intent.
-    """
+def resolve_scenario(key: str) -> Dict[str, str]:
+    if not isinstance(key, str) or not key.strip():
+        raise ValueError("Scenario key must be a non-empty string")
 
-    scenario_name = scenario_name.strip().lower()
+    key = key.strip().lower()
 
-    if scenario_name in ("demo", "demo_frontier", "frontier"):
+    # -----------------------------
+    # Canonical scenarios
+    # -----------------------------
+    if key in ("demo", "frontier"):
         return {
-            "prefix": "demo_frontier_ai_scientist",
-            "seed": "frontier_ai_scientist",
+            "SCENARIO_PREFIX": "frontier_ai_scientist",
+            "SCENARIO_SEED": "frontier_ai_scientist",
+            "ROLE_CANONICAL": "Frontier AI Scientist",
         }
 
-    if scenario_name in ("gpt_slim", "slim"):
+    if key in ("gpt_slim", "slim"):
         return {
-            "prefix": "gpt_slim_frontier_ai_scientist",
-            "seed": "frontier_ai_scientist",
+            "SCENARIO_PREFIX": "gpt_slim_frontier_ai_scientist",
+            "SCENARIO_SEED": "frontier_ai_scientist",
+            "ROLE_CANONICAL": "Frontier AI Scientist",
         }
 
-    # Default: treat scenario name as-is
+    if key in ("ai_infra", "infra"):
+        return {
+            "SCENARIO_PREFIX": "ai_infra_engineer",
+            "SCENARIO_SEED": "ai_infra_engineer",
+            "ROLE_CANONICAL": "AI Infrastructure Engineer",
+        }
+
+    # -----------------------------
+    # Deterministic safe fallback
+    # -----------------------------
+    safe = key.replace(" ", "_")
     return {
-        "prefix": scenario_name.replace(" ", "_"),
-        "seed": scenario_name,
+        "SCENARIO_PREFIX": safe,
+        "SCENARIO_SEED": safe,
+        "ROLE_CANONICAL": "Frontier AI Scientist",
     }
 
 
-def main():
-    if len(sys.argv) != 2:
-        print(
-            "Usage: people_scenario_resolver.py <scenario_name>",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    scenario = sys.argv[1]
-    resolved = resolve_scenario(scenario)
-
-    # Emit resolved scenario as simple stdout contract
-    print(f"SCENARIO_PREFIX={resolved['prefix']}")
-    print(f"SCENARIO_SEED={resolved['seed']}")
-
-
-if __name__ == "__main__":
-    main()
+__all__ = ["resolve_scenario"]
