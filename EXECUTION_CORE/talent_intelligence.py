@@ -1,10 +1,10 @@
 # =============================================================================
-# FILE: talent_intelligence.py
-# PURPOSE: Always print interview-grade preview, no CSV required.
-# INVOCATION: python3 EXECUTION_CORE/talent_intelligence.py
+# FILE: EXECUTION_CORE/talent_intelligence.py
+# PURPOSE: Interview-grade preview entrypoint (CSV-independent)
+# INVOCATION (canonical): python3 -m EXECUTION_CORE.talent_intelligence
 # =============================================================================
 
-from talent_intel_preview import run_preview
+from .talent_intel_preview import run_preview
 
 def main() -> int:
     run_preview(total=50)
