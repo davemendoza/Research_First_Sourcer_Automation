@@ -1,0 +1,5 @@
+# Python files must NEVER be executable
+*.py -executable
+
+# Shell scripts may be executable
+*.sh executable
