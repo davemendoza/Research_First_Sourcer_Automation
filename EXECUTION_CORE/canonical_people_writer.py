@@ -17,3 +17,14 @@ def write(rows: List[Dict[str, str]], output_path: str) -> None:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
+
+# ---------------------------------------------------------------------
+# Stable execution-layer compatibility wrapper
+# Required by run_safe.py (DO NOT REMOVE)
+# ---------------------------------------------------------------------
+def write_canonical_people_csv(rows, output_path, *args, **kwargs):
+    """
+    Stable API expected by execution layer.
+    Delegates to canonical people writer implementation.
+    """
+    return write(rows, output_path)
