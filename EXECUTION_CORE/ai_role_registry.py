@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """
-EXECUTION_CORE/ai_role_registry.py
+ai_role_registry.py
 ============================================================
 Authoritative AI Role Type Registry (LOCKED)
 
@@ -9,10 +10,7 @@ Source of truth for all demo + scenario role validation.
 Any role not listed here is invalid by definition.
 
 Maintainer: Dave Mendoza © 2026
-Status: LOCKED
 """
-
-from __future__ import annotations
 
 from typing import List, Set
 
