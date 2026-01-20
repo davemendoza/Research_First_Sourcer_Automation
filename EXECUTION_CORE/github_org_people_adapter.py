@@ -223,6 +223,7 @@ def discover_people_from_hub_rows(hub_rows: List[Dict[str, str]]) -> List[Dict[s
     people: List[Dict[str, str]] = []
     for org in uniq:
         try:
+        pass
         people.extend(discover_people_from_org(org))
     except Exception as e:
         print(f"[WARN] GitHub org discovery failed: {e}")
