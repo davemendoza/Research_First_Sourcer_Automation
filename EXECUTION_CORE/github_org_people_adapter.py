@@ -48,7 +48,7 @@ PER_PAGE = 100
 # LOCKED limits (deterministic)
 MAX_ORGS = 25
 MAX_PAGES_PER_ORG = 10  # up to 1000 public members per org
-REQUEST_TIMEOUT_S = 12
+REQUEST_TIMEOUT_S = 15
 SLEEP_BETWEEN_REQUESTS_S = 0.2
 
 
@@ -222,7 +222,10 @@ def discover_people_from_hub_rows(hub_rows: List[Dict[str, str]]) -> List[Dict[s
 
     people: List[Dict[str, str]] = []
     for org in uniq:
+        try:
         people.extend(discover_people_from_org(org))
+    except Exception as e:
+        print(f"[WARN] GitHub org discovery failed: {e}")
 
     # global deterministic de-dupe
     seen_u = set()
