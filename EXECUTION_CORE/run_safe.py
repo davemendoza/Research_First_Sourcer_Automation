@@ -27,6 +27,8 @@ AI_TALENT_MODE=demo|scenario|gpt_slim python3 -m EXECUTION_CORE.run_safe <scenar
 
 from __future__ import annotations
 
+
+from EXECUTION_CORE.ai_role_registry import list_roles
 import os
 import sys
 import time
@@ -110,6 +112,12 @@ def main(argv: list[str]) -> None:
         die("Usage: AI_TALENT_MODE=demo|scenario|gpt_slim python3 -m EXECUTION_CORE.run_safe <scenario_key>")
 
     scenario_key = argv[1].strip()
+
+    if scenario_key == "--list-roles":
+        print("\nCanonical AI Role Types:\n")
+        for r in list_roles():
+            print(f" - {r}")
+        sys.exit(0)
     require(bool(scenario_key), "Scenario key must be non-empty")
 
     mode = _resolve_mode()
