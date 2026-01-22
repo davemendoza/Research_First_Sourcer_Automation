@@ -22,12 +22,13 @@ def _die(msg: str) -> None:
 
 # ──────────────────────────────────────────────────────────
 # EXPLICIT SCENARIO → SEED MAPPING (AUTHORITATIVE)
+# NOTE: SCENARIO_SEED is a PREFIX, not a filename.
 # No inference. No fallbacks. No guessing.
 # ──────────────────────────────────────────────────────────
 SCENARIO_MAP: Dict[str, Dict[str, str]] = {
     "Frontier AI Research Scientist": {
         "SCENARIO_PREFIX": "Frontier_AI_Research_Scientist",
-        "SCENARIO_SEED": "frontier_ai_seed.csv",
+        "SCENARIO_SEED": "frontier_ai_seed",  # ← FIXED (no .csv)
         "ROLE_CANONICAL": "Frontier AI Research Scientist",
     },
 }
@@ -39,14 +40,8 @@ def resolve_scenario(scenario_key: str) -> Dict[str, Any]:
         _die(f"Unknown scenario key: {key}")
 
     entry = SCENARIO_MAP[key].copy()
-    seed_name = entry["SCENARIO_SEED"]
-    seed_path = DATA_DIR / seed_name
+    seed_prefix = entry["SCENARIO_SEED"]
 
-    if not seed_path.exists():
-        _die(
-            f"Seed CSV not found for scenario: {key} "
-            f"(expected: {seed_path})"
-        )
-
-    entry["SEED_PATH"] = str(seed_path)
+    # Do NOT append .csv here — seed_locator owns that logic
+    entry["SEED_PREFIX"] = seed_prefix
     return entry
