@@ -1,0 +1,29 @@
+{
+  "version": "v1.0",
+  "status": "authoritative",
+  "description": "Canonical AI stack taxonomy for signal extraction. This file is required for Phase 6 AI stack signal processing. Empty sections are intentional and indicate zero inferred knowledge.",
+  "last_updated": "2026-01-21",
+  "governance": {
+    "inference_allowed": false,
+    "fallbacks_allowed": false,
+    "implicit_expansion_allowed": false,
+    "notes": "All entries must be explicitly curated and versioned. No runtime mutation permitted."
+  },
+  "llm_models": [],
+  "foundation_model_families": [],
+  "training_techniques": [],
+  "fine_tuning_methods": [],
+  "reinforcement_learning_methods": [],
+  "frameworks": [],
+  "libraries": [],
+  "inference_engines": [],
+  "vector_databases": [],
+  "retrieval_augmented_generation": [],
+  "evaluation_benchmarks": [],
+  "datasets": [],
+  "infrastructure": [],
+  "hardware_acceleration": [],
+  "distributed_systems": [],
+  "deployment_platforms": [],
+  "observability_tools": []
+}
