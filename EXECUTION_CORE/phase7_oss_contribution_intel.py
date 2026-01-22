@@ -1,53 +1,45 @@
-# -*- coding: utf-8 -*-
-"""
-phase7_oss_contribution_intel.py
-------------------------------------------------------------
-IMPORT-ONLY MODULE
-
-Phase 7: Open Source Contribution Intelligence
-
-Maintainer: L. David Mendoza © 2026
-"""
-
-import csv
 import json
+import csv
 from pathlib import Path
-from typing import Dict, List
 
-ROOT = Path(__file__).resolve().parents[1]
-TAXONOMY_PATH = ROOT / "SCHEMA" / "oss_contribution_taxonomy.json"
+TAXONOMY_PATH = Path("SCHEMA/oss_contribution_taxonomy.json")
 
-
-def _load_taxonomy() -> Dict:
+def _load_taxonomy():
     if not TAXONOMY_PATH.exists():
         raise RuntimeError(f"Missing required taxonomy file: {TAXONOMY_PATH}")
 
-    try:
-        with TAXONOMY_PATH.open(encoding="utf-8") as f:
-            data = json.load(f)
-    except Exception as e:
-        raise RuntimeError(f"Invalid JSON in taxonomy file: {TAXONOMY_PATH}") from e
+    taxonomy = json.load(open(TAXONOMY_PATH))
 
-    if not isinstance(data, dict) or "categories" not in data:
+    if "categories" not in taxonomy or not isinstance(taxonomy["categories"], dict):
         raise RuntimeError(f"Malformed taxonomy structure: {TAXONOMY_PATH}")
 
-    return data
+    for k, v in taxonomy["categories"].items():
+        if not isinstance(v, dict):
+            raise RuntimeError(f"Malformed taxonomy entry: {k}")
+        for req in ("signals", "weight", "enabled"):
+            if req not in v:
+                raise RuntimeError(f"Missing {req} in taxonomy entry: {k}")
 
+    return taxonomy["categories"]
 
-def process_csv(input_csv: str, output_csv: str) -> None:
+def process_csv(input_csv: str, output_csv: str):
+    in_path = Path(input_csv)
+    out_path = Path(output_csv)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if not in_path.exists():
+        raise RuntimeError(f"Phase 7 input missing: {in_path}")
+
     taxonomy = _load_taxonomy()
 
-    with open(input_csv, newline="", encoding="utf-8") as f:
+    with in_path.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         rows = list(reader)
-        fieldnames = reader.fieldnames or []
 
-    # Phase 7 logic (unchanged): empty taxonomy = no matches
-    for row in rows:
-        pass
-
-    with open(output_csv, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+    # Pass-through for now (signal logic remains unchanged)
+    with out_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=reader.fieldnames)
         writer.writeheader()
-        for row in rows:
-            writer.writerow(row)
+        writer.writerows(rows)
+
+    return str(out_path)
