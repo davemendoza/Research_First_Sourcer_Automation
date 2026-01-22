@@ -1,0 +1,22 @@
+{
+  "version": "v1.0",
+  "status": "authoritative",
+  "description": "Canonical OSS contribution taxonomy for Phase 7 signal extraction. Empty signals indicate zero inferred OSS activity.",
+  "last_updated": "2026-01-21",
+  "governance": {
+    "inference_allowed": false,
+    "fallbacks_allowed": false,
+    "implicit_expansion_allowed": false,
+    "notes": "Explicitly curated only. No runtime mutation."
+  },
+  "categories": {
+    "github_commits":        { "signals": {}, "weight": 1, "enabled": true },
+    "github_pull_requests":  { "signals": {}, "weight": 1, "enabled": true },
+    "github_issues":         { "signals": {}, "weight": 1, "enabled": true },
+    "github_reviews":        { "signals": {}, "weight": 1, "enabled": true },
+    "maintainer_roles":      { "signals": {}, "weight": 1, "enabled": true },
+    "repo_ownership":        { "signals": {}, "weight": 1, "enabled": true },
+    "release_authorship":   { "signals": {}, "weight": 1, "enabled": true },
+    "project_affiliations": { "signals": {}, "weight": 1, "enabled": true }
+  }
+}
