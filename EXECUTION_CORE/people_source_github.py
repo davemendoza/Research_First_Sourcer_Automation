@@ -1,25 +1,38 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-people_source_github.py
-
-Deterministic GitHub signal enrichment.
-No network calls. Safe baseline.
+GitHub people sourcing pass.
+Fail-safe for zero-row inputs.
 """
 
 import csv
+from pathlib import Path
+from typing import List, Dict, Any
 
-def process_csv(input_path: str, output_path: str) -> None:
-    with open(input_path, newline="", encoding="utf-8") as f:
+
+def process_csv(input_csv: str, output_csv: str) -> None:
+    in_path = Path(input_csv)
+    out_path = Path(output_csv)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    rows: List[Dict[str, Any]] = []
+
+    with in_path.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        rows = []
+        for row in reader:
+            rows.append(row)
 
-        for r in reader:
-            r.setdefault("Github_URL", "")
-            r.setdefault("Github_IO_URL", "")
-            r.setdefault("OSS_Activity", "")
-            rows.append(r)
+    # Zero-row safe path
+    if not rows:
+        fieldnames = reader.fieldnames if reader.fieldnames else []
+        with out_path.open("w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            if fieldnames:
+                writer.writeheader()
+        return
 
-    with open(output_path, "w", newline="", encoding="utf-8") as f:
+    # Normal path
+    with out_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=rows[0].keys())
         writer.writeheader()
         writer.writerows(rows)
