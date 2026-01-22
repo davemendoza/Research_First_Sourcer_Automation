@@ -1,30 +1,33 @@
 {
-  "version": "v1.0",
-  "status": "authoritative",
-  "description": "Canonical AI stack taxonomy for signal extraction.",
-  "last_updated": "2026-01-21",
-  "governance": {
-    "inference_allowed": false,
-    "fallbacks_allowed": false,
-    "implicit_expansion_allowed": false,
-    "notes": "Explicitly curated only. No runtime mutation."
+  "meta": {
+    "version": "v1.0",
+    "status": "authoritative",
+    "description": "Canonical AI stack taxonomy for signal extraction.",
+    "last_updated": "2026-01-21",
+    "governance": {
+      "inference_allowed": false,
+      "fallbacks_allowed": false,
+      "implicit_expansion_allowed": false,
+      "notes": "Explicitly curated only. No runtime mutation."
+    }
   },
-
-  "llm_models": { "signals": {}, "weight": 1, "enabled": true },
-  "foundation_model_families": { "signals": {}, "weight": 1, "enabled": true },
-  "training_techniques": { "signals": {}, "weight": 1, "enabled": true },
-  "fine_tuning_methods": { "signals": {}, "weight": 1, "enabled": true },
-  "reinforcement_learning_methods": { "signals": {}, "weight": 1, "enabled": true },
-  "frameworks": { "signals": {}, "weight": 1, "enabled": true },
-  "libraries": { "signals": {}, "weight": 1, "enabled": true },
-  "inference_engines": { "signals": {}, "weight": 1, "enabled": true },
-  "vector_databases": { "signals": {}, "weight": 1, "enabled": true },
-  "retrieval_augmented_generation": { "signals": {}, "weight": 1, "enabled": true },
-  "evaluation_benchmarks": { "signals": {}, "weight": 1, "enabled": true },
-  "datasets": { "signals": {}, "weight": 1, "enabled": true },
-  "infrastructure": { "signals": {}, "weight": 1, "enabled": true },
-  "hardware_acceleration": { "signals": {}, "weight": 1, "enabled": true },
-  "distributed_systems": { "signals": {}, "weight": 1, "enabled": true },
-  "deployment_platforms": { "signals": {}, "weight": 1, "enabled": true },
-  "observability_tools": { "signals": {}, "weight": 1, "enabled": true }
+  "categories": {
+    "llm_models": { "signals": {}, "weight": 1, "enabled": true },
+    "foundation_model_families": { "signals": {}, "weight": 1, "enabled": true },
+    "training_techniques": { "signals": {}, "weight": 1, "enabled": true },
+    "fine_tuning_methods": { "signals": {}, "weight": 1, "enabled": true },
+    "reinforcement_learning_methods": { "signals": {}, "weight": 1, "enabled": true },
+    "frameworks": { "signals": {}, "weight": 1, "enabled": true },
+    "libraries": { "signals": {}, "weight": 1, "enabled": true },
+    "inference_engines": { "signals": {}, "weight": 1, "enabled": true },
+    "vector_databases": { "signals": {}, "weight": 1, "enabled": true },
+    "retrieval_augmented_generation": { "signals": {}, "weight": 1, "enabled": true },
+    "evaluation_benchmarks": { "signals": {}, "weight": 1, "enabled": true },
+    "datasets": { "signals": {}, "weight": 1, "enabled": true },
+    "infrastructure": { "signals": {}, "weight": 1, "enabled": true },
+    "hardware_acceleration": { "signals": {}, "weight": 1, "enabled": true },
+    "distributed_systems": { "signals": {}, "weight": 1, "enabled": true },
+    "deployment_platforms": { "signals": {}, "weight": 1, "enabled": true },
+    "observability_tools": { "signals": {}, "weight": 1, "enabled": true }
+  }
 }

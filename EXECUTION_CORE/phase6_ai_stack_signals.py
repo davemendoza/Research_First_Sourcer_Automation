@@ -9,16 +9,21 @@ def _load_taxonomy():
 
     taxonomy = json.load(open(TAXONOMY_PATH))
 
-    if "categories" not in taxonomy or not isinstance(taxonomy["categories"], dict):
+    if "categories" not in taxonomy:
         raise RuntimeError(f"Malformed taxonomy structure: {TAXONOMY_PATH}")
 
-    for k, v in taxonomy["categories"].items():
-        if not isinstance(v, dict):
-            raise RuntimeError(f"Malformed taxonomy entry: {k}")
-        if "signals" not in v:
-            raise RuntimeError(f"Missing signals key in taxonomy entry: {k}")
+    categories = taxonomy["categories"]
 
-    return taxonomy["categories"]
+    if not isinstance(categories, dict):
+        raise RuntimeError(f"Malformed taxonomy structure: {TAXONOMY_PATH}")
+
+    for name, block in categories.items():
+        if not isinstance(block, dict):
+            raise RuntimeError(f"Malformed taxonomy entry: {name}")
+        if "signals" not in block:
+            raise RuntimeError(f"Missing signals key in taxonomy entry: {name}")
+
+    return categories
 
 def process_csv(input_csv, output_csv):
     taxonomy = _load_taxonomy()
