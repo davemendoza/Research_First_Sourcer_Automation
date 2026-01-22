@@ -1,25 +1,52 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-people_scenario_resolver.py
-
-Resolves scenario_key to a seed CSV.
-Deterministic, read-only.
+Scenario resolver for people pipelines.
+Fail-closed, explicit mapping only.
 """
 
 from pathlib import Path
-from EXECUTION_CORE.ai_role_registry import assert_valid_role
-import shutil
+from typing import Dict, Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = REPO_ROOT / "data"
 
+
 class ScenarioResolutionError(Exception):
     pass
 
-def resolve_scenario(scenario_key: str) -> Path:
-    seed_path = DATA_DIR / f"{scenario_key}.csv"
+
+def _die(msg: str) -> None:
+    raise ScenarioResolutionError(msg)
+
+
+# ──────────────────────────────────────────────────────────
+# EXPLICIT SCENARIO → SEED MAPPING (AUTHORITATIVE)
+# No inference. No fallbacks. No guessing.
+# ──────────────────────────────────────────────────────────
+SCENARIO_MAP: Dict[str, Dict[str, str]] = {
+    "Frontier AI Research Scientist": {
+        "SCENARIO_PREFIX": "Frontier_AI_Research_Scientist",
+        "SCENARIO_SEED": "frontier_ai_seed.csv",
+        "ROLE_CANONICAL": "Frontier AI Research Scientist",
+    },
+}
+
+
+def resolve_scenario(scenario_key: str) -> Dict[str, Any]:
+    key = scenario_key.strip()
+    if key not in SCENARIO_MAP:
+        _die(f"Unknown scenario key: {key}")
+
+    entry = SCENARIO_MAP[key].copy()
+    seed_name = entry["SCENARIO_SEED"]
+    seed_path = DATA_DIR / seed_name
 
     if not seed_path.exists():
-        raise ScenarioResolutionError(f"Seed CSV not found for scenario: {scenario_key}")
+        _die(
+            f"Seed CSV not found for scenario: {key} "
+            f"(expected: {seed_path})"
+        )
 
-    return seed_path
+    entry["SEED_PATH"] = str(seed_path)
+    return entry
