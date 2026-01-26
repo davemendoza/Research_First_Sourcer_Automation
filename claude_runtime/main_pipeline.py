@@ -38,15 +38,15 @@ from pathlib import Path
 import json
 
 # Import pipeline modules
-from seed_hub_parser import SeedHubParser
-from seed_enumerator import SeedEnumerator
-from evidence_enricher import EvidenceEnricher
-from contact_scraper import ContactScraper
-from role_classifier import RoleClassifier
-from citation_calculator import CitationCalculator
-from schema_validator import SchemaValidator
-from output_generator import OutputGenerator
-from talent_preview import TalentPreview
+from pipeline.seed_hub_parser import SeedHubParser
+from pipeline.seed_enumerator import SeedEnumerator
+from enrichment.evidence_enricher import EvidenceEnricher
+from enrichment.contact_scraper import ContactScraper
+from scoring.role_classifier import RoleClassifier
+from enrichment.citation_calculator import CitationCalculator
+from validation.schema_validator import SchemaValidator
+from output.output_generator import OutputGenerator
+from output.talent_preview import TalentPreview
 
 
 class AITalentPipeline:
