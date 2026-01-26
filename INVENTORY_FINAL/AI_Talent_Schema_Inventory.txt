@@ -1,12 +1,8 @@
-AI TALENT ENGINE — SCHEMA INVENTORY (RECOVERY LOCKDOWN)
-Generated: 20260118_031018
+AI TALENT ENGINE — SCHEMA INVENTORY (LOCKED)
+Generated: 20260126_005842
 Repo Root: /Users/davemendoza/Desktop/Research_First_Sourcer_Automation
 
-Schema-related candidates (paths):
+Schema-related candidates:
 - EXECUTION_CORE/canonical_people_writer.py
-- EXECUTION_CORE/CANONICAL_SCHEMA_81_COLUMNS_MACHINE.txt
 - EXECUTION_CORE/canonical_schema_mapper.py
 - EXECUTION_CORE/schema_guard.py
-
-Important: this inventory lists candidates only.
-It does not assert a canonical schema beyond what the pipeline already uses.

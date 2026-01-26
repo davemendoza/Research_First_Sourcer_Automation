@@ -3,6 +3,11 @@
 """
 GitHub people sourcing pass.
 Fail-safe for zero-row inputs.
+
+Pipeline contract:
+- Must expose run(context, **kwargs)
+- Must be import-safe
+- No argparse at import time
 """
 
 import csv
@@ -36,3 +41,28 @@ def process_csv(input_csv: str, output_csv: str) -> None:
         writer = csv.DictWriter(f, fieldnames=rows[0].keys())
         writer.writeheader()
         writer.writerows(rows)
+
+
+# -------------------------------------------------------------------
+# Pipeline adapter (REQUIRED)
+# -------------------------------------------------------------------
+
+def run(context: Dict[str, Any], **kwargs) -> Dict[str, Any]:
+    """
+    Pipeline entrypoint.
+
+    Expects context to contain:
+      - input_csv
+      - output_csv
+
+    Returns context unchanged for pipeline chaining.
+    """
+    input_csv = context.get("input_csv")
+    output_csv = context.get("output_csv")
+
+    if not input_csv or not output_csv:
+        raise ValueError("people_source_github requires 'input_csv' and 'output_csv' in context")
+
+    process_csv(input_csv=input_csv, output_csv=output_csv)
+
+    return context

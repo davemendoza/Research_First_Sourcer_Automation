@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 EXECUTION_CORE/benchmark_evidence_extractor.py
 ============================================================
@@ -38,75 +36,29 @@ git add EXECUTION_CORE/benchmark_evidence_extractor.py
 git commit -m "Add benchmark evidence extractor (Sample.xlsx gold standard)"
 git push
 """
-
 from __future__ import annotations
-
 import json
 import re
 from typing import Any, Dict, Iterable, List
-
-_VERSION = "v1.0.0"
-
-_WS_RE = re.compile(r"\s+", re.UNICODE)
-
-# Keep these display names exact for Sample.xlsx compatibility
-_CANONICAL = [
-    "MT-Bench",
-    "BIG-Bench",
-    "HellaSwag",
-    "HumanEval",
-    "MMLU",
-    "SWE-bench",
-    "Arena Elo",
-]
-
-# Patterns are conservative. If the text contains the benchmark token, we count it.
-_PATTERNS = {
-    "MT-Bench": [r"\bmt[- ]?bench\b"],
-    "BIG-Bench": [r"\bbig[- ]?bench\b", r"\bbigbench\b"],
-    "HellaSwag": [r"\bhellaswag\b"],
-    "HumanEval": [r"\bhumaneval\b", r"\bhuman[- ]?eval\b"],
-    "MMLU": [r"\bmmlu\b"],
-    "SWE-bench": [r"\bswe[- ]?bench\b", r"\bswebench\b"],
-    "Arena Elo": [r"\barena elo\b", r"\belo\b.*\barena\b", r"\blmsys\b.*\barena\b"],
-}
-
+_VERSION = 'v1.0.0'
+_CANONICAL = ['MT-Bench', 'BIG-Bench', 'HellaSwag', 'HumanEval', 'MMLU', 'SWE-bench', 'Arena Elo']
+_PATTERNS = {'MT-Bench': ['\\bmt[- ]?bench\\b'], 'BIG-Bench': ['\\bbig[- ]?bench\\b', '\\bbigbench\\b'], 'HellaSwag': ['\\bhellaswag\\b'], 'HumanEval': ['\\bhumaneval\\b', '\\bhuman[- ]?eval\\b'], 'MMLU': ['\\bmmlu\\b'], 'SWE-bench': ['\\bswe[- ]?bench\\b', '\\bswebench\\b'], 'Arena Elo': ['\\barena elo\\b', '\\belo\\b.*\\barena\\b', '\\blmsys\\b.*\\barena\\b']}
 
 def _norm(s: str) -> str:
-    s = (s or "").strip().lower()
-    s = _WS_RE.sub(" ", s)
+    s = (s or '').strip().lower()
+    s = _WS_RE.sub(' ', s)
     return s
-
 
 def _safe_str(v: Any) -> str:
     if v is None:
-        return ""
+        return ''
     try:
         return str(v)
     except Exception:
-        return ""
-
+        return ''
 
 def _collect_text(row: Dict[str, Any]) -> str:
-    preferred = [
-        "Benchmarks_Worked_On",
-        "Repo_Readme_Text",
-        "Repo_README_Text",
-        "Repo_Text",
-        "Repo_Topics_Keywords",
-        "GitHub_Repo_Evidence_Why",
-        "Open_Source_Impact_Note",
-        "Publications_Text",
-        "Scholar_Abstracts",
-        "Paper_Abstracts",
-        "Citations_Text",
-        "Summary",
-        "Experience",
-        "Skills",
-        "Skills2",
-        "Headline",
-        "Title",
-    ]
+    preferred = ['Benchmarks_Worked_On', 'Repo_Readme_Text', 'Repo_README_Text', 'Repo_Text', 'Repo_Topics_Keywords', 'GitHub_Repo_Evidence_Why', 'Open_Source_Impact_Note', 'Publications_Text', 'Scholar_Abstracts', 'Paper_Abstracts', 'Citations_Text', 'Summary', 'Experience', 'Skills', 'Skills2', 'Headline', 'Title']
     parts: List[str] = []
     for k in preferred:
         if k in row and row.get(k):
@@ -115,11 +67,10 @@ def _collect_text(row: Dict[str, Any]) -> str:
         if k in preferred:
             continue
         if isinstance(v, str) and v.strip():
-            if k.endswith("_JSON") or k.endswith("_json"):
+            if k.endswith('_JSON') or k.endswith('_json'):
                 continue
             parts.append(v)
-    return _norm(" \n ".join(parts))
-
+    return _norm(' \n '.join(parts))
 
 def _matches_any(text: str, regexes: Iterable[str]) -> bool:
     for rx in regexes:
@@ -130,29 +81,21 @@ def _matches_any(text: str, regexes: Iterable[str]) -> bool:
             continue
     return False
 
-
 def extract_benchmarks_worked_on(row: Dict[str, Any]) -> List[str]:
     text = _collect_text(row)
-
     found: List[str] = []
     reasons: Dict[str, str] = {}
-
     for name in _CANONICAL:
         if _matches_any(text, _PATTERNS.get(name, [])):
             found.append(name)
-            reasons[name] = "matched benchmark token in row evidence text"
-
-    # De-dup, deterministic order
+            reasons[name] = 'matched benchmark token in row evidence text'
     found = [x for x in _CANONICAL if x in set(found)]
-
-    if "Field_Level_Provenance_JSON" in row:
-        _augment_provenance(row, "Benchmarks_Worked_On", found, reasons)
-
+    if 'Field_Level_Provenance_JSON' in row:
+        _augment_provenance(row, 'Benchmarks_Worked_On', found, reasons)
     return found
 
-
 def _augment_provenance(row: Dict[str, Any], field: str, value: Any, reasons: Dict[str, Any]) -> None:
-    raw = _safe_str(row.get("Field_Level_Provenance_JSON", "")).strip()
+    raw = _safe_str(row.get('Field_Level_Provenance_JSON', '')).strip()
     obj: Dict[str, Any] = {}
     if raw:
         try:
@@ -161,24 +104,17 @@ def _augment_provenance(row: Dict[str, Any], field: str, value: Any, reasons: Di
                 obj = {}
         except Exception:
             obj = {}
+    obj[field] = {'version': _VERSION, 'evidence_basis': 'row_text_fields_only', 'value': value, 'reasons': reasons}
+    row['Field_Level_Provenance_JSON'] = json.dumps(obj, sort_keys=True)
 
-    obj[field] = {
-        "version": _VERSION,
-        "evidence_basis": "row_text_fields_only",
-        "value": value,
-        "reasons": reasons,
-    }
-    row["Field_Level_Provenance_JSON"] = json.dumps(obj, sort_keys=True)
-
-
-def apply_benchmarks_worked_on(rows: List[Dict[str, Any]], out_field: str = "Benchmarks_Worked_On") -> List[Dict[str, Any]]:
+def apply_benchmarks_worked_on(rows: List[Dict[str, Any]], out_field: str='Benchmarks_Worked_On') -> List[Dict[str, Any]]:
     for r in rows:
         b = extract_benchmarks_worked_on(r)
-        r[out_field] = "; ".join(b) if b else r.get(out_field, "")
+        r[out_field] = '; '.join(b) if b else r.get(out_field, '')
     return rows
+__all__ = ['extract_benchmarks_worked_on', 'apply_benchmarks_worked_on']
 
-
-__all__ = [
-    "extract_benchmarks_worked_on",
-    "apply_benchmarks_worked_on",
-]
+def _cli_main():
+    _WS_RE = re.compile('\\s+', re.UNICODE)
+if __name__ == '__main__':
+    _cli_main()

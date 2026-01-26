@@ -1,26 +1,25 @@
 {
-  "generated_timestamp": "20260118_031018",
+  "generated_timestamp": "20260126_005842",
   "platform": {
     "machine": "x86_64",
     "os": "macOS-15.7.2-x86_64-i386-64bit-Mach-O",
-    "python": "3.14.0",
-    "python_full": "3.14.0 (v3.14.0:ebf955df7a8, Oct  7 2025, 08:20:14) [Clang 16.0.0 (clang-1600.0.26.6)]"
+    "python": "3.14.0"
   },
   "required_artifacts": {
     "AI_Talent_Inventory_Manifest.json": {
-      "bytes": 781,
+      "bytes": 195,
       "path": "INVENTORY_FINAL/AI_Talent_Inventory_Manifest.json",
-      "sha256": "c5ba4fb0886a72b044ef398c5eb3d4df2608707a4ea63081ca8f68896f23d653"
+      "sha256": "8480063e0801cf42a7bc72f13133ac3fae74ae33c0eeb899149f8855de2c91b9"
     },
     "AI_Talent_Repo_Inventory.json": {
-      "bytes": 54841,
+      "bytes": 2712,
       "path": "INVENTORY_FINAL/AI_Talent_Repo_Inventory.json",
-      "sha256": "99d3c8ea33017d31152f5a84a84317d276db08fa91f087e8a4fc759946236ed7"
+      "sha256": "71489d762222f45d3021b11bd7fa22c0cbeaa5b22ba2e132badf982facff09e6"
     },
     "AI_Talent_Schema_Inventory.txt": {
-      "bytes": 498,
+      "bytes": 295,
       "path": "INVENTORY_FINAL/AI_Talent_Schema_Inventory.txt",
-      "sha256": "6e5d4e1916aa44a447641957004364d2c78c8e8a409b73adc990d2d40af8b023"
+      "sha256": "368c6adda95abd9870a0c29d3b2242150335ee50cf1742aec08f6465a759c656"
     }
   }
 }

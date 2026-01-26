@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -lt 1 ]]; then
+  echo "❌ Usage: demo <ROLE|alias|list>"
+  echo "   Examples:"
+  echo "     demo list"
+  echo "     demo frontier"
+  echo "     demo ai infra"
+  exit 1
+fi
+
+CMD="${1}"
+shift || true
+
+if [[ "${CMD}" == "list" ]]; then
+  python3 -m EXECUTION_CORE.ai_role_registry --list
+  exit 0
+fi
+
+RAW_ROLE="${CMD}"
+if [[ $# -gt 0 ]]; then
+  RAW_ROLE="${RAW_ROLE} $*"
+fi
+
+echo "🚀 Demo run: ${RAW_ROLE}"
+python3 -m EXECUTION_CORE.run_people_pipeline "${RAW_ROLE}"

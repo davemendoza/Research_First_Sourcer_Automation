@@ -1,0 +1,422 @@
+{
+  "root": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE",
+  "scanned": 46,
+  "changed": 19,
+  "errors": 0,
+  "results": [
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/_BACKUPS/run_safe.BACKUP_BEFORE_v3.3.0.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 8,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/_BACKUPS/run_safe.BACKUP_BEFORE_v3.3.0.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/_BACKUPS/run_safe.LOCKED_v3.3.0.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 8,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/_BACKUPS/run_safe.LOCKED_v3.3.0.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/ai_role_registry.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 1,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/ai_role_registry.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/anchor_exhaustion_pass.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/benchmark_evidence_extractor.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 1,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/benchmark_evidence_extractor.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/canonical_people_writer.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/canonical_schema_mapper.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/citation_velocity_calculator.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 1,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/citation_velocity_calculator.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/completion_notifier.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/contact_enrichment_pass.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/csv_integrity_guard.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/deep_inference_graph_pass.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/determinative_skill_resolver.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 1,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/determinative_skill_resolver.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/enrichment_counters.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/github_signal_decomposer.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 2,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/github_signal_decomposer.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/inventory.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 7,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/inventory.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/long_running_enrichment_pass.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 2,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/long_running_enrichment_pass.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/model_family_attribution.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 2,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/model_family_attribution.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/name_normalizer.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 2,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/name_normalizer.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/name_resolution_pass.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 1,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/name_resolution_pass.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/output_guard.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/output_namer.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/people_identity_contact_pass.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/people_scenario_resolver.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 2,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/people_scenario_resolver.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/people_source_github.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/phase4_seed_materializer.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 4,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/phase4_seed_materializer.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/phase5_passthrough.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/phase6_ai_stack_signals.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 1,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/phase6_ai_stack_signals.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/phase7_oss_contribution_intel.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 1,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/phase7_oss_contribution_intel.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/post_run_narrative_pass.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/production_research_classifier.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 1,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/production_research_classifier.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/progress_heartbeat.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/public_identity_contact_pass.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/role_signal_anchor_builder.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/row_role_materialization_pass.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/run_people_pipeline.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/run_safe.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 1,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/run_safe.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/runtime_tracker.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/schema_guard.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/score_reason_generator.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/scoring_adapter.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/seed_locator.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/signal_score_calculator.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/talent_intel_preview.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/talent_intelligence.py",
+      "changed": true,
+      "had_unsafe_top_level": true,
+      "unsafe_count": 2,
+      "wrote_backup": true,
+      "backup_path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/talent_intelligence.py.bak_20260123_015854",
+      "error": null
+    },
+    {
+      "path": "/Users/davemendoza/Desktop/Research_First_Sourcer_Automation/EXECUTION_CORE/terminal_preview_renderer.py",
+      "changed": false,
+      "had_unsafe_top_level": false,
+      "unsafe_count": 0,
+      "wrote_backup": false,
+      "backup_path": null,
+      "error": null
+    }
+  ]
+}

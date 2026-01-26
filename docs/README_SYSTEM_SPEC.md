@@ -1,124 +1,139 @@
 # ===============================================
-#  © 2025 Dave Mendoza, DBA AI Craft, Inc. All rights reserved.
-#  Proprietary and Confidential — Unauthorized copying or distribution is prohibited.
+# © 2025 L. David Mendoza
+# DBA AI Craft, Inc.
+# Proprietary and Confidential
 # ===============================================
 
 schema_reference: AI_Talent_Schema_Rules.md
-schema_version: 3.5.0
-phase_scope: Phase 8 / Phase 9
+schema_version: 3.3
+execution_mode: silent_auto
+preamble_output: false
+introductory_text: false
+validator_visible: false
+governance_output_visible: false
+show_phase_banner: false
+logging_mode: internal_only
 maintainer: L. David Mendoza © 2025
 
-# 🧠 AI TALENT ENGINE — SYSTEM SPECIFICATION
+# AI TALENT ENGINE — SYSTEM SPECIFICATION (CANONICAL)
 
----
+## SYSTEM PURPOSE
 
-### Overview
-The **AI Talent Engine** is a research-grade automation and analytics framework designed for evidence-based AI-talent discovery, verification, and governance auditing.  
-This system specification defines the structural rules, schema alignment, and validation checkpoints for all Phase 8 / 9 operations.
+The AI Talent Engine — Signal Intelligence is a deterministic, research-first automation framework for AI talent evaluation, verification, and hiring decision support.
 
----
+This document defines the canonical execution rules, authority boundaries, and invariants governing all evaluations, assessments, reviews, and run executions.
 
-## ⚙️ SYSTEM ARCHITECTURE OVERVIEW
+This file supersedes all prior system specifications.
 
-| Component | Description | Location |
-|------------|--------------|-----------|
-| Phase 8 | Core validation and review automation | `/Phase8/` |
-| Phase 9 | Predictive intelligence and extended schema compliance | `/Phase9/` |
-| Validators | Schema and governance scripts | `/validators/` |
-| Automation | Multi-phase orchestration and JSON report generation | `/scripts/automation_build.py` |
-| Outputs | JSON + audit logs | `/outputs/` |
+## CANONICAL KNOWLEDGE AUTHORITY (HARD LOCK)
 
----
+There is exactly one authoritative knowledge location:
 
-## 🧩 MODULE INTERDEPENDENCIES
+/docs/
 
-| Module | Description | Phase | Validation |
-|---------|--------------|--------|-------------|
-| `AI_Talent_Schema_Rules.md` | Core schema definition | Phase 8 / 9 | ✅ |
-| `AI_Talent_Engine_Master.md` | Primary system spec | Phase 8 / 9 | ✅ |
-| `AI_Talent_Review_Template.md` | Candidate assessment template | Phase 8 / 9 | ✅ |
-| `automation_build.py` | Automation and orchestration engine | Phase 8 / 9 | ✅ |
-| `validate_phase8.py` / `validate_phase9.py` | Schema-validation scripts | Phase 8 / 9 | ✅ |
+The following files must exist only once and only in this directory:
 
----
+- AI_Talent_Engine_Standard_Review_Template.md
+- AI_Talent_Schema_Rules.md
+- Mandatory_Section_Schema_Adaptive.md
 
-## 🧭 GOVERNANCE AGENTS (REQUIRED)
+Duplicate copies in root, Phase folders, backups, or alternate paths are prohibited and constitute a configuration violation.
 
-| Agent ID | Function | Status |
-|-----------|-----------|---------|
-| #21 | **Schema Validator Agent** – ensures canonical field order and schema integrity | ✅ Active |
-| #22 | **Audit & Provenance Agent** – enforces timestamped lineage tracking | ✅ Active |
-| #23 | **Analytics Integrator** – merges validator outputs into unified datasets | ✅ Active |
-| #24 | **Governance Compliance Agent** – privacy + fairness enforcement | ✅ Active |
+## LAYERED AUTHORITY MODEL (DO NOT DEVIATE)
 
----
+The system operates under a strict three-layer contract model:
 
-## 🧱 DATA AND EVIDENCE HIERARCHY
+STANDARD REVIEW TEMPLATE  
+Defines the required 10-section output structure and mandates complete Candidate Overview fields, including contact and geolocation data. OCR is declared as an acceptable enrichment mechanism but is not executed here.
 
-**Priority Order:**  
-1️⃣ Code / Repos > 2️⃣ Peer-Reviewed Papers > 3️⃣ Patents > 4️⃣ Models > 5️⃣ CVs / Portfolios  
+SCHEMA RULES  
+Authorize OCR as a valid public-data source, define governance and confidence constraints, and restrict private or inferred data. OCR execution is not performed here.
 
-All evidence must include **source provenance** (URL / DOI / identifier).  
-Private contact data is never persisted, per Governance Agent #24.
+MANDATORY SECTION SCHEMA (ADAPTIVE)  
+This is the sole execution authority. It detects images, PDFs, or scanned artifacts, invokes OCR automatically when applicable, applies confidence thresholds, populates contact and location fields, and falls back to “Not Publicly Available” when required. All actions execute silently.
 
----
+Only the Adaptive Schema is permitted to execute OCR.
 
-## 🧮 VALIDATION PIPELINE
+## OCR ENFORCEMENT GUARANTEE
 
-1️⃣ Each Markdown spec file includes schema metadata (version, reference, maintainer).  
-2️⃣ Validator scripts extract and cross-compare metadata values.  
-3️⃣ Automation Build (`automation_build.py`) merges validator outputs:  
- - Writes `phaseX_validation.json`  
- - Updates `phase_audit_log.txt`  
- - Reports unified status summary  
+OCR is mandatory when applicable.
 
-**Pass Condition:**  
-- `schema_match == true`  
-- `governance_ok == true`  
-- `validation_passed == true`
+If any evaluation artifact contains images, PDFs, screenshots, or scanned text:
 
----
+- OCR must be invoked automatically
+- Contact and geolocation fields must be extracted if present
+- If no data is found, fields must be explicitly marked “Not Publicly Available”
+- All retries and confidence checks occur silently
 
-## 📈 PHASE 8 / 9 OBJECTIVES
+OCR is never optional, interactive, or user-visible.
 
-| Focus | Description |
-|--------|--------------|
-| **Phase 8:** | Complete validation + governance integrity across all review templates |
-| **Phase 9:** | Add predictive hiring-intelligence extensions and multi-phase audit consolidation |
-| **Next Phase (10):** | Introduce automated scoring and bias-auditing subsystems |
+## SILENT EXECUTION GUARANTEE
 
----
+All executions operate under Silent Auto Mode.
 
-## 🧾 VERSION CONTROL & MAINTENANCE
+The following are strictly forbidden from user-visible output:
 
-**Schema Reference:** AI_Talent_Schema_Rules.md  
-**Schema Version:** 3.5.0  
-**Phase Scope:** Phase 8 / 9  
-**Maintainer:** L. David Mendoza © 2025  
-**Governance Agents:** #21 – #24  
-**Validation Status:** ✅ Compliant  
+- Execution banners
+- “Execution detected” notices
+- Validator chatter
+- Governance logs
+- Schema announcements
+- Metadata preamble
 
----
+All outputs must begin directly at Section 1: Candidate Overview.
 
-## 🧠 SYSTEM SUMMARY
+Any visible preamble indicates a configuration violation.
 
-The AI Talent Engine operates as a multi-phase intelligence and governance automation framework.  
-It ensures every evaluation artifact, from code to career trajectory, is:  
-- Schema-aligned  
-- Provenance-verified  
-- Governance-compliant  
-- Audit-ready  
+## GOVERNANCE AGENTS (REQUIRED)
 
-Its architecture supports reproducible, research-grade talent assessments and predictive hiring analytics built for enterprise deployment.
+Agent 21 — Schema Validation  
+Agent 22 — Audit and Provenance  
+Agent 24 — Governance and Fairness  
+Agent 36 — Integrity and Determinism  
 
----
+All agents must return governance_ok = true for a valid run.
 
-**End of Document**  
-──────────────────────────────
+## VALIDATION INVARIANTS
 
-Proprietary Rights Notice
-------------------------
-All code, scripts, GitHub repositories, documentation, data, and GPT-integrated components of the AI Talent Engine – Signal Intelligence and Research_First_Sourcer_Automation Python Automation Sourcing Framework are strictly proprietary. All intellectual property rights, copyrights, trademarks, and related rights are exclusively owned by Dave Mendoza, DBA AI Craft, Inc.
-No individual or entity may copy, reproduce, distribute, modify, create derivative works, reverse engineer, decompile, or otherwise use any part of this system, software, or associated materials for personal or commercial purposes without explicit written authorization from Dave Mendoza.
-All rights reserved. Unauthorized use may result in legal action.
-This statement is governed by the laws of the State of Colorado, USA.
+A run is valid only if:
+
+- All 10 sections are rendered
+- Both determinant skill tables are present
+- A final decision is issued
+- An automated hiring-manager email is generated
+- OCR has executed when applicable
+- No preamble or logs are visible
+
+Partial outputs are forbidden.
+
+## PHASE DIRECTORIES (NON-AUTHORITATIVE)
+
+Phase directories may contain research artifacts, historical references, or predictive extensions.
+
+They must not contain authoritative schema, rules, or templates.
+
+All execution authority resolves exclusively to /docs/.
+
+## CONFIGURATION VIOLATIONS
+
+The following actions are prohibited:
+
+- Duplicating schema or template files
+- Prepending headers via automation tools
+- sed-patching authoritative documents
+- Uploading multiple versions to GPT Knowledge
+- Relocating canonical files outside /docs/
+
+Violations invalidate determinism.
+
+## SYSTEM DOCTRINE
+
+Template demands the data.  
+Rules authorize the source.  
+Adaptive schema executes OCR — silently, once, and only in /docs/.
+
+END OF DOCUMENT
+
+All intellectual property contained herein is exclusively owned by
+L. David Mendoza, DBA AI Craft, Inc.
+Unauthorized reproduction or distribution is prohibited.

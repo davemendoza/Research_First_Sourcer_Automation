@@ -1,138 +1,157 @@
-# ============================================================
-#  Research_First_Sourcer_Automation
-#  File: EXECUTION_CORE/run_people_pipeline.py
-#
-#  Purpose:
-#    Deterministic people CSV pipeline orchestrator (gold standard mode).
-#    Runs staged transforms:
-#      1) people_source_github
-#      2) canonical_schema_mapper (Sample81)
-#      3) long_running_enrichment_pass
-#      4) citation_velocity_calculator
-#      5) deep_inference_graph_pass
-#    Emits full output + GPT-Slim + preview.
-#
-#  Contract:
-#    main callable: run_pipeline(input_csv: str, output_dir: str, run_tag: str) -> Dict[str, str]
-#
-#  Version: v4.2.0-gold-orchestrator
-#  Author: Dave Mendoza
-# ============================================================
+"""
+EXECUTION_CORE/run_people_pipeline.py
+Gold pipeline orchestrator that outputs exactly one deliverable artifact to open.
+
+Version: v5.0.0-deliverable-only
+Author: Dave Mendoza
+Copyright (c) 2025-2026 L. David Mendoza. All rights reserved.
+
+Behavior:
+- Runs stage chain
+- Writes FULL and internal intermediates
+- Writes DELIVERABLE.csv in exact Sample.xlsx schema
+- Opens DELIVERABLE.csv only (macOS)
+
+Validation:
+- python3 -m py_compile EXECUTION_CORE/run_people_pipeline.py
+- python3 -m EXECUTION_CORE.run_people_pipeline "AI infra" --debug
+
+Git:
+- git add EXECUTION_CORE/run_people_pipeline.py
+- git commit -m "Fix: gold pipeline outputs deliverable-only CSV aligned to Sample.xlsx"
+- git push
+"""
 
 from __future__ import annotations
 
-import csv
+import argparse
 import os
+import re
+import sys
 import time
-from typing import Dict, List
+import subprocess
+from datetime import datetime
+from typing import Optional, Dict
 
+from EXECUTION_CORE.ai_role_registry import resolve_role, is_valid_role
+from EXECUTION_CORE.phase4_seed_materializer import create_seed
 from EXECUTION_CORE.people_source_github import run as stage_people_source
 from EXECUTION_CORE.canonical_schema_mapper import run as stage_canonical_mapper
 from EXECUTION_CORE.long_running_enrichment_pass import run as stage_long_enrich
 from EXECUTION_CORE.citation_velocity_calculator import run as stage_citation_velocity
 from EXECUTION_CORE.deep_inference_graph_pass import run as stage_graph
+from EXECUTION_CORE.deliverable_writer import write_deliverable
 
-PIPELINE_VERSION = "v4.2.0-gold-orchestrator"
+PIPELINE_VERSION = "v5.0.0-deliverable-only"
 
-GPT_SLIM_COLUMNS = [
-    "Full_Name",
-    "AI_Role_Type",
-    "Current_Title",
-    "Current_Company",
-    "Location_City",
-    "Location_State",
-    "Location_Country",
-    "Primary_Email",
-    "Primary_Phone",
-    "GitHub_Username",
-    "GitHub_Profile_URL",
-    "Repo_Evidence_URLs",
-    "Repo_Topics_Keywords",
-    "Primary_Model_Families",
-    "Determinative_Skill_Areas",
-    "Benchmarks_Worked_On",
-    "Citations_per_Year",
-    "Citation_Velocity_3yr",
-    "Citation_Velocity_5yr",
-    "Hiring_Recommendation",
-    "Strengths",
-    "Weaknesses",
-    "Field_Level_Provenance_JSON",
-]
+_WS = re.compile(r"\s+")
+_NON_ALNUM = re.compile(r"[^a-z0-9]+")
 
-def run_pipeline(input_csv: str, output_dir: str, run_tag: str) -> Dict[str, str]:
-    os.makedirs(output_dir, exist_ok=True)
 
-    # Deterministic file names
-    stage1 = os.path.join(output_dir, f"{run_tag}.01_people_source.csv")
-    stage2 = os.path.join(output_dir, f"{run_tag}.02_canonical_sample81.csv")
-    stage3 = os.path.join(output_dir, f"{run_tag}.03_long_enriched.csv")
-    stage4 = os.path.join(output_dir, f"{run_tag}.04_citation_velocity.csv")
-    stage5 = os.path.join(output_dir, f"{run_tag}.05_graph_enriched.csv")
+def _slug(s: str) -> str:
+    s = (s or "").strip().lower()
+    s = _NON_ALNUM.sub("_", s)
+    s = _WS.sub("_", s)
+    s = re.sub(r"_+", "_", s).strip("_")
+    return s
 
-    full_out = os.path.join(output_dir, f"{run_tag}.FULL.csv")
-    slim_out = os.path.join(output_dir, f"{run_tag}.GPT_SLIM.csv")
-    preview_out = os.path.join(output_dir, f"{run_tag}.PREVIEW.csv")
+
+def _call_stage(fn, src: str, dst: str) -> None:
+    try:
+        fn(src, dst)
+    except TypeError:
+        fn({"input_csv": src, "output_csv": dst})
+
+
+def run_pipeline(role_input: str, debug: bool = False) -> Dict[str, str]:
+    canonical = role_input.strip()
+    if not is_valid_role(canonical):
+        canonical = resolve_role(role_input)
+    if not canonical or not is_valid_role(canonical):
+        raise ValueError(f"Unknown role: {role_input}")
+
+    role_slug = _slug(canonical)
+
+    # Ensure seed exists for this role
+    seed_res = create_seed(canonical, outputs_root="outputs", debug=debug)
+    seed_csv = seed_res.seed_path
+
+    outdir = os.path.join("outputs", "people", role_slug)
+    os.makedirs(outdir, exist_ok=True)
+
+    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_tag = f"{role_slug}.{stamp}"
+
+    stage1 = os.path.join(outdir, f"{run_tag}.01_people_source.csv")
+    stage2 = os.path.join(outdir, f"{run_tag}.02_canonical_sample81.csv")
+    stage3 = os.path.join(outdir, f"{run_tag}.03_long_enriched.csv")
+    stage4 = os.path.join(outdir, f"{run_tag}.04_citation_velocity.csv")
+    stage5 = os.path.join(outdir, f"{run_tag}.05_graph_enriched.csv")
+
+    full_out = os.path.join(outdir, f"{run_tag}.FULL.csv")
+
+    deliverables_dir = os.path.join("outputs", "deliverables")
+    os.makedirs(deliverables_dir, exist_ok=True)
+    deliverable_out = os.path.join(deliverables_dir, f"{run_tag}.DELIVERABLE.csv")
 
     t0 = time.time()
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] PIPELINE START role={canonical} tag={run_tag} version={PIPELINE_VERSION}")
 
-    stage_people_source(input_csv, stage1)
-    stage_canonical_mapper(stage1, stage2)
-    stage_long_enrich(stage2, stage3)
-    stage_citation_velocity(stage3, stage4)
-    stage_graph(stage4, stage5)
+    _call_stage(stage_people_source, seed_csv, stage1)
+    if debug:
+        print("[debug] stage1 ok")
 
-    # Finalize FULL = stage5 (also stamp Output_File_Path inside mapper already)
-    _copy_csv(stage5, full_out)
+    _call_stage(stage_canonical_mapper, stage1, stage2)
+    if debug:
+        print("[debug] stage2 ok")
 
-    # Emit GPT-Slim and preview
-    _write_slim(full_out, slim_out, GPT_SLIM_COLUMNS)
-    _write_preview(full_out, preview_out, 25)
+    _call_stage(stage_long_enrich, stage2, stage3)
+    if debug:
+        print("[debug] stage3 ok")
 
-    minutes = (time.time() - t0) / 60.0
-    return {
-        "pipeline_version": PIPELINE_VERSION,
-        "full_csv": os.path.abspath(full_out),
-        "gpt_slim_csv": os.path.abspath(slim_out),
-        "preview_csv": os.path.abspath(preview_out),
-        "runtime_minutes": f"{minutes:.2f}",
-    }
+    _call_stage(stage_citation_velocity, stage3, stage4)
+    if debug:
+        print("[debug] stage4 ok")
 
-def _copy_csv(src: str, dst: str) -> None:
-    # Pure CSV copy, deterministic
-    with open(src, "r", encoding="utf-8-sig", newline="") as f_in:
+    _call_stage(stage_graph, stage4, stage5)
+    if debug:
+        print("[debug] stage5 ok")
+
+    # FULL is stage5
+    with open(stage5, "r", encoding="utf-8-sig") as f_in:
         content = f_in.read()
-    with open(dst, "w", encoding="utf-8", newline="") as f_out:
+    with open(full_out, "w", encoding="utf-8", newline="") as f_out:
         f_out.write(content)
 
-def _write_slim(full_csv: str, out_csv: str, cols: List[str]) -> None:
-    rows = _read_rows(full_csv)
-    os.makedirs(os.path.dirname(out_csv) or ".", exist_ok=True)
-    with open(out_csv, "w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
-        w.writeheader()
-        for r in rows:
-            w.writerow({c: ("" if r.get(c) is None else str(r.get(c, ""))) for c in cols})
+    # DELIVERABLE
+    write_deliverable(full_out, deliverable_out, pipeline_version=PIPELINE_VERSION)
 
-def _write_preview(full_csv: str, out_csv: str, n: int) -> None:
-    rows, cols = _read_rows_with_cols(full_csv)
-    os.makedirs(os.path.dirname(out_csv) or ".", exist_ok=True)
-    with open(out_csv, "w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
-        w.writeheader()
-        for r in rows[:n]:
-            w.writerow({c: ("" if r.get(c) is None else str(r.get(c, ""))) for c in cols})
+    minutes = (time.time() - t0) / 60.0
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] COMPLETE runtime_min={minutes:.2f}")
+    print(f"DELIVERABLE={os.path.abspath(deliverable_out)}")
 
-def _read_rows(path: str) -> List[Dict[str, str]]:
-    rows, _ = _read_rows_with_cols(path)
-    return rows
+    # Open deliverable only
+    try:
+        subprocess.run(["open", deliverable_out], check=False)
+    except Exception:
+        pass
 
-def _read_rows_with_cols(path: str):
-    with open(path, "r", encoding="utf-8-sig", newline="") as f:
-        reader = csv.DictReader(f)
-        cols = list(reader.fieldnames or [])
-        rows: List[Dict[str, str]] = []
-        for row in reader:
-            if row and any((v or "").strip() for v in row.values()):
-                rows.append({k: (v if v is not None else "") for k, v in row.items()})
-        return rows, cols
+    return {"deliverable_csv": os.path.abspath(deliverable_out), "full_csv": os.path.abspath(full_out)}
+
+
+def _cli_main(argv: Optional[list[str]] = None) -> int:
+    ap = argparse.ArgumentParser(description="Run gold pipeline and open deliverable.")
+    ap.add_argument("role")
+    ap.add_argument("--debug", action="store_true")
+    args = ap.parse_args(argv)
+
+    try:
+        run_pipeline(args.role, debug=args.debug)
+        return 0
+    except Exception as e:
+        print(f"🚫 Pipeline failed: {e}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(_cli_main())
