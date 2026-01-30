@@ -1,0 +1,73 @@
+{
+  "contract_name": "AI_Talent_Engine_Gold_Standard_Contract",
+  "contract_version": "v1.0",
+  "schema_version": "qa_gate_aligned_81_v1",
+  "last_updated_utc": "2026-01-30T00:00:00Z",
+
+  "identifier_columns": [
+    "person_id",
+    "candidate_id",
+    "unique_id",
+    "synthetic_id",
+    "id"
+  ],
+
+  "required_columns": [
+    "Talent_Rank_Percentile",
+    "Full_Name",
+    "Role_Type",
+    "Tier",
+    "RD_Determinant_Signals",
+    "GitHub_Profile_URL",
+    "GitHub_Top_Repos",
+    "GitHub_Total_Stars",
+    "GitHub_Top_Languages",
+    "SemanticScholar_PaperCount",
+    "SemanticScholar_CitationCount",
+    "SemanticScholar_hIndex"
+  ],
+
+  "research_required_by_tier": {
+    "Tier_0": [],
+    "Tier_1": [],
+    "Tier_2": [
+      "GitHub_Profile_URL"
+    ],
+    "Tier_3": [
+      "GitHub_Profile_URL",
+      "GitHub_Top_Repos",
+      "GitHub_Total_Stars"
+    ],
+    "Tier_4": [
+      "GitHub_Profile_URL",
+      "GitHub_Top_Repos",
+      "GitHub_Total_Stars",
+      "SemanticScholar_PaperCount"
+    ]
+  },
+
+  "density_enforcement": {
+    "RD_Determinant_Signals": {
+      "minimum_density_percent": 80,
+      "enforcement_level": "HARD_FAIL"
+    }
+  },
+
+  "github_enrichment_rules": {
+    "require_repo_enrichment_if_profile_present": true,
+    "require_star_counts": true,
+    "require_language_extraction": true
+  },
+
+  "qa_behavior": {
+    "fail_fast": true,
+    "allow_warnings": false,
+    "allow_synthetic_fallbacks": false
+  },
+
+  "notes": [
+    "This contract is the single authoritative schema definition.",
+    "All phases must parse this file using json.load without preprocessing.",
+    "Any violation results in qa_gate.py failure."
+  ]
+}
