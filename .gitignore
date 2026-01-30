@@ -39,3 +39,10 @@ __pycache__/
 lock_project_root.sh
 final_frontier_radar.xlsx
 .DS_Store
+
+# Python runtime noise
+__pycache__/
+*.pyc
+
+# Runtime outputs
+outputs/
