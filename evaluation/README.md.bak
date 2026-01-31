@@ -1,0 +1,70 @@
+# ===================================================
+# AI TALENT ENGINE – SIGNAL INTELLIGENCE
+# Proprietary and Confidential
+# © 2026 L. David Mendoza. All Rights Reserved.
+# ===================================================
+#
+# FILE: evaluation/README.md
+# VERSION: v1.0.0
+#
+# PURPOSE
+# This module implements the evaluation layer that consumes evidence artifacts, applies
+# deterministic Tier 1 / Tier 2 gating, and produces structured candidate evaluations.
+#
+# OPERATIONAL PRINCIPLES
+# 1) Evidence first. Titles never assign tiers.
+# 2) Normalize terminology before scoring.
+# 3) Enforce role-locked evaluation against canonical role types.
+# 4) Fail closed when evidence is insufficient.
+#
+# REQUIRED KNOWLEDGE FILES (CURRENT AND FUTURE)
+# - evaluation/knowledge/role_determinants.json
+# - evaluation/knowledge/model_ecosystem_registry.json
+# - evaluation/knowledge/terminology_normalization_map.json
+#
+# AGENT #51 GOVERNANCE
+# Agent #51 monitors naming drift and proposes additive updates to knowledge files.
+# Agent #51 must not redefine tiers or add new role types.
+#
+# VALIDATION
+# - python3 -m compileall evaluation
+# - python3 -c "from evaluation import evaluate_candidate; print('ok')"
+#
+# GIT
+# - git add evaluation
+# - git commit -m "Add evaluation module scaffolding (v1.0.0)"
+# - git push
+#
+
+## Module files
+
+- `schemas.py`  
+  Dataclasses for candidates, evidence, and evaluation outputs.
+
+- `role_determinants.py`  
+  Loads role-specific Tier 1 and Tier 2 determinants. Fail-closed enforcement.
+
+- `role_benchmarks.py`  
+  Benchmark vocabulary and mappings used in Tier and evidence interpretation.
+
+- `evidence.py`  
+  Evidence normalization pipeline. Terminology drift map application.
+
+- `scoring.py`  
+  Deterministic tier assignment, EQI computation, and structured evaluation results.
+
+- `ranker.py`  
+  Cross-candidate ranking for 10 to 100+ candidate sets.
+
+- `business_impact.py`  
+  Executive-readable summary derived from evaluations.
+
+## Output contract
+
+Evaluation outputs are structured and repeatable:
+- role_type (canonical)
+- tier (Tier 1, Tier 2, or Indeterminate)
+- evidence_hits (explicit, normalized terms)
+- EQI score
+- strengths and weaknesses
+- rationale

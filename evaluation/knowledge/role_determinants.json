@@ -1,0 +1,34 @@
+{
+  "version": "v1.0.0",
+  "status": "LOCKED-SEED",
+  "notes": [
+    "This is a minimal seed file.",
+    "It will be replaced by the table-expanded role fingerprints from the Canonical Tier & Taxonomy Bible."
+  ],
+  "roles": {
+    "AI Engineer (General)": {
+      "tier1": [],
+      "tier2": [
+        "RAG",
+        "Retrieval-Augmented Generation",
+        "LangChain",
+        "LlamaIndex",
+        "Vector DB",
+        "Pinecone",
+        "Weaviate",
+        "Chroma",
+        "Qdrant",
+        "FAISS",
+        "FastAPI",
+        "OpenAI API",
+        "Anthropic API",
+        "Gemini API"
+      ],
+      "conditional": [
+        "fine-tuning",
+        "inference",
+        "evaluation"
+      ]
+    }
+  }
+}

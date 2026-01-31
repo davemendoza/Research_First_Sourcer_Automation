@@ -1,0 +1,54 @@
+# ==============================================================================
+# AI TALENT ENGINE – SIGNAL INTELLIGENCE
+# Proprietary and Confidential
+# © 2025–2026 L. David Mendoza. All Rights Reserved.
+# ==============================================================================
+#
+# This file contains proprietary intellectual property and trade secrets of
+# L. David Mendoza and is part of the AI Talent Engine – Signal Intelligence system.
+#
+# Unauthorized access, use, copying, modification, distribution, disclosure,
+# reverse engineering, or derivative use, in whole or in part, is strictly
+# prohibited without prior written authorization.
+#
+# ==============================================================================
+#
+# FILE: evaluation/business_impact.py
+# VERSION: v1.0.0
+#
+# CHANGELOG:
+# - v1.0.0 (2026-01-31): Executive summary generator for evaluation results.
+#
+# VALIDATION:
+# - python3 -c "from evaluation.business_impact import summarize_business_impact; print('ok')"
+#
+# GIT:
+# - git add evaluation/business_impact.py
+# - git commit -m "Add business impact summary (v1.0.0)"
+# - git push
+#
+
+from __future__ import annotations
+
+from typing import Dict, List
+
+from .schemas import EvaluationResult
+
+
+def summarize_business_impact(results: List[EvaluationResult]) -> Dict[str, str]:
+    """
+    Create a concise executive summary.
+    Deterministic, no speculative claims.
+    """
+    t1 = sum(1 for r in results if r.tier == "Tier 1")
+    t2 = sum(1 for r in results if r.tier == "Tier 2")
+    ind = sum(1 for r in results if r.tier == "Indeterminate")
+
+    top = sorted(results, key=lambda r: (-r.eqi_score, r.person_id))[:10]
+    top_ids = ", ".join([r.person_id for r in top])
+
+    return {
+        "counts": f"Tier 1: {t1} | Tier 2: {t2} | Indeterminate: {ind}",
+        "top_candidates_person_ids": top_ids,
+        "note": "Tier assignment is evidence-based and role-locked. Titles carry zero authority.",
+    }
