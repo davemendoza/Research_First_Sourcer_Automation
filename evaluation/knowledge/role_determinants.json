@@ -1,34 +1,261 @@
 {
-  "version": "v1.0.0",
-  "status": "LOCKED-SEED",
-  "notes": [
-    "This is a minimal seed file.",
-    "It will be replaced by the table-expanded role fingerprints from the Canonical Tier & Taxonomy Bible."
-  ],
-  "roles": {
-    "AI Engineer (General)": {
-      "tier1": [],
-      "tier2": [
-        "RAG",
-        "Retrieval-Augmented Generation",
-        "LangChain",
-        "LlamaIndex",
-        "Vector DB",
-        "Pinecone",
-        "Weaviate",
-        "Chroma",
-        "Qdrant",
-        "FAISS",
-        "FastAPI",
-        "OpenAI API",
-        "Anthropic API",
-        "Gemini API"
-      ],
-      "conditional": [
-        "fine-tuning",
-        "inference",
-        "evaluation"
-      ]
+  "schema_version": "1.0.0",
+  "contract": "role_determinants_table_allowlist",
+  "generated_utc": "2026-01-31T00:00:00Z",
+  "source_of_truth": {
+    "name": "Canonical Tier & Taxonomy Bible",
+    "version": "1.3",
+    "rule": "Allow-list only. No inferred signals. No advisory logic."
+  },
+  "global_rules": {
+    "enforcement_mode": "hard_gate",
+    "indeterminate_label": "Indeterminate – Insufficient Signals",
+    "regex": {
+      "case_insensitive": true,
+      "unicode": true
     }
+  },
+  "roles": {
+    "foundational_ai_scientist": {
+      "role_id": "foundational_ai_scientist",
+      "role_display_name": "Foundational AI Scientist",
+      "role_locked": true,
+      "tier1": {
+        "min_any": 1,
+        "require_all": [],
+        "require_any": [
+          "pre_training_foundation_model_training",
+          "architecture_research_transformers_attention_mechanisms_moe_",
+          "scaling_laws_research",
+          "novel_training_objectives",
+          "multi_modal_model_development_vision_language_audio",
+          "model_compression_research",
+          "sparse_models_research",
+          "compute_optimal_training",
+          "training_efficiency_research",
+          "novel_architectures_mamba_rwkv_etc"
+        ],
+        "signals": {
+          "pre_training_foundation_model_training": {
+            "display_name": "Pre-training / Foundation model training",
+            "patterns": [
+              "\\bPre\\-training\\b",
+              "\\bFoundation\\ model\\ training\\b",
+              "\\bPre\\-training\\ \\b",
+              "\\bFoundation\\ model\\ training\\b"
+            ],
+            "evidence_fields": [
+              "evidence_text",
+              "title_text",
+              "headline_text",
+              "summary_text",
+              "skills_text",
+              "experience_text",
+              "repos_text",
+              "papers_text",
+              "patents_text"
+            ],
+            "min_hits": 1,
+            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Pre-training / Foundation model training"
+          },
+          "architecture_research_transformers_attention_mechanisms_moe_": {
+            "display_name": "Architecture research: Transformers, attention mechanisms, MoE (Mixture of Experts)",
+            "patterns": [
+              "\\bArchitecture\\ research\\b",
+              "\\bTransformers\\b",
+              "\\battention\\ mechanisms\\b",
+              "\\bMoE\\b",
+              "\\bMixture\\ of\\ Experts\\b"
+            ],
+            "evidence_fields": [
+              "evidence_text",
+              "title_text",
+              "headline_text",
+              "summary_text",
+              "skills_text",
+              "experience_text",
+              "repos_text",
+              "papers_text",
+              "patents_text"
+            ],
+            "min_hits": 1,
+            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Architecture research: Transformers, attention mechanisms, MoE (Mixture of Experts)"
+          },
+          "scaling_laws_research": {
+            "display_name": "Scaling laws research",
+            "patterns": [
+              "\\bScaling\\ laws\\ research\\b"
+            ],
+            "evidence_fields": [
+              "evidence_text",
+              "title_text",
+              "headline_text",
+              "summary_text",
+              "skills_text",
+              "experience_text",
+              "repos_text",
+              "papers_text",
+              "patents_text"
+            ],
+            "min_hits": 1,
+            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Scaling laws research"
+          },
+          "novel_training_objectives": {
+            "display_name": "Novel training objectives",
+            "patterns": [
+              "\\bNovel\\ training\\ objectives\\b"
+            ],
+            "evidence_fields": [
+              "evidence_text",
+              "title_text",
+              "headline_text",
+              "summary_text",
+              "skills_text",
+              "experience_text",
+              "repos_text",
+              "papers_text",
+              "patents_text"
+            ],
+            "min_hits": 1,
+            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Novel training objectives"
+          },
+          "multi_modal_model_development_vision_language_audio": {
+            "display_name": "Multi-modal model development (vision, language, audio)",
+            "patterns": [
+              "\\bMulti\\-modal\\ model\\ development\\b",
+              "\\bvision\\b",
+              "\\blanguage\\b",
+              "\\baudio\\b"
+            ],
+            "evidence_fields": [
+              "evidence_text",
+              "title_text",
+              "headline_text",
+              "summary_text",
+              "skills_text",
+              "experience_text",
+              "repos_text",
+              "papers_text",
+              "patents_text"
+            ],
+            "min_hits": 1,
+            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Multi-modal model development (vision, language, audio)"
+          },
+          "model_compression_research": {
+            "display_name": "Model compression research",
+            "patterns": [
+              "\\bModel\\ compression\\ research\\b"
+            ],
+            "evidence_fields": [
+              "evidence_text",
+              "title_text",
+              "headline_text",
+              "summary_text",
+              "skills_text",
+              "experience_text",
+              "repos_text",
+              "papers_text",
+              "patents_text"
+            ],
+            "min_hits": 1,
+            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Model compression research"
+          },
+          "sparse_models_research": {
+            "display_name": "Sparse models research",
+            "patterns": [
+              "\\bSparse\\ models\\ research\\b"
+            ],
+            "evidence_fields": [
+              "evidence_text",
+              "title_text",
+              "headline_text",
+              "summary_text",
+              "skills_text",
+              "experience_text",
+              "repos_text",
+              "papers_text",
+              "patents_text"
+            ],
+            "min_hits": 1,
+            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Sparse models research"
+          },
+          "compute_optimal_training": {
+            "display_name": "Compute-optimal training",
+            "patterns": [
+              "\\bCompute\\-optimal\\ training\\b"
+            ],
+            "evidence_fields": [
+              "evidence_text",
+              "title_text",
+              "headline_text",
+              "summary_text",
+              "skills_text",
+              "experience_text",
+              "repos_text",
+              "papers_text",
+              "patents_text"
+            ],
+            "min_hits": 1,
+            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Compute-optimal training"
+          },
+          "training_efficiency_research": {
+            "display_name": "Training efficiency research",
+            "patterns": [
+              "\\bTraining\\ efficiency\\ research\\b"
+            ],
+            "evidence_fields": [
+              "evidence_text",
+              "title_text",
+              "headline_text",
+              "summary_text",
+              "skills_text",
+              "experience_text",
+              "repos_text",
+              "papers_text",
+              "patents_text"
+            ],
+            "min_hits": 1,
+            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Training efficiency research"
+          },
+          "novel_architectures_mamba_rwkv_etc": {
+            "display_name": "Novel architectures (Mamba, RWKV, etc.)",
+            "patterns": [
+              "\\bNovel\\ architectures\\b",
+              "\\bMamba\\b",
+              "\\bRWKV\\b",
+              "\\betc\\b"
+            ],
+            "evidence_fields": [
+              "evidence_text",
+              "title_text",
+              "headline_text",
+              "summary_text",
+              "skills_text",
+              "experience_text",
+              "repos_text",
+              "papers_text",
+              "patents_text"
+            ],
+            "min_hits": 1,
+            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Novel architectures (Mamba, RWKV, etc.)"
+          }
+        }
+      },
+      "tier2": {
+        "min_any": 1,
+        "require_all": [],
+        "require_any": [],
+        "signals": {}
+      }
+    },
+
+    "..._27_roles_total_omitted_here_in_chat_output_due_to_message_size_limits": {}
+  },
+  "validation": {
+    "require_exact_canonical_role_count": 27,
+    "require_non_empty_roles": true,
+    "require_non_empty_tier_tables": true,
+    "require_signal_provenance": true,
+    "disallow_unknown_fields": true
   }
 }

@@ -1,0 +1,15 @@
+{
+  "ip_protection_header": "# ==============================================================================\n# AI TALENT ENGINE – SIGNAL INTELLIGENCE\n# Proprietary and Confidential\n# © 2025–2026 L. David Mendoza. All Rights Reserved.\n# ==============================================================================\n#\n# This file contains proprietary intellectual property and trade secrets of\n# L. David Mendoza and is part of the AI Talent Engine – Signal Intelligence system.\n#\n# Unauthorized access, use, copying, modification, distribution, disclosure,\n# reverse engineering, or derivative use, in whole or in part, is strictly\n# prohibited without prior written authorization.\n#\n# ==============================================================================",
+  "schema_version": "1.0.0",
+  "contract": "model_ecosystem_registry",
+  "generated_utc": "2026-02-01T00:00:00Z",
+  "providers": {
+    "OpenAI": { "families": ["GPT-4.x", "GPT-5.x", "o-series", "Whisper", "Sora"], "patterns": ["gpt-*", "o*"] },
+    "Anthropic": { "families": ["Claude 3", "Claude 3.5", "Claude 4", "Claude 4.5"], "patterns": ["claude-*"] },
+    "Google DeepMind": { "families": ["Gemini 2.x", "Gemini 3", "Gemma"], "patterns": ["gemini*", "gemma*"] },
+    "xAI": { "families": ["Grok"], "patterns": ["grok*"] },
+    "Meta": { "families": ["LLaMA 3.x", "LLaMA 4", "CodeLlama", "LLaMA Guard"], "patterns": ["llama*", "codellama*"] },
+    "Mistral": { "families": ["Mistral", "Mixtral", "*stral"], "patterns": ["mistral*", "mixtral*", "*stral"] },
+    "OSS frontier": { "families": ["Qwen", "DeepSeek", "Phi", "Falcon", "Cohere Command", "AI21 Jamba"], "patterns": ["qwen*", "deepseek*", "phi*", "falcon*", "command*", "jamba*"] }
+  }
+}

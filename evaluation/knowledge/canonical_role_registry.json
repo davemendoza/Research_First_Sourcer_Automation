@@ -1,0 +1,45 @@
+{
+  "ip_protection_header": "# ==============================================================================\n# AI TALENT ENGINE – SIGNAL INTELLIGENCE\n# Proprietary and Confidential\n# © 2025–2026 L. David Mendoza. All Rights Reserved.\n# ==============================================================================\n#\n# This file contains proprietary intellectual property and trade secrets of\n# L. David Mendoza and is part of the AI Talent Engine – Signal Intelligence system.\n#\n# Unauthorized access, use, copying, modification, distribution, disclosure,\n# reverse engineering, or derivative use, in whole or in part, is strictly\n# prohibited without prior written authorization.\n#\n# ==============================================================================",
+  "schema_version": "1.0.0",
+  "contract": "canonical_role_registry",
+  "generated_utc": "2026-02-01T00:00:00Z",
+  "source_of_truth": {
+    "name": "AI Talent Engine — Canonical Tier & Taxonomy Bible",
+    "version": "v1.3"
+  },
+  "rules": {
+    "no_new_roles": true,
+    "titles_carry_zero_authority": true,
+    "tier_logic_is_canon_locked": true,
+    "fail_closed_on_unknown_role": true
+  },
+  "roles": [
+    { "role": "Foundational AI Scientist", "default_tier": "Tier 1" },
+    { "role": "Frontier AI Research Scientist", "default_tier": "Tier 1" },
+    { "role": "Applied AI Research Scientist", "default_tier": "Tier 1" },
+    { "role": "Machine Learning Research Scientist", "default_tier": "Tier 1" },
+    { "role": "RLHF Research Scientist", "default_tier": "Tier 1" },
+    { "role": "AI Performance Engineer", "default_tier": "Tier 1" },
+    { "role": "Model Training Engineer", "default_tier": "Tier 1" },
+    { "role": "Inference Optimization Engineer", "default_tier": "Tier 1" },
+    { "role": "LLM Systems Engineer", "default_tier": "Tier 1" },
+    { "role": "AI Engineer (General)", "default_tier": "Tier 2" },
+    { "role": "Applied Machine Learning Engineer", "default_tier": "Tier 2" },
+    { "role": "Generative AI Engineer", "default_tier": "Tier 2" },
+    { "role": "LLM Application Engineer", "default_tier": "Tier 2" },
+    { "role": "AI Infrastructure Engineer", "default_tier": "Tier 1" },
+    { "role": "ML Infrastructure Engineer", "default_tier": "Tier 1" },
+    { "role": "Distributed Systems Engineer (AI Focus)", "default_tier": "Tier 1" },
+    { "role": "Site Reliability Engineer (AI / ML)", "default_tier": "Tier 1" },
+    { "role": "Platform Engineer (AI Systems)", "default_tier": "Tier 2" },
+    { "role": "Machine Learning Engineer (Data-Centric)", "default_tier": "Tier 2" },
+    { "role": "Data Engineer (AI Pipelines)", "default_tier": "Tier 2" },
+    { "role": "MLOps Engineer", "default_tier": "Tier 2" },
+    { "role": "Forward Deployed Engineer (AI)", "default_tier": "Tier 2" },
+    { "role": "AI Solutions Architect", "default_tier": "Tier 2" },
+    { "role": "Developer Relations Engineer (AI)", "default_tier": "Tier 2" },
+    { "role": "Technical Evangelist (AI/ML)", "default_tier": "Tier 2" },
+    { "role": "AI Safety Engineer / Researcher", "default_tier": "Tier 1" },
+    { "role": "AI Evaluation & Benchmarking Specialist", "default_tier": "Tier 1" }
+  ]
+}

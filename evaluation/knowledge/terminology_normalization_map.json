@@ -1,0 +1,32 @@
+{
+  "ip_protection_header": "# ==============================================================================\n# AI TALENT ENGINE – SIGNAL INTELLIGENCE\n# Proprietary and Confidential\n# © 2025–2026 L. David Mendoza. All Rights Reserved.\n# ==============================================================================\n#\n# This file contains proprietary intellectual property and trade secrets of\n# L. David Mendoza and is part of the AI Talent Engine – Signal Intelligence system.\n#\n# Unauthorized access, use, copying, modification, distribution, disclosure,\n# reverse engineering, or derivative use, in whole or in part, is strictly\n# prohibited without prior written authorization.\n#\n# ==============================================================================",
+  "schema_version": "1.0.0",
+  "contract": "terminology_normalization_map",
+  "generated_utc": "2026-02-01T00:00:00Z",
+  "pairs": [
+    { "src": "retrieval augmented generation", "dst": "RAG" },
+    { "src": "retrieval-augmented generation", "dst": "RAG" },
+    { "src": "vector store", "dst": "Vector DB" },
+    { "src": "vector database", "dst": "Vector DB" },
+    { "src": "lang chain", "dst": "LangChain" },
+    { "src": "llama index", "dst": "LlamaIndex" },
+    { "src": "fast api", "dst": "FastAPI" },
+    { "src": "member of technical staff", "dst": "MTS" },
+    { "src": "member technical staff", "dst": "MTS" },
+    { "src": "algorithm engineer", "dst": "Machine Learning Engineer" },
+    { "src": "post-training", "dst": "RLHF / Alignment" },
+    { "src": "frontier evals", "dst": "Frontier evaluations" },
+    { "src": "capability elicitation", "dst": "Frontier evaluations" }
+  ],
+  "agent51_rules": {
+    "role": "governance_sentinel",
+    "runs_in_stage": "terminology_normalization_only",
+    "may_add": ["pairs", "title_variants"],
+    "may_not_add": ["new_roles", "tier_rules", "scoring_rules", "ranking_rules"]
+  },
+  "title_variants": {
+    "Member of Technical Staff": ["MTS", "Member Technical Staff", "Member of Technical Staff"],
+    "AI Performance Engineer": ["GPU Performance Engineer", "CUDA Kernel Engineer", "Kernel Engineer", "GPU Optimization Engineer"],
+    "Inference Optimization Engineer": ["Inference Engineer", "Serving Engineer", "Throughput Engineer", "Model Serving Engineer"]
+  }
+}

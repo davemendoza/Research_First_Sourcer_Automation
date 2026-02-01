@@ -1,0 +1,459 @@
+{
+  "ip_protection_header": "# ==============================================================================\n# AI TALENT ENGINE – SIGNAL INTELLIGENCE\n# Proprietary and Confidential\n# © 2025–2026 L. David Mendoza. All Rights Reserved.\n# ==============================================================================\n#\n# This file contains proprietary intellectual property and trade secrets of\n# L. David Mendoza and is part of the AI Talent Engine – Signal Intelligence system.\n#\n# Unauthorized access, use, copying, modification, distribution, disclosure,\n# reverse engineering, or derivative use, in whole or in part, is strictly\n# prohibited without prior written authorization.\n#\n# ==============================================================================",
+  "schema_version": "1.0.0",
+  "contract": "role_determinants_allowlists",
+  "generated_utc": "2026-02-01T00:00:00Z",
+  "source_of_truth": {
+    "name": "AI Talent Engine — Canonical Tier & Taxonomy Bible",
+    "version": "v1.3",
+    "rule": "allow-list only; no inference; titles carry zero authority"
+  },
+  "global_rules": {
+    "enforcement_mode": "hard_gate",
+    "tier_labels": ["Tier 1", "Tier 2", "Indeterminate – Insufficient Signals"],
+    "negative_authority_never_tier1_alone": [
+      "RAG without training or evaluation authority",
+      "Vector DB implementation or tuning",
+      "Prompt engineering absent model training/alignment/eval authority",
+      "Large-scale model hosting without kernel/runtime optimization",
+      "API-based fine-tuning without RLHF variants or custom loss"
+    ],
+    "recency_handling": {
+      "no_auto_penalty_for_age": true,
+      "surface_recency_descriptively": true
+    },
+    "weak_signal_handling": {
+      "toy_or_unscoped_evidence_is_tier_neutral": true,
+      "no_subtractive_scoring": true,
+      "withhold_escalation_when_unclear": true
+    },
+    "confidence_bands": ["High", "Medium", "Limited"]
+  },
+  "role_gates": {
+    "benchmarks_enabled_roles": [
+      "Foundational AI Scientist",
+      "Frontier AI Research Scientist",
+      "Applied AI Research Scientist",
+      "RLHF Research Scientist",
+      "AI Safety Engineer / Researcher",
+      "AI Evaluation & Benchmarking Specialist",
+      "AI Performance Engineer",
+      "Inference Optimization Engineer",
+      "Model Training Engineer"
+    ],
+    "research_metrics_enabled_roles": [
+      "Foundational AI Scientist",
+      "Frontier AI Research Scientist",
+      "Applied AI Research Scientist",
+      "Machine Learning Research Scientist",
+      "RLHF Research Scientist",
+      "AI Safety Engineer / Researcher",
+      "AI Evaluation & Benchmarking Specialist"
+    ],
+    "business_impact_allowed_roles": [
+      "AI Performance Engineer",
+      "Inference Optimization Engineer",
+      "Model Training Engineer",
+      "LLM Systems Engineer",
+      "AI Infrastructure Engineer",
+      "ML Infrastructure Engineer",
+      "Distributed Systems Engineer (AI Focus)",
+      "Site Reliability Engineer (AI / ML)",
+      "Platform Engineer (AI Systems)"
+    ]
+  },
+  "roles": {
+    "Foundational AI Scientist": {
+      "tier1": [
+        "Pre-training / Foundation model training",
+        "Architecture research: Transformers, attention mechanisms, MoE",
+        "Scaling laws research",
+        "Novel training objectives",
+        "Multi-modal model development (vision, language, audio)",
+        "Compute-optimal training",
+        "Training efficiency research",
+        "Sparse models research",
+        "Model compression research",
+        "Novel architectures (Mamba, RWKV, etc.)"
+      ],
+      "tier2": [],
+      "conditional": []
+    },
+    "Frontier AI Research Scientist": {
+      "tier1": [
+        "Frontier model capabilities research",
+        "Novel reasoning architectures (o-series, Deep Think, Think mode)",
+        "Scaling behavior research",
+        "Emergent capabilities investigation",
+        "Safety constraints research (ASL-3, ASL-4)",
+        "AGI/ASI research (explicit)",
+        "Self-improvement / recursive improvement (explicit)"
+      ],
+      "tier2": [],
+      "conditional": []
+    },
+    "Applied AI Research Scientist": {
+      "tier1": [
+        "Domain-specific model development (Code, Math, Science)",
+        "Task-specific architecture design",
+        "Benchmark development (domain-specific)",
+        "Research prototyping that feeds production",
+        "Research that improves model capabilities"
+      ],
+      "tier2": [
+        "Product feature research (no model modification)",
+        "A/B testing research",
+        "Product analytics (non-model)"
+      ],
+      "conditional": [
+        "Fine-tuning: Tier 1 if custom loss/architecture change or RLHF; Tier 2 if LoRA/PEFT only",
+        "Evaluation: Tier 1 if drives model iteration; Tier 2 if product metrics only"
+      ]
+    },
+    "Machine Learning Research Scientist": {
+      "tier1": [
+        "Novel ML algorithms",
+        "Optimization algorithms",
+        "Loss function design",
+        "Robustness research",
+        "Generalization theory",
+        "Causal inference for ML (research)"
+      ],
+      "tier2": [
+        "Traditional ML for product",
+        "Feature engineering",
+        "Recommendation systems (application)"
+      ],
+      "conditional": [
+        "Deep learning: Tier 1 if training/architecture research; Tier 2 if deployment only"
+      ]
+    },
+    "RLHF Research Scientist": {
+      "tier1": [
+        "RLHF: PPO, DPO, GRPO, KTO, ORPO, SimPO, RLAIF",
+        "Reward model training",
+        "Preference learning algorithms",
+        "Policy optimization for LLMs",
+        "Constitutional AI (explicit)",
+        "Alignment training (explicit)",
+        "ASL determination / dangerous capability evaluation (explicit)"
+      ],
+      "tier2": [
+        "Annotation ops without modeling",
+        "Preference collection without modeling"
+      ],
+      "conditional": [
+        "Fine-tuning: Tier 1 if RLHF/reward models; Tier 2 if SFT only"
+      ]
+    },
+    "AI Performance Engineer": {
+      "tier1": [
+        "CUDA kernel development",
+        "Triton kernel optimization",
+        "FlashAttention / PagedAttention optimization",
+        "KV cache optimization",
+        "Quantization implementation (GPTQ, AWQ, FP8/INT4)",
+        "Tokens/sec optimization",
+        "Latency optimization (p95/p99)",
+        "NCCL/RCCL optimization",
+        "TensorRT-LLM optimization",
+        "vLLM optimization"
+      ],
+      "tier2": [
+        "API latency tuning (no kernel)",
+        "Caching strategies (app-level)"
+      ],
+      "conditional": [
+        "Serving: Tier 1 if kernel/runtime ownership; Tier 2 if deployment only"
+      ]
+    },
+    "Model Training Engineer": {
+      "tier1": [
+        "Distributed training: DeepSpeed ZeRO, FSDP, Megatron",
+        "Tensor/pipeline parallelism",
+        "Mixed precision training (BF16/FP8)",
+        "Fault-tolerant training at scale",
+        "Training stability (explicit)",
+        "Slurm for training (explicit)",
+        "JAX/XLA training (explicit)"
+      ],
+      "tier2": [
+        "Small-scale fine-tuning",
+        "MLOps monitoring only"
+      ],
+      "conditional": [
+        "Fine-tuning: Tier 1 if distributed/custom loops; Tier 2 if single-GPU PEFT"
+      ]
+    },
+    "Inference Optimization Engineer": {
+      "tier1": [
+        "vLLM optimization and development",
+        "TensorRT-LLM optimization",
+        "TGI optimization",
+        "Speculative decoding",
+        "Continuous/dynamic batching",
+        "KV cache compression",
+        "CUDA graphs for inference",
+        "MQA/GQA implementation"
+      ],
+      "tier2": [
+        "Model routing (app-level)",
+        "Rate limiting / caching (app-level)"
+      ],
+      "conditional": [
+        "Serving: Tier 1 if engine/kernels; Tier 2 if standard serving stack"
+      ]
+    },
+    "LLM Systems Engineer": {
+      "tier1": [
+        "GPU cluster management for training/inference",
+        "High-speed interconnects (NVLink, InfiniBand, RDMA)",
+        "Checkpointing at scale",
+        "Fault tolerance for training systems",
+        "Training data storage systems (explicit)",
+        "Cluster orchestration for AI workloads (explicit)"
+      ],
+      "tier2": [
+        "General cloud infra",
+        "Standard DevOps"
+      ],
+      "conditional": [
+        "Kubernetes: Tier 1 if GPU orchestration; Tier 2 if generic app deployment"
+      ]
+    },
+    "AI Infrastructure Engineer": {
+      "tier1": [
+        "GPU/TPU cluster infra for training/inference",
+        "RDMA/InfiniBand for AI",
+        "Multi-tenant GPU scheduling",
+        "AI observability for training/inference",
+        "Long-running training fault tolerance"
+      ],
+      "tier2": [
+        "Generic infra",
+        "Generic CI/CD"
+      ],
+      "conditional": [
+        "Tier 1 only when AI workload context is explicit"
+      ]
+    },
+    "ML Infrastructure Engineer": {
+      "tier1": [
+        "ML platform development for training/serving",
+        "Training job orchestration",
+        "Model registry and experiment systems",
+        "GPU resource management (explicit)",
+        "Training data pipelines (explicit)"
+      ],
+      "tier2": [
+        "Deploying MLOps tools",
+        "Dashboards only"
+      ],
+      "conditional": [
+        "Data pipelines: Tier 1 if training data; Tier 2 if app features/RAG"
+      ]
+    },
+    "Distributed Systems Engineer (AI Focus)": {
+      "tier1": [
+        "Collective comms: NCCL/RCCL/MPI for training",
+        "Ring-allreduce optimization",
+        "Distributed checkpoint systems",
+        "Distributed inference systems (engine-level)",
+        "Network topology optimization for AI"
+      ],
+      "tier2": [
+        "Microservices without AI workload"
+      ],
+      "conditional": [
+        "Tier 1 only when ML training/inference workload is explicit"
+      ]
+    },
+    "Site Reliability Engineer (AI / ML)": {
+      "tier1": [
+        "Training reliability at scale",
+        "Inference SLA optimization for LLM serving",
+        "GPU cluster reliability",
+        "Capacity planning for GPU/TPU",
+        "Incident response for training/inference systems"
+      ],
+      "tier2": [
+        "General SRE"
+      ],
+      "conditional": [
+        "Tier 1 only when ML training/inference scope is explicit"
+      ]
+    },
+    "AI Engineer (General)": {
+      "tier1": [],
+      "tier2": [
+        "RAG",
+        "LangChain",
+        "LlamaIndex",
+        "Vector DBs (Pinecone, Weaviate, FAISS, Milvus, Chroma, Qdrant)",
+        "OpenAI/Anthropic/Gemini API integration",
+        "Tool calling / function calling",
+        "Agent orchestration"
+      ],
+      "conditional": [
+        "Tier 1 only if explicit training/alignment/inference-engine optimization appears"
+      ]
+    },
+    "Applied Machine Learning Engineer": {
+      "tier1": [],
+      "tier2": [
+        "Feature engineering",
+        "Model selection (existing models)",
+        "MLOps tooling (MLflow, W&B)",
+        "A/B testing (product)",
+        "Classical ML (XGBoost/LightGBM)"
+      ],
+      "conditional": [
+        "Tier 1 only if explicit training/architecture/novel algorithms"
+      ]
+    },
+    "Generative AI Engineer": {
+      "tier1": [],
+      "tier2": [
+        "Diffusion app work (Stable Diffusion usage)",
+        "LoRA/DreamBooth usage (no architecture changes)",
+        "Text-to-image apps",
+        "GenAI product integration"
+      ],
+      "conditional": [
+        "Tier 1 only if training/architecture optimization is explicit"
+      ]
+    },
+    "LLM Application Engineer": {
+      "tier1": [],
+      "tier2": [
+        "LangChain/LlamaIndex/LangGraph",
+        "RAG implementation",
+        "Vector DBs",
+        "Guardrails (app-level)",
+        "LLM API integration"
+      ],
+      "conditional": [
+        "Tier 1 only if eval drives model iteration OR inference engine optimization is explicit"
+      ]
+    },
+    "Platform Engineer (AI Systems)": {
+      "tier1": [],
+      "tier2": [
+        "Platform APIs and internal tooling",
+        "Deployment platforms",
+        "Experimentation platforms (non-training)"
+      ],
+      "conditional": [
+        "Tier 1 only if training/inference platform ownership and GPU orchestration is explicit"
+      ]
+    },
+    "Machine Learning Engineer (Data-Centric)": {
+      "tier1": [],
+      "tier2": [
+        "ETL for product features",
+        "Labeling workflows",
+        "Data governance",
+        "Feature stores (app)"
+      ],
+      "conditional": [
+        "Tier 1 only if training data curation/synthetic training data is explicit"
+      ]
+    },
+    "Data Engineer (AI Pipelines)": {
+      "tier1": [],
+      "tier2": [
+        "ETL pipelines",
+        "Warehouses (Snowflake/BigQuery)",
+        "Streaming (Kafka/Flink)",
+        "Orchestration (Airflow/Prefect)"
+      ],
+      "conditional": [
+        "Tier 1 only if pre-training/training data pipeline work is explicit"
+      ]
+    },
+    "MLOps Engineer": {
+      "tier1": [],
+      "tier2": [
+        "CI/CD for models",
+        "Model monitoring",
+        "Deployment automation",
+        "Kubernetes serving (generic)"
+      ],
+      "conditional": [
+        "Tier 1 only if training infrastructure ownership OR inference optimization is explicit"
+      ]
+    },
+    "Forward Deployed Engineer (AI)": {
+      "tier1": [],
+      "tier2": [
+        "Customer integrations",
+        "POCs",
+        "Solution design for customers",
+        "Deployment support"
+      ],
+      "conditional": []
+    },
+    "AI Solutions Architect": {
+      "tier1": [],
+      "tier2": [
+        "Reference architectures",
+        "Integration patterns",
+        "Security and scalability design",
+        "Cloud platform selection"
+      ],
+      "conditional": []
+    },
+    "Developer Relations Engineer (AI)": {
+      "tier1": [],
+      "tier2": [
+        "Docs/tutorials",
+        "SDK examples",
+        "Community engagement",
+        "Conference talks"
+      ],
+      "conditional": []
+    },
+    "Technical Evangelist (AI/ML)": {
+      "tier1": [],
+      "tier2": [
+        "Technical content",
+        "Workshops/training",
+        "Demos"
+      ],
+      "conditional": []
+    },
+    "AI Safety Engineer / Researcher": {
+      "tier1": [
+        "Model safety red teaming (training-integrated)",
+        "ASL determination",
+        "Scalable oversight research",
+        "Mechanistic interpretability (SAEs, circuit tracing)",
+        "RSP / Responsible Scaling Policy implementation",
+        "Automated red teaming that feeds model changes"
+      ],
+      "tier2": [
+        "Content moderation systems",
+        "Policy enforcement (app-level)"
+      ],
+      "conditional": [
+        "Guardrails: Tier 1 if training-integrated; Tier 2 if API filtering only"
+      ]
+    },
+    "AI Evaluation & Benchmarking Specialist": {
+      "tier1": [
+        "Benchmark development (SWE-bench, MLE-bench, PaperBench)",
+        "Evaluation harness development",
+        "Eval-driven model iteration",
+        "Frontier evaluations (dangerous capabilities)",
+        "Safety evaluations that drive model decisions"
+      ],
+      "tier2": [
+        "Product quality metrics only",
+        "A/B testing only"
+      ],
+      "conditional": [
+        "Tier 1 only when evaluation drives model changes, not just reporting"
+      ]
+    }
+  }
+}

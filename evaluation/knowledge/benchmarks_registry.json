@@ -1,0 +1,36 @@
+{
+  "ip_protection_header": "# ==============================================================================\n# AI TALENT ENGINE – SIGNAL INTELLIGENCE\n# Proprietary and Confidential\n# © 2025–2026 L. David Mendoza. All Rights Reserved.\n# ==============================================================================\n#\n# This file contains proprietary intellectual property and trade secrets of\n# L. David Mendoza and is part of the AI Talent Engine – Signal Intelligence system.\n#\n# Unauthorized access, use, copying, modification, distribution, disclosure,\n# reverse engineering, or derivative use, in whole or in part, is strictly\n# prohibited without prior written authorization.\n#\n# ==============================================================================",
+  "schema_version": "1.0.0",
+  "contract": "benchmarks_registry",
+  "generated_utc": "2026-02-01T00:00:00Z",
+  "principles": {
+    "benchmarks_are_role_gated": true,
+    "benchmarks_require_context": true,
+    "toy_benchmarks_do_not_escalate_tier": true
+  },
+  "benchmark_terms": [
+    "HELM",
+    "MMLU",
+    "MMLU-Pro",
+    "GSM8K",
+    "GPQA",
+    "HumanEval",
+    "MBPP",
+    "SWE-bench",
+    "SWE-bench Verified",
+    "MLE-bench",
+    "PaperBench",
+    "HarmBench",
+    "AdvBench"
+  ],
+  "hm_visible_fields": [
+    "Benchmarks_Worked_On",
+    "Primary_Model_Families",
+    "Production_vs_Research_Indicator",
+    "Inference_Training_Infra_Signals",
+    "RLHF_Alignment_Signals",
+    "Downstream_Adoption_Signal",
+    "Key_GitHub_AI_Repos",
+    "Open_Source_Impact_Notes"
+  ]
+}
