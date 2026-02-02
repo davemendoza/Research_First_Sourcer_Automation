@@ -1,261 +1,566 @@
 {
-  "schema_version": "1.0.0",
-  "contract": "role_determinants_table_allowlist",
-  "generated_utc": "2026-01-31T00:00:00Z",
-  "source_of_truth": {
-    "name": "Canonical Tier & Taxonomy Bible",
-    "version": "1.3",
-    "rule": "Allow-list only. No inferred signals. No advisory logic."
-  },
-  "global_rules": {
-    "enforcement_mode": "hard_gate",
-    "indeterminate_label": "Indeterminate – Insufficient Signals",
-    "regex": {
-      "case_insensitive": true,
-      "unicode": true
-    }
-  },
+  "ip_protection_header": "# ==============================================================================\n# AI TALENT ENGINE – SIGNAL INTELLIGENCE\n# Proprietary and Confidential\n# © 2025–2026 L. David Mendoza. All Rights Reserved.\n# ==============================================================================\n#\n# This file contains proprietary intellectual property and trade secrets of\n# L. David Mendoza and is part of the AI Talent Engine – Signal Intelligence system.\n#\n# Unauthorized access, use, copying, modification, distribution, disclosure,\n# reverse engineering, or derivative use, in whole or in part, is strictly\n# prohibited without prior written authorization.\n#\n# ==============================================================================",
+
+  "schema_version": "1.1",
+  "mode": "fail_closed",
+  "no_inference": true,
+  "roles_total": 27,
+
   "roles": {
-    "foundational_ai_scientist": {
-      "role_id": "foundational_ai_scientist",
-      "role_display_name": "Foundational AI Scientist",
-      "role_locked": true,
-      "tier1": {
-        "min_any": 1,
-        "require_all": [],
-        "require_any": [
-          "pre_training_foundation_model_training",
-          "architecture_research_transformers_attention_mechanisms_moe_",
-          "scaling_laws_research",
-          "novel_training_objectives",
-          "multi_modal_model_development_vision_language_audio",
-          "model_compression_research",
-          "sparse_models_research",
-          "compute_optimal_training",
-          "training_efficiency_research",
-          "novel_architectures_mamba_rwkv_etc"
-        ],
-        "signals": {
-          "pre_training_foundation_model_training": {
-            "display_name": "Pre-training / Foundation model training",
-            "patterns": [
-              "\\bPre\\-training\\b",
-              "\\bFoundation\\ model\\ training\\b",
-              "\\bPre\\-training\\ \\b",
-              "\\bFoundation\\ model\\ training\\b"
-            ],
-            "evidence_fields": [
-              "evidence_text",
-              "title_text",
-              "headline_text",
-              "summary_text",
-              "skills_text",
-              "experience_text",
-              "repos_text",
-              "papers_text",
-              "patents_text"
-            ],
-            "min_hits": 1,
-            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Pre-training / Foundation model training"
-          },
-          "architecture_research_transformers_attention_mechanisms_moe_": {
-            "display_name": "Architecture research: Transformers, attention mechanisms, MoE (Mixture of Experts)",
-            "patterns": [
-              "\\bArchitecture\\ research\\b",
-              "\\bTransformers\\b",
-              "\\battention\\ mechanisms\\b",
-              "\\bMoE\\b",
-              "\\bMixture\\ of\\ Experts\\b"
-            ],
-            "evidence_fields": [
-              "evidence_text",
-              "title_text",
-              "headline_text",
-              "summary_text",
-              "skills_text",
-              "experience_text",
-              "repos_text",
-              "papers_text",
-              "patents_text"
-            ],
-            "min_hits": 1,
-            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Architecture research: Transformers, attention mechanisms, MoE (Mixture of Experts)"
-          },
-          "scaling_laws_research": {
-            "display_name": "Scaling laws research",
-            "patterns": [
-              "\\bScaling\\ laws\\ research\\b"
-            ],
-            "evidence_fields": [
-              "evidence_text",
-              "title_text",
-              "headline_text",
-              "summary_text",
-              "skills_text",
-              "experience_text",
-              "repos_text",
-              "papers_text",
-              "patents_text"
-            ],
-            "min_hits": 1,
-            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Scaling laws research"
-          },
-          "novel_training_objectives": {
-            "display_name": "Novel training objectives",
-            "patterns": [
-              "\\bNovel\\ training\\ objectives\\b"
-            ],
-            "evidence_fields": [
-              "evidence_text",
-              "title_text",
-              "headline_text",
-              "summary_text",
-              "skills_text",
-              "experience_text",
-              "repos_text",
-              "papers_text",
-              "patents_text"
-            ],
-            "min_hits": 1,
-            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Novel training objectives"
-          },
-          "multi_modal_model_development_vision_language_audio": {
-            "display_name": "Multi-modal model development (vision, language, audio)",
-            "patterns": [
-              "\\bMulti\\-modal\\ model\\ development\\b",
-              "\\bvision\\b",
-              "\\blanguage\\b",
-              "\\baudio\\b"
-            ],
-            "evidence_fields": [
-              "evidence_text",
-              "title_text",
-              "headline_text",
-              "summary_text",
-              "skills_text",
-              "experience_text",
-              "repos_text",
-              "papers_text",
-              "patents_text"
-            ],
-            "min_hits": 1,
-            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Multi-modal model development (vision, language, audio)"
-          },
-          "model_compression_research": {
-            "display_name": "Model compression research",
-            "patterns": [
-              "\\bModel\\ compression\\ research\\b"
-            ],
-            "evidence_fields": [
-              "evidence_text",
-              "title_text",
-              "headline_text",
-              "summary_text",
-              "skills_text",
-              "experience_text",
-              "repos_text",
-              "papers_text",
-              "patents_text"
-            ],
-            "min_hits": 1,
-            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Model compression research"
-          },
-          "sparse_models_research": {
-            "display_name": "Sparse models research",
-            "patterns": [
-              "\\bSparse\\ models\\ research\\b"
-            ],
-            "evidence_fields": [
-              "evidence_text",
-              "title_text",
-              "headline_text",
-              "summary_text",
-              "skills_text",
-              "experience_text",
-              "repos_text",
-              "papers_text",
-              "patents_text"
-            ],
-            "min_hits": 1,
-            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Sparse models research"
-          },
-          "compute_optimal_training": {
-            "display_name": "Compute-optimal training",
-            "patterns": [
-              "\\bCompute\\-optimal\\ training\\b"
-            ],
-            "evidence_fields": [
-              "evidence_text",
-              "title_text",
-              "headline_text",
-              "summary_text",
-              "skills_text",
-              "experience_text",
-              "repos_text",
-              "papers_text",
-              "patents_text"
-            ],
-            "min_hits": 1,
-            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Compute-optimal training"
-          },
-          "training_efficiency_research": {
-            "display_name": "Training efficiency research",
-            "patterns": [
-              "\\bTraining\\ efficiency\\ research\\b"
-            ],
-            "evidence_fields": [
-              "evidence_text",
-              "title_text",
-              "headline_text",
-              "summary_text",
-              "skills_text",
-              "experience_text",
-              "repos_text",
-              "papers_text",
-              "patents_text"
-            ],
-            "min_hits": 1,
-            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Training efficiency research"
-          },
-          "novel_architectures_mamba_rwkv_etc": {
-            "display_name": "Novel architectures (Mamba, RWKV, etc.)",
-            "patterns": [
-              "\\bNovel\\ architectures\\b",
-              "\\bMamba\\b",
-              "\\bRWKV\\b",
-              "\\betc\\b"
-            ],
-            "evidence_fields": [
-              "evidence_text",
-              "title_text",
-              "headline_text",
-              "summary_text",
-              "skills_text",
-              "experience_text",
-              "repos_text",
-              "papers_text",
-              "patents_text"
-            ],
-            "min_hits": 1,
-            "provenance": "Bible v1.3: Foundational AI Scientist / Tier 1 Determinative Signals / bullet: Novel architectures (Mamba, RWKV, etc.)"
-          }
-        }
-      },
-      "tier2": {
-        "min_any": 1,
-        "require_all": [],
-        "require_any": [],
-        "signals": {}
-      }
+
+    "Foundational AI Scientist": {
+      "tier_1": [
+        "pre-training / foundation model training",
+        "transformer architecture research",
+        "attention mechanism research",
+        "mixture of experts (moe) research",
+        "scaling laws research",
+        "novel training objectives",
+        "multimodal model development",
+        "model compression research",
+        "sparse model research",
+        "compute-optimal training",
+        "training efficiency research",
+        "novel architectures (mamba, rwkv)"
+      ],
+      "tier_2": [],
+      "conditional": []
     },
 
-    "..._27_roles_total_omitted_here_in_chat_output_due_to_message_size_limits": {}
-  },
-  "validation": {
-    "require_exact_canonical_role_count": 27,
-    "require_non_empty_roles": true,
-    "require_non_empty_tier_tables": true,
-    "require_signal_provenance": true,
-    "disallow_unknown_fields": true
+    "Frontier AI Research Scientist": {
+      "tier_1": [
+        "frontier model capabilities research",
+        "agi or asi research",
+        "novel reasoning architectures",
+        "self-improvement or recursive improvement research",
+        "meta-learning research",
+        "few-shot or zero-shot learning research",
+        "transfer learning research",
+        "emergent capabilities investigation",
+        "scaling behavior research",
+        "safety constraints research (asl-3, asl-4)"
+      ],
+      "tier_2": [],
+      "conditional": []
+    },
+
+    "Applied AI Research Scientist": {
+      "tier_1": [
+        "domain-specific model development",
+        "task-specific architecture design",
+        "applied reinforcement learning research",
+        "novel application of foundation models",
+        "research prototyping feeding production",
+        "scientific discovery with ai",
+        "benchmark development (domain-specific)",
+        "research improving model capabilities"
+      ],
+      "tier_2": [
+        "product feature research",
+        "a/b testing research",
+        "user experience research with ai",
+        "product analytics"
+      ],
+      "conditional": [
+        "tier_1 requires custom loss functions, architecture changes, or iterative model training"
+      ]
+    },
+
+    "Machine Learning Research Scientist": {
+      "tier_1": [
+        "novel machine learning algorithms",
+        "optimization algorithm research",
+        "loss function design",
+        "regularization methods",
+        "generalization theory",
+        "statistical learning theory",
+        "causal inference for ml",
+        "active learning or curriculum learning",
+        "uncertainty quantification",
+        "robustness research"
+      ],
+      "tier_2": [
+        "applied ml for non-model systems",
+        "recommendation systems (application layer)",
+        "traditional ml applications",
+        "feature engineering for products"
+      ],
+      "conditional": [
+        "tier_1 requires algorithmic or theoretical contribution"
+      ]
+    },
+
+    "RLHF Research Scientist": {
+      "tier_1": [
+        "rlhf methodology (ppo, dpo, grpo, kto, orpo, simpo, rlaif, rlvr)",
+        "reward model architecture and training",
+        "preference learning algorithms",
+        "policy optimization for llms",
+        "constitutional ai research",
+        "value alignment research",
+        "inverse reinforcement learning",
+        "multi-objective reinforcement learning",
+        "reward shaping research",
+        "human feedback integration",
+        "helpfulness, harmlessness, honesty optimization",
+        "red teaming for alignment"
+      ],
+      "tier_2": [
+        "human annotation operations",
+        "data labeling workflows",
+        "preference data collection without modeling"
+      ],
+      "conditional": [
+        "tier_1 requires reward or policy model training"
+      ]
+    },
+
+    "AI Performance Engineer": {
+      "tier_1": [
+        "cuda kernel development",
+        "triton kernel optimization",
+        "gpu performance optimization (h100, h200, b100, a100, mi300)",
+        "tpu optimization",
+        "inference optimization (vllm, tensorrt-llm, tgi, sglang)",
+        "flashattention or pagedattention optimization",
+        "kv cache optimization",
+        "memory optimization",
+        "quantization (fp8, int8, int4, gptq, awq, gguf)",
+        "latency and throughput optimization",
+        "nccl or rccl optimization",
+        "nvlink or infiniband optimization"
+      ],
+      "tier_2": [
+        "application-level performance tuning",
+        "api response time optimization",
+        "database query optimization",
+        "caching strategies"
+      ],
+      "conditional": [
+        "tier_1 requires kernel, compiler, or hardware-level optimization"
+      ]
+    },
+
+    "Model Training Engineer": {
+      "tier_1": [
+        "distributed training systems",
+        "megatron-lm or deepspeed",
+        "fsdp",
+        "tensor or pipeline parallelism",
+        "gradient checkpointing",
+        "mixed precision training",
+        "training stability optimization",
+        "multi-node training orchestration",
+        "jax or xla training pipelines",
+        "cluster scheduling for training"
+      ],
+      "tier_2": [
+        "small-scale fine-tuning",
+        "transfer learning",
+        "model deployment after training",
+        "mlops for training monitoring"
+      ],
+      "conditional": [
+        "tier_1 requires multi-node or large-scale training systems"
+      ]
+    },
+
+    "Inference Optimization Engineer": {
+      "tier_1": [
+        "inference engine optimization",
+        "speculative decoding",
+        "continuous or dynamic batching",
+        "kv cache compression",
+        "flash decoding",
+        "multi-query or grouped-query attention",
+        "cuda graphs for inference",
+        "model serving optimization"
+      ],
+      "tier_2": [
+        "api load balancing",
+        "model routing",
+        "caching inference results",
+        "rate limiting",
+        "a/b testing for deployed models"
+      ],
+      "conditional": [
+        "tier_1 requires inference engine or kernel-level optimization"
+      ]
+    },
+
+    "LLM Systems Engineer": {
+      "tier_1": [
+        "training infrastructure architecture",
+        "inference infrastructure at scale",
+        "multi-node gpu clusters",
+        "petabyte-scale storage for training data",
+        "high-speed interconnects",
+        "cluster orchestration for ai workloads",
+        "gpu cluster management",
+        "fault tolerance systems",
+        "checkpoint management at scale"
+      ],
+      "tier_2": [
+        "general cloud infrastructure",
+        "application deployment",
+        "api infrastructure",
+        "database administration",
+        "standard devops"
+      ],
+      "conditional": [
+        "tier_1 requires ai-specific infrastructure ownership"
+      ]
+    },
+
+    "AI Engineer (General)": {
+      "tier_1": [],
+      "tier_2": [
+        "llm application development",
+        "api integration",
+        "prompt engineering",
+        "rag systems",
+        "vector databases",
+        "embeddings",
+        "tool calling",
+        "agent frameworks",
+        "chat applications",
+        "llm-powered products"
+      ],
+      "conditional": [
+        "tier_1 requires training, alignment, or inference optimization evidence"
+      ]
+    },
+
+    "Applied Machine Learning Engineer": {
+      "tier_1": [],
+      "tier_2": [
+        "feature engineering",
+        "model selection",
+        "hyperparameter tuning",
+        "mlops tooling",
+        "model monitoring",
+        "data pipelines for applications",
+        "a/b testing",
+        "recommendation systems"
+      ],
+      "conditional": [
+        "tier_1 requires model architecture or training optimization"
+      ]
+    },
+
+    "Generative AI Engineer": {
+      "tier_1": [],
+      "tier_2": [
+        "image generation systems",
+        "video generation systems",
+        "audio generation systems",
+        "stable diffusion implementations",
+        "text-to-image applications",
+        "prompt engineering for generation",
+        "lora or controlnet integration",
+        "generation quality evaluation"
+      ],
+      "conditional": [
+        "tier_1 requires generative model training or modification"
+      ]
+    },
+
+    "LLM Application Engineer": {
+      "tier_1": [],
+      "tier_2": [
+        "langchain or llamaindex",
+        "rag implementation",
+        "vector database integration",
+        "embedding management",
+        "context window management",
+        "prompt templating",
+        "chat memory systems",
+        "tool calling",
+        "response validation",
+        "guardrails implementation"
+      ],
+      "conditional": [
+        "tier_1 requires custom model serving or inference logic"
+      ]
+    },
+
+    "AI Infrastructure Engineer": {
+      "tier_1": [
+        "gpu cluster infrastructure",
+        "tpu infrastructure",
+        "training cluster management",
+        "inference cluster optimization",
+        "high-performance storage for ai",
+        "network optimization for ai",
+        "resource scheduling for ml workloads",
+        "multi-tenant gpu infrastructure",
+        "ai-specific observability",
+        "fault tolerance for training jobs"
+      ],
+      "tier_2": [
+        "general cloud infrastructure",
+        "application hosting",
+        "standard devops",
+        "ci/cd pipelines"
+      ],
+      "conditional": [
+        "tier_1 requires ai workload–specific infrastructure ownership"
+      ]
+    },
+
+    "ML Infrastructure Engineer": {
+      "tier_1": [
+        "training infrastructure systems",
+        "model serving infrastructure at scale",
+        "feature stores",
+        "data pipeline infrastructure for training",
+        "experiment tracking systems",
+        "model registry systems",
+        "gpu resource management",
+        "distributed training frameworks",
+        "ml platform development"
+      ],
+      "tier_2": [
+        "mlops tools deployment",
+        "model deployment pipelines",
+        "monitoring dashboards",
+        "ci/cd for ml applications"
+      ],
+      "conditional": [
+        "tier_1 requires ownership of training or serving infrastructure"
+      ]
+    },
+
+    "Distributed Systems Engineer (AI Focus)": {
+      "tier_1": [
+        "distributed training systems",
+        "multi-node communication optimization",
+        "collective communication (nccl, rccl, mpi)",
+        "parameter servers",
+        "ring-allreduce optimization",
+        "gradient synchronization",
+        "distributed inference systems",
+        "fault tolerance for training",
+        "distributed checkpoint systems",
+        "network topology optimization for ai"
+      ],
+      "tier_2": [
+        "general distributed systems",
+        "microservices architecture",
+        "api gateways",
+        "service mesh"
+      ],
+      "conditional": [
+        "tier_1 requires ai workload context"
+      ]
+    },
+
+    "Site Reliability Engineer (AI/ML)": {
+      "tier_1": [
+        "training reliability at scale",
+        "inference sla optimization",
+        "gpu cluster reliability",
+        "failure recovery for training jobs",
+        "model serving reliability",
+        "performance monitoring for inference",
+        "capacity planning for ml workloads",
+        "incident response for training or inference",
+        "cost optimization for gpu or tpu usage"
+      ],
+      "tier_2": [
+        "general application sre",
+        "database reliability",
+        "api uptime monitoring",
+        "standard on-call rotations"
+      ],
+      "conditional": [
+        "tier_1 requires ai workload reliability ownership"
+      ]
+    },
+
+    "Platform Engineer (AI Systems)": {
+      "tier_1": [],
+      "tier_2": [
+        "ml platform tools",
+        "model deployment platforms",
+        "feature serving platforms",
+        "experimentation platforms",
+        "data platforms for applications",
+        "developer tools for ml",
+        "platform apis",
+        "internal ml tooling"
+      ],
+      "conditional": [
+        "tier_1 requires training or inference platform ownership"
+      ]
+    },
+
+    "Machine Learning Engineer (Data-Centric)": {
+      "tier_1": [],
+      "tier_2": [
+        "data pipelines for features",
+        "data quality systems",
+        "feature engineering",
+        "data labeling workflows",
+        "etl for ml applications",
+        "data versioning",
+        "data governance",
+        "data catalogs"
+      ],
+      "conditional": [
+        "tier_1 requires training data curation or generation"
+      ]
+    },
+
+    "Data Engineer (AI Pipelines)": {
+      "tier_1": [],
+      "tier_2": [
+        "etl pipelines",
+        "data warehousing",
+        "streaming data systems",
+        "data lakes",
+        "workflow orchestration",
+        "data quality monitoring",
+        "distributed data processing"
+      ],
+      "conditional": [
+        "tier_1 requires training data pipeline ownership"
+      ]
+    },
+
+    "MLOps Engineer": {
+      "tier_1": [],
+      "tier_2": [
+        "model deployment automation",
+        "ci/cd for models",
+        "model monitoring systems",
+        "experiment tracking",
+        "feature stores",
+        "model registry",
+        "a/b testing infrastructure",
+        "kubernetes for model serving",
+        "docker for ml applications"
+      ],
+      "conditional": [
+        "tier_1 requires training or inference infrastructure ownership"
+      ]
+    },
+
+    "Forward Deployed Engineer (AI)": {
+      "tier_1": [],
+      "tier_2": [
+        "customer integrations",
+        "api implementation guidance",
+        "solution architecture",
+        "proof of concepts",
+        "custom deployments",
+        "customer success engineering",
+        "integration troubleshooting",
+        "documentation and training"
+      ],
+      "conditional": []
+    },
+
+    "AI Solutions Architect": {
+      "tier_1": [],
+      "tier_2": [
+        "architecture design for ai applications",
+        "cloud platform selection",
+        "cost optimization",
+        "security architecture",
+        "scalability planning",
+        "integration patterns",
+        "technology selection",
+        "reference architectures"
+      ],
+      "conditional": []
+    },
+
+    "Developer Relations Engineer (AI)": {
+      "tier_1": [],
+      "tier_2": [
+        "api documentation",
+        "sample code development",
+        "tutorial creation",
+        "community engagement",
+        "conference presentations",
+        "blog posts and guides",
+        "developer experience",
+        "sdk development",
+        "feedback to product teams"
+      ],
+      "conditional": []
+    },
+
+    "Technical Evangelist (AI/ML)": {
+      "tier_1": [],
+      "tier_2": [
+        "technical content creation",
+        "public speaking",
+        "workshops and training",
+        "community building",
+        "technology advocacy",
+        "demo applications",
+        "partnership enablement"
+      ],
+      "conditional": []
+    },
+
+    "AI Safety Engineer / Researcher": {
+      "tier_1": [
+        "red teaming for model safety",
+        "adversarial robustness research",
+        "jailbreak defense",
+        "constitutional ai",
+        "responsible scaling policy implementation",
+        "asl-2, asl-3, asl-4 evaluation",
+        "alignment stress testing",
+        "safety benchmark development",
+        "automated red teaming",
+        "model organisms of misalignment",
+        "scalable oversight research",
+        "ai control research",
+        "mechanistic anomaly detection",
+        "safety fine-tuning",
+        "guardrails research"
+      ],
+      "tier_2": [
+        "content moderation systems",
+        "policy enforcement",
+        "safety dashboards",
+        "user reporting systems"
+      ],
+      "conditional": [
+        "tier_1 requires model-level safety evaluation or modification"
+      ]
+    },
+
+    "AI Evaluation & Benchmarking Specialist": {
+      "tier_1": [
+        "benchmark development (swe-bench, mle-bench, paperbench)",
+        "evaluation harnesses",
+        "capability elicitation research",
+        "eval-driven model iteration",
+        "frontier evaluations",
+        "mmlu, helm, gsm8k, humaneval, mbpp development",
+        "safety evaluations (asl determination)",
+        "agent evaluation environments",
+        "automated evaluation systems",
+        "model comparison frameworks",
+        "evaluation infrastructure",
+        "benchmark dataset curation"
+      ],
+      "tier_2": [
+        "product quality metrics",
+        "a/b testing for features",
+        "user satisfaction surveys",
+        "application performance testing",
+        "business metrics tracking"
+      ],
+      "conditional": [
+        "tier_1 requires evaluation-driven capability decisions"
+      ]
+    }
+
   }
 }
