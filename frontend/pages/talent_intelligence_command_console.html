@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Talent Intelligence Command Console</title>
+</head>
+<body>
+
+<h1>Talent Intelligence Command Console</h1>
+
+<input id="queryBox" placeholder="Enter executive query"/>
+
+<button onclick="runQuery()">Execute</button>
+
+<div id="results"></div>
+
+<script>
+
+async function runQuery(){
+
+const response = await fetch("/intel/query?q="+document.getElementById("queryBox").value)
+
+const data = await response.json()
+
+let html=""
+
+data.forEach(c=>{
+
+html += "<div>"+c.name+" — Score:"+c.FinalScore+"</div>"
+
+})
+
+document.getElementById("results").innerHTML=html
+
+}
+
+</script>
+
+</body>
+</html>
